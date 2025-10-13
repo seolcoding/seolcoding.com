@@ -93,8 +93,8 @@ description = "공공기관에서 9년째 근무하며 시민개발자로서 생
 
 linkedin_url = "https://www.linkedin.com/in/%EB%8F%99%ED%97%8C-%EC%84%A4-57637015b/"
 linkedin_text = "linkedin.com/in/설동헌"
-github_url = "https://github.com/atoye1"
-github_text = "github.com/atoye1"
+github_url = "https://github.com/seolcoding"
+github_text = "github.com/seolcoding"
 
 copyright = "© 2025 | 설동헌(설코딩)"
 
@@ -117,7 +117,7 @@ url = "https://www.linkedin.com/in/%EB%8F%99%ED%97%8C-%EC%84%A4-57637015b/"
 
 [[params.social]]
 icon = "github"
-url = "https://github.com/atoye1"
+url = "https://github.com/seolcoding"
 
 [[params.social]]
 icon = "twitter"
