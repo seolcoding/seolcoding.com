@@ -4,13 +4,15 @@
   "description": "SeolCoding Portfolio with CareerCanvas theme",
   "scripts": {
     "dev": "hugo server -D",
-    "build": "hugo --gc --minify",
+    "build": "npm run convert:pdf && npm run build:css && hugo --gc --minify",
     "build:css": "tailwindcss -i ./themes/careercanvas/assets/css/main.css -o ./themes/careercanvas/static/css/main.css --minify",
-    "watch:css": "tailwindcss -i ./themes/careercanvas/assets/css/main.css -o ./themes/careercanvas/static/css/main.css --watch"
+    "watch:css": "tailwindcss -i ./themes/careercanvas/assets/css/main.css -o ./themes/careercanvas/static/css/main.css --watch",
+    "convert:pdf": "node scripts/convert-pdfs.js"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
+    "pdf-poppler": "^0.2.3",
     "postcss": "^8.4.32",
     "postcss-cli": "^11.0.0",
     "tailwindcss": "^3.4.0"
