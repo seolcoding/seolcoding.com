@@ -1,0 +1,207 @@
+<section id="certifications" class="py-12 bg-gradient-to-br from-bg-secondary to-bg-tertiary dark:from-bg-secondary dark:to-bg-tertiary border-t border-border-primary" data-animate>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ with .Site.GetPage "certifications" }}
+    <h2 class="text-3xl font-bold text-center mb-4 font-heading text-text-primary dark:text-text-primary">{{ .Title }}</h2>
+    <p class="text-lg text-center mb-12 text-gray-700 dark:text-text-tertiary italic">{{ .Params.intro }}</p>
+
+    <!-- 2-Column Layout: Certifications List (Left) + Carousel (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:items-center">
+
+      <!-- Left Column: Certifications List -->
+      <div class="space-y-3">
+        {{ range .Params.certifications }}
+        <div class="bg-bg dark:bg-bg p-4 rounded-xl shadow-lg border border-border-primary dark:border-border-primary hover:shadow-xl transition-shadow" data-animate>
+          <!-- Certification Header -->
+          <div class="flex items-center gap-4 mb-1.5">
+            <!-- Icon -->
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-primary-light dark:from-primary-dark dark:to-primary flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-{{ .icon }} text-white text-2xl"></i>
+            </div>
+
+            <!-- Title and Organization -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-[15px] font-bold text-text-primary dark:text-text-primary leading-snug">
+                {{ .title }}
+              </h3>
+              <p class="text-[13px] font-semibold {{ .color }} leading-tight">
+                {{ .organization }}
+              </p>
+            </div>
+
+            <!-- Date Badge -->
+            <span class="text-[11px] font-medium text-gray-600 dark:text-text-tertiary bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full flex-shrink-0">
+              {{ .date }}
+            </span>
+          </div>
+
+          <!-- Description -->
+          <p class="text-[13px] text-gray-700 dark:text-text-tertiary leading-relaxed pl-[72px]">
+            {{ .description }}
+          </p>
+
+          <!-- Credential ID (if exists) -->
+          {{ if .credential_id }}
+          <p class="text-[11px] text-gray-500 dark:text-text-tertiary mt-1 pl-[72px]">
+            자격증 ID: {{ .credential_id }}
+          </p>
+          {{ end }}
+
+          <!-- Expiry Date (if exists) -->
+          {{ if .expiry }}
+          <p class="text-[11px] text-gray-500 dark:text-text-tertiary mt-0.5 pl-[72px]">
+            유효기간: {{ .expiry }}
+          </p>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+
+      <!-- Right Column: Image Carousel -->
+      <div class="relative flex items-center">
+        <div class="certifications-carousel relative overflow-hidden rounded-xl shadow-2xl bg-white dark:bg-gray-800 w-full" style="aspect-ratio: 4/3;">
+          <!-- Carousel Images -->
+          <div class="carousel-images relative h-full">
+            {{ $images := readDir "static/images/certifications" }}
+            {{ if $images }}
+              {{ range $index, $image := $images }}
+                {{ if or (strings.HasSuffix $image.Name ".jpg") (strings.HasSuffix $image.Name ".jpeg") (strings.HasSuffix $image.Name ".png") (strings.HasSuffix $image.Name ".gif") (strings.HasSuffix $image.Name ".webp") }}
+                <div class="carousel-slide absolute inset-0 transition-opacity duration-700 {{ if eq $index 0 }}opacity-100{{ else }}opacity-0{{ end }}">
+                  <img src="/images/certifications/{{ $image.Name }}"
+                       alt="Certification image {{ add $index 1 }}"
+                       class="w-full h-full object-cover"
+                       loading="lazy">
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ else }}
+              <!-- Fallback: placeholder image if no images found -->
+              <div class="carousel-slide absolute inset-0 transition-opacity duration-700 opacity-100">
+                <img src="https://picsum.photos/800/600?random=2"
+                     alt="Certification image placeholder"
+                     class="w-full h-full object-cover"
+                     loading="lazy">
+              </div>
+            {{ end }}
+          </div>
+
+          <!-- Carousel Navigation -->
+          <button class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <button class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+
+          <!-- Carousel Indicators -->
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {{ $images := readDir "static/images/certifications" }}
+            {{ if $images }}
+              {{ range $index, $image := $images }}
+                {{ if or (strings.HasSuffix $image.Name ".jpg") (strings.HasSuffix $image.Name ".jpeg") (strings.HasSuffix $image.Name ".png") (strings.HasSuffix $image.Name ".gif") (strings.HasSuffix $image.Name ".webp") }}
+                <button class="carousel-indicator w-2 h-2 rounded-full transition-all {{ if eq $index 0 }}bg-white w-8{{ else }}bg-white/50{{ end }}"></button>
+                {{ end }}
+              {{ end }}
+            {{ else }}
+              <button class="carousel-indicator w-2 h-2 rounded-full transition-all bg-white w-8"></button>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- Carousel JavaScript -->
+  <script>
+    (function() {
+      const carousel = document.querySelector('.certifications-carousel');
+      if (!carousel) return;
+
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const indicators = carousel.querySelectorAll('.carousel-indicator');
+      const prevBtn = carousel.querySelector('.carousel-prev');
+      const nextBtn = carousel.querySelector('.carousel-next');
+
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+      let autoPlayInterval;
+
+      function showSlide(index) {
+        // Wrap around
+        if (index >= totalSlides) index = 0;
+        if (index < 0) index = totalSlides - 1;
+
+        currentSlide = index;
+
+        // Update slides
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('opacity-100', i === currentSlide);
+          slide.classList.toggle('opacity-0', i !== currentSlide);
+        });
+
+        // Update indicators
+        indicators.forEach((indicator, i) => {
+          if (i === currentSlide) {
+            indicator.classList.add('bg-white', 'w-8');
+            indicator.classList.remove('bg-white/50');
+          } else {
+            indicator.classList.remove('bg-white', 'w-8');
+            indicator.classList.add('bg-white/50');
+          }
+        });
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 3000); // 3 seconds
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
+
+      // Event listeners
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay(); // Restart autoplay
+      });
+
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay(); // Restart autoplay
+      });
+
+      indicators.forEach((indicator, i) => {
+        indicator.addEventListener('click', () => {
+          showSlide(i);
+          stopAutoPlay();
+          startAutoPlay(); // Restart autoplay
+        });
+      });
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', stopAutoPlay);
+      carousel.addEventListener('mouseleave', startAutoPlay);
+
+      // Start autoplay
+      startAutoPlay();
+
+      // Initialize
+      showSlide(0);
+    })();
+  </script>
+</section>
