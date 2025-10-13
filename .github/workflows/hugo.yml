@@ -61,12 +61,6 @@ jobs:
       - name: Install Node.js dependencies
         run: npm install
 
-      - name: Install poppler-utils for PDF conversion
-        run: sudo apt-get update && sudo apt-get install -y poppler-utils
-
-      - name: Convert PDFs to images
-        run: npm run convert:pdf
-
       - name: Build CSS with Tailwind
         run: npm run build:css
 
