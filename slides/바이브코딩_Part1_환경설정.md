@@ -505,7 +505,7 @@ note:
 
 ### ✨ 주요 장점
 
-<split even gap="3">
+<split even gap="10">
 
 **편의성**
 - ☁️ 클라우드 저장
