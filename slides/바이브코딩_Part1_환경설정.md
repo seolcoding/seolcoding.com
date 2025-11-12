@@ -434,7 +434,7 @@ note:
 
 </grid>
 
-<split even gap="3">
+<grid drag="45 70" drop="3 20" pad="3em" bg="#E3F2FD" align="left">
 
 **왼쪽 절반**
 
@@ -442,13 +442,17 @@ note:
 
 화면 왼쪽 절반에 창 배치
 
+</grid>
+
+<grid drag="45 70" drop="52 20" pad="3em" bg="#FFF3E0" align="left">
+
 **오른쪽 절반**
 
 `Win` + `→`
 
 화면 오른쪽 절반에 창 배치
 
-</split>
+</grid>
 
 ---
 
@@ -499,25 +503,29 @@ note:
 
 </grid>
 
-<grid drag="85 75" drop="8 20" pad="3em">
+<grid drag="90 12" drop="5 20">
 
 **엑셀보다 더 똑똑한 선택** 💡
 
 ### ✨ 주요 장점
 
-<split even gap="10">
+</grid>
+
+<grid drag="45 60" drop="3 35" pad="3em" bg="#E3F2FD" align="left">
 
 **편의성**
 - ☁️ 클라우드 저장
 - 👥 실시간 협업
 - 📱 멀티 디바이스
 
+</grid>
+
+<grid drag="45 60" drop="52 35" pad="3em" bg="#FFF3E0" align="left">
+
 **효율성**
 - 🔄 자동 저장
 - 🆓 완전 무료
 - 🔗 간편한 공유
-
-</split>
 
 </grid>
 
@@ -832,24 +840,28 @@ note:
 
 </grid>
 
-<grid drag="85 75" drop="8 20" pad="3em">
-
-<split even gap="3">
+<grid drag="30 70" drop="5 20" pad="2em" bg="#E3F2FD" align="left">
 
 **왼쪽**
 - 📂 파일 목록
 - 📄 Code.gs 파일
 
+</grid>
+
+<grid drag="30 70" drop="35 20" pad="2em" bg="#FFF3E0" align="left">
+
 **가운데**
 - 📝 코드 편집기
 - ✏️ 코드 작성 공간
+
+</grid>
+
+<grid drag="30 70" drop="65 20" pad="2em" bg="#E8F5E9" align="left">
 
 **위쪽**
 - ▶️ 실행 버튼
 - 💾 저장 버튼
 - 🔍 로그 보기
-
-</split>
 
 </grid>
 
