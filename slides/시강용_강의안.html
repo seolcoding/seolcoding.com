@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구글 시트와 앱스스크립트로 메일링 자동화 만들기</title>
+
+  <!-- reveal.js core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+
+  <!-- Custom CSS -->
+  <style>
+    .reveal {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3 {
+      text-transform: none;
+      font-weight: 600;
+    }
+
+    /* Grid layout helpers */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(100, 1fr);
+      grid-template-rows: repeat(100, 1fr);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .grid-item {
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+    }
+
+    .grid-item.align-left { align-items: flex-start; text-align: left; }
+    .grid-item.align-center { align-items: center; text-align: center; }
+    .grid-item.align-right { align-items: flex-end; text-align: right; }
+
+    /* Two column layout */
+    .two-columns {
+      display: flex;
+      gap: 2em;
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .two-columns > div {
+      flex: 1;
+    }
+
+    /* Three column layout */
+    .three-columns {
+      display: flex;
+      gap: 2em;
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .three-columns > div {
+      flex: 1;
+    }
+
+    /* Background boxes */
+    .box {
+      padding: 2em;
+      border-radius: 8px;
+      height: 100%;
+    }
+
+    .box.red-bg { background: #FFE5E5; }
+    .box.blue-bg { background: #E5F5FF; }
+    .box.yellow-bg { background: #FFF9E5; }
+    .box.pink-bg { background: #FFE5F0; }
+    .box.light-blue-bg { background: #E3F2FD; }
+    .box.purple-bg { background: #F3E5F5; }
+    .box.light-yellow-bg { background: #FFF9C4; }
+    .box.green-bg { background: #E8F5E9; }
+    .box.gray-bg { background: #F5F5F5; }
+    .box.light-gray-bg { background: #FAFAFA; }
+    .box.light-green-bg { background: #C5E1A5; }
+    .box.indigo-bg { background: #E8EAF6; }
+    .box.light-pink-bg { background: #FCE4EC; }
+    .box.orange-bg { background: #FFF3E0; }
+
+    /* Image scaling */
+    .reveal img {
+      border: none;
+      box-shadow: none;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Code blocks */
+    .reveal pre {
+      width: 100%;
+      box-shadow: none;
+    }
+
+    .reveal pre code {
+      max-height: none;
+      padding: 1em;
+    }
+
+    /* Custom spacing */
+    .mt-1 { margin-top: 1em; }
+    .mt-2 { margin-top: 2em; }
+    .mb-1 { margin-bottom: 1em; }
+    .mb-2 { margin-bottom: 2em; }
+
+    /* Font sizes */
+    .fs-small { font-size: 0.8em; }
+    .fs-normal { font-size: 1em; }
+    .fs-large { font-size: 1.2em; }
+    .fs-xlarge { font-size: 1.5em; }
+    .fs-xxlarge { font-size: 2em; }
+
+    /* Line heights */
+    .lh-tight { line-height: 1.4; }
+    .lh-normal { line-height: 1.6; }
+    .lh-loose { line-height: 2; }
+
+    /* Colors */
+    .text-red { color: #D32F2F; }
+    .text-blue { color: #1976D2; }
+    .text-green { color: #388E3C; }
+
+    /* Centered content */
+    .centered-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    /* Full width content */
+    .full-width {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title Slide -->
+      <section data-background-color="#4A90E2">
+        <div class="centered-slide">
+          <div>
+            <h2>📧 구글 시트와 앱스스크립트로<br>메일링 자동화 만들기</h2>
+            <p class="fs-large"><strong>✨ 바이브 코딩으로 업무자동화 하기</strong></p>
+            <p class="mt-2"><strong>강사</strong>: 설동헌(설코딩)</p>
+          </div>
+        </div>
+        <aside class="notes">
+          강의를 시작합니다. 오늘은 업무 자동화에 대해 배워볼게요.
+        </aside>
+      </section>
+
+      <!-- 강사 소개 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">👨‍🏫 강사 소개</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div style="text-align: center;">
+            <p>Scan Me!</p>
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/%EC%8B%9C%EA%B0%95%EC%9A%A9_%EA%B0%95%EC%9D%98%EC%95%88-20251112-1.png"
+                 alt="QR 코드"
+                 style="max-width: 400px;">
+          </div>
+          <div style="text-align: center;">
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/%EC%84%A4%EB%8F%99%ED%97%8C%201.png"
+                 alt="설동헌 프로필"
+                 style="max-width: 500px;">
+          </div>
+        </div>
+        <aside class="notes">
+          QR 코드를 스캔하거나 상세 프로필을 확인하세요.
+        </aside>
+      </section>
+
+      <!-- 여러분, 이런 고민 있으신가요? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">😫 여러분, 이런 고민 있으신가요?</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box red-bg">
+            <h3>📧 이메일 업무의 늪</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>매일 반복되는 이메일 작성</li>
+              <li>고객별 맞춤 메시지 작성</li>
+              <li>폼 응답자들에게 회신</li>
+              <li>참가자에게 개별 안내</li>
+            </ul>
+            <p class="fs-xlarge mt-2"><strong>"자동화 안 될까...?"</strong> 😭</p>
+          </div>
+          <div class="box blue-bg">
+            <h3>📋 마케팅 업무의 반복</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>뉴스레터 개인화 발송</li>
+              <li>이벤트 초대장 일일이 전송</li>
+              <li>설문 응답자 감사 메일</li>
+              <li>고객별 프로모션 안내</li>
+            </ul>
+            <p class="fs-xlarge mt-2"><strong>"하루 종일 이것만..."</strong> 😰</p>
+          </div>
+        </div>
+        <aside class="notes">
+          혹시 이런 경험 있으신가요? 매일 똑같은 이메일, 고객마다 조금씩 다르게 보내야 하는데 시간이 너무 걸리죠.
+        </aside>
+      </section>
+
+      <!-- 시간은 곧 돈입니다 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">💰 시간은 곧 돈입니다</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box yellow-bg">
+            <h3 class="fs-xlarge">📊 시간 계산</h3>
+            <p class="mt-2"><strong>매일 1시간씩 이메일 작업한다면?</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li><strong>하루</strong>: 1시간</li>
+              <li><strong>주 5일</strong>: 5시간</li>
+              <li><strong>월 20일</strong>: 20시간</li>
+              <li><strong>연간</strong>: <strong>240시간</strong> (=30일!)</li>
+            </ul>
+          </div>
+          <div class="box pink-bg">
+            <h3 class="fs-xlarge">💵 비용 환산</h3>
+            <p class="mt-2"><strong>2025년 최저시급: 10,030원</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li><strong>월간</strong>: 200,600원</li>
+              <li><strong>연간</strong>: <strong>2,407,200원</strong></li>
+            </ul>
+            <p class="fs-xlarge mt-2 text-red"><strong>약 240만원 낭비!</strong> 🔥</p>
+          </div>
+        </div>
+        <aside class="notes">
+          매일 1시간만 이메일에 쓴다고 해도, 1년이면 무려 240시간입니다. 최저시급으로만 계산해도 240만원이에요!
+        </aside>
+      </section>
+
+      <!-- 오늘 강의할 내용 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🎯 오늘 강의할 내용</h2>
+        <div style="text-align: center; margin-top: 2em;">
+          <h3 class="fs-xlarge">업무 자동화의 세계로!</h3>
+        </div>
+        <div class="three-columns" style="margin-top: 3em;">
+          <div class="box light-blue-bg">
+            <h3>1️⃣ 기초 개념</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>구글 시트?</li>
+              <li>앱스 스크립트?</li>
+              <li>바이브 코딩?</li>
+            </ul>
+          </div>
+          <div class="box purple-bg">
+            <h3>2️⃣ 라이브 시연</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>자동 메일 발송</li>
+              <li>바이브 코딩</li>
+              <li>AI와 함께 수정</li>
+            </ul>
+          </div>
+          <div class="box light-yellow-bg">
+            <h3>3️⃣ API 활용</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>GeminiAPI</li>
+              <li>개인화 메시지</li>
+              <li>자동화 사례</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          오늘 30분 동안 세 가지를 시연해드릴 거예요. 개념 이해, 실제 코딩, 그리고 AI 활용까지!
+        </aside>
+      </section>
+
+      <!-- Part 1 Divider -->
+      <section data-background-color="#E8F4F8">
+        <div class="centered-slide">
+          <div>
+            <h1>Part 1</h1>
+            <h2>기초 개념 🎯</h2>
+          </div>
+        </div>
+        <aside class="notes">
+          자, 이제 본격적으로 시작합니다! 먼저 핵심 개념들을 간단히 짚어볼게요.
+        </aside>
+      </section>
+
+      <!-- 구글 시트란? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">📊 구글 시트란?</h2>
+        <div class="box gray-bg" style="width: 85%; margin: 3em auto; padding: 3em;">
+          <p class="fs-xlarge mt-1"><strong>클라우드 기반의 스마트한 엑셀</strong></p>
+          <ul class="fs-large lh-loose" style="margin-top: 2em; text-align: left;">
+            <li>🌍 <strong>어디서나 접속</strong> - 인터넷만 되면 OK!</li>
+            <li>👥 <strong>실시간 협업</strong> - 여러 명이 동시 작업</li>
+            <li>🔄 <strong>자동 저장</strong> - 저장 버튼? 필요 없어요!</li>
+            <li>🤝 <strong>쉬운 공유</strong> - 링크 하나면 끝</li>
+            <li>💻 <strong>무료</strong> - 구글 계정만 있으면 공짜!</li>
+          </ul>
+          <p class="mt-2">🔗 <a href="https://sheets.new">sheets.new</a></p>
+        </div>
+        <aside class="notes">
+          구글 시트, 많이 들어보셨죠? 쉽게 말하면 '인터넷에 있는 엑셀'이라고 생각하시면 돼요.
+        </aside>
+      </section>
+
+      <!-- 앱스 스크립트란? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🤖 앱스 스크립트란?</h2>
+        <p style="text-align: left; margin-left: 5%;" class="fs-xlarge">
+          <strong>구글 시트에 마법을 부리는 도구</strong> ✨
+        </p>
+        <div class="two-columns" style="margin-top: 2em;">
+          <div class="box gray-bg">
+            <h3>기본 기능</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>📝 JavaScript 기반</li>
+              <li>🔗 구글 서비스 연동</li>
+              <li>⚡ 자동화의 핵심</li>
+            </ul>
+          </div>
+          <div class="box light-gray-bg">
+            <h3>장점</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em;">
+              <li>🆓 무료</li>
+              <li>🎓 배우기 쉬움</li>
+              <li>💪 강력한 기능</li>
+            </ul>
+          </div>
+        </div>
+        <p class="mt-2">🔗 <a href="https://script.google.com">script.google.com</a></p>
+        <aside class="notes">
+          앱스 스크립트는 구글 시트에 '프로그래밍 능력'을 부여하는 거예요. 버튼 하나로 이메일 발송, 자동 보고서 생성 등이 가능합니다.
+        </aside>
+      </section>
+
+      <!-- 바이브 코딩이란? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🎨 바이브 코딩이란?</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box red-bg">
+            <h3>전통적인 코딩 😓</h3>
+            <pre style="background: transparent; box-shadow: none;"><code class="plaintext">개발자 혼자 고민
+    ↓
+문법 검색, 스택오버플로우
+    ↓
+에러 디버깅
+    ↓
+몇 시간 소요... 😭</code></pre>
+            <p class="fs-xlarge mt-1"><strong>진입장벽</strong>: ⚠️⚠️⚠️⚠️⚠️</p>
+          </div>
+          <div class="box green-bg">
+            <h3>바이브 코딩 😊</h3>
+            <pre style="background: transparent; box-shadow: none;"><code class="plaintext">AI에게 한글로 질문
+    ↓
+AI가 코드 자동 생성
+    ↓
+복사해서 붙여넣기
+    ↓
+1분 완성! 🎉</code></pre>
+            <p class="fs-xlarge mt-1"><strong>진입장벽</strong>: ✅ (거의 없음)</p>
+          </div>
+        </div>
+        <aside class="notes">
+          전통적인 코딩은 몇 시간씩 걸리지만, 바이브 코딩은 AI에게 한글로 물어보고 1분이면 끝나요!
+        </aside>
+      </section>
+
+      <!-- Google Gemini 2.5 Flash -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🌟 Google Gemini 2.5 Flash</h2>
+        <div class="box purple-bg" style="width: 85%; margin: 3em auto; padding: 3em;">
+          <p class="fs-xlarge mt-1"><strong>구글이 만든 무료 AI</strong></p>
+          <p class="mt-2"><strong>특징</strong>:</p>
+          <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left;">
+            <li>🆓 <strong>완전 무료</strong>: 회원가입만으로 사용 가능</li>
+            <li>💻 <strong>코드 생성 특화</strong>: 프로그래밍 언어를 잘 이해</li>
+            <li>🇰🇷 <strong>한글 완벽 지원</strong>: 자연스러운 한국어 대화</li>
+            <li>⚡ <strong>빠른 응답</strong>: 몇 초 만에 결과 생성</li>
+          </ul>
+          <p class="mt-2"><strong>접속</strong>: <a href="https://gemini.google.com">https://gemini.google.com</a></p>
+        </div>
+        <aside class="notes">
+          구글의 AI, Gemini를 사용할 거예요. 무료이고, 코드 생성에 특화되어 있어서 우리에게 딱 맞아요!
+        </aside>
+      </section>
+
+      <!-- Part 2 Divider -->
+      <section data-background-color="#E8F4F8">
+        <div class="centered-slide">
+          <div>
+            <h1>Part 2</h1>
+            <h2>바이브 코딩을 해 봅시다. 🎬</h2>
+          </div>
+        </div>
+      </section>
+
+      <!-- 시연 준비 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">📺 시연 준비</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div style="text-align: center;">
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/qrcode.png"
+                 alt="QR 코드"
+                 style="max-width: 400px;">
+          </div>
+          <div style="text-align: center;">
+            <p class="fs-xlarge mb-2"><strong>🔗 데이터 구글 시트 링크</strong></p>
+            <a href="https://docs.google.com/spreadsheets/d/147ecVeZNy4lBPDsxhnZ_qCG816zluThPeXBqTmEO0Cc/edit?usp=sharing"
+               style="font-size: 1.2em; color: white; background: #4285F4; padding: 1em 2em; border-radius: 8px; display: inline-block; text-decoration: none;">
+              데이터 시트 - Google Sheets
+            </a>
+          </div>
+        </div>
+        <aside class="notes">
+          QR 코드를 스캔하거나 링크를 클릭해서 마스터 시트에 접속하세요.
+        </aside>
+      </section>
+
+      <!-- 라이브 바이브 코딩 시연 순서 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%; margin-top: 1em;">🎬 라이브 바이브 코딩 시연 순서</h2>
+        <h3 style="text-align: left; margin-left: 5%; margin-bottom: 2em;">이메일 자동화</h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2em; margin-top: 2em; padding: 0 3%;">
+          <div class="box light-blue-bg" style="text-align: center;">
+            <h3>1️⃣ 준비</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>구글 시트 열기</li>
+              <li>Apps Script 실행</li>
+              <li>Gemini 탭 준비</li>
+            </ul>
+          </div>
+
+          <div class="box purple-bg" style="text-align: center;">
+            <h3>2️⃣ 프롬프트</h3>
+            <p class="fs-normal lh-normal" style="margin-top: 1em; text-align: left;">
+              <em>"너는 앱스스크립트 작성 전문가야. 나를 도와서 다음 작업을 해주는 앱스 스크립트 코드를 작성해줘 : 시트 A열의 이메일 주소로 B열의 메시지를 Gmail로 발송"</em>
+            </p>
+          </div>
+
+          <div class="box light-yellow-bg" style="text-align: center;">
+            <h3>3️⃣ 코드 생성</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>Gemini가 코드 작성</li>
+              <li>전체 코드 자동 생성</li>
+              <li>설명까지 포함</li>
+            </ul>
+          </div>
+
+          <div class="box green-bg" style="text-align: center;">
+            <h3>4️⃣ 실행</h3>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>코드 복사 붙여넣기</li>
+              <li>저장 및 실행</li>
+              <li>권한 승인</li>
+              <li><strong>완료!</strong> ✅</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside class="notes">
+          자, 이제 직접 해보겠습니다. 총 1분 안에 완성됩니다!
+        </aside>
+      </section>
+
+      <!-- Part 3 Divider -->
+      <section data-background-color="#E8F4F8">
+        <div class="centered-slide">
+          <div>
+            <h1>Part 3</h1>
+            <h2>API 활용 🔑</h2>
+          </div>
+        </div>
+        <aside class="notes">
+          이제 더 강력한 기능, API 활용을 시연해드릴게요!
+        </aside>
+      </section>
+
+      <!-- API란 무엇인가? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🔑 API란 무엇인가?</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box light-blue-bg">
+            <h3>Application Programming Interface</h3>
+            <p class="fs-xlarge mt-2 lh-loose"><strong>쉽게 말하면</strong><br>프로그램 간 대화 방법 📞</p>
+          </div>
+          <div class="box orange-bg">
+            <h3>🍕 레스토랑 메뉴판</h3>
+            <div class="fs-xlarge lh-loose mt-2" style="text-align: left;">
+              <p><strong>메뉴</strong> = API 명세서</p>
+              <p><strong>주문</strong> = API 요청</p>
+              <p><strong>음식</strong> = API 응답</p>
+              <p>피자집에서 빅맥을 시키면 ❌</p>
+              <p>메뉴대로 주문해야 함 ✅</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 왜 API를 사용할까? -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🤔 왜 API를 사용할까?</h2>
+        <div class="box green-bg" style="width: 85%; margin: 3em auto; padding: 3em; text-align: center;">
+          <h3>💡 핵심 이유</h3>
+          <p class="fs-normal mt-1 lh-loose"><strong>이미 만들어진 강력한 기능을 내 프로그램에서 바로 사용!</strong></p>
+          <ul class="fs-normal" style="margin-top: 2em; text-align: left;">
+            <li>🗺️ 구글 지도 기능 → 직접 만들면 수년 소요</li>
+            <li>🤖 AI 대화 기능 → API로 5분 만에 완성</li>
+            <li>☁️ 날씨 정보 → 기상청 API 활용</li>
+          </ul>
+        </div>
+        <aside class="notes">
+          API를 사용하면 이미 검증된 기능을 빠르게 사용할 수 있어요. 직접 만들 필요가 없죠!
+        </aside>
+      </section>
+
+      <!-- 실생활 API 예시 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">📋 실생활 API 예시</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box gray-bg">
+            <h3>Google Maps API</h3>
+            <pre style="font-size: 0.65em; line-height: 1.6; margin-top: 1em;"><code class="plaintext">요청: "서울역 좌표"
+응답: 위도 37.5547
+      경도 126.9707</code></pre>
+
+            <h3 style="margin-top: 2em;">날씨 API</h3>
+            <pre style="font-size: 0.65em; line-height: 1.6; margin-top: 1em;"><code class="plaintext">요청: "서울 날씨"
+응답: 맑음, 15°C</code></pre>
+          </div>
+
+          <div class="box green-bg">
+            <h3>AI API</h3>
+            <h4>(우리가 사용할 것!)</h4>
+            <pre style="font-size: 0.65em; line-height: 1.6; margin-top: 1em;"><code class="plaintext">요청: "이메일 작성해줘"
+
+응답: "안녕하세요.
+       오늘 회의 일정을
+       안내드립니다..."</code></pre>
+            <p class="fs-large mt-2"><strong>→ 강력한 기능을 쉽게 사용!</strong></p>
+          </div>
+        </div>
+        <aside class="notes">
+          이런 API들을 활용하면 강력한 기능을 쉽게 사용할 수 있어요!
+        </aside>
+      </section>
+
+      <!-- Google AI Studio 소개 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🎨 Google AI Studio 소개</h2>
+        <div class="box gray-bg" style="width: 80%; margin: 3em auto; padding: 3em; text-align: center;">
+          <h3>Gemini API를 무료로 사용할 수 있는 곳</h3>
+          <h4 class="mt-1">특징</h4>
+          <ul class="fs-normal" style="margin-top: 1em; text-align: left;">
+            <li>🆓 <strong>무료 제공</strong>: 일일 1,500회 요청</li>
+            <li>🔑 <strong>API 키 발급</strong>: 간단한 클릭만으로</li>
+            <li>🧪 <strong>테스트 환경</strong>: 프롬프트 실험 가능</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 고급 시연: Gemini API 활용 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%; margin-top: 1em;">🎬 고급 시연: Gemini API 활용</h2>
+        <div class="box light-green-bg" style="width: 90%; margin: 2em auto; padding: 1em; text-align: center;">
+          <h3 class="fs-xlarge">👨‍💻 AI가 개인화 메시지 자동 생성!</h3>
+        </div>
+
+        <div class="two-columns" style="margin-top: 2em;">
+          <div class="box light-blue-bg">
+            <h4>일반 이메일 😐</h4>
+            <pre class="fs-large" style="margin-top: 1em;"><code class="plaintext">안녕하세요.
+강의 안내 드립니다.
+감사합니다.</code></pre>
+            <p class="fs-xlarge mt-1"><strong>전원 동일한 내용</strong></p>
+          </div>
+
+          <div class="box purple-bg">
+            <h4>Gemini API 활용 ✨</h4>
+            <p class="mt-1"><strong>김철수님께</strong>:</p>
+            <pre class="fs-large" style="margin-top: 0.5em;"><code class="plaintext">안녕하세요 김철수님!
+마케팅 자동화에 관심이
+많으시군요. 고객 맞춤
+이메일 전략을 소개드릴게요...</code></pre>
+            <p class="fs-xlarge mt-1"><strong>각자 맞춤형 내용!</strong></p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          일반 이메일은 전부 똑같지만, Gemini API를 사용하면 각 사람에게 맞춤형 메시지를 보낼 수 있어요!
+        </aside>
+      </section>
+
+      <!-- API 시연 프로세스 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">🎯 API 시연 프로세스</h2>
+        <div class="box gray-bg" style="width: 85%; margin: 3em auto; padding: 3em;">
+          <h3>라이브 코딩 단계</h3>
+          <div style="margin-top: 2em; text-align: left; font-size: 1.1em; line-height: 2;">
+            <p><strong>1단계</strong>: Gemini에게 프롬프트</p>
+            <p><strong>2단계</strong>: API 키 발급</p>
+            <p><strong>3단계</strong>: API 키를 활용해서 다시 질문</p>
+            <p><strong>4단계</strong>: 생성된 코드를 AppsScript에 적용</p>
+            <p><strong>5단계</strong>: 실행 및 결과 확인</p>
+          </div>
+        </div>
+        <aside class="notes">
+          자, 이제 실제로 API를 활용한 고급 시연을 해보겠습니다!
+        </aside>
+      </section>
+
+      <!-- 실제 활용 유즈케이스 -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">💡 실제 활용 유즈케이스</h2>
+        <div class="two-columns" style="margin-top: 3em;">
+          <div class="box indigo-bg">
+            <h3>마케팅 분야</h3>
+            <div style="margin-top: 2em; text-align: left; font-size: 1.1em; line-height: 2;">
+              <p><strong>📧 이메일 마케팅</strong></p>
+              <p><strong>📋 폼 응답 자동화</strong></p>
+              <p><strong>🎯 타겟 마케팅</strong></p>
+            </div>
+          </div>
+
+          <div class="box light-pink-bg">
+            <h3>업무 효율화</h3>
+            <div style="margin-top: 2em; text-align: left; font-size: 1.1em; line-height: 2;">
+              <p><strong>📊 보고서 자동화</strong></p>
+              <p><strong>⏰ 리마인더 시스템</strong></p>
+              <p><strong>🔄 워크플로우 자동화</strong></p>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          이런 식으로 실무에서 활용할 수 있어요. 마케팅부터 업무 효율화까지 정말 다양하죠!
+        </aside>
+      </section>
+
+      <!-- 전체 과정 안내 (첫 번째) -->
+      <section>
+        <div class="box gray-bg" style="width: 85%; margin: 5em auto; padding: 3em; text-align: center;">
+          <h3 class="fs-xlarge">📚 전체 과정 안내(4시간)</h3>
+          <p class="fs-large lh-loose mt-2">
+            <strong>과정명</strong>: 코알못도 된다! 바이브 코딩으로 업무자동화 하기
+          </p>
+          <p class="fs-large lh-loose">
+            <strong>강의명</strong>: 구글 시트와 앱스스크립트로 나만의 메일링 앱 만들기
+          </p>
+          <p class="fs-large mt-2">
+            <strong>수준</strong>: 초급 (코딩 경험 전혀 없어도 가능!)
+          </p>
+          <p class="fs-large">
+            <strong>준비물</strong>: 노트북, 구글 계정
+          </p>
+        </div>
+      </section>
+
+      <!-- 전체 과정 안내 (두 번째) -->
+      <section>
+        <h2 style="text-align: left; margin-left: 5%;">📚 전체 과정 안내 (4시간)</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2em; margin-top: 2em; padding: 0 3%;">
+          <div class="box light-blue-bg" style="text-align: center;">
+            <h3>1️⃣ 구글 시트 기초</h3>
+            <p class="mt-1"><strong>13:00 - 14:00 (1시간)</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>구글 시트 소개</li>
+              <li>공동 편집 실습</li>
+              <li>기본 함수 활용</li>
+            </ul>
+          </div>
+
+          <div class="box orange-bg" style="text-align: center;">
+            <h3>2️⃣ Apps Script 시작</h3>
+            <p class="mt-1"><strong>14:00 - 15:00 (1시간)</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>Apps Script 소개</li>
+              <li>코드 편집기 사용법</li>
+              <li>간단한 스크립트 작성</li>
+            </ul>
+          </div>
+
+          <div class="box green-bg" style="text-align: center;">
+            <h3>3️⃣ AI 바이브 코딩</h3>
+            <p class="mt-1"><strong>15:00 - 16:00 (1시간)</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>Gemini AI 활용법</li>
+              <li>바이브 코딩 실전</li>
+              <li>이메일 자동화 시연</li>
+            </ul>
+          </div>
+
+          <div class="box purple-bg" style="text-align: center;">
+            <h3>4️⃣ 메일링 앱 제작</h3>
+            <p class="mt-1"><strong>16:00 - 17:00 (1시간)</strong></p>
+            <ul class="fs-large lh-loose" style="margin-top: 1em; text-align: left; list-style-position: inside;">
+              <li>API 연동</li>
+              <li>개인화 메시지 생성</li>
+              <li>완성 및 테스트</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside class="notes">
+          오늘 4시간 동안 처음부터 끝까지 완성된 메일링 앱을 만들어볼 거예요!
+        </aside>
+      </section>
+
+      <!-- 감사합니다 -->
+      <section>
+        <div class="centered-slide">
+          <div style="width: 80%; text-align: center;">
+            <h2 class="fs-xxlarge">🙏 감사합니다!</h2>
+            <h3 class="mt-2">질문 & 답변 시간</h3>
+            <div style="margin-top: 2em; text-align: left;">
+              <p class="fs-large lh-loose"><strong>Q&A</strong></p>
+              <ul class="fs-large lh-loose">
+                <li>궁금한 점 편하게 질문해주세요</li>
+                <li>실습 중 어려웠던 부분 공유</li>
+              </ul>
+              <p class="fs-large mt-2"><strong>🎁 보너스</strong>: 오늘 시연한 코드는 문의 시 공유드립니다.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          오늘 시연 어떠셨나요? 질문 있으시면 편하게 해주세요!
+        </aside>
+      </section>
+
+      <!-- Closing Slide -->
+      <section data-background-color="#4A90E2">
+        <div class="centered-slide">
+          <div>
+            <h1>🚀 시작이 반입니다!</h1>
+            <h2 class="mt-2">오늘부터 여러분도 자동화 전문가</h2>
+            <p class="fs-large mt-2"><strong>설코딩과 함께 배우고 성장합시다!</strong> 💪</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- reveal.js core -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+
+  <!-- Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+
+  <script>
+    // Initialize reveal.js
+    Reveal.initialize({
+      // Display
+      width: 1920,
+      height: 1200,
+      margin: 0,
+
+      // Appearance
+      center: false,
+
+      // Navigation
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      hash: true,
+
+      // Transitions
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      transitionSpeed: 'default', // default/fast/slow
+
+      // Plugins
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    });
+  </script>
+</body>
+</html>
