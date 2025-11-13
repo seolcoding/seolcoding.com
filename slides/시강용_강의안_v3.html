@@ -699,6 +699,9 @@ AI가 코드 자동 생성
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/zoom/zoom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/search/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js"></script>
 
   <script>
     Reveal.initialize({
@@ -708,11 +711,46 @@ AI가 코드 자동 생성
       center: true,
       controls: true,
       progress: true,
-      slideNumber: true,
+      slideNumber: 'c/t',  // 현재/전체 슬라이드 번호 표시
       hash: true,
       transition: 'slide',
       transitionSpeed: 'default',
-      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+
+      // 키보드 단축키
+      keyboard: {
+        // Alt+클릭으로 줌
+        // Ctrl+Shift+F로 검색
+        // M으로 메뉴 열기
+      },
+
+      // Menu 플러그인 설정
+      menu: {
+        themes: false,
+        transitions: false,
+        markers: true,
+        hideMissingTitles: true,
+        custom: [
+          {
+            title: '발표자 노트',
+            icon: '<i class="fa fa-clipboard"></i>',
+            content: '단축키: S'
+          }
+        ]
+      },
+
+      // Zoom 플러그인 설정 (Alt+클릭으로 줌)
+      zoom: {
+        // Alt+클릭으로 특정 영역 확대
+      },
+
+      plugins: [
+        RevealMarkdown,
+        RevealHighlight,
+        RevealNotes,
+        RevealZoom,
+        RevealSearch,
+        RevealMenu
+      ]
     });
   </script>
 </body>
