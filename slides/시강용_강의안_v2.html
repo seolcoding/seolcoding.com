@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구글 시트와 앱스스크립트로 메일링 자동화 만들기</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+
+  <style>
+    .reveal {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      text-transform: none;
+      font-weight: 600;
+    }
+    .reveal section img {
+      border: none;
+      box-shadow: none;
+    }
+    .reveal ul, .reveal ol {
+      display: block;
+    }
+    .reveal .r-hstack {
+      display: flex;
+      gap: 2em;
+    }
+    .reveal .r-hstack > * {
+      flex: 1;
+    }
+    .box {
+      padding: 2em;
+      border-radius: 8px;
+      background: #f5f5f5;
+    }
+    .bg-red { background: #FFE5E5 !important; }
+    .bg-blue { background: #E5F5FF !important; }
+    .bg-yellow { background: #FFF9E5 !important; }
+    .bg-pink { background: #FFE5F0 !important; }
+    .bg-light-blue { background: #E3F2FD !important; }
+    .bg-purple { background: #F3E5F5 !important; }
+    .bg-light-yellow { background: #FFF9C4 !important; }
+    .bg-green { background: #E8F5E9 !important; }
+    .bg-light-green { background: #C5E1A5 !important; }
+    .bg-indigo { background: #E8EAF6 !important; }
+    .bg-light-pink { background: #FCE4EC !important; }
+    .bg-orange { background: #FFF3E0 !important; }
+    .text-red { color: #D32F2F; }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Title -->
+      <section data-background-color="#4A90E2">
+        <h2>📧 구글 시트와 앱스스크립트로<br>메일링 자동화 만들기</h2>
+        <p><strong>✨ 바이브 코딩으로 업무자동화 하기</strong></p>
+        <p><strong>강사</strong>: 설동헌(설코딩)</p>
+      </section>
+
+      <!-- Slide 2: 강사 소개 -->
+      <section>
+        <h2>👨‍🏫 강사 소개</h2>
+        <div class="r-hstack">
+          <div>
+            <p>Scan Me!</p>
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/%EC%8B%9C%EA%B0%95%EC%9A%A9_%EA%B0%95%EC%9D%98%EC%95%88-20251112-1.png" width="400">
+          </div>
+          <div>
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/%EC%84%A4%EB%8F%99%ED%97%8C%201.png" width="500">
+          </div>
+        </div>
+        <aside class="notes">QR 코드를 스캔하거나 상세 프로필을 확인하세요.</aside>
+      </section>
+
+      <!-- Slide 3: 여러분, 이런 고민 있으신가요? -->
+      <section>
+        <h2>😫 여러분, 이런 고민 있으신가요?</h2>
+        <div class="r-hstack">
+          <div class="box bg-red">
+            <h3>📧 이메일 업무의 늪</h3>
+            <ul>
+              <li>매일 반복되는 이메일 작성</li>
+              <li>고객별 맞춤 메시지 작성</li>
+              <li>폼 응답자들에게 회신</li>
+              <li>참가자에게 개별 안내</li>
+            </ul>
+            <p><strong>"자동화 안 될까...?"</strong> 😭</p>
+          </div>
+          <div class="box bg-blue">
+            <h3>📋 마케팅 업무의 반복</h3>
+            <ul>
+              <li>뉴스레터 개인화 발송</li>
+              <li>이벤트 초대장 일일이 전송</li>
+              <li>설문 응답자 감사 메일</li>
+              <li>고객별 프로모션 안내</li>
+            </ul>
+            <p><strong>"하루 종일 이것만..."</strong> 😰</p>
+          </div>
+        </div>
+        <aside class="notes">혹시 이런 경험 있으신가요?</aside>
+      </section>
+
+      <!-- Slide 4: 시간은 곧 돈입니다 -->
+      <section>
+        <h2>💰 시간은 곧 돈입니다</h2>
+        <div class="r-hstack">
+          <div class="box bg-yellow">
+            <h3>📊 시간 계산</h3>
+            <p><strong>매일 1시간씩 이메일 작업한다면?</strong></p>
+            <ul>
+              <li><strong>하루</strong>: 1시간</li>
+              <li><strong>주 5일</strong>: 5시간</li>
+              <li><strong>월 20일</strong>: 20시간</li>
+              <li><strong>연간</strong>: <strong>240시간</strong> (=30일!)</li>
+            </ul>
+          </div>
+          <div class="box bg-pink">
+            <h3>💵 비용 환산</h3>
+            <p><strong>2025년 최저시급: 10,030원</strong></p>
+            <ul>
+              <li><strong>월간</strong>: 200,600원</li>
+              <li><strong>연간</strong>: <strong>2,407,200원</strong></li>
+            </ul>
+            <p class="text-red"><strong>약 240만원 낭비!</strong> 🔥</p>
+          </div>
+        </div>
+        <aside class="notes">매일 1시간만 이메일에 쓴다고 해도, 1년이면 무려 240시간입니다.</aside>
+      </section>
+
+      <!-- Slide 5: 오늘 강의할 내용 -->
+      <section>
+        <h2>🎯 오늘 강의할 내용</h2>
+        <h3>업무 자동화의 세계로!</h3>
+        <div class="r-hstack">
+          <div class="box bg-light-blue">
+            <h4>1️⃣ 기초 개념</h4>
+            <ul>
+              <li>구글 시트?</li>
+              <li>앱스 스크립트?</li>
+              <li>바이브 코딩?</li>
+            </ul>
+          </div>
+          <div class="box bg-purple">
+            <h4>2️⃣ 라이브 시연</h4>
+            <ul>
+              <li>자동 메일 발송</li>
+              <li>바이브 코딩</li>
+              <li>AI와 함께 수정</li>
+            </ul>
+          </div>
+          <div class="box bg-light-yellow">
+            <h4>3️⃣ API 활용</h4>
+            <ul>
+              <li>GeminiAPI</li>
+              <li>개인화 메시지</li>
+              <li>자동화 사례</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">오늘 30분 동안 세 가지를 시연해드릴 거예요.</aside>
+      </section>
+
+      <!-- Slide 6: Part 1 Divider -->
+      <section data-background-color="#E8F4F8">
+        <h1>Part 1</h1>
+        <h2>기초 개념 🎯</h2>
+        <aside class="notes">자, 이제 본격적으로 시작합니다!</aside>
+      </section>
+
+      <!-- Slide 7: 구글 시트란? -->
+      <section>
+        <h2>📊 구글 시트란?</h2>
+        <div class="box" style="max-width: 900px; margin: 0 auto;">
+          <p style="font-size: 1.3em;"><strong>클라우드 기반의 스마트한 엑셀</strong></p>
+          <ul style="font-size: 1.1em;">
+            <li>🌍 <strong>어디서나 접속</strong> - 인터넷만 되면 OK!</li>
+            <li>👥 <strong>실시간 협업</strong> - 여러 명이 동시 작업</li>
+            <li>🔄 <strong>자동 저장</strong> - 저장 버튼? 필요 없어요!</li>
+            <li>🤝 <strong>쉬운 공유</strong> - 링크 하나면 끝</li>
+            <li>💻 <strong>무료</strong> - 구글 계정만 있으면 공짜!</li>
+          </ul>
+          <p>🔗 <a href="https://sheets.new">sheets.new</a></p>
+        </div>
+        <aside class="notes">구글 시트, 많이 들어보셨죠?</aside>
+      </section>
+
+      <!-- Slide 8: 앱스 스크립트란? -->
+      <section>
+        <h2>🤖 앱스 스크립트란?</h2>
+        <p><strong>구글 시트에 마법을 부리는 도구</strong> ✨</p>
+        <div class="r-hstack">
+          <div class="box">
+            <h4>기본 기능</h4>
+            <ul>
+              <li>📝 JavaScript 기반</li>
+              <li>🔗 구글 서비스 연동</li>
+              <li>⚡ 자동화의 핵심</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h4>장점</h4>
+            <ul>
+              <li>🆓 무료</li>
+              <li>🎓 배우기 쉬움</li>
+              <li>💪 강력한 기능</li>
+            </ul>
+          </div>
+        </div>
+        <p>🔗 <a href="https://script.google.com">script.google.com</a></p>
+        <aside class="notes">앱스 스크립트는 구글 시트에 프로그래밍 능력을 부여하는 거예요.</aside>
+      </section>
+
+      <!-- Slide 9: 바이브 코딩이란? -->
+      <section>
+        <h2>🎨 바이브 코딩이란?</h2>
+        <div class="r-hstack">
+          <div class="box bg-red">
+            <h4>전통적인 코딩 😓</h4>
+            <pre><code class="plaintext">개발자 혼자 고민
+    ↓
+문법 검색, 스택오버플로우
+    ↓
+에러 디버깅
+    ↓
+몇 시간 소요... 😭</code></pre>
+            <p><strong>진입장벽</strong>: ⚠️⚠️⚠️⚠️⚠️</p>
+          </div>
+          <div class="box bg-green">
+            <h4>바이브 코딩 😊</h4>
+            <pre><code class="plaintext">AI에게 한글로 질문
+    ↓
+AI가 코드 자동 생성
+    ↓
+복사해서 붙여넣기
+    ↓
+1분 완성! 🎉</code></pre>
+            <p><strong>진입장벽</strong>: ✅ (거의 없음)</p>
+          </div>
+        </div>
+        <aside class="notes">전통적인 코딩은 몇 시간씩 걸리지만, 바이브 코딩은 1분이면 끝나요!</aside>
+      </section>
+
+      <!-- Slide 10: Google Gemini 2.5 Flash -->
+      <section>
+        <h2>🌟 Google Gemini 2.5 Flash</h2>
+        <div class="box bg-purple" style="max-width: 900px; margin: 0 auto;">
+          <p style="font-size: 1.3em;"><strong>구글이 만든 무료 AI</strong></p>
+          <p><strong>특징</strong>:</p>
+          <ul style="font-size: 1.1em;">
+            <li>🆓 <strong>완전 무료</strong>: 회원가입만으로 사용 가능</li>
+            <li>💻 <strong>코드 생성 특화</strong>: 프로그래밍 언어를 잘 이해</li>
+            <li>🇰🇷 <strong>한글 완벽 지원</strong>: 자연스러운 한국어 대화</li>
+            <li>⚡ <strong>빠른 응답</strong>: 몇 초 만에 결과 생성</li>
+          </ul>
+          <p><strong>접속</strong>: <a href="https://gemini.google.com">https://gemini.google.com</a></p>
+        </div>
+        <aside class="notes">구글의 AI, Gemini를 사용할 거예요.</aside>
+      </section>
+
+      <!-- Slide 11: Part 2 Divider -->
+      <section data-background-color="#E8F4F8">
+        <h1>Part 2</h1>
+        <h2>바이브 코딩을 해 봅시다 🎬</h2>
+      </section>
+
+      <!-- Slide 12: 시연 준비 -->
+      <section>
+        <h2>📺 시연 준비</h2>
+        <div class="r-hstack">
+          <div>
+            <img src="https://pub-4a499159a7394ccba469c0da5d31199c.r2.dev/2025/11/12/qrcode.png" width="400">
+          </div>
+          <div>
+            <p style="font-size: 1.3em;"><strong>🔗 데이터 구글 시트 링크</strong></p>
+            <a href="https://docs.google.com/spreadsheets/d/147ecVeZNy4lBPDsxhnZ_qCG816zluThPeXBqTmEO0Cc/edit?usp=sharing"
+               style="font-size: 1.2em; color: white; background: #4285F4; padding: 1em 2em; border-radius: 8px; display: inline-block;">
+              데이터 시트 열기
+            </a>
+          </div>
+        </div>
+        <aside class="notes">QR 코드를 스캔하거나 링크를 클릭해서 접속하세요.</aside>
+      </section>
+
+      <!-- Slide 13: 라이브 바이브 코딩 시연 순서 -->
+      <section>
+        <h2>🎬 라이브 바이브 코딩 시연 순서</h2>
+        <h3>이메일 자동화</h3>
+        <div class="r-hstack r-stretch">
+          <div class="box bg-light-blue">
+            <h4>1️⃣ 준비</h4>
+            <ul>
+              <li>구글 시트 열기</li>
+              <li>Apps Script 실행</li>
+              <li>Gemini 탭 준비</li>
+            </ul>
+          </div>
+          <div class="box bg-purple">
+            <h4>2️⃣ 프롬프트</h4>
+            <p style="font-size: 0.9em;"><em>"너는 앱스스크립트 작성 전문가야. 나를 도와서 다음 작업을 해주는 앱스 스크립트 코드를 작성해줘 : 시트 A열의 이메일 주소로 B열의 메시지를 Gmail로 발송"</em></p>
+          </div>
+        </div>
+        <div class="r-hstack r-stretch">
+          <div class="box bg-light-yellow">
+            <h4>3️⃣ 코드 생성</h4>
+            <ul>
+              <li>Gemini가 코드 작성</li>
+              <li>전체 코드 자동 생성</li>
+              <li>설명까지 포함</li>
+            </ul>
+          </div>
+          <div class="box bg-green">
+            <h4>4️⃣ 실행</h4>
+            <ul>
+              <li>코드 복사 붙여넣기</li>
+              <li>저장 및 실행</li>
+              <li>권한 승인</li>
+              <li><strong>완료!</strong> ✅</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">자, 이제 직접 해보겠습니다. 총 1분 안에 완성됩니다!</aside>
+      </section>
+
+      <!-- Slide 14: Part 3 Divider -->
+      <section data-background-color="#E8F4F8">
+        <h1>Part 3</h1>
+        <h2>API 활용 🔑</h2>
+        <aside class="notes">이제 더 강력한 기능, API 활용을 시연해드릴게요!</aside>
+      </section>
+
+      <!-- Slide 15: API란 무엇인가? -->
+      <section>
+        <h2>🔑 API란 무엇인가?</h2>
+        <div class="r-hstack">
+          <div class="box bg-light-blue">
+            <h4>Application Programming Interface</h4>
+            <p style="font-size: 1.3em;"><strong>쉽게 말하면</strong><br>프로그램 간 대화 방법 📞</p>
+          </div>
+          <div class="box bg-orange">
+            <h4>🍕 레스토랑 메뉴판</h4>
+            <p><strong>메뉴</strong> = API 명세서</p>
+            <p><strong>주문</strong> = API 요청</p>
+            <p><strong>음식</strong> = API 응답</p>
+            <p>피자집에서 빅맥을 시키면 ❌</p>
+            <p>메뉴대로 주문해야 함 ✅</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 16: 왜 API를 사용할까? -->
+      <section>
+        <h2>🤔 왜 API를 사용할까?</h2>
+        <div class="box bg-green" style="max-width: 900px; margin: 0 auto;">
+          <h3>💡 핵심 이유</h3>
+          <p style="font-size: 1.2em;"><strong>이미 만들어진 강력한 기능을 내 프로그램에서 바로 사용!</strong></p>
+          <ul style="font-size: 1.1em;">
+            <li>🗺️ 구글 지도 기능 → 직접 만들면 수년 소요</li>
+            <li>🤖 AI 대화 기능 → API로 5분 만에 완성</li>
+            <li>☁️ 날씨 정보 → 기상청 API 활용</li>
+          </ul>
+        </div>
+        <aside class="notes">API를 사용하면 이미 검증된 기능을 빠르게 사용할 수 있어요.</aside>
+      </section>
+
+      <!-- Slide 17: 실생활 API 예시 -->
+      <section>
+        <h2>📋 실생활 API 예시</h2>
+        <div class="r-hstack">
+          <div class="box">
+            <h4>Google Maps API</h4>
+            <pre style="font-size: 0.8em;"><code>요청: "서울역 좌표"
+응답: 위도 37.5547
+      경도 126.9707</code></pre>
+            <h4 style="margin-top: 1em;">날씨 API</h4>
+            <pre style="font-size: 0.8em;"><code>요청: "서울 날씨"
+응답: 맑음, 15°C</code></pre>
+          </div>
+          <div class="box bg-green">
+            <h4>AI API</h4>
+            <h5>(우리가 사용할 것!)</h5>
+            <pre style="font-size: 0.8em;"><code>요청: "이메일 작성해줘"
+
+응답: "안녕하세요.
+       오늘 회의 일정을
+       안내드립니다..."</code></pre>
+            <p style="font-size: 1.2em;"><strong>→ 강력한 기능을 쉽게 사용!</strong></p>
+          </div>
+        </div>
+        <aside class="notes">이런 API들을 활용하면 강력한 기능을 쉽게 사용할 수 있어요!</aside>
+      </section>
+
+      <!-- Slide 18: Google AI Studio 소개 -->
+      <section>
+        <h2>🎨 Google AI Studio 소개</h2>
+        <div class="box" style="max-width: 800px; margin: 0 auto;">
+          <h3>Gemini API를 무료로 사용할 수 있는 곳</h3>
+          <h4>특징</h4>
+          <ul style="font-size: 1.1em;">
+            <li>🆓 <strong>무료 제공</strong>: 일일 1,500회 요청</li>
+            <li>🔑 <strong>API 키 발급</strong>: 간단한 클릭만으로</li>
+            <li>🧪 <strong>테스트 환경</strong>: 프롬프트 실험 가능</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 19: 고급 시연: Gemini API 활용 -->
+      <section>
+        <h2>🎬 고급 시연: Gemini API 활용</h2>
+        <div class="box bg-light-green" style="margin-bottom: 1em;">
+          <h3>👨‍💻 AI가 개인화 메시지 자동 생성!</h3>
+        </div>
+        <div class="r-hstack">
+          <div class="box bg-light-blue">
+            <h4>일반 이메일 😐</h4>
+            <pre><code>안녕하세요.
+강의 안내 드립니다.
+감사합니다.</code></pre>
+            <p><strong>전원 동일한 내용</strong></p>
+          </div>
+          <div class="box bg-purple">
+            <h4>Gemini API 활용 ✨</h4>
+            <p><strong>김철수님께</strong>:</p>
+            <pre><code>안녕하세요 김철수님!
+마케팅 자동화에 관심이
+많으시군요. 고객 맞춤
+이메일 전략을...</code></pre>
+            <p><strong>각자 맞춤형 내용!</strong></p>
+          </div>
+        </div>
+        <aside class="notes">Gemini API를 사용하면 각 사람에게 맞춤형 메시지를 보낼 수 있어요!</aside>
+      </section>
+
+      <!-- Slide 20: API 시연 프로세스 -->
+      <section>
+        <h2>🎯 API 시연 프로세스</h2>
+        <div class="box" style="max-width: 900px; margin: 0 auto;">
+          <h3>라이브 코딩 단계</h3>
+          <ol style="font-size: 1.2em; line-height: 2;">
+            <li><strong>1단계</strong>: Gemini에게 프롬프트</li>
+            <li><strong>2단계</strong>: API 키 발급</li>
+            <li><strong>3단계</strong>: API 키를 활용해서 다시 질문</li>
+            <li><strong>4단계</strong>: 생성된 코드를 AppsScript에 적용</li>
+            <li><strong>5단계</strong>: 실행 및 결과 확인</li>
+          </ol>
+        </div>
+        <aside class="notes">자, 이제 실제로 API를 활용한 고급 시연을 해보겠습니다!</aside>
+      </section>
+
+      <!-- Slide 21: 실제 활용 유즈케이스 -->
+      <section>
+        <h2>💡 실제 활용 유즈케이스</h2>
+        <div class="r-hstack">
+          <div class="box bg-indigo">
+            <h3>마케팅 분야</h3>
+            <ul style="font-size: 1.2em;">
+              <li>📧 이메일 마케팅</li>
+              <li>📋 폼 응답 자동화</li>
+              <li>🎯 타겟 마케팅</li>
+            </ul>
+          </div>
+          <div class="box bg-light-pink">
+            <h3>업무 효율화</h3>
+            <ul style="font-size: 1.2em;">
+              <li>📊 보고서 자동화</li>
+              <li>⏰ 리마인더 시스템</li>
+              <li>🔄 워크플로우 자동화</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">이런 식으로 실무에서 활용할 수 있어요.</aside>
+      </section>
+
+      <!-- Slide 22: 전체 과정 안내 (첫 번째) -->
+      <section>
+        <h2>📚 전체 과정 안내 (4시간)</h2>
+        <div class="box" style="max-width: 900px; margin: 0 auto;">
+          <p style="font-size: 1.2em;">
+            <strong>과정명</strong>: 코알못도 된다! 바이브 코딩으로 업무자동화 하기
+          </p>
+          <p style="font-size: 1.2em;">
+            <strong>강의명</strong>: 구글 시트와 앱스스크립트로 나만의 메일링 앱 만들기
+          </p>
+          <p style="font-size: 1.1em; margin-top: 1em;">
+            <strong>수준</strong>: 초급 (코딩 경험 전혀 없어도 가능!)
+          </p>
+          <p style="font-size: 1.1em;">
+            <strong>준비물</strong>: 노트북, 구글 계정
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 23: 전체 과정 안내 (두 번째) -->
+      <section>
+        <h2>📚 전체 과정 상세 (4시간)</h2>
+        <div class="r-hstack r-stretch">
+          <div class="box bg-light-blue">
+            <h4>1️⃣ 구글 시트 기초</h4>
+            <p><strong>13:00 - 14:00</strong></p>
+            <ul>
+              <li>구글 시트 소개</li>
+              <li>공동 편집 실습</li>
+              <li>기본 함수 활용</li>
+            </ul>
+          </div>
+          <div class="box bg-orange">
+            <h4>2️⃣ Apps Script 시작</h4>
+            <p><strong>14:00 - 15:00</strong></p>
+            <ul>
+              <li>Apps Script 소개</li>
+              <li>코드 편집기 사용법</li>
+              <li>간단한 스크립트 작성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="r-hstack r-stretch">
+          <div class="box bg-green">
+            <h4>3️⃣ AI 바이브 코딩</h4>
+            <p><strong>15:00 - 16:00</strong></p>
+            <ul>
+              <li>Gemini AI 활용법</li>
+              <li>바이브 코딩 실전</li>
+              <li>이메일 자동화 시연</li>
+            </ul>
+          </div>
+          <div class="box bg-purple">
+            <h4>4️⃣ 메일링 앱 제작</h4>
+            <p><strong>16:00 - 17:00</strong></p>
+            <ul>
+              <li>API 연동</li>
+              <li>개인화 메시지 생성</li>
+              <li>완성 및 테스트</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">오늘 4시간 동안 처음부터 끝까지 완성된 메일링 앱을 만들어볼 거예요!</aside>
+      </section>
+
+      <!-- Slide 24: 감사합니다 -->
+      <section>
+        <h2 style="font-size: 2em;">🙏 감사합니다!</h2>
+        <h3>질문 & 답변 시간</h3>
+        <div style="max-width: 800px; margin: 2em auto;">
+          <p style="font-size: 1.2em;"><strong>Q&A</strong></p>
+          <ul style="font-size: 1.1em;">
+            <li>궁금한 점 편하게 질문해주세요</li>
+            <li>실습 중 어려웠던 부분 공유</li>
+          </ul>
+          <p style="font-size: 1.2em; margin-top: 1.5em;">
+            <strong>🎁 보너스</strong>: 오늘 시연한 코드는 문의 시 공유드립니다.
+          </p>
+        </div>
+        <aside class="notes">오늘 시연 어떠셨나요? 질문 있으시면 편하게 해주세요!</aside>
+      </section>
+
+      <!-- Slide 25: Closing -->
+      <section data-background-color="#4A90E2">
+        <h1>🚀 시작이 반입니다!</h1>
+        <h2>오늘부터 여러분도 자동화 전문가</h2>
+        <p style="font-size: 1.3em; margin-top: 1em;">
+          <strong>설코딩과 함께 배우고 성장합시다!</strong> 💪
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+
+  <script>
+    Reveal.initialize({
+      width: 1920,
+      height: 1080,
+      margin: 0.04,
+      center: true,
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      hash: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    });
+  </script>
+</body>
+</html>
