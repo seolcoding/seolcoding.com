@@ -14,139 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
 
   <!-- Custom CSS -->
-  <style>
-    .reveal {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
-    }
-
-    .reveal h1, .reveal h2, .reveal h3 {
-      text-transform: none;
-      font-weight: 600;
-    }
-
-    /* Grid layout helpers */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(100, 1fr);
-      grid-template-rows: repeat(100, 1fr);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .grid-item {
-      display: flex;
-      flex-direction: column;
-      padding: 1em;
-    }
-
-    .grid-item.align-left { align-items: flex-start; text-align: left; }
-    .grid-item.align-center { align-items: center; text-align: center; }
-    .grid-item.align-right { align-items: flex-end; text-align: right; }
-
-    /* Two column layout */
-    .two-columns {
-      display: flex;
-      gap: 2em;
-      width: 100%;
-      align-items: flex-start;
-    }
-
-    .two-columns > div {
-      flex: 1;
-    }
-
-    /* Three column layout */
-    .three-columns {
-      display: flex;
-      gap: 2em;
-      width: 100%;
-      align-items: flex-start;
-    }
-
-    .three-columns > div {
-      flex: 1;
-    }
-
-    /* Background boxes */
-    .box {
-      padding: 2em;
-      border-radius: 8px;
-      height: 100%;
-    }
-
-    .box.red-bg { background: #FFE5E5; }
-    .box.blue-bg { background: #E5F5FF; }
-    .box.yellow-bg { background: #FFF9E5; }
-    .box.pink-bg { background: #FFE5F0; }
-    .box.light-blue-bg { background: #E3F2FD; }
-    .box.purple-bg { background: #F3E5F5; }
-    .box.light-yellow-bg { background: #FFF9C4; }
-    .box.green-bg { background: #E8F5E9; }
-    .box.gray-bg { background: #F5F5F5; }
-    .box.light-gray-bg { background: #FAFAFA; }
-    .box.light-green-bg { background: #C5E1A5; }
-    .box.indigo-bg { background: #E8EAF6; }
-    .box.light-pink-bg { background: #FCE4EC; }
-    .box.orange-bg { background: #FFF3E0; }
-
-    /* Image scaling */
-    .reveal img {
-      border: none;
-      box-shadow: none;
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Code blocks */
-    .reveal pre {
-      width: 100%;
-      box-shadow: none;
-    }
-
-    .reveal pre code {
-      max-height: none;
-      padding: 1em;
-    }
-
-    /* Custom spacing */
-    .mt-1 { margin-top: 1em; }
-    .mt-2 { margin-top: 2em; }
-    .mb-1 { margin-bottom: 1em; }
-    .mb-2 { margin-bottom: 2em; }
-
-    /* Font sizes */
-    .fs-small { font-size: 0.8em; }
-    .fs-normal { font-size: 1em; }
-    .fs-large { font-size: 1.2em; }
-    .fs-xlarge { font-size: 1.5em; }
-    .fs-xxlarge { font-size: 2em; }
-
-    /* Line heights */
-    .lh-tight { line-height: 1.4; }
-    .lh-normal { line-height: 1.6; }
-    .lh-loose { line-height: 2; }
-
-    /* Colors */
-    .text-red { color: #D32F2F; }
-    .text-blue { color: #1976D2; }
-    .text-green { color: #388E3C; }
-
-    /* Centered content */
-    .centered-slide {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    /* Full width content */
-    .full-width {
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="custom.css">
 </head>
 
 <body>
@@ -765,9 +633,9 @@ AI가 코드 자동 생성
   <script>
     // Initialize reveal.js
     Reveal.initialize({
-      // Display
+      // Display (16:9 aspect ratio)
       width: 1920,
-      height: 1200,
+      height: 1080,
       margin: 0,
 
       // Appearance
