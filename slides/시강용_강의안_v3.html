@@ -33,25 +33,30 @@
       flex: 1;
     }
 
-    /* 슬라이드 통일 구조 */
+    /* 슬라이드 통일 구조 - CSS Grid */
     .slide-container {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-rows: auto 1fr 60px;  /* 헤더(자동) / 본문(가변) / 푸터(60px 고정) */
       height: 100%;
-      padding: 3% 4%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 40px 60px;  /* 고정 패딩 */
+      gap: 1em;  /* 행 간격 */
     }
 
     .slide-header {
-      flex: 0 0 auto;
-      margin-bottom: 1em;
+      grid-row: 1;
+      display: flex;
+      align-items: flex-start;
     }
 
     .slide-header h2 {
       margin: 0;
+      line-height: 1.2;
     }
 
     .slide-body {
-      flex: 1 1 auto;
+      grid-row: 2;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -59,9 +64,8 @@
     }
 
     .slide-footer {
-      flex: 0 0 auto;
-      height: 3%;
-      min-height: 30px;
+      grid-row: 3;
+      /* 푸터는 60px 고정 높이로 항상 존재 */
     }
 
     /* 박스 스타일 */
