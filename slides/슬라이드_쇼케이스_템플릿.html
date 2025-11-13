@@ -1069,6 +1069,33 @@ async def predict(data: BaseModel):
     Reveal.on('cta-slide', function() {
       console.log('🎯 CTA 슬라이드 진입!');
     });
+
+    // 카운터 애니메이션
+    Reveal.on('counter-slide', function() {
+      animateCounter('counter1', 15000, 2000);  // 15,000명
+      animateCounter('counter2', 450, 2000);     // 450개
+      animateCounter('counter3', 98, 2000);      // 98%
+      animateCounter('counter4', 35, 2000);      // 35개국
+    });
+
+    function animateCounter(id, target, duration) {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          element.textContent = target.toLocaleString();
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current).toLocaleString();
+        }
+      }, 16);
+    }
   </script>
 </body>
 </html>
