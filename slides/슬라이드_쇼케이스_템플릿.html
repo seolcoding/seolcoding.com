@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>슬라이드 쇼케이스 - 12가지 창의적 템플릿</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+
+  <style>
+    /* CSS 변수 정의: 프로젝트 전체 색상 팔레트 */
+    :root {
+      --brand-1: #4A90E2;
+      --brand-2: #5B6DCD;
+      --accent-1: #E94B3C;
+      --accent-2: #F39C12;
+      --neutral-dark: #2C3E50;
+      --neutral-light: #ECF0F1;
+      --success: #27AE60;
+      --info: #3498DB;
+    }
+
+    /* 공통 카드 스타일 */
+    .showcase-card {
+      padding: 24px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.95);
+      color: #2C3E50;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      transition: transform 0.3s;
+    }
+    .showcase-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* 접근성: 고대비 모드 */
+    @media (prefers-contrast: high) {
+      .showcase-card {
+        border: 2px solid #000;
+      }
+    }
+
+    /* 버튼 스타일 */
+    .btn-copy {
+      padding: 8px 16px;
+      background: var(--brand-1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .btn-copy:hover {
+      background: var(--brand-2);
+    }
+
+    /* 색상 팔레트 전환 */
+    .palette-dark {
+      --brand-1: #1A1A2E !important;
+      --brand-2: #16213E !important;
+      --accent-1: #E94560 !important;
+      --accent-2: #F9A826 !important;
+    }
+    .palette-nature {
+      --brand-1: #2E7D32 !important;
+      --brand-2: #388E3C !important;
+      --accent-1: #FF6F00 !important;
+      --accent-2: #FBC02D !important;
+    }
+    .palette-ocean {
+      --brand-1: #006064 !important;
+      --brand-2: #0097A7 !important;
+      --accent-1: #FF5722 !important;
+      --accent-2: #FFA726 !important;
+    }
+
+    .reveal {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    }
+
+    .reveal h1 { font-size: 2.5em; font-weight: 600; }
+    .reveal h2 { font-size: 2em; font-weight: 600; }
+    .reveal h3 { font-size: 1.5em; font-weight: 600; }
+    .reveal h4 { font-size: 1.2em; font-weight: 600; }
+
+    .r-hstack {
+      display: flex;
+      gap: 20px;
+    }
+    .r-hstack > * {
+      flex: 1;
+    }
+
+    .box {
+      padding: 1.5em;
+      border-radius: 8px;
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 1: 템플릿 카탈로그 (목차) -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--brand-1)" data-transition="zoom">
+        <h1 style="font-size:3em;margin-bottom:20px;">🎨 슬라이드 쇼케이스</h1>
+        <p style="font-size:1.2em;opacity:0.9;">12가지 스타일 × 창의적 목적별 템플릿</p>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px;font-size:0.8em;">
+          <div class="showcase-card">
+            <strong>01</strong> 제품 카드
+          </div>
+          <div class="showcase-card">
+            <strong>02</strong> 비디오 배경
+          </div>
+          <div class="showcase-card">
+            <strong>03</strong> 코드 하이라이트
+          </div>
+          <div class="showcase-card">
+            <strong>04</strong> 데이터 차트
+          </div>
+          <div class="showcase-card">
+            <strong>05</strong> 수식 슬라이드
+          </div>
+          <div class="showcase-card">
+            <strong>06</strong> 인터랙티브
+          </div>
+          <div class="showcase-card">
+            <strong>07</strong> Parallax
+          </div>
+          <div class="showcase-card">
+            <strong>08</strong> Nested 슬라이드
+          </div>
+          <div class="showcase-card">
+            <strong>09</strong> Blend 모드
+          </div>
+          <div class="showcase-card">
+            <strong>10</strong> 타임라인
+          </div>
+          <div class="showcase-card">
+            <strong>11</strong> 비교표
+          </div>
+          <div class="showcase-card">
+            <strong>12</strong> 행동 유도
+          </div>
+        </div>
+
+        <div style="margin-top:40px;">
+          <button class="btn-copy" onclick="switchPalette('dark')">🌙 다크</button>
+          <button class="btn-copy" onclick="switchPalette('nature')">🌿 자연</button>
+          <button class="btn-copy" onclick="switchPalette('ocean')">🌊 바다</button>
+        </div>
+
+        <p style="font-size:12px;opacity:0.7;margin-top:30px;">
+          <strong>왜?</strong> 다양한 프레젠테이션 시나리오에 맞는 시작점 제공<br>
+          <strong>언제?</strong> 새 프로젝트 시작 시 골라서 커스터마이징
+        </p>
+
+        <aside class="notes">
+          발표자: 각 템플릿의 용도를 간단히 소개. 색상 버튼으로 실시간 팔레트 변경 데모.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 2: 제품 하이라이트 — 그리드 카드 (Fragment) -->
+      <!-- ============================================================ -->
+      <section data-background-color="#0f172a" data-transition="fade">
+        <h2 style="color:white;">제품 하이라이트 — 그리드 카드</h2>
+        <p style="font-size:1em;opacity:0.9;color:#ECF0F1;">핵심 기능 3가지를 카드로 시각화</p>
+
+        <div style="display:flex;gap:20px;margin-top:40px;">
+          <div class="showcase-card fragment" style="flex:1;">
+            <h3 style="color:var(--success);">⚡ 성능</h3>
+            <p>최대 처리량: <strong>10k TPS</strong></p>
+            <p>레이턴시: <strong>평균 45ms</strong></p>
+          </div>
+          <div class="showcase-card fragment" style="flex:1;">
+            <h3 style="color:var(--info);">🛡️ 보안</h3>
+            <p>암호화: <strong>AES-256</strong></p>
+            <p>접근제어: <strong>RBAC</strong></p>
+          </div>
+          <div class="showcase-card fragment" style="flex:1;">
+            <h3 style="color:var(--accent-2);">📈 확장성</h3>
+            <p>수평 확장 가능</p>
+            <p>자동 스케일링</p>
+          </div>
+        </div>
+
+        <p style="font-size:12px;opacity:0.7;margin-top:40px;color:white;">
+          <strong>왜?</strong> 제품의 핵심 3요소를 한눈에 보여주기 위해<br>
+          <strong>언제?</strong> 투자자 데모, 영업 프레젠테이션 첫부분
+        </p>
+
+        <aside class="notes">
+          각 카드에 대해 10~15초씩 설명. 핵심 지표는 최신 자료로 업데이트 필요.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 3: 비디오 배경 (자동재생 + Muted) -->
+      <!-- ============================================================ -->
+      <section
+        data-background-video="https://cdn.pixabay.com/vimeo/348717654/technology-27887.mp4?width=1280"
+        data-background-video-loop
+        data-background-video-muted
+        data-background-opacity="0.3"
+        data-transition="slide">
+
+        <div style="background:rgba(0,0,0,0.7);padding:40px;border-radius:16px;max-width:700px;margin:auto;">
+          <h2 style="color:white;font-size:2.5em;">🎬 비디오 배경 슬라이드</h2>
+          <p style="color:#ECF0F1;font-size:1.2em;">동적인 배경으로 몰입감 극대화</p>
+          <button class="btn-copy" style="margin-top:20px;">자세히 보기 →</button>
+        </div>
+
+        <p style="font-size:12px;color:white;opacity:0.7;margin-top:40px;">
+          <strong>왜?</strong> 시각적 임팩트로 청중의 주의를 즉시 사로잡기<br>
+          <strong>언제?</strong> 오프닝, 섹션 전환, 제품 데모 소개
+        </p>
+
+        <aside class="notes">
+          비디오는 muted autoplay. 접근성: 배경 opacity 0.3으로 텍스트 대비 확보 (CR ≥ 7:1).
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 4: 코드 블록 + Syntax Highlight -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--neutral-dark)">
+        <h2 style="color:white;">💻 코드 하이라이트 슬라이드</h2>
+        <p style="color:#ECF0F1;">기술 발표에서 핵심 로직 강조</p>
+
+        <pre style="margin-top:30px;"><code class="language-python" data-line-numbers="2-4|6-8">
+# FastAPI 엔드포인트 예시
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+app = FastAPI()
+
+@app.post("/predict")
+async def predict(data: BaseModel):
+    result = model.predict(data)
+    return {"prediction": result}
+        </code></pre>
+
+        <p class="fragment" style="color:var(--accent-2);margin-top:20px;">
+          ✨ 라인별 하이라이트로 단계별 설명 가능
+        </p>
+
+        <p style="font-size:12px;color:white;opacity:0.7;margin-top:30px;">
+          <strong>왜?</strong> 복잡한 코드를 청중이 따라갈 수 있도록 시각화<br>
+          <strong>언제?</strong> 기술 세미나, 튜토리얼, 코드 리뷰
+        </p>
+
+        <aside class="notes">
+          data-line-numbers로 특정 라인 강조. Highlight.js 사용 권장.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 5: 데이터 차트 (Chart.js) -->
+      <!-- ============================================================ -->
+      <section data-background-color="#FFFFFF">
+        <h2 style="color:var(--neutral-dark);">📊 데이터 시각화 — Chart.js</h2>
+        <p style="color:#555;">실시간 데이터를 차트로 표현</p>
+
+        <div style="max-width:700px;margin:40px auto;">
+          <canvas id="revenueChart"></canvas>
+        </div>
+
+        <p style="font-size:12px;color:#666;margin-top:30px;">
+          <strong>왜?</strong> 숫자 나열보다 시각적 트렌드가 이해 빠름<br>
+          <strong>언제?</strong> 분기 실적 보고, 마케팅 성과 분석
+        </p>
+
+        <aside class="notes">
+          Chart.js로 Bar/Line 혼합형 차트. 데이터는 실제 API에서 fetch 가능.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 6: 수식 슬라이드 (MathJax 대신 이미지로 표현) -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--neutral-light)">
+        <h2 style="color:var(--neutral-dark);">🔢 수식 표현</h2>
+        <p style="color:#555;">학술 발표, 알고리즘 설명에 필수</p>
+
+        <div style="margin-top:40px;font-size:1.5em;">
+          <p>손실 함수 (Loss Function):</p>
+          <div class="fragment" style="background:white;padding:20px;border-radius:8px;margin:20px auto;max-width:600px;">
+            <p style="font-family:serif;font-size:1.2em;color:#2C3E50;">
+              L(θ) = 1/n Σ (yᵢ - ŷᵢ)² + λ||θ||₂²
+            </p>
+          </div>
+        </div>
+
+        <p class="fragment" style="color:var(--accent-1);margin-top:30px;">
+          λ는 정규화 파라미터로 과적합 방지
+        </p>
+
+        <p style="font-size:12px;color:#666;margin-top:40px;">
+          <strong>왜?</strong> 수식은 슬라이드에서도 명확하게 표현 필요<br>
+          <strong>언제?</strong> AI/ML 논문 발표, 대학원 세미나
+        </p>
+
+        <aside class="notes">
+          MathJax를 사용하려면 별도 플러그인 필요. 간단한 수식은 유니코드로 표현 가능.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 7: 인터랙티브 요소 (링크 + 폼) -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--brand-2)">
+        <h2 style="color:white;">🔗 인터랙티브 슬라이드</h2>
+        <p style="color:#ECF0F1;">클릭 가능한 링크와 입력 폼 예시</p>
+
+        <div style="background:white;padding:30px;border-radius:12px;max-width:600px;margin:40px auto;color:#2C3E50;">
+          <h3>뉴스레터 구독</h3>
+          <input type="email" placeholder="이메일 입력" style="width:100%;padding:12px;margin-top:10px;border:1px solid #ccc;border-radius:8px;">
+          <button class="btn-copy" style="width:100%;margin-top:10px;" onclick="alert('구독 감사합니다!')">구독하기</button>
+
+          <p style="margin-top:20px;font-size:0.9em;">
+            <a href="https://example.com" target="_blank" style="color:var(--brand-1);">자세한 내용 →</a>
+          </p>
+        </div>
+
+        <p style="font-size:12px;color:white;opacity:0.7;margin-top:30px;">
+          <strong>왜?</strong> 청중 참여 유도, 실시간 피드백 수집<br>
+          <strong>언제?</strong> 워크숍, 웹 세미나 마지막 슬라이드
+        </p>
+
+        <aside class="notes">
+          실제 폼 제출은 백엔드 연동 필요. 여기서는 alert로 대체.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 8: Parallax 배경 -->
+      <!-- ============================================================ -->
+      <section
+        data-background-image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920"
+        data-background-size="cover"
+        data-transition="slide">
+
+        <div style="background:rgba(0,0,0,0.75);padding:50px;border-radius:16px;">
+          <h2 style="color:white;font-size:2.8em;">🌌 Parallax 효과</h2>
+          <p style="color:#ECF0F1;font-size:1.2em;">배경 이미지로 깊이감 표현</p>
+        </div>
+
+        <p style="font-size:12px;color:white;opacity:0.8;margin-top:40px;">
+          <strong>왜?</strong> 시각적 몰입감과 프리미엄 느낌 제공<br>
+          <strong>언제?</strong> 브랜드 스토리텔링, 제품 론칭 발표
+        </p>
+
+        <aside class="notes">
+          고해상도 배경 이미지 권장. Unsplash에서 무료 이미지 활용 가능.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 9: Nested Slides (Vertical Stack) -->
+      <!-- ============================================================ -->
+      <section>
+        <section data-background-color="var(--accent-1)">
+          <h2 style="color:white;">📚 Nested 슬라이드 (메인)</h2>
+          <p style="color:#ECF0F1;">아래로 스크롤하면 상세 내용</p>
+          <p style="font-size:0.9em;margin-top:30px;">↓ 화살표 키로 이동</p>
+
+          <p style="font-size:12px;color:white;opacity:0.7;margin-top:40px;">
+            <strong>왜?</strong> 주제별로 계층화하여 정보 과부하 방지<br>
+            <strong>언제?</strong> 복잡한 개념 설명, FAQ 섹션
+          </p>
+        </section>
+
+        <section data-background-color="#D35400">
+          <h3 style="color:white;">상세 1: 아키텍처</h3>
+          <p style="color:#ECF0F1;">시스템 구조를 3-Tier로 설계</p>
+          <ul style="color:#ECF0F1;text-align:left;max-width:600px;margin:auto;">
+            <li class="fragment">Presentation Layer: React + TypeScript</li>
+            <li class="fragment">Business Logic: FastAPI</li>
+            <li class="fragment">Data Layer: PostgreSQL + Redis</li>
+          </ul>
+        </section>
+
+        <section data-background-color="#C0392B">
+          <h3 style="color:white;">상세 2: 보안 체크리스트</h3>
+          <div style="text-align:left;max-width:600px;margin:auto;color:#ECF0F1;">
+            <p class="fragment">✅ HTTPS 강제</p>
+            <p class="fragment">✅ JWT 토큰 만료 1시간</p>
+            <p class="fragment">✅ Rate Limiting: 100 req/min</p>
+            <p class="fragment">✅ SQL Injection 방어</p>
+          </div>
+        </section>
+
+        <aside class="notes">
+          Vertical stack으로 깊이 탐색. 메인 → 상세 1 → 상세 2 구조.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 10: Background Blend 모드 -->
+      <!-- ============================================================ -->
+      <section
+        data-background-image="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1920"
+        data-background-color="rgba(74, 144, 226, 0.8)"
+        data-transition="fade">
+
+        <h2 style="color:white;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">🎨 Blend 모드</h2>
+        <p style="color:#ECF0F1;font-size:1.2em;text-shadow:1px 1px 4px rgba(0,0,0,0.6);">
+          배경 이미지와 색상을 blend하여 독특한 효과
+        </p>
+
+        <div class="fragment" style="background:rgba(255,255,255,0.15);padding:20px;border-radius:12px;margin-top:30px;backdrop-filter:blur(10px);">
+          <p style="color:white;">다양한 블렌드 모드 활용 가능</p>
+        </div>
+
+        <p style="font-size:12px;color:white;opacity:0.8;margin-top:40px;">
+          <strong>왜?</strong> 평범한 이미지를 브랜드 컬러와 조화롭게 융합<br>
+          <strong>언제?</strong> 브랜딩 프레젠테이션, 감성적 스토리텔링
+        </p>
+
+        <aside class="notes">
+          배경 색상과 이미지 조합. 텍스트 그림자로 가독성 확보.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 11: 타임라인 슬라이드 -->
+      <!-- ============================================================ -->
+      <section data-background-color="#FAFAFA">
+        <h2 style="color:var(--neutral-dark);">📅 프로젝트 타임라인</h2>
+        <p style="color:#555;">마일스톤과 진행 상황 시각화</p>
+
+        <div style="position:relative;max-width:800px;margin:40px auto;padding-left:40px;">
+          <!-- 수직선 -->
+          <div style="position:absolute;left:10px;top:0;bottom:0;width:4px;background:var(--brand-1);"></div>
+
+          <!-- 타임라인 아이템 -->
+          <div class="fragment" style="margin-bottom:30px;position:relative;">
+            <div style="position:absolute;left:-36px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--brand-1);border:3px solid white;"></div>
+            <div class="showcase-card" style="margin-left:20px;">
+              <strong>2024-Q1</strong> — 기획 및 요구사항 분석
+            </div>
+          </div>
+
+          <div class="fragment" style="margin-bottom:30px;position:relative;">
+            <div style="position:absolute;left:-36px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--success);border:3px solid white;"></div>
+            <div class="showcase-card" style="margin-left:20px;">
+              <strong>2024-Q2</strong> — MVP 개발 완료 ✅
+            </div>
+          </div>
+
+          <div class="fragment" style="margin-bottom:30px;position:relative;">
+            <div style="position:absolute;left:-36px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--accent-2);border:3px solid white;"></div>
+            <div class="showcase-card" style="margin-left:20px;">
+              <strong>2024-Q3</strong> — 베타 테스트 진행 중 🔄
+            </div>
+          </div>
+
+          <div class="fragment" style="position:relative;">
+            <div style="position:absolute;left:-36px;top:5px;width:16px;height:16px;border-radius:50%;background:#CCC;border:3px solid white;"></div>
+            <div class="showcase-card" style="margin-left:20px;opacity:0.6;">
+              <strong>2024-Q4</strong> — 정식 출시 예정
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:12px;color:#666;margin-top:40px;">
+          <strong>왜?</strong> 시간 순서대로 진행 상황을 직관적으로 전달<br>
+          <strong>언제?</strong> 킥오프 미팅, 진행 보고서, 회고
+        </p>
+
+        <aside class="notes">
+          Fragment로 단계별 공개. 완료 항목은 녹색, 진행 중은 주황색 표시.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 12: 비교표 (vs. Competitor) -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--neutral-light)">
+        <h2 style="color:var(--neutral-dark);">⚖️ 경쟁사 비교표</h2>
+        <p style="color:#555;">핵심 기능을 한눈에 비교</p>
+
+        <table style="width:90%;margin:40px auto;border-collapse:collapse;font-size:0.9em;">
+          <thead>
+            <tr style="background:var(--brand-1);color:white;">
+              <th style="padding:12px;text-align:left;">기능</th>
+              <th style="padding:12px;text-align:center;">우리 제품</th>
+              <th style="padding:12px;text-align:center;">경쟁사 A</th>
+              <th style="padding:12px;text-align:center;">경쟁사 B</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment" style="background:white;">
+              <td style="padding:12px;border:1px solid #ddd;">실시간 동기화</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">❌</td>
+            </tr>
+            <tr class="fragment" style="background:#F9F9F9;">
+              <td style="padding:12px;border:1px solid #ddd;">오프라인 모드</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">❌</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+            </tr>
+            <tr class="fragment" style="background:white;">
+              <td style="padding:12px;border:1px solid #ddd;">가격 (월)</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;"><strong>$29</strong></td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">$39</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">$35</td>
+            </tr>
+            <tr class="fragment" style="background:#F9F9F9;">
+              <td style="padding:12px;border:1px solid #ddd;">24/7 지원</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">✅</td>
+              <td style="padding:12px;border:1px solid #ddd;text-align:center;">❌</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:12px;color:#666;margin-top:30px;">
+          <strong>왜?</strong> 구매 결정 과정에서 차별화 포인트 명확히 전달<br>
+          <strong>언제?</strong> 영업 프레젠테이션, 제품 런칭
+        </p>
+
+        <aside class="notes">
+          Fragment로 한 줄씩 공개. 우리 제품의 강점을 볼드 처리.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 13: 행동 유도 (CTA) -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--accent-1)" data-state="cta-slide">
+        <h2 style="color:white;font-size:3em;">🚀 지금 바로 시작하세요!</h2>
+        <p style="color:#ECF0F1;font-size:1.3em;">무료 체험판으로 30일간 모든 기능 이용</p>
+
+        <div style="margin-top:50px;">
+          <button class="btn-copy" style="font-size:1.2em;padding:15px 40px;background:white;color:var(--accent-1);" onclick="alert('체험판 신청 페이지로 이동')">
+            무료 체험 신청 →
+          </button>
+        </div>
+
+        <p style="font-size:0.9em;color:white;margin-top:30px;">
+          신용카드 등록 불필요 | 언제든지 취소 가능
+        </p>
+
+        <p style="font-size:12px;color:white;opacity:0.8;margin-top:50px;">
+          <strong>왜?</strong> 명확한 행동 유도로 전환율 극대화<br>
+          <strong>언제?</strong> 프레젠테이션 마지막, 데모 종료 후
+        </p>
+
+        <aside class="notes">
+          data-state="cta-slide"로 이벤트 리스너 연동 가능. 클릭 추적 권장.
+        </aside>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- 슬라이드 14: 종합 요약 -->
+      <!-- ============================================================ -->
+      <section data-background-color="var(--neutral-dark)">
+        <h2 style="color:white;">✨ 템플릿 쇼케이스 요약</h2>
+        <p style="color:#ECF0F1;">12가지 스타일을 상황별로 활용하세요</p>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px;font-size:0.85em;">
+          <div class="showcase-card">
+            <strong>제품 하이라이트</strong><br>핵심 기능 카드
+          </div>
+          <div class="showcase-card">
+            <strong>비디오 배경</strong><br>몰입감 있는 오프닝
+          </div>
+          <div class="showcase-card">
+            <strong>코드 하이라이트</strong><br>기술 발표 필수
+          </div>
+          <div class="showcase-card">
+            <strong>데이터 차트</strong><br>Chart.js 시각화
+          </div>
+          <div class="showcase-card">
+            <strong>수식 슬라이드</strong><br>학술 발표용
+          </div>
+          <div class="showcase-card">
+            <strong>인터랙티브</strong><br>링크 + 폼
+          </div>
+          <div class="showcase-card">
+            <strong>Parallax</strong><br>깊이감 있는 배경
+          </div>
+          <div class="showcase-card">
+            <strong>Nested</strong><br>계층적 정보 구조
+          </div>
+          <div class="showcase-card">
+            <strong>Blend 모드</strong><br>브랜드 컬러 융합
+          </div>
+          <div class="showcase-card">
+            <strong>타임라인</strong><br>진행 상황 시각화
+          </div>
+          <div class="showcase-card">
+            <strong>비교표</strong><br>경쟁사 대비 분석
+          </div>
+          <div class="showcase-card">
+            <strong>CTA</strong><br>행동 유도 슬라이드
+          </div>
+        </div>
+
+        <p style="font-size:12px;color:white;opacity:0.7;margin-top:40px;">
+          🎨 색상 팔레트 변경 버튼으로 테마 즉시 전환 가능<br>
+          📋 각 템플릿의 코드를 복사하여 프로젝트에 활용하세요
+        </p>
+
+        <aside class="notes">
+          전체 템플릿을 한 화면에 요약. 청중이 필요한 스타일을 빠르게 찾도록 돕기.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/zoom/zoom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      width: 1920,
+      height: 1080,
+      margin: 0.04,
+      center: true,
+      controls: true,
+      progress: true,
+      slideNumber: 'c/t',
+      hash: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      plugins: [
+        RevealMarkdown,
+        RevealHighlight,
+        RevealNotes,
+        RevealZoom
+      ]
+    });
+
+    // Chart.js 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('revenueChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+              label: '매출 (백만원)',
+              data: [120, 190, 230, 280],
+              backgroundColor: 'rgba(74, 144, 226, 0.7)',
+              borderColor: '#4A90E2',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' }
+            }
+          }
+        });
+      }
+    });
+
+    // 색상 팔레트 전환 함수
+    function switchPalette(theme) {
+      const root = document.documentElement;
+      root.classList.remove('palette-dark', 'palette-nature', 'palette-ocean');
+
+      if (theme !== 'default') {
+        root.classList.add(`palette-${theme}`);
+      }
+
+      console.log(`✅ 팔레트 변경: ${theme}`);
+    }
+
+    // Reveal.js slidechanged 이벤트
+    Reveal.on('slidechanged', event => {
+      console.log(`📍 슬라이드 이동: ${event.indexh}-${event.indexv || 0}`);
+    });
+
+    // CTA 슬라이드 진입 시 이벤트
+    Reveal.on('cta-slide', function() {
+      console.log('🎯 CTA 슬라이드 진입!');
+    });
+  </script>
+</body>
+</html>
