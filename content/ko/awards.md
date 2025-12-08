@@ -4,6 +4,14 @@ type: "homepage"
 intro: "설코딩의 수상 이력을 소개합니다."
 
 awards:
+  - year: "2025"
+    title: "AI_TOP_100 본선 진출 및 특별상"
+    organization: "카카오임팩트/브라이언임팩트"
+    description: "전국 3,000명 중 본선 100인 선발, AI 활용 문제 해결 역량 경진대회"
+    icon: "star"
+    color: "text-yellow-500"
+    logo: "brianimpact.svg"
+
   - year: "2024"
     title: "2024 DPG AI 해커톤 대상"
     organization: "과기정통부 장관상"
