@@ -42,6 +42,7 @@ quickfacts:
     title: "핵심 기술"
     value: |
       - 🤖 생성형 AI (Gemini, ChatGPT)
+      - 🎨 바이브코딩 (Claude Code, Cursor)
       - ☁️ 클라우드 (AWS, Azure)
       - 🐍 Python, Javascript
       - 💾 SQL, 데이터 분석
@@ -49,8 +50,9 @@ quickfacts:
     title: "관심사"
     value: |
       - 🤖 공공 부문 AI 혁신
-      - ☁️ 클라우드 아키텍처
+      - 🕵️ AI 에이전트
+      - 🔍 RAG 시스템
       - 👨‍🏫 AI 교육 및 콘텐츠 개발
       - 📊 공공 데이터 분석
-      - 📚 신기술 학습
+      - 🚀 솔로프리너
 ---
