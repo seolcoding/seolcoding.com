@@ -42,7 +42,7 @@ quickfacts:
     title: "핵심 기술"
     value: |
       - 🤖 생성형 AI (Gemini, ChatGPT)
-      - 🎨 바이브코딩 (Claude Code, Cursor)
+      - 💻 바이브코딩 (Claude Code, Cursor)
       - ☁️ 클라우드 (AWS, Azure)
       - 🐍 Python, Javascript
       - 💾 SQL, 데이터 분석
