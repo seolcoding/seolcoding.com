@@ -12,7 +12,7 @@ defaultContentLanguageInSubdir = false
     weight = 1
     [languages.ko.params]
       tagline = "현실의 문제를 AI로 해결하는 인디개발자"
-      hero_description = "<strong class=\"font-bold text-amber-400\">정부 대회 6회 수상</strong>, 공공기관 9년 근무 경력을 가진 AI 개발자입니다. <span class=\"font-semibold text-yellow-300 underline decoration-amber-400 decoration-2\">기획부터 배포까지</span> End-to-End로 개발해온 경험을 바탕으로, 강의 · 멘토링 · 개발을 통해 <strong class=\"font-semibold text-amber-300\">모두의 AI Transformation</strong>을 돕습니다."
+      hero_description = "<strong class=\"font-bold text-amber-400\">정부 대회 6회 수상</strong>, 공공기관 9년 근무 경력을 가진 AI 개발자입니다. <span class=\"font-semibold text-yellow-300 underline decoration-amber-400 decoration-2\">기획부터 배포까지</span> End-to-End로 개발하며 <strong class=\"font-semibold text-amber-300\">뛰어난 성과</strong>를 만들어왔습니다."
       hero_location = "부산, 대한민국"
       collab_tags = [
         "공공 부문 생성형 AI",
