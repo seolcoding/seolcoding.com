@@ -1,7 +1,7 @@
 ---
 title: "수상 이력"
 type: "homepage"
-intro: "설코딩의 수상 이력을 소개합니다."
+intro: "정부 대회 6회 수상, AI와 공공데이터로 현실의 문제를 해결합니다."
 
 awards:
   - year: "2025"
@@ -9,7 +9,7 @@ awards:
     organization: "카카오임팩트/브라이언임팩트"
     description: "전국 3,000명 중 본선 100인 선발, AI 활용 문제 해결 역량 경진대회"
     icon: "star"
-    color: "text-yellow-500"
+    color: "text-gray-400"
     logo: "brianimpact.svg"
 
   - year: "2024"
@@ -17,7 +17,7 @@ awards:
     organization: "과기정통부 장관상"
     description: "노년층 맞춤형 AI 웹브라우징 어시스턴트 'AI 컴쌤' 개발"
     icon: "trophy"
-    color: "text-primary"
+    color: "text-gray-400"
     logo: "dpg.png"
 
   - year: "2023"
@@ -25,7 +25,7 @@ awards:
     organization: "행안부 장관상"
     description: "생성형 AI 기반 전입직원 교육 챗봇 및 역사 고객서비스 시스템 구축"
     icon: "trophy"
-    color: "text-primary"
+    color: "text-gray-400"
     logo: "mois.png"
 
   - year: "2024"
@@ -33,7 +33,7 @@ awards:
     organization: "부산광역시장상"
     description: "공공데이터 기반 Busan Data Explorer 서비스 개발"
     icon: "award"
-    color: "text-success"
+    color: "text-gray-400"
     logo: "busan.png"
 
   - year: "2024"
@@ -41,7 +41,7 @@ awards:
     organization: "한국중부발전 사장상"
     description: "데이터 도깨비 프로젝트 - 에너지 분야 공공데이터 혁신 활용"
     icon: "lightbulb"
-    color: "text-warning"
+    color: "text-gray-400"
     logo: "komipo.png"
 
   - year: "2024"
@@ -49,6 +49,6 @@ awards:
     organization: "국회사무처"
     description: "국회 AI 비서관 시스템 - 국회 공공데이터 기반 지능형 서비스"
     icon: "code"
-    color: "text-error"
+    color: "text-gray-400"
     logo: "assembly.png"
 ---

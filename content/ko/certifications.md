@@ -1,21 +1,21 @@
 ---
 title: "자격증"
 type: "homepage"
-intro: "클라우드, 데이터, AI 교육 분야의 공인 자격증 보유."
+intro: "AWS, Azure, Google 등 글로벌 클라우드 및 AI 분야 공인 자격 보유"
 
 certifications:
   - title: "AICE Associate"
     organization: "KT (국가공인)"
     date: "2025"
     icon: "brain"
-    color: "text-purple-500"
+    color: "text-gray-400"
     description: "AI 분야 최초 국가공인 자격증, 정형 데이터 분석 및 AI 모델링 역량 인증"
 
   - title: "AWS Certified AI Practitioner"
     organization: "Amazon Web Services"
     date: "2024"
     icon: "robot"
-    color: "text-orange-500"
+    color: "text-gray-400"
     description: "AWS AI/ML 및 생성형 AI 기술 전문 역량 인증"
 
   - title: "AWS Certified Solutions Architect – Associate"
@@ -24,21 +24,21 @@ certifications:
     expiry: "2026"
     credential_id: "XVM8C0N2RJVE1KGN"
     icon: "cloud"
-    color: "text-warning"
+    color: "text-gray-400"
     description: "클라우드 아키텍처 설계 및 구축 전문 자격증"
 
   - title: "SQL 개발자"
     organization: "한국데이터산업진흥원"
     date: "2022"
     icon: "database"
-    color: "text-primary"
+    color: "text-gray-400"
     description: "데이터베이스 설계 및 SQL 개발 전문 자격증"
 
   - title: "정보처리기사"
     organization: "한국산업인력공단"
     date: "2022"
     icon: "code"
-    color: "text-success"
+    color: "text-gray-400"
     description: "정보시스템 개발 및 운영 전문 자격증"
 
   - title: "Azure Fundamentals"
@@ -46,18 +46,18 @@ certifications:
     date: "2022"
     credential_id: "992619920"
     icon: "microsoft"
-    color: "text-info"
+    color: "text-gray-400"
     description: "Microsoft Azure 클라우드 기초 자격증"
 
   - title: "Google Certified Educator Level 1 & 2"
     organization: "Google for Education"
     icon: "graduation-cap"
-    color: "text-error"
+    color: "text-gray-400"
     description: "Google 교육 도구 활용 전문 교육자 자격증"
 
   - title: "Gemini Certified Educator"
     organization: "Google for Education"
     icon: "robot"
-    color: "text-secondary"
+    color: "text-gray-400"
     description: "Gemini AI 교육 활용 전문 교육자 자격증"
 ---
