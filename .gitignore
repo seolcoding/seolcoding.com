@@ -144,7 +144,7 @@ vite.config.ts.timestamp-*
 .vite/
 
 
-public/
+/public/
 node_modules/
 package-lock.json
 yarn-error.log
