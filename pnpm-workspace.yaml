@@ -1,0 +1,4 @@
+packages:
+  - 'agents/website'
+  - 'agents/slides/*'
+  - 'agents/mini-apps/*/web'
