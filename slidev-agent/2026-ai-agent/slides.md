@@ -36,15 +36,19 @@ AI 에이전트 시대의 시작
 <v-clicks>
 
 **1️⃣ ChatGPT 독주 체제의 변화**
+
 - AI 시장이 어떻게 바뀌고 있는가?
 
 **2️⃣ 행동하는 인공지능, AI 에이전트**
+
 - 단순 대화를 넘어 실제로 일하는 AI
 
 **3️⃣ 피지컬 AI의 등장**
+
 - 휴머노이드 로봇과 자율주행
 
 **4️⃣ 내 기기에서 돌아가는 AI**
+
 - 온디바이스 sLLM의 가능성
 
 </v-clicks>
@@ -57,8 +61,8 @@ AI 에이전트 시대의 시작
 -->
 
 ---
-layout: section
----
+
+## layout: section
 
 # 01
 
@@ -84,14 +88,17 @@ layout: section
 <v-clicks>
 
 ### 📉 ChatGPT
+
 독점에서 경쟁 체제로
 
 ### 📈 경쟁 서비스 급성장
+
 - **Claude** (Anthropic)
 - **Gemini** (Google)
 - **Perplexity** (검색 특화)
 
 ### 📈 중국 오픈소스
+
 - DeepSeek, Qwen 부상
 
 </v-clicks>
@@ -129,13 +136,13 @@ Anthropic의 Claude, Google의 Gemini, 그리고 검색에 특화된 Perplexity 
 
 # 주요 AI 서비스 비교
 
-| 서비스 | 특징 | 강점 |
-|:---:|---|---|
-| **ChatGPT** | 범용 대화형 AI | 플러그인 생태계, 이미지 생성 |
-| **Claude** | 안전성 중시 AI | 긴 문서 처리, 코딩, 분석 |
-| **Gemini** | 구글 생태계 연동 | 검색 통합, 멀티모달 |
-| **Perplexity** | AI 검색 엔진 | 실시간 정보, 출처 제공 |
-| **DeepSeek** | 오픈소스 | 무료, 커스터마이징 가능 |
+|     서비스     | 특징             | 강점                         |
+| :------------: | ---------------- | ---------------------------- |
+|  **ChatGPT**   | 범용 대화형 AI   | 플러그인 생태계, 이미지 생성 |
+|   **Claude**   | 안전성 중시 AI   | 긴 문서 처리, 코딩, 분석     |
+|   **Gemini**   | 구글 생태계 연동 | 검색 통합, 멀티모달          |
+| **Perplexity** | AI 검색 엔진     | 실시간 정보, 출처 제공       |
+|  **DeepSeek**  | 오픈소스         | 무료, 커스터마이징 가능      |
 
 <v-click>
 
@@ -263,8 +270,8 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 -->
 
 ---
-layout: statement
----
+
+## layout: statement
 
 # AI 프로바이더는 하나가 아니다
 
@@ -301,8 +308,8 @@ layout: statement
 -->
 
 ---
-layout: section
----
+
+## layout: section
 
 # 02
 
@@ -334,6 +341,7 @@ layout: section
 ```
 
 **예시**
+
 > "비행기 예약 어떻게 해요?"
 >
 > → "이렇게 하세요~"
@@ -364,6 +372,7 @@ graph LR
 </div>
 
 **예시**
+
 > "비행기 예약해줘"
 >
 > → (직접 예약 사이트 접속, 검색, 결제까지)
@@ -396,6 +405,7 @@ AI 에이전트의 정의를 간단히 설명드리면요,
 <div class="p-4 bg-blue-50 rounded-lg dark:bg-blue-900/20">
 
 ### 🧠 다단계 추론
+
 Multi-step Reasoning
 
 복잡한 작업을 작은 단계로 분해
@@ -405,6 +415,7 @@ Multi-step Reasoning
 <div class="p-4 bg-green-50 rounded-lg dark:bg-green-900/20">
 
 ### 🔧 도구 사용
+
 Tool Use
 
 API, 웹브라우저, 앱을 직접 조작
@@ -414,6 +425,7 @@ API, 웹브라우저, 앱을 직접 조작
 <div class="p-4 bg-yellow-50 rounded-lg dark:bg-yellow-900/20">
 
 ### 🔄 자기 수정
+
 Self-correction
 
 실패하면 다른 방법 시도
@@ -423,6 +435,7 @@ Self-correction
 <div class="p-4 bg-purple-50 rounded-lg dark:bg-purple-900/20">
 
 ### 💾 기억
+
 Memory
 
 이전 작업 내용을 기억하고 활용
@@ -452,6 +465,7 @@ AI 에이전트가 이렇게 일을 할 수 있는 건 네 가지 핵심 능력 
 <div class="p-4 border rounded-lg">
 
 ### 🟢 OpenAI Operator
+
 - ChatGPT 기반 에이전트
 - 웹 브라우징, 작업 자동화
 
@@ -460,6 +474,7 @@ AI 에이전트가 이렇게 일을 할 수 있는 건 네 가지 핵심 능력 
 <div class="p-4 border rounded-lg">
 
 ### 🟣 Claude Computer Use
+
 - Anthropic의 컴퓨터 제어 AI
 - 데스크톱 앱까지 조작 가능
 
@@ -468,6 +483,7 @@ AI 에이전트가 이렇게 일을 할 수 있는 건 네 가지 핵심 능력 
 <div class="p-4 border rounded-lg">
 
 ### 🔵 Microsoft Copilot Agent
+
 - MS 365 통합 에이전트
 - Word, Excel, Outlook 자동화
 
@@ -476,6 +492,7 @@ AI 에이전트가 이렇게 일을 할 수 있는 건 네 가지 핵심 능력 
 <div class="p-4 border rounded-lg">
 
 ### 🟠 Salesforce Agentforce
+
 - CRM 특화 에이전트
 - 고객 응대 자동화
 
@@ -532,6 +549,7 @@ Claude는 Computer Use라는 기능이 있는데, 이건 브라우저뿐 아니�
 <div class="mt-4 p-3 bg-gray-100 rounded-lg dark:bg-gray-800 text-sm">
 
 **🔍 추천 검색**
+
 - "OpenAI Operator demo"
 - "Claude Computer Use demo"
 
@@ -551,10 +569,11 @@ Claude는 Computer Use라는 기능이 있는데, 이건 브라우저뿐 아니�
 -->
 
 ---
-layout: fact
----
+
+## layout: fact
 
 # $1,036억
+
 ## (약 140조 원)
 
 2032년 AI 에이전트 시장 전망
@@ -678,8 +697,8 @@ Gartner라는 유명한 리서치 회사에서는, 2026년까지 기업용 앱�
 -->
 
 ---
-layout: statement
----
+
+## layout: statement
 
 # AI 에이전트 = 나의 디지털 비서
 
@@ -716,8 +735,8 @@ AI 에이전트 섹션을 정리하면요,
 -->
 
 ---
-layout: section
----
+
+## layout: section
 
 # 03
 
@@ -793,14 +812,17 @@ layout: section
 <v-clicks>
 
 ### 🚗 Tesla FSD
+
 - 레벨 2+ 수준
 - 지속적인 업데이트 중
 
 ### 🚕 Waymo
+
 - **레벨 4 로보택시 상용화**
 - 미국 주요 도시에서 운행 중
 
 ### 🚌 국내 현황
+
 - 자율주행 버스 시범 운행
 - 규제 완화 진행 중
 
@@ -838,18 +860,20 @@ Waymo는 이미 미국에서 로보택시를 운영하고 있어요. 운전자 �
 -->
 
 ---
-layout: quote
----
+
+## layout: quote
 
 # "지금은 초기 단계지만, 머지않아 우리 삶에 큰 영향을 미칠 분야입니다"
 
 <v-clicks>
 
 **Goldman Sachs 전망**
+
 - 2026년 전 세계 5~10만 대 휴머노이드 출하
 - 장기적으로 **50억 대** 시장 가능성
 
 **현실적 타임라인**
+
 - 2025~2026: 공장/물류 시범 적용
 - 2027~2028: 상업적 확대
 - 2029~: 가정용 가능성
@@ -865,8 +889,8 @@ layout: quote
 -->
 
 ---
-layout: section
----
+
+## layout: section
 
 # 04
 
@@ -948,6 +972,7 @@ layout: section
 <div class="p-4 bg-yellow-50 rounded-lg dark:bg-yellow-900/20">
 
 ### 🟡 카카오 모델
+
 - **Kanana 시리즈**
 - 한국어 특화
 - 경량화 버전 제공
@@ -957,6 +982,7 @@ layout: section
 <div class="p-4 bg-green-50 rounded-lg dark:bg-green-900/20">
 
 ### 🟢 네이버 모델
+
 - **HyperCLOVA X**
 - 소형 모델 버전 제공
 - 검색 연동 강점
@@ -966,6 +992,7 @@ layout: section
 <div class="p-4 bg-blue-50 rounded-lg dark:bg-blue-900/20">
 
 ### 🔵 EXAONE
+
 - **LG AI Research**
 - 멀티모달 지원
 - 기업용 특화
@@ -975,6 +1002,7 @@ layout: section
 <div class="p-4 bg-purple-50 rounded-lg dark:bg-purple-900/20">
 
 ### 🟣 Solar
+
 - **Upstage**
 - 오픈소스 공개
 - 다양한 크기 제공
@@ -1087,8 +1115,8 @@ layout: section
 -->
 
 ---
-layout: statement
----
+
+## layout: statement
 
 # 1교시 정리
 
@@ -1098,9 +1126,11 @@ layout: statement
 <v-clicks>
 
 ### ✅ ChatGPT 독주 체제의 변화
+
 용도에 맞는 AI를 선택하는 능력이 중요
 
 ### ✅ AI 에이전트
+
 "알려주는 AI"에서 "해주는 AI"로 진화
 
 </v-clicks>
@@ -1111,9 +1141,11 @@ layout: statement
 <v-clicks>
 
 ### ✅ 피지컬 AI
+
 초기 단계지만 주목할 분야
 
 ### ✅ 온디바이스 sLLM
+
 보안성과 커스터마이징의 장점
 
 </v-clicks>
@@ -1130,8 +1162,8 @@ layout: statement
 -->
 
 ---
-layout: fact
----
+
+## layout: fact
 
 # 🎯 2026년 AI 시대
 

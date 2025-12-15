@@ -72,12 +72,12 @@ jobs:
       # Build Slidev presentations
       - name: Install Slidev dependencies
         run: |
-          cd slides-src/2026-ai-agent
+          cd slidev-agent/2026-ai-agent
           pnpm install
 
       - name: Build Slidev presentations
         run: |
-          cd slides-src/2026-ai-agent
+          cd slidev-agent/2026-ai-agent
           pnpm build --base /slides/2026-ai-agent/
           mkdir -p ../../static/slides/2026-ai-agent
           cp -r dist/* ../../static/slides/2026-ai-agent/
