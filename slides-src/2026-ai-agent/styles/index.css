@@ -1,0 +1,62 @@
+/* 한국어 단어 단위 줄바꿈 */
+.slidev-layout {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 하단 패딩 확보 */
+.slidev-layout {
+  padding-bottom: 8% !important;
+}
+
+/* 제목과 본문 사이 간격 확대 (기본값의 2배) */
+.slidev-layout h1 {
+  margin-bottom: 1.5em !important;
+}
+
+/* 테이블 스타일 개선 */
+table {
+  font-size: 0.9em;
+}
+
+table th {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark table th {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 코드 블록 개선 */
+pre {
+  font-size: 0.85em !important;
+}
+
+/* 인용문 스타일 */
+blockquote {
+  border-left: 4px solid #4f46e5;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+/* Mermaid 다이어그램 크기 조정 및 오버플로우 방지 */
+.mermaid {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Mermaid 컨테이너 오버플로우 */
+[class*="mermaid"] {
+  overflow: hidden;
+}
+
+/* 슬라이드 내 오버플로우 방지 */
+.slidev-layout .grid {
+  overflow: hidden;
+}

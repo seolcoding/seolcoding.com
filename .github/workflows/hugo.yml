@@ -58,11 +58,29 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Install Node.js dependencies
         run: npm install
 
       - name: Build CSS with Tailwind
         run: npm run build:css
+
+      # Build Slidev presentations
+      - name: Install Slidev dependencies
+        run: |
+          cd slides-src/2026-ai-agent
+          pnpm install
+
+      - name: Build Slidev presentations
+        run: |
+          cd slides-src/2026-ai-agent
+          pnpm build --base /slides/2026-ai-agent/
+          mkdir -p ../../static/slides/2026-ai-agent
+          cp -r dist/* ../../static/slides/2026-ai-agent/
 
       - name: Build with Hugo
         env:
