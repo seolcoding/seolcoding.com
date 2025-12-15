@@ -83,16 +83,17 @@ jobs:
 
       # Build prompt-tutorial mini app
       - name: Install prompt-tutorial dependencies
-        run: |
-          cd agents/mini-apps/prompt-tutorial/web
-          npm install
+        working-directory: agents/mini-apps/prompt-tutorial/web
+        run: npm install
 
       - name: Build prompt-tutorial
+        working-directory: agents/mini-apps/prompt-tutorial/web
+        run: npm run build
+
+      - name: Copy prompt-tutorial to website
         run: |
-          cd agents/mini-apps/prompt-tutorial/web
-          npm run build
-          mkdir -p ../../../website/static/mini-apps/prompt-tutorial
-          cp -r dist/* ../../../website/static/mini-apps/prompt-tutorial/
+          mkdir -p agents/website/static/mini-apps/prompt-tutorial
+          cp -r agents/mini-apps/prompt-tutorial/web/dist/* agents/website/static/mini-apps/prompt-tutorial/
 
       - name: Build with Hugo
         env:
