@@ -84,7 +84,7 @@ jobs:
       # Build prompt-tutorial mini app
       - name: Install prompt-tutorial dependencies
         working-directory: agents/mini-apps/prompt-tutorial/web
-        run: npm install
+        run: npm install --ignore-scripts
 
       - name: Build prompt-tutorial
         working-directory: agents/mini-apps/prompt-tutorial/web
