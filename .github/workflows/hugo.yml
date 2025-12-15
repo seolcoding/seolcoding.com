@@ -84,11 +84,11 @@ jobs:
       # Build prompt-tutorial mini app
       - name: Install prompt-tutorial dependencies
         working-directory: agents/mini-apps/prompt-tutorial/web
-        run: npm install --ignore-scripts
+        run: pnpm install
 
       - name: Build prompt-tutorial
         working-directory: agents/mini-apps/prompt-tutorial/web
-        run: npm run build
+        run: pnpm build
 
       - name: Copy prompt-tutorial to website
         run: |
