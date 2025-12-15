@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.LanguageCode | default .Site.Language.Lang | default "ko" }}">
+<head>
+    <!-- Prevent dark mode flash -->
+    <script>
+        if (localStorage.getItem('darkMode') !== 'false') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    {{ partial "head.html" . }}
+
+    <!-- Color Variables -->
+    {{ partial "color-variables.html" . }}
+
+    {{ $styles := resources.Get "css/main.css" | postCSS (dict "config" "./postcss.config.js") }}
+    {{ $semantic := resources.Get "css/semantic-colors.css" }}
+    {{ if hugo.IsProduction }}
+      {{ $styles = $styles | minify | fingerprint }}
+      {{ $semantic = $semantic | minify | fingerprint }}
+    {{ end }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}?v={{ now.Unix }}" data-version="{{ now.Unix }}">
+    <link rel="stylesheet" href="{{ $semantic.RelPermalink }}?v={{ now.Unix }}" data-version="{{ now.Unix }}">
+
+    <!-- Custom Animation Styles -->
+    {{ $animationStyles := resources.Get "css/animations.css" }}
+    {{ if $animationStyles }}
+      {{ if hugo.IsProduction }}
+        {{ $animationStyles = $animationStyles | minify | fingerprint }}
+      {{ end }}
+      <link rel="stylesheet" href="{{ $animationStyles.RelPermalink }}">
+    {{ end }}
+
+    <style>
+        /* Critical CSS - Hide until loaded */
+        body { visibility: hidden; }
+        .dark body { visibility: hidden; }
+    </style>
+
+    <!-- GSAP Core + Plugins from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-bg dark:bg-bg text-text-primary dark:text-text-primary flex flex-col min-h-screen transition-colors duration-200">
+
+    {{ partial "nav.html" . }}
+    <div class="w-full h-16"></div>
+
+    <main class="flex-grow">
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ partial "footer.html" . }}
+
+    {{ $scripts := resources.Get "js/scripts.js" }}
+    {{ $gsap := resources.Get "js/gsap-animations.js" }}
+    {{ if hugo.IsProduction }}
+      {{ $scripts = $scripts | minify | fingerprint }}
+      {{ $gsap = $gsap | minify | fingerprint }}
+    {{ end }}
+    <script src="{{ $scripts.RelPermalink }}"></script>
+    <script src="{{ $gsap.RelPermalink }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fslightbox/index.js"></script>
+
+    <!-- Dark mode + Show content -->
+    <script>
+        if (localStorage.getItem('darkMode') !== 'false') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Console Easter Egg -->
+    <script>
+        console.log('%c', 'font-size: 1px; padding: 100px 150px; background: url(https://seolcoding.com/images/seolcoding_logo.png) no-repeat; background-size: contain;');
+        console.log('%c Hey Developer! ', 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 24px; font-weight: bold; padding: 10px 20px; border-radius: 5px;');
+        console.log('%c Welcome to seolcoding.com! ', 'color: #667eea; font-size: 16px; font-weight: bold;');
+        console.log('%c Looking for the source code? Check out: https://github.com/seolcoding ', 'color: #666; font-size: 12px;');
+        console.log('%c\n' +
+            '   ____            _  ____          _ _             \n' +
+            '  / ___|  ___  ___| |/ ___|___   __| (_)_ __   __ _ \n' +
+            '  \\___ \\ / _ \\/ _ \\ | |   / _ \\ / _` | | \'_ \\ / _` |\n' +
+            '   ___) |  __/ (_) | | |__| (_) | (_| | | | | | (_| |\n' +
+            '  |____/ \\___|\\___/|_|\\____\\___/ \\__,_|_|_| |_|\\__, |\n' +
+            '                                              |___/ \n',
+            'color: #764ba2; font-family: monospace;');
+    </script>
+</body>
+</html>

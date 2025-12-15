@@ -63,37 +63,36 @@ jobs:
         with:
           version: 9
 
-      - name: Install Node.js dependencies
-        run: npm install
-
-      - name: Build CSS with Tailwind
-        run: npm run build:css
+      - name: Install Website dependencies
+        run: |
+          cd agents/website
+          npm install
 
       # Build Slidev presentations
       - name: Install Slidev dependencies
         run: |
-          cd slidev-agent/2026-ai-agent
+          cd agents/slides/2026-ai-agent
           pnpm install
 
       - name: Build Slidev presentations
         run: |
-          cd slidev-agent/2026-ai-agent
+          cd agents/slides/2026-ai-agent
           pnpm build --base /slides/2026-ai-agent/
-          mkdir -p ../../static/slides/2026-ai-agent
-          cp -r dist/* ../../static/slides/2026-ai-agent/
+          mkdir -p ../../website/static/slides/2026-ai-agent
+          cp -r dist/* ../../website/static/slides/2026-ai-agent/
 
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
         run: |
-          hugo \
-            --minify
+          cd agents/website
+          hugo --minify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./agents/website/public
 
   # Deployment job
   deploy:

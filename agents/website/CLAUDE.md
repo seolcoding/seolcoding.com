@@ -9,7 +9,6 @@ Hugo 기반 포트폴리오 웹사이트 및 블로그 개발 에이전트.
 ```bash
 cd agents/website
 npm install          # Install dependencies (Tailwind CSS)
-npm run build:css    # Build CSS
 hugo server -D       # Start dev server at localhost:1313
 ```
 
@@ -102,7 +101,6 @@ description = "프로젝트 설명"
 ```bash
 # Development
 hugo server -D              # 개발 서버 (draft 포함)
-npm run build:css           # Tailwind CSS 빌드
 
 # Production
 npm run build               # 전체 빌드
@@ -151,8 +149,7 @@ static/
 
 GitHub Actions에서 자동 빌드/배포:
 
-1. Tailwind CSS 빌드
-2. Hugo 빌드 (--minify)
-3. GitHub Pages 배포
+1. Hugo 빌드 (--minify) (Hugo Pipes로 CSS도 함께 빌드)
+2. GitHub Pages 배포
 
 빌드 결과물: `public/` → seolcoding.com

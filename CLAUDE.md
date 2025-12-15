@@ -4,7 +4,6 @@
 
 ```bash
 npm install          # Install dependencies (Tailwind CSS)
-npm run build:css    # Build CSS
 hugo server -D       # Start dev server at localhost:1313
 npm run dev          # Alias for hugo server -D
 npm run build        # Build for production
@@ -110,9 +109,6 @@ GitHub Actions workflow deploys on push to main:
 # Development
 hugo server -D
 
-# Build CSS only
-npm run build:css
-
 # Full production build
 npm run build
 
@@ -124,7 +120,7 @@ git submodule update --remote
 ## Important Notes
 
 - Always test locally before pushing to main
-- CSS changes require `npm run build:css`
+- CSS is built via Hugo Pipes (PostCSS/Tailwind) during `npm run dev` / `npm run build`
 - Theme updates may require re-applying customizations
 - All Korean content in `content/ko/`
 - hugo server is always running in background

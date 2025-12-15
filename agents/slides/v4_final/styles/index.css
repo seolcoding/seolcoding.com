@@ -1,0 +1,89 @@
+/* ========== 테마 리셋 및 글로벌 스타일 ========== */
+
+/* 첫 번째 슬라이드 (표지) 완전 리셋 */
+.slidev-page-1 .slidev-layout {
+  background: white !important;
+  color: #1a1a1a !important;
+}
+
+.slidev-page-1 .slidev-layout h1 {
+  color: #1a1a1a !important;
+}
+
+/* 모든 슬라이드 하단 여백 제거 (푸터 영역) */
+.slidev-layout {
+  padding-bottom: 2em !important;
+}
+
+/* 한국어 단어 단위 줄바꿈 */
+.slidev-layout {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 테이블 스타일 */
+table {
+  font-size: 0.9em;
+  width: 100%;
+}
+
+table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+table th, table td {
+  padding: 0.4em 0.8em !important;
+  border: 1px solid #e5e7eb;
+}
+
+/* 제목 간격 */
+h1 {
+  margin-bottom: 0.5em !important;
+}
+
+h2, h3 {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.4em !important;
+}
+
+/* 리스트 간격 */
+ul, ol {
+  margin: 0.3em 0 !important;
+}
+
+li {
+  margin: 0.2em 0 !important;
+}
+
+/* blockquote 스타일 */
+blockquote {
+  font-size: 0.95em;
+  background: #f8fafc;
+  border-left: 4px solid #3b82f6;
+  padding: 0.6em 1em !important;
+  margin: 0.5em 0 !important;
+}
+
+/* 코드 블록 크기 제한 */
+pre {
+  max-height: 200px;
+  overflow: auto;
+  font-size: 0.85em;
+}
+
+/* 이미지 안전 크기 */
+img {
+  max-height: 50vh;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* center 레이아웃 */
+.slidev-layout.center {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
