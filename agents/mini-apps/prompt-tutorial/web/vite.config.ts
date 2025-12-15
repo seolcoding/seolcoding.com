@@ -5,7 +5,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/prompt/',
+  base: '/mini-apps/prompt-tutorial/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

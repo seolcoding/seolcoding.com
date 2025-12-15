@@ -81,6 +81,19 @@ jobs:
           mkdir -p ../../website/static/slides/2026-ai-agent
           cp -r dist/* ../../website/static/slides/2026-ai-agent/
 
+      # Build prompt-tutorial mini app
+      - name: Install prompt-tutorial dependencies
+        run: |
+          cd agents/mini-apps/prompt-tutorial/web
+          npm install
+
+      - name: Build prompt-tutorial
+        run: |
+          cd agents/mini-apps/prompt-tutorial/web
+          npm run build
+          mkdir -p ../../../website/static/mini-apps/prompt-tutorial
+          cp -r dist/* ../../../website/static/mini-apps/prompt-tutorial/
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
