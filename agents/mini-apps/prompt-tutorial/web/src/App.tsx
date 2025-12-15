@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Home } from '@/pages/Home';
 import { Chapter } from '@/pages/Chapter';
 import { Header } from '@/components/Header';
@@ -8,7 +8,7 @@ import { IntroModal } from '@/components/IntroModal';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <IntroModal />
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -23,7 +23,7 @@ function App() {
         </div>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
