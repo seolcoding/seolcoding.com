@@ -20,12 +20,12 @@ export function IntroModal() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-white/90 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-[100] bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
       <div className="max-w-3xl w-full flex flex-col items-center">
         {/* Infographic Image */}
         <div className="w-full mb-8 rounded-xl overflow-hidden shadow-lg">
           <img
-            src="/prompt/intro-infographic.png"
+            src={`${import.meta.env.BASE_URL}intro-infographic.png`}
             alt="프롬프트 엔지니어링 튜토리얼 워크플로"
             className="w-full h-auto"
           />
@@ -40,12 +40,12 @@ export function IntroModal() {
         </button>
 
         {/* Footer Links */}
-        <div className="mt-6 flex items-center justify-center gap-4 text-sm text-neutral-500">
+        <div className="mt-6 flex items-center justify-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
           <a
             href="https://github.com/anthropics/prompt-eng-interactive-tutorial"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-neutral-700 transition-colors underline"
+            className="hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors underline"
           >
             원본 GitHub
           </a>
@@ -54,7 +54,7 @@ export function IntroModal() {
             href="https://seolcoding.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-neutral-700 transition-colors underline"
+            className="hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors underline"
           >
             seolcoding.com
           </a>
