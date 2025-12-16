@@ -27,6 +27,39 @@ Slidev를 활용한 프레젠테이션 제작 프로젝트.
 3. ASCII 다이어그램 금지 - Mermaid 사용
 4. `v-click`, `v-motion` 애니메이션 적극 활용
 5. `grid-cols-2` 반복 금지 - 레이아웃 다양화
+6. **이미지는 항상 `<Lightbox>` 컴포넌트 사용** - 클릭 확대 기능
+7. **YouTube 영상은 한국어** 또는 비주얼 위주 공식 영상만
+8. **HTML/Vue 태그 인덴테이션 규칙** - MDC 호환성 유지
+   - HTML/Vue 태그: 중첩 레벨당 2칸 들여쓰기
+   - 마크다운 콘텐츠: 절대 들여쓰기 하지 않음 (Vue 컴포넌트 내부에서도)
+   - ⚠️ **자동 인덴테이션 금지**: Slidev MDC 파싱 특성상 수동으로만 작성
+
+#### 올바른 인덴테이션 예시
+
+```markdown
+<!-- ✅ 올바른 예시 -->
+<div class="grid grid-cols-2">
+  <div>
+
+### 마크다운 제목
+
+마크다운 콘텐츠는 들여쓰지 않음
+
+  </div>
+  <div class="flex items-center">
+
+<Lightbox src="/image.png" alt="설명" />
+
+  </div>
+</div>
+
+<!-- ❌ 잘못된 예시 -->
+<div class="grid grid-cols-2">
+<div>  <!-- 들여쓰기 없음 (잘못됨) -->
+  ### 마크다운 제목  <!-- 들여쓰기됨 (잘못됨) -->
+</div>
+</div>
+```
 
 ---
 
@@ -126,6 +159,38 @@ Content
 - Item 2
 
 </v-clicks>
+```
+
+### 이미지 (Lightbox 필수)
+
+```html
+<!-- 기본 사용 -->
+<Lightbox src="/image.png" alt="설명" caption="캡션 텍스트" />
+
+<!-- 스타일 추가 -->
+<Lightbox
+  src="/image.png"
+  alt="설명"
+  caption="출처: example.com"
+  class="rounded-lg shadow-lg h-48 object-cover"
+/>
+
+<!-- 외부 이미지 -->
+<Lightbox
+  src="https://example.com/image.jpg"
+  alt="설명"
+  caption="외부 이미지"
+/>
+```
+
+### YouTube 영상
+
+```html
+<!-- 한국어 영상 권장 -->
+<YouTube id="VIDEO_ID" title="영상 제목 (한국어)" height="140" />
+
+<!-- 예시 -->
+<YouTube id="CWWVvsqLfW4" title="DeepSeek AI 완벽 가이드 (한국어)" height="140" />
 ```
 
 ### 코드 하이라이팅

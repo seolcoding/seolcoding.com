@@ -83,7 +83,7 @@ AI 에이전트 시대의 시작
 # AI 서비스 사용자 이동 현황
 
 <div class="grid grid-cols-2 gap-8 pt-4">
-<div>
+  <div>
 
 <v-clicks>
 
@@ -103,8 +103,8 @@ AI 에이전트 시대의 시작
 
 </v-clicks>
 
-</div>
-<div class="flex items-center justify-center">
+  </div>
+  <div class="flex items-center justify-center">
 
 ```mermaid {scale: 0.5, theme: 'neutral'}
 pie showData
@@ -115,7 +115,7 @@ pie showData
     "기타" : 7
 ```
 
-</div>
+  </div>
 </div>
 
 <v-click>
@@ -169,7 +169,7 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 # 이미지 생성 AI의 진화
 
 <div class="grid grid-cols-2 gap-8">
-<div>
+  <div>
 
 ### 🎨 주요 서비스
 
@@ -183,8 +183,8 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 
 </v-clicks>
 
-</div>
-<div>
+  </div>
+  <div>
 
 ### 📸 2023년 vs 2025년
 
@@ -199,7 +199,7 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
   </div>
 </div>
 
-</div>
+  </div>
 </div>
 
 <v-click>
@@ -221,7 +221,7 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 # 중국발 오픈소스 AI의 충격
 
 <div class="grid grid-cols-2 gap-8">
-<div>
+  <div>
 
 ### 🇨🇳 DeepSeek R1
 
@@ -233,8 +233,8 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 
 </v-clicks>
 
-</div>
-<div>
+  </div>
+  <div>
 
 ### 🇨🇳 Qwen (알리바바)
 
@@ -246,7 +246,7 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 
 </v-clicks>
 
-</div>
+  </div>
 </div>
 
 <v-click>
