@@ -332,7 +332,7 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 # AI 에이전트란?
 
 <div class="grid grid-cols-2 gap-12">
-<div>
+  <div>
 
 ### 🔄 기존 AI (챗봇)
 
@@ -352,8 +352,8 @@ Perplexity는 검색에 특화되어 있어서, "이거 진짜야?" 싶을 때 �
 
 </v-click>
 
-</div>
-<div>
+  </div>
+  <div>
 
 ### 🤖 AI 에이전트
 
@@ -383,7 +383,7 @@ graph LR
 
 </v-click>
 
-</div>
+  </div>
 </div>
 
 <!--
