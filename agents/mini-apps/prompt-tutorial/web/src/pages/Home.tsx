@@ -32,6 +32,34 @@ export function Home() {
           </div>
           <h2 className="text-2xl font-bold text-neutral-900">프롬프트 엔지니어링 마스터</h2>
           <p className="text-neutral-600">AI와 효과적으로 대화하는 방법을 배워보세요</p>
+
+          {/* Additional Info */}
+          <div className="pt-2 space-y-2 text-sm text-neutral-500">
+            <div className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>Anthropic 공식 튜토리얼을 한국어로 번역</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Jupyter 노트북을 인터랙티브 웹앱으로 변환</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+              <span>실제 OpenAI API와 연결되어 진짜 AI와 대화 가능</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>개발: <a href="https://seolcoding.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">seolcoding</a></span>
+            </div>
+          </div>
         </div>
 
         {/* Progress Overview */}
