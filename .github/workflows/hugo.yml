@@ -88,6 +88,8 @@ jobs:
 
       - name: Build prompt-tutorial
         working-directory: agents/mini-apps/prompt-tutorial/web
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: pnpm build
 
       - name: Copy prompt-tutorial to website

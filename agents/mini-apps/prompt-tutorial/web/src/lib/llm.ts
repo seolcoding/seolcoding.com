@@ -2,13 +2,15 @@ import OpenAI from 'openai';
 
 const DEFAULT_MODEL = 'gpt-4.1-mini';
 const API_KEY_STORAGE_KEY = 'openai_api_key';
+const DEFAULT_API_KEY = import.meta.env.VITE_OPENAI_API_KEY || '';
 
-// localStorage에서 API 키 가져오기
+// localStorage에서 API 키 가져오기 (없으면 환경변수 사용)
 function getApiKey(): string {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem(API_KEY_STORAGE_KEY) || '';
+    const storedKey = localStorage.getItem(API_KEY_STORAGE_KEY);
+    return storedKey || DEFAULT_API_KEY;
   }
-  return '';
+  return DEFAULT_API_KEY;
 }
 
 let openaiClient: OpenAI | null = null;
