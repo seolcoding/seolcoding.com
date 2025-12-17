@@ -29,13 +29,13 @@ projects:
       - "교육 콘텐츠 관리"
       - "고객서비스 자동화"
 
-  - title: "Busan Data Explorer"
+  - title: "공공데이터 탐색 시스템"
     period: "2024년 7월"
     award: "부산광역시장상(장려상)"
     organization: "부산광역시"
     icon: "map-marked-alt"
     color: "text-info"
-    description: "부산광역시 공공데이터를 활용한 데이터 탐색 및 분석 플랫폼"
+    description: "공공데이터를 활용한 데이터 탐색 및 분석 플랫폼"
     technologies:
       - "공공데이터 API"
       - "데이터 시각화"
