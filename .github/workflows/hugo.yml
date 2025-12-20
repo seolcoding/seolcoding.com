@@ -68,18 +68,18 @@ jobs:
           cd agents/website
           npm install
 
-      # Build Slidev presentations
-      - name: Install Slidev dependencies
-        run: |
-          cd agents/slides/2026-ai-agent
-          pnpm install
+      # Build Slidev presentations (temporarily disabled due to twoslash-vue compatibility issue)
+      # - name: Install Slidev dependencies
+      #   run: |
+      #     cd agents/slides/2026-ai-agent
+      #     pnpm install
 
-      - name: Build Slidev presentations
-        run: |
-          cd agents/slides/2026-ai-agent
-          pnpm build --base /slides/2026-ai-agent/
-          mkdir -p ../../website/static/slides/2026-ai-agent
-          cp -r dist/* ../../website/static/slides/2026-ai-agent/
+      # - name: Build Slidev presentations
+      #   run: |
+      #     cd agents/slides/2026-ai-agent
+      #     pnpm build --base /slides/2026-ai-agent/
+      #     mkdir -p ../../website/static/slides/2026-ai-agent
+      #     cp -r dist/* ../../website/static/slides/2026-ai-agent/
 
       # Build prompt-tutorial mini app
       - name: Install prompt-tutorial dependencies
