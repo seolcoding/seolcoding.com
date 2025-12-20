@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
-import { Maximize2, Minimize2, Users, Home } from 'lucide-react';
+import { Maximize2, Minimize2, Users, Home, QrCode, TrendingUp, Sparkles } from 'lucide-react';
 import { useLiveResults } from '@/hooks/useLiveResults';
 import { ResultChart } from './ResultChart';
 
@@ -37,22 +37,30 @@ export function HostView() {
   return (
     <div className={`min-h-screen ${isPresentationMode ? 'bg-blue-600 p-8' : 'bg-gray-50 p-6'}`}>
       {/* 헤더 */}
-      <div className="max-w-7xl mx-auto mb-6">
+      <div className="max-w-7xl mx-auto mb-8">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className={`font-bold mb-2 ${isPresentationMode ? 'text-5xl text-white' : 'text-3xl'}`}>
-              {poll.title}
-            </h1>
-            <div className={`flex items-center gap-2 ${isPresentationMode ? 'text-2xl text-white/90' : 'text-lg text-gray-600'}`}>
-              <Users size={isPresentationMode ? 28 : 20} />
-              <span>총 {votes.length}명 참여</span>
+            <div className="flex items-center gap-3 mb-3">
+              {isPresentationMode && <Sparkles size={40} className="text-yellow-300" fill="currentColor" />}
+              <h1 className={`font-bold ${isPresentationMode ? 'text-6xl text-white' : 'text-4xl text-gray-900'}`}>
+                {poll.title}
+              </h1>
+            </div>
+            <div className={`flex items-center gap-3 ${isPresentationMode ? 'text-3xl text-white/90' : 'text-xl text-gray-600'}`}>
+              <div className={`flex items-center gap-2 ${isPresentationMode ? 'bg-white/20 backdrop-blur-sm px-6 py-3 rounded-2xl' : 'bg-blue-50 px-4 py-2 rounded-xl border border-blue-200'}`}>
+                <Users size={isPresentationMode ? 32 : 24} className={isPresentationMode ? 'text-white' : 'text-blue-600'} />
+                <span className="font-semibold">
+                  <span className={`${isPresentationMode ? 'text-yellow-300' : 'text-blue-600'} font-bold text-4xl`}>{votes.length}</span>
+                  <span className="ml-2">명 참여</span>
+                </span>
+              </div>
             </div>
           </div>
           <div className="flex gap-3">
             {!isPresentationMode && (
               <button
                 onClick={() => navigate('/')}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition flex items-center gap-2"
+                className="px-5 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all hover:scale-105 flex items-center gap-2 font-medium shadow-md"
               >
                 <Home size={20} />
                 홈으로
@@ -60,7 +68,11 @@ export function HostView() {
             )}
             <button
               onClick={() => setIsPresentationMode(!isPresentationMode)}
-              className="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition shadow-md flex items-center gap-2"
+              className={`px-5 py-3 rounded-xl transition-all hover:scale-105 shadow-lg flex items-center gap-2 font-medium ${
+                isPresentationMode
+                  ? 'bg-white text-blue-700 hover:bg-gray-100'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              }`}
             >
               {isPresentationMode ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
               {isPresentationMode ? '일반 모드' : '프레젠테이션 모드'}
@@ -71,68 +83,113 @@ export function HostView() {
 
       <div className={`max-w-7xl mx-auto grid ${isPresentationMode ? 'grid-cols-3 gap-8' : 'grid-cols-1 lg:grid-cols-2 gap-6'}`}>
         {/* QR 코드 */}
-        <div className={`bg-white rounded-xl shadow-lg p-6 ${isPresentationMode ? 'col-span-1' : ''}`}>
-          <h3 className={`font-bold mb-4 ${isPresentationMode ? 'text-2xl' : 'text-xl'}`}>투표 참여</h3>
+        <div className={`bg-white rounded-2xl shadow-xl p-8 ${isPresentationMode ? 'col-span-1 border-4 border-blue-200' : 'border border-gray-200'}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className={`${isPresentationMode ? 'w-14 h-14' : 'w-12 h-12'} bg-purple-600 rounded-xl flex items-center justify-center shadow-md`}>
+              <QrCode size={isPresentationMode ? 28 : 24} className="text-white" />
+            </div>
+            <h3 className={`font-bold ${isPresentationMode ? 'text-3xl' : 'text-2xl'} text-gray-900`}>투표 참여</h3>
+          </div>
           {qrDataUrl && (
             <div className="flex flex-col items-center">
-              <img src={qrDataUrl} alt="QR Code" className={isPresentationMode ? 'w-full' : 'w-64'} />
-              <p className="mt-4 text-sm text-gray-600 text-center">QR 스캔 또는 아래 링크로 접속</p>
-              <p className="font-mono text-xs text-blue-600 break-all text-center mt-2 px-4">
-                {window.location.origin}{import.meta.env.BASE_URL}vote/{pollId}
-              </p>
+              <div className={`relative ${isPresentationMode ? 'p-6' : 'p-4'} bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300`}>
+                <img src={qrDataUrl} alt="QR Code" className={`${isPresentationMode ? 'w-full' : 'w-64'} rounded-xl`} />
+              </div>
+              <div className={`mt-6 text-center ${isPresentationMode ? 'space-y-3' : 'space-y-2'}`}>
+                <p className={`text-gray-700 font-medium ${isPresentationMode ? 'text-xl' : 'text-base'}`}>
+                  QR 코드를 스캔하거나<br />아래 링크로 접속하세요
+                </p>
+                <div className={`${isPresentationMode ? 'px-6 py-4' : 'px-4 py-3'} bg-blue-50 rounded-xl border border-blue-200`}>
+                  <p className={`font-mono text-blue-700 font-semibold break-all ${isPresentationMode ? 'text-base' : 'text-sm'}`}>
+                    {window.location.origin}{import.meta.env.BASE_URL}vote/{pollId}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </div>
 
         {/* 차트 */}
-        <div className={`bg-white rounded-xl shadow-lg p-6 ${isPresentationMode ? 'col-span-2' : ''}`}>
-          <h3 className={`font-bold mb-4 ${isPresentationMode ? 'text-2xl' : 'text-xl'}`}>
-            실시간 결과
-            {poll.type === 'ranking' && ' (Borda Count 점수)'}
-          </h3>
-          <ResultChart results={results} isRanking={poll.type === 'ranking'} />
+        <div className={`bg-white rounded-2xl shadow-xl p-8 ${isPresentationMode ? 'col-span-2 border-4 border-green-200' : 'border border-gray-200'}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className={`${isPresentationMode ? 'w-14 h-14' : 'w-12 h-12'} bg-green-600 rounded-xl flex items-center justify-center shadow-md`}>
+              <TrendingUp size={isPresentationMode ? 28 : 24} className="text-white" strokeWidth={2.5} />
+            </div>
+            <div>
+              <h3 className={`font-bold ${isPresentationMode ? 'text-3xl' : 'text-2xl'} text-gray-900`}>
+                실시간 결과
+              </h3>
+              {poll.type === 'ranking' && (
+                <p className={`text-gray-600 ${isPresentationMode ? 'text-lg' : 'text-sm'}`}>Borda Count 점수</p>
+              )}
+            </div>
+          </div>
+          <ResultChart results={results} isRanking={poll.type === 'ranking'} isPresentationMode={isPresentationMode} />
         </div>
       </div>
 
       {/* 결과 테이블 (일반 모드만) */}
       {!isPresentationMode && (
-        <div className="max-w-7xl mx-auto mt-6 bg-white rounded-xl shadow-lg p-6">
-          <h3 className="text-xl font-bold mb-4">상세 결과</h3>
+        <div className="max-w-7xl mx-auto mt-6 bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+          <h3 className="text-2xl font-bold mb-6 text-gray-900">상세 결과</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4 font-semibold">선택지</th>
+                <tr className="border-b-2 border-gray-300">
+                  <th className="text-left py-4 px-6 font-bold text-gray-900 text-lg">선택지</th>
                   {poll.type === 'ranking' ? (
                     <>
-                      <th className="text-right py-3 px-4 font-semibold">순위</th>
-                      <th className="text-right py-3 px-4 font-semibold">점수</th>
+                      <th className="text-right py-4 px-6 font-bold text-gray-900 text-lg">순위</th>
+                      <th className="text-right py-4 px-6 font-bold text-gray-900 text-lg">점수</th>
                     </>
                   ) : (
                     <>
-                      <th className="text-right py-3 px-4 font-semibold">득표수</th>
-                      <th className="text-right py-3 px-4 font-semibold">비율</th>
+                      <th className="text-right py-4 px-6 font-bold text-gray-900 text-lg">득표수</th>
+                      <th className="text-right py-4 px-6 font-bold text-gray-900 text-lg">비율</th>
+                      <th className="text-left py-4 px-6 font-bold text-gray-900 text-lg">진행률</th>
                     </>
                   )}
                 </tr>
               </thead>
               <tbody>
-                {results.map((result, index) => (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4">{result.option}</td>
-                    {poll.type === 'ranking' ? (
-                      <>
-                        <td className="text-right py-3 px-4 font-medium">{result.rank}위</td>
-                        <td className="text-right py-3 px-4">{result.score}점</td>
-                      </>
-                    ) : (
-                      <>
-                        <td className="text-right py-3 px-4 font-medium">{result.count}표</td>
-                        <td className="text-right py-3 px-4">{result.percentage.toFixed(1)}%</td>
-                      </>
-                    )}
-                  </tr>
-                ))}
+                {results.map((result, index) => {
+                  const colorClasses = [
+                    'bg-blue-500',
+                    'bg-purple-500',
+                    'bg-green-500',
+                    'bg-orange-500',
+                    'bg-pink-500',
+                    'bg-cyan-500',
+                    'bg-indigo-500',
+                    'bg-teal-500',
+                  ];
+                  const colorClass = colorClasses[index % colorClasses.length];
+
+                  return (
+                    <tr key={index} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                      <td className="py-4 px-6 font-medium text-gray-900 text-base">{result.option}</td>
+                      {poll.type === 'ranking' ? (
+                        <>
+                          <td className="text-right py-4 px-6 font-semibold text-gray-900">{result.rank}위</td>
+                          <td className="text-right py-4 px-6 font-semibold text-gray-900">{result.score}점</td>
+                        </>
+                      ) : (
+                        <>
+                          <td className="text-right py-4 px-6 font-semibold text-gray-900 text-lg">{result.count}표</td>
+                          <td className="text-right py-4 px-6 font-semibold text-gray-900 text-lg">{result.percentage.toFixed(1)}%</td>
+                          <td className="py-4 px-6">
+                            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                              <div
+                                className={`h-full ${colorClass} rounded-full transition-all duration-500 ease-out`}
+                                style={{ width: `${result.percentage}%` }}
+                              />
+                            </div>
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -28,8 +28,14 @@ export const ItemInput: React.FC<ItemInputProps> = ({ onAdd, disabled }) => {
         onChange={(e) => setInput(e.target.value)}
         disabled={disabled}
         maxLength={50}
+        className="border-gray-300 focus:ring-purple-500 focus:border-purple-500"
       />
-      <Button type="submit" size="icon" disabled={disabled || !input.trim()}>
+      <Button
+        type="submit"
+        size="icon"
+        disabled={disabled || !input.trim()}
+        className="bg-purple-600 hover:bg-purple-700 text-white"
+      >
         <Plus className="h-4 w-4" />
       </Button>
     </form>

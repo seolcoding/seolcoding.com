@@ -38,33 +38,41 @@ export function TeamSettings() {
   const preview = calculatePreview();
 
   return (
-    <Card className="p-6">
-      <h2 className="text-2xl font-bold mb-4">팀 설정</h2>
+    <Card className="p-8 border-gray-200 shadow-sm bg-white">
+      <h2 className="text-3xl font-bold mb-6 text-gray-900">팀 설정</h2>
 
       {/* Mode Selection */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         <Button
           variant={settings.mode === 'byTeamCount' ? 'default' : 'outline'}
           onClick={() => handleModeChange('byTeamCount')}
-          className="h-auto py-4 flex flex-col items-center gap-2"
+          className={`h-auto py-6 flex flex-col items-center gap-3 ${
+            settings.mode === 'byTeamCount'
+              ? 'bg-blue-600 hover:bg-blue-700'
+              : 'border-gray-300 hover:bg-gray-50'
+          }`}
         >
-          <Users className="w-6 h-6" />
-          <span>팀 수 지정</span>
+          <Users className="w-7 h-7" />
+          <span className="font-semibold">팀 수 지정</span>
         </Button>
         <Button
           variant={settings.mode === 'byMemberCount' ? 'default' : 'outline'}
           onClick={() => handleModeChange('byMemberCount')}
-          className="h-auto py-4 flex flex-col items-center gap-2"
+          className={`h-auto py-6 flex flex-col items-center gap-3 ${
+            settings.mode === 'byMemberCount'
+              ? 'bg-blue-600 hover:bg-blue-700'
+              : 'border-gray-300 hover:bg-gray-50'
+          }`}
         >
-          <UserCheck className="w-6 h-6" />
-          <span>팀당 인원 지정</span>
+          <UserCheck className="w-7 h-7" />
+          <span className="font-semibold">팀당 인원 지정</span>
         </Button>
       </div>
 
       {/* Team Count Input */}
       {settings.mode === 'byTeamCount' && (
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">팀 수</label>
+        <div className="space-y-3">
+          <label className="block text-sm font-semibold text-gray-700">팀 수</label>
           <Input
             type="number"
             min="2"
@@ -74,14 +82,15 @@ export function TeamSettings() {
               setSettings({ ...settings, teamCount: Number(e.target.value) })
             }
             placeholder="팀 수 입력 (예: 5)"
+            className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
       )}
 
       {/* Member Count Input */}
       {settings.mode === 'byMemberCount' && (
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">팀당 인원</label>
+        <div className="space-y-3">
+          <label className="block text-sm font-semibold text-gray-700">팀당 인원</label>
           <Input
             type="number"
             min="1"
@@ -91,18 +100,19 @@ export function TeamSettings() {
               setSettings({ ...settings, memberCount: Number(e.target.value) })
             }
             placeholder="팀당 인원 입력 (예: 4)"
+            className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
       )}
 
       {/* Preview */}
       {preview && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <h4 className="font-semibold text-gray-900 mb-2">예상 결과</h4>
-          <div className="text-sm text-gray-600 space-y-1">
-            <p>총 참가자: {participants.length}명</p>
-            <p>팀 수: {preview.teams}개</p>
-            <p>팀당 인원: 약 {preview.membersPerTeam}명</p>
+        <div className="mt-6 p-5 bg-blue-50 rounded-xl border border-blue-200">
+          <h4 className="font-bold text-gray-900 mb-3 text-lg">예상 결과</h4>
+          <div className="text-sm text-gray-700 space-y-2">
+            <p className="font-medium">총 참가자: {participants.length}명</p>
+            <p className="font-medium">팀 수: {preview.teams}개</p>
+            <p className="font-medium">팀당 인원: 약 {preview.membersPerTeam}명</p>
           </div>
         </div>
       )}

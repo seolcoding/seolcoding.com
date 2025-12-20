@@ -23,11 +23,11 @@ export function WolseToJeonseConverter() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* 입력 영역 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>입력</CardTitle>
+      <Card className="border-gray-200 shadow-sm">
+        <CardHeader className="border-b border-gray-100 bg-white">
+          <CardTitle className="text-lg font-semibold text-gray-900">입력</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 bg-white">
           <div>
             <Label htmlFor="deposit-jeonse">월세 보증금</Label>
             <NumberInput
@@ -76,45 +76,45 @@ export function WolseToJeonseConverter() {
       </Card>
 
       {/* 결과 영역 */}
-      <Card className="bg-green-50">
-        <CardHeader>
-          <CardTitle>결과</CardTitle>
+      <Card className="border-blue-200 shadow-sm bg-white">
+        <CardHeader className="border-b border-blue-100 bg-blue-50">
+          <CardTitle className="text-lg font-semibold text-gray-900">결과</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <p className="text-sm text-gray-600">전세 환산액</p>
+        <CardContent className="space-y-6 bg-white">
+          <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <p className="text-sm font-medium text-gray-600 mb-2">전세 환산액</p>
             <CurrencyDisplay
               value={jeonseEquivalent}
-              className="text-3xl font-bold text-green-600"
+              className="text-3xl font-bold text-blue-600"
             />
           </div>
 
-          <div className="pt-4 border-t border-green-200">
-            <p className="text-sm text-gray-600 mb-2">계산 공식</p>
-            <p className="text-xs text-gray-500">
-              전세 = 보증금 + (월세 × 12 ÷ 전환율)
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              = {depositForJeonse.toLocaleString()} + ({monthlyRent.toLocaleString()}
-              × 12 ÷ {conversionRateWolse}%)
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              = <CurrencyDisplay value={jeonseEquivalent} />
-            </p>
+          <div className="pt-4 border-t border-gray-200">
+            <p className="text-sm font-medium text-gray-700 mb-3">계산 공식</p>
+            <div className="space-y-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+              <p>전세 = 보증금 + (월세 × 12 ÷ 전환율)</p>
+              <p>
+                = {depositForJeonse.toLocaleString()} + ({monthlyRent.toLocaleString()}
+                × 12 ÷ {conversionRateWolse}%)
+              </p>
+              <p className="font-semibold text-gray-900">
+                = <CurrencyDisplay value={jeonseEquivalent} />
+              </p>
+            </div>
           </div>
 
-          <div className="pt-4 border-t border-green-200">
-            <p className="text-sm text-gray-600 mb-2">월세와 비교</p>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
+          <div className="pt-4 border-t border-gray-200">
+            <p className="text-sm font-medium text-gray-700 mb-3">월세와 비교</p>
+            <div className="space-y-2 text-sm bg-gray-50 p-3 rounded-lg">
+              <div className="flex justify-between text-gray-600">
                 <span>현재 월세:</span>
-                <span className="font-semibold">
+                <span className="font-semibold text-gray-900">
                   보증금 <CurrencyDisplay value={depositForJeonse} /> + 월세 <CurrencyDisplay value={monthlyRent} />
                 </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-gray-600">
                 <span>전세 환산:</span>
-                <span className="font-semibold">
+                <span className="font-semibold text-gray-900">
                   <CurrencyDisplay value={jeonseEquivalent} />
                 </span>
               </div>

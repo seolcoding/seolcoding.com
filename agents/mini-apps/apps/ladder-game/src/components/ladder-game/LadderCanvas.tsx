@@ -77,23 +77,58 @@ export function LadderCanvas({
 
   if (!ladder) {
     return (
-      <div className="flex items-center justify-center h-[500px] bg-gray-50 rounded-lg">
-        <p className="text-gray-600">
-          참가자와 결과를 입력한 후 '사다리 생성' 버튼을 눌러주세요
-        </p>
+      <div className="flex flex-col items-center justify-center h-[500px] bg-gradient-to-br from-purple-50/50 to-pink-50/50 rounded-xl border-2 border-dashed border-purple-300">
+        <div className="text-center space-y-4 px-8">
+          <div className="w-20 h-20 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+            <span className="text-4xl">🪜</span>
+          </div>
+          <p className="text-lg font-semibold text-gray-700">
+            사다리를 생성해주세요
+          </p>
+          <p className="text-sm text-gray-500">
+            참가자와 결과를 입력한 후<br />
+            '사다리 생성' 버튼을 눌러주세요
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="relative">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+        <div className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold rounded-full shadow-lg">
+          👆 참가자를 클릭하세요
+        </div>
+      </div>
+
       <canvas
         ref={canvasRef}
-        className="w-full h-[500px] rounded-lg border border-gray-200 cursor-pointer touch-none bg-white"
+        className="w-full h-[500px] rounded-xl border-2 border-purple-200 cursor-pointer touch-none bg-white shadow-inner hover:shadow-lg transition-shadow"
         onClick={handleCanvasClick}
       />
-      <div className="mt-2 text-sm text-gray-600 text-center">
-        참가자 이름을 클릭하면 경로를 확인할 수 있습니다
+
+      {isAnimating && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg animate-pulse">
+          경로 추적 중...
+        </div>
+      )}
+
+      <div className="mt-4 text-center space-y-2">
+        <div className="flex items-center justify-center gap-6 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow-sm"></div>
+            <span className="text-gray-600">참가자</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-amber-500 border-2 border-white shadow-sm"></div>
+            <span className="text-gray-600">결과</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-pink-500 border-2 border-white shadow-sm"></div>
+            <span className="text-gray-600">경로</span>
+          </div>
+        </div>
       </div>
     </div>
   );

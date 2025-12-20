@@ -38,12 +38,12 @@ export const CategoryRoulette: React.FC<CategoryRouletteProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 py-8">
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-          점심 메뉴 룰렛
+    <div className="flex flex-col items-center gap-10 py-8">
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+          점심 메뉴 룰렛 🎰
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-xl text-gray-600 font-medium">
           오늘 뭐 먹지? 룰렛으로 결정하세요!
         </p>
       </div>
@@ -83,9 +83,9 @@ export const CategoryRoulette: React.FC<CategoryRouletteProps> = ({
         {/* 중앙 장식 */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                      w-16 h-16 bg-orange-500
+                      w-20 h-20 bg-orange-600
                       rounded-full shadow-xl border-4 border-white
-                      flex items-center justify-center text-2xl pointer-events-none"
+                      flex items-center justify-center text-3xl pointer-events-none"
         >
           🎰
         </div>
@@ -95,10 +95,10 @@ export const CategoryRoulette: React.FC<CategoryRouletteProps> = ({
         onClick={handleSpinClick}
         disabled={mustSpin}
         size="lg"
-        className="px-8 py-4 bg-blue-600 hover:bg-blue-700
-                   text-white text-xl font-bold rounded-full shadow-lg hover:shadow-xl
+        className="px-10 py-5 bg-orange-600 hover:bg-orange-700
+                   text-white text-2xl font-bold rounded-full shadow-lg
                    disabled:opacity-50 disabled:cursor-not-allowed
-                   transform hover:scale-105 transition-all"
+                   transition-all"
       >
         {mustSpin ? '룰렛 돌리는 중...' : '🎰 룰렛 돌리기'}
       </Button>

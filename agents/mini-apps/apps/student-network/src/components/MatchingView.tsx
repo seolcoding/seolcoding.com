@@ -35,19 +35,19 @@ export const MatchingView: React.FC<MatchingViewProps> = ({ roomId }) => {
   return (
     <div className="space-y-8 max-w-4xl mx-auto p-6">
       {/* 관심사 태그 클라우드 */}
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-4">☁️ 인기 관심사</h2>
+      <Card className="p-6 border-gray-200 shadow-sm">
+        <h2 className="text-xl font-bold mb-6 text-gray-900">인기 관심사</h2>
         <div className="flex flex-wrap gap-3 justify-center">
           {Array.from(interestFrequency.entries())
             .sort((a, b) => b[1] - a[1])
             .map(([interest, count]) => {
-              const size = Math.max(14, Math.min(32, (count / maxFrequency) * 32));
+              const size = Math.max(14, Math.min(28, (count / maxFrequency) * 28));
               return (
                 <span
                   key={interest}
                   className="px-4 py-2 bg-blue-600
-                             text-white rounded-full font-medium shadow-md
-                             hover:shadow-lg transition-shadow"
+                             text-white rounded-lg font-medium
+                             hover:bg-blue-700 transition-colors"
                   style={{ fontSize: `${size}px` }}
                 >
                   {interest} ({count})
@@ -58,8 +58,8 @@ export const MatchingView: React.FC<MatchingViewProps> = ({ roomId }) => {
       </Card>
 
       {/* 매칭된 수강생 */}
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-4">🤝 나와 관심사가 비슷한 사람</h2>
+      <Card className="p-6 border-gray-200 shadow-sm">
+        <h2 className="text-xl font-bold mb-6 text-gray-900">나와 관심사가 비슷한 사람</h2>
 
         {matches.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
@@ -70,36 +70,36 @@ export const MatchingView: React.FC<MatchingViewProps> = ({ roomId }) => {
             {matches.map(({ profile: matchedProfile, commonInterests, score }) => (
               <div
                 key={matchedProfile.id}
-                className="p-5 border-2 border-gray-100 rounded-xl hover:border-blue-300
-                           transition-colors"
+                className="p-5 border border-gray-200 rounded-lg hover:border-blue-600
+                           transition-colors bg-white"
               >
                 <div className="flex items-start gap-4">
                   {matchedProfile.avatarUrl ? (
                     <img
                       src={matchedProfile.avatarUrl}
                       alt={matchedProfile.name}
-                      className="w-16 h-16 rounded-full object-cover"
+                      className="w-16 h-16 rounded-full object-cover border-2 border-blue-600"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-purple-100
-                                    flex items-center justify-center text-2xl text-purple-600">
+                    <div className="w-16 h-16 rounded-full bg-blue-100
+                                    flex items-center justify-center text-2xl text-blue-600">
                       {matchedProfile.name[0]}
                     </div>
                   )}
 
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold">{matchedProfile.name}</h3>
+                    <h3 className="text-lg font-bold text-gray-900">{matchedProfile.name}</h3>
                     <p className="text-gray-600 text-sm mb-2">{matchedProfile.tagline}</p>
                     <p className="text-sm text-gray-500 mb-3">{matchedProfile.field}</p>
 
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                      <span className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-sm font-medium">
                         공통 관심사 {score}개
                       </span>
                       {commonInterests.map(interest => (
                         <span
                           key={interest}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
+                          className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium border border-blue-200"
                         >
                           {interest}
                         </span>

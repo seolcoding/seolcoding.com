@@ -5,7 +5,8 @@ import ShareButton from '../components/ShareButton';
 import type { Question } from '../types';
 import { questionTemplates } from '../data/templates';
 import { getQuestionById, getQuestionStats, getVotes } from '../utils/storage';
-import { ArrowLeft, RefreshCw } from 'lucide-react';
+import { Button, LoadingSpinner } from '@mini-apps/ui';
+import { ArrowLeft, RefreshCw, Home } from 'lucide-react';
 
 const ResultPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,6 +14,7 @@ const ResultPage: React.FC = () => {
   const [question, setQuestion] = useState<Question | null>(null);
   const [stats, setStats] = useState<{ A: number; B: number } | null>(null);
   const [myChoice, setMyChoice] = useState<'A' | 'B' | undefined>(undefined);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -39,6 +41,9 @@ const ResultPage: React.FC = () => {
       const votes = getVotes();
       setMyChoice(votes[found.id]);
     }
+
+    // Trigger fade in animation
+    setTimeout(() => setFadeIn(true), 100);
   }, [id]);
 
   const handlePlayAgain = () => {
@@ -47,8 +52,11 @@ const ResultPage: React.FC = () => {
 
   if (!question || !stats) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-2xl font-bold text-gray-600">결과를 불러오는 중...</p>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center space-y-6">
+          <LoadingSpinner />
+          <p className="text-xl font-semibold text-gray-600">결과를 불러오는 중...</p>
+        </div>
       </div>
     );
   }
@@ -58,41 +66,62 @@ const ResultPage: React.FC = () => {
   const percentageB = (stats.B / totalVotes) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-white py-8 px-4">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <button
+        <div className={`flex items-center justify-between mb-12 transition-all duration-500 ${
+          fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+        }`}>
+          <Button
+            variant="ghost"
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
+            className="hover:bg-gray-100"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft className="w-5 h-5 mr-2" />
             돌아가기
-          </button>
-          <button
-            onClick={handlePlayAgain}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold"
-          >
-            <RefreshCw size={20} />
-            다른 질문 하기
-          </button>
+          </Button>
+
+          <div className="flex gap-3">
+            <Button
+              onClick={handlePlayAgain}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              <RefreshCw className="w-5 h-5 mr-2" />
+              다른 질문 하기
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/')}
+            >
+              <Home className="w-5 h-5 mr-2" />
+              홈으로
+            </Button>
+          </div>
         </div>
 
-        {/* Result chart */}
-        <ResultChart question={question} stats={stats} myChoice={myChoice} />
+        {/* Result chart with staggered animation */}
+        <div className={`transition-all duration-700 delay-150 ${
+          fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <ResultChart question={question} stats={stats} myChoice={myChoice} />
+        </div>
 
-        {/* Share buttons */}
+        {/* Share buttons with delayed animation */}
         {myChoice && (
-          <ShareButton
-            imageOptions={{
-              question,
-              myChoice,
-              stats,
-              percentageA,
-              percentageB,
-            }}
-            questionId={question.id}
-          />
+          <div className={`mt-12 transition-all duration-700 delay-300 ${
+            fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <ShareButton
+              imageOptions={{
+                question,
+                myChoice,
+                stats,
+                percentageA,
+                percentageB,
+              }}
+              questionId={question.id}
+            />
+          </div>
         )}
       </div>
     </div>

@@ -34,8 +34,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="confetti">Confetti 효과</Label>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <Label htmlFor="confetti" className="font-medium text-gray-900">
+              Confetti 효과
+            </Label>
             <Switch
               id="confetti"
               checked={settings.confettiEnabled}
@@ -45,7 +47,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             />
           </div>
 
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-gray-600 bg-purple-50 p-4 rounded-lg border border-purple-200">
+            <p className="font-semibold text-purple-900 mb-2">룰렛 정보</p>
             <p>• 최소 2개 이상의 항목 필요</p>
             <p>• 최대 50개 항목 제한</p>
             <p>• crypto.getRandomValues() 사용</p>

@@ -18,23 +18,34 @@ export function HintSection({ hints, onUseHint, usedHints }: HintSectionProps) {
             key={hint.level}
             onClick={() => !isUsed && onUseHint(hint.level)}
             disabled={isUsed}
-            className={`px-4 py-3 rounded-lg font-semibold transition-all text-left ${
+            className={`relative px-5 py-4 rounded-xl font-bold transition-all text-left overflow-hidden ${
               isUsed
-                ? 'bg-green-50 border-2 border-green-500 text-green-700 cursor-default'
-                : 'bg-yellow-400 hover:bg-yellow-500 text-gray-800 border-2 border-yellow-500 hover:shadow-md'
+                ? 'bg-gradient-to-r from-green-400 to-emerald-500 border-3 border-green-300 text-white shadow-lg cursor-default'
+                : 'bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 border-3 border-yellow-300 hover:shadow-xl transform hover:scale-102'
             }`}
           >
-            <div className="flex items-center gap-3">
+            {/* Shine effect for unused hints */}
+            {!isUsed && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-float" />
+            )}
+
+            <div className="relative flex items-center gap-4">
               {isUsed ? (
-                <LockOpen className="w-5 h-5 flex-shrink-0" />
+                <LockOpen className="w-6 h-6 flex-shrink-0 drop-shadow-md" />
               ) : (
-                <Lock className="w-5 h-5 flex-shrink-0" />
+                <Lock className="w-6 h-6 flex-shrink-0 drop-shadow-md" />
               )}
               <div className="flex-1">
                 {isUsed ? (
-                  <span>{hint.content}</span>
+                  <div>
+                    <div className="text-xs font-semibold opacity-90 mb-1">힌트 {hint.level}</div>
+                    <div className="text-base font-bold drop-shadow-sm">{hint.content}</div>
+                  </div>
                 ) : (
-                  <span>힌트 {hint.level} 보기 (-50점)</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-base">힌트 {hint.level} 보기</span>
+                    <span className="text-sm font-black bg-red-500 text-white px-3 py-1 rounded-full">-50점</span>
+                  </div>
                 )}
               </div>
             </div>

@@ -11,7 +11,7 @@ import { InputPanel } from './InputPanel';
 import { LadderCanvas } from './LadderCanvas';
 import { ControlPanel } from './ControlPanel';
 import { ResultModal } from './ResultModal';
-import { Card, CardContent, CardHeader, CardTitle, toast } from '@mini-apps/ui';
+import { Card, CardContent, toast } from '@mini-apps/ui';
 
 export function LadderGame() {
   const {
@@ -107,21 +107,26 @@ export function LadderGame() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <Card className="mb-8 bg-white">
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold text-center text-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Hero Header */}
+        <div className="mb-8 text-center space-y-4">
+          <div className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white rounded-full shadow-lg border-2 border-purple-200">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <span className="text-2xl">🪜</span>
+            </div>
+            <h1 className="text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
               사다리 타기
-            </CardTitle>
-            <p className="text-center text-gray-600">
-              공정한 랜덤 추첨을 위한 사다리 타기 게임
-            </p>
-          </CardHeader>
-        </Card>
+            </h1>
+          </div>
+          <p className="text-lg text-gray-600 font-medium">
+            공정한 랜덤 추첨을 위한 사다리 타기 게임 🎲
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-[400px_1fr] gap-6">
-          <div className="space-y-6">
+        <div className="grid lg:grid-cols-[380px_1fr] gap-6">
+          {/* Left Panel */}
+          <div className="space-y-4">
             <InputPanel
               participants={participantInputs}
               results={resultInputs}
@@ -140,7 +145,8 @@ export function LadderGame() {
             />
           </div>
 
-          <Card>
+          {/* Ladder Display */}
+          <Card className="border-2 border-purple-200 shadow-xl shadow-purple-100/50 bg-white overflow-hidden">
             <CardContent className="pt-6">
               <LadderCanvas
                 ladder={ladder}

@@ -25,9 +25,9 @@ export function GPAChart({ semesters, scale }: GPAChartProps) {
   });
 
   return (
-    <Card>
+    <Card className="border-gray-200 shadow-sm">
       <CardHeader>
-        <CardTitle>학점 추이</CardTitle>
+        <CardTitle className="text-lg font-bold text-gray-900">학점 추이</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
@@ -40,16 +40,16 @@ export function GPAChart({ semesters, scale }: GPAChartProps) {
             <Line
               type="monotone"
               dataKey="학기GPA"
-              stroke="#8884d8"
+              stroke="#2563eb"
               strokeWidth={2}
-              dot={{ r: 4 }}
+              dot={{ r: 4, fill: '#2563eb' }}
             />
             <Line
               type="monotone"
               dataKey="누적GPA"
-              stroke="#82ca9d"
+              stroke="#7c3aed"
               strokeWidth={2}
-              dot={{ r: 4 }}
+              dot={{ r: 4, fill: '#7c3aed' }}
             />
           </LineChart>
         </ResponsiveContainer>

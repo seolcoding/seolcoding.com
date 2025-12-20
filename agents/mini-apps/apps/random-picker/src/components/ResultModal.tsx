@@ -31,36 +31,45 @@ export const ResultModal: React.FC<ResultModalProps> = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl">당첨!</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-3xl font-extrabold text-purple-600">
+            당첨!
+          </DialogTitle>
+          <DialogDescription className="text-gray-600">
             {date.toLocaleString("ko-KR")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-6 py-8">
           <div
-            className="w-24 h-24 rounded-full flex items-center justify-center"
+            className="w-28 h-28 rounded-full flex items-center justify-center shadow-lg"
             style={{ backgroundColor: result.selectedItem.color }}
           >
-            <span className="text-4xl">🎉</span>
+            <span className="text-5xl">🎉</span>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {result.selectedItem.label}
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-gray-500 font-medium">
               회전: {result.rotation.toFixed(0)}°
             </div>
           </div>
         </div>
 
-        <div className="flex gap-2">
-          <Button variant="outline" className="flex-1" onClick={onClose}>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            className="flex-1 border-gray-300 hover:bg-gray-100"
+            onClick={onClose}
+          >
             <X className="h-4 w-4 mr-2" />
             닫기
           </Button>
           {onDownload && (
-            <Button className="flex-1" onClick={onDownload}>
+            <Button
+              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+              onClick={onDownload}
+            >
               <Download className="h-4 w-4 mr-2" />
               이미지 저장
             </Button>

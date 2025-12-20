@@ -120,36 +120,39 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <GraduationCap className="w-8 h-8 text-blue-600" />
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">학점 계산기</h1>
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <GraduationCap className="w-8 h-8 text-blue-600" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">학점 계산기</h1>
+                <p className="text-sm text-gray-600 mt-0.5">학기별 성적 관리 및 GPA 계산</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Label htmlFor="scale-select" className="text-sm">학점 체계</Label>
-                <Select value={scale} onValueChange={(v) => setScale(v as GPAScale)}>
-                  <SelectTrigger id="scale-select" className="w-32">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="4.5">4.5 만점</SelectItem>
-                    <SelectItem value="4.3">4.3 만점</SelectItem>
-                    <SelectItem value="4.0">4.0 만점</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="scale-select" className="text-sm font-medium text-gray-700">학점 체계</Label>
+              <Select value={scale} onValueChange={(v) => setScale(v as GPAScale)}>
+                <SelectTrigger id="scale-select" className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="4.5">4.5 만점</SelectItem>
+                  <SelectItem value="4.3">4.3 만점</SelectItem>
+                  <SelectItem value="4.0">4.0 만점</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="space-y-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div className="space-y-8">
           {/* GPA Display */}
           <GPADisplay
             cumulative={cumulativeGPA}
@@ -164,32 +167,50 @@ function App() {
 
           {/* Tabs */}
           <Tabs defaultValue="courses" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="courses">과목 관리</TabsTrigger>
-              <TabsTrigger value="simulator">목표 학점</TabsTrigger>
-              <TabsTrigger value="data">데이터</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 bg-white border border-gray-200 p-1">
+              <TabsTrigger
+                value="courses"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+              >
+                과목 관리
+              </TabsTrigger>
+              <TabsTrigger
+                value="simulator"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+              >
+                목표 학점
+              </TabsTrigger>
+              <TabsTrigger
+                value="data"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+              >
+                데이터
+              </TabsTrigger>
             </TabsList>
 
             {/* 과목 관리 탭 */}
-            <TabsContent value="courses" className="space-y-4">
+            <TabsContent value="courses" className="space-y-6 mt-6">
               {/* 학기 선택 & 추가 */}
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-3 flex-wrap p-4 bg-white rounded-lg border border-gray-200">
                 {semesters && semesters.length > 0 && (
-                  <Select
-                    value={currentSemester?.id || ''}
-                    onValueChange={setCurrentSemesterId}
-                  >
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="학기 선택" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {semesters.map(sem => (
-                        <SelectItem key={sem.id} value={sem.id}>
-                          {sem.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-medium text-gray-700">학기 선택</Label>
+                    <Select
+                      value={currentSemester?.id || ''}
+                      onValueChange={setCurrentSemesterId}
+                    >
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="학기 선택" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {semesters.map(sem => (
+                          <SelectItem key={sem.id} value={sem.id}>
+                            {sem.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 )}
 
                 <AddSemesterDialog
@@ -214,7 +235,7 @@ function App() {
             </TabsContent>
 
             {/* 목표 학점 탭 */}
-            <TabsContent value="simulator">
+            <TabsContent value="simulator" className="mt-6">
               <Simulator
                 currentGPA={cumulativeGPA.gpa}
                 currentCredits={cumulativeGPA.totalCredits}
@@ -222,7 +243,7 @@ function App() {
             </TabsContent>
 
             {/* 데이터 관리 탭 */}
-            <TabsContent value="data">
+            <TabsContent value="data" className="mt-6">
               <DataManager
                 semesters={semesters || []}
                 onImport={handleImport}
@@ -234,10 +255,10 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 py-6 border-t bg-white">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600">
-          <p>학점 계산기 by SeolCoding</p>
-          <p className="mt-1">데이터는 브라우저에만 저장됩니다. 정기적으로 백업하세요.</p>
+      <footer className="mt-16 py-8 border-t border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-sm font-semibold text-gray-900">학점 계산기 by SeolCoding</p>
+          <p className="mt-2 text-xs text-gray-600">데이터는 브라우저에만 저장됩니다. 정기적으로 백업하세요.</p>
         </div>
       </footer>
     </div>
@@ -263,18 +284,18 @@ function AddSemesterDialog({ open, onOpenChange, onAdd }: AddSemesterDialogProps
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
           <Plus className="w-4 h-4 mr-2" />
           학기 추가
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>새 학기 추가</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-gray-900">새 학기 추가</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="year">연도</Label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-2">
+            <Label htmlFor="year" className="text-sm font-medium text-gray-700">연도</Label>
             <Input
               id="year"
               type="number"
@@ -282,12 +303,13 @@ function AddSemesterDialog({ open, onOpenChange, onAdd }: AddSemesterDialogProps
               max="2100"
               value={year}
               onChange={(e) => setYear(Number(e.target.value))}
+              className="w-full"
             />
           </div>
-          <div>
-            <Label htmlFor="term">학기</Label>
+          <div className="space-y-2">
+            <Label htmlFor="term" className="text-sm font-medium text-gray-700">학기</Label>
             <Select value={term.toString()} onValueChange={(v) => setTerm(Number(v) as Term)}>
-              <SelectTrigger id="term">
+              <SelectTrigger id="term" className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -297,7 +319,9 @@ function AddSemesterDialog({ open, onOpenChange, onAdd }: AddSemesterDialogProps
               </SelectContent>
             </Select>
           </div>
-          <Button type="submit" className="w-full">추가</Button>
+          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+            추가
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

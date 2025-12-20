@@ -10,13 +10,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import { PieChart as PieChartIcon } from 'lucide-react';
 
 const COLORS = {
-  nationalPension: '#3b82f6',  // blue
-  healthInsurance: '#10b981',  // green
-  longTermCare: '#8b5cf6',     // purple
-  employmentInsurance: '#f59e0b', // amber
-  incomeTax: '#ef4444',        // red
-  localIncomeTax: '#ec4899',   // pink
-  netPay: '#22c55e',           // green (실수령액)
+  nationalPension: '#3b82f6',  // blue-600
+  healthInsurance: '#10b981',  // emerald-600
+  longTermCare: '#8b5cf6',     // violet-600
+  employmentInsurance: '#f59e0b', // amber-600
+  incomeTax: '#ef4444',        // red-600
+  localIncomeTax: '#ec4899',   // pink-600
+  netPay: '#059669',           // emerald-700 (실수령액 - 더 진한 색)
 };
 
 export function DeductionChart() {
@@ -42,41 +42,58 @@ export function DeductionChart() {
   };
 
   return (
-    <Card>
+    <Card className="shadow-lg shadow-cyan-500/5 border-cyan-100">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <PieChartIcon className="w-5 h-5" />
+        <CardTitle className="flex items-center gap-2 text-slate-800">
+          <PieChartIcon className="w-5 h-5 text-cyan-600" />
           급여 구성 비율
         </CardTitle>
-        <CardDescription>총 급여 대비 공제 항목별 비율</CardDescription>
+        <CardDescription className="text-slate-500">총 급여 대비 공제 항목별 비율</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={350}>
-          <PieChart>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={renderCustomLabel}
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value: number) => `${value.toLocaleString()}원`}
-            />
-            <Legend
-              verticalAlign="bottom"
-              height={36}
-              formatter={(value) => <span className="text-sm">{value}</span>}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+      <CardContent className="pt-4">
+        <div className="bg-slate-50/50 rounded-xl p-4">
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomLabel}
+                outerRadius={110}
+                innerRadius={60}
+                fill="#8884d8"
+                dataKey="value"
+                paddingAngle={2}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.color}
+                    stroke="white"
+                    strokeWidth={2}
+                  />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value: number) => `${value.toLocaleString()}원`}
+                contentStyle={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '0.75rem',
+                  padding: '0.75rem',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                }}
+              />
+              <Legend
+                verticalAlign="bottom"
+                height={50}
+                formatter={(value) => <span className="text-sm font-medium text-slate-700">{value}</span>}
+                iconType="circle"
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );

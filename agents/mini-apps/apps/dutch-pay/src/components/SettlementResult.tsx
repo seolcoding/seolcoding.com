@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { Button, Card } from '@mini-apps/ui';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Card, Avatar, Badge, Separator } from '@mini-apps/ui';
 import { useSettlementStore } from '@/store/settlement-store';
 import { formatCurrency } from '@/lib/settlement-algorithm';
 import {
@@ -9,13 +9,41 @@ import {
   Copy,
   Download,
   Share2,
+  CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { format } from 'date-fns';
 
+// Helper function to get initials from name
+const getInitials = (name: string) => {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
+// Helper function to get avatar color based on name
+const getAvatarColor = (name: string) => {
+  const colors = [
+    'bg-blue-500',
+    'bg-purple-500',
+    'bg-green-500',
+    'bg-orange-500',
+    'bg-pink-500',
+    'bg-indigo-500',
+    'bg-teal-500',
+  ];
+  const index = name.charCodeAt(0) % colors.length;
+  return colors[index];
+};
+
 export function SettlementResult() {
   const { settlement, result, calculateResult } = useSettlementStore();
   const resultRef = useRef<HTMLDivElement>(null);
+  const [completedTransactions, setCompletedTransactions] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (settlement && settlement.expenses.length > 0) {
@@ -26,6 +54,20 @@ export function SettlementResult() {
   if (!settlement || !result || result.transactions.length === 0) {
     return null;
   }
+
+  const toggleTransactionComplete = (index: number) => {
+    setCompletedTransactions((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
+
+  const allTransactionsComplete = completedTransactions.size === result.transactions.length;
 
   const handleCopyText = async () => {
     const text = generateShareText();
@@ -103,132 +145,257 @@ export function SettlementResult() {
   };
 
   return (
-    <div className="space-y-4">
-      <div ref={resultRef} className="space-y-4 p-6 bg-white rounded-lg border">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">📊 정산 결과</h2>
-          <p className="text-gray-600">{settlement.name}</p>
-          <p className="text-sm text-gray-500">{format(settlement.date, 'yyyy년 MM월 dd일')}</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
-          <div className="text-center">
-            <div className="text-sm text-gray-600 mb-1">총 금액</div>
-            <div className="text-2xl font-bold text-blue-600">
-              {formatCurrency(result.totalAmount)}원
+    <div className="space-y-6">
+      {allTransactionsComplete && (
+        <Card className="border-2 border-green-500 bg-gradient-to-br from-green-50 to-emerald-50">
+          <div className="p-6 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500 rounded-full mb-4">
+              <Sparkles className="w-8 h-8 text-white" />
             </div>
+            <h3 className="text-2xl font-black text-gray-900 mb-2">정산 완료!</h3>
+            <p className="text-gray-600">모든 송금이 완료되었습니다</p>
           </div>
-          <div className="text-center">
-            <div className="text-sm text-gray-600 mb-1">참여 인원</div>
-            <div className="text-2xl font-bold text-green-600">
-              {result.participantCount}명
-            </div>
+        </Card>
+      )}
+
+      <div ref={resultRef} className="space-y-6">
+        {/* Header */}
+        <Card className="border-0 shadow-lg bg-white">
+          <div className="p-8 text-center">
+            <Badge variant="outline" className="mb-4 text-sm font-semibold">
+              정산 결과
+            </Badge>
+            <h2 className="text-4xl font-black text-gray-900 mb-2">{settlement.name}</h2>
+            <p className="text-base text-gray-500">{format(settlement.date, 'yyyy년 MM월 dd일')}</p>
           </div>
-        </div>
+        </Card>
 
-        <div className="space-y-3">
-          <h3 className="font-semibold text-lg flex items-center gap-2">
-            <ArrowRight className="w-5 h-5" />
-            송금 안내
-          </h3>
-          {result.transactions.map((transaction, idx) => (
-            <div
-              key={idx}
-              className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg"
-            >
-              <div className="flex-1 flex items-center gap-2">
-                <span className="font-medium">{transaction.fromName}</span>
-                <ArrowRight className="w-4 h-4 text-gray-400" />
-                <span className="font-medium">{transaction.toName}</span>
-              </div>
-              <span className="font-bold text-blue-600">
-                {formatCurrency(transaction.amount)}원
-              </span>
+        {/* Summary Stats */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="border-0 shadow-md bg-gradient-to-br from-blue-50 to-indigo-50">
+            <div className="p-6 text-center">
+              <p className="text-sm font-semibold text-gray-600 mb-2">총 금액</p>
+              <p className="text-5xl font-black text-gray-900 mb-1">
+                {formatCurrency(result.totalAmount)}
+              </p>
+              <p className="text-base text-gray-600">원</p>
             </div>
-          ))}
+          </Card>
+          <Card className="border-0 shadow-md bg-gradient-to-br from-purple-50 to-pink-50">
+            <div className="p-6 text-center">
+              <p className="text-sm font-semibold text-gray-600 mb-2">참여 인원</p>
+              <p className="text-5xl font-black text-gray-900 mb-1">
+                {result.participantCount}
+              </p>
+              <p className="text-base text-gray-600">명</p>
+            </div>
+          </Card>
         </div>
 
-        <div className="space-y-3">
-          <h3 className="font-semibold text-lg flex items-center gap-2">
-            <Users className="w-5 h-5" />
-            개인별 내역
-          </h3>
-          <div className="grid gap-2">
-            {result.personalBalances.map((balance) => (
-              <div
-                key={balance.participantId}
-                className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
-              >
-                <span className="font-medium">{balance.participantName}</span>
-                <div className="text-right">
-                  <div className="text-sm text-gray-600">
-                    지불: {formatCurrency(balance.totalPaid)}원 | 부담:{' '}
-                    {formatCurrency(balance.totalOwed)}원
-                  </div>
-                  <div
-                    className={`font-bold ${
-                      balance.balance > 0
-                        ? 'text-green-600'
-                        : balance.balance < 0
-                        ? 'text-red-600'
-                        : 'text-gray-600'
+        {/* Transaction Flow */}
+        <Card className="border-0 shadow-lg bg-white">
+          <div className="p-6 space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full" />
+              <h3 className="text-2xl font-black text-gray-900">송금 안내</h3>
+              <Badge variant="secondary" className="ml-auto">
+                {completedTransactions.size}/{result.transactions.length}
+              </Badge>
+            </div>
+
+            <div className="space-y-3">
+              {result.transactions.map((transaction, idx) => {
+                const isCompleted = completedTransactions.has(idx);
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => toggleTransactionComplete(idx)}
+                    className={`w-full p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
+                      isCompleted
+                        ? 'border-green-500 bg-green-50'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
                     }`}
                   >
-                    {balance.balance > 0 && '+'}
-                    {formatCurrency(balance.balance)}원
-                    {balance.balance > 0 && ' (받음)'}
-                    {balance.balance < 0 && ' (보냄)'}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                    <div className="flex items-center gap-4">
+                      {/* From Avatar */}
+                      <div className="flex flex-col items-center gap-2">
+                        <Avatar className={`w-12 h-12 ${getAvatarColor(transaction.fromName)}`}>
+                          <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                            {getInitials(transaction.fromName)}
+                          </div>
+                        </Avatar>
+                        <span className="text-xs font-semibold text-gray-900">
+                          {transaction.fromName}
+                        </span>
+                      </div>
 
-        <div className="space-y-3">
-          <h3 className="font-semibold text-lg flex items-center gap-2">
-            <Receipt className="w-5 h-5" />
-            지출 내역
-          </h3>
-          <div className="space-y-2">
-            {settlement.expenses.map((expense) => {
-              const payer = settlement.participants.find(
-                (p) => p.id === expense.paidBy
-              );
-              const participants = expense.participantIds
-                .map((id) => settlement.participants.find((p) => p.id === id)?.name)
-                .filter(Boolean);
+                      {/* Arrow */}
+                      <div className="flex-1 flex items-center gap-2">
+                        <Separator className="flex-1" />
+                        <ArrowRight className={`w-6 h-6 ${isCompleted ? 'text-green-500' : 'text-gray-400'}`} />
+                        <Separator className="flex-1" />
+                      </div>
 
-              return (
-                <div key={expense.id} className="p-2 bg-gray-50 rounded text-sm">
-                  <div className="flex justify-between">
-                    <span>{expense.name}</span>
-                    <span className="font-semibold">
-                      {formatCurrency(expense.amount)}원
-                    </span>
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    결제: {payer?.name} | 참여: {participants.join(', ')}
-                  </div>
-                </div>
-              );
-            })}
+                      {/* Amount */}
+                      <div className="px-4 py-2 bg-gray-900 rounded-lg">
+                        <p className="text-2xl font-black text-white">
+                          {formatCurrency(transaction.amount)}
+                        </p>
+                        <p className="text-xs text-gray-300">원</p>
+                      </div>
+
+                      {/* Arrow */}
+                      <div className="flex-1 flex items-center gap-2">
+                        <Separator className="flex-1" />
+                        <ArrowRight className={`w-6 h-6 ${isCompleted ? 'text-green-500' : 'text-gray-400'}`} />
+                        <Separator className="flex-1" />
+                      </div>
+
+                      {/* To Avatar */}
+                      <div className="flex flex-col items-center gap-2">
+                        <Avatar className={`w-12 h-12 ${getAvatarColor(transaction.toName)}`}>
+                          <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                            {getInitials(transaction.toName)}
+                          </div>
+                        </Avatar>
+                        <span className="text-xs font-semibold text-gray-900">
+                          {transaction.toName}
+                        </span>
+                      </div>
+
+                      {/* Completion Indicator */}
+                      <CheckCircle2
+                        className={`w-6 h-6 transition-colors ${
+                          isCompleted ? 'text-green-500' : 'text-gray-300'
+                        }`}
+                      />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </Card>
+
+        {/* Personal Balances */}
+        <Card className="border-0 shadow-lg bg-white">
+          <div className="p-6 space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-500 rounded-full" />
+              <h3 className="text-2xl font-black text-gray-900">개인별 내역</h3>
+            </div>
+
+            <div className="grid gap-3">
+              {result.personalBalances.map((balance) => (
+                <Card
+                  key={balance.participantId}
+                  className="border-2 border-gray-100 hover:border-gray-200 transition-colors"
+                >
+                  <div className="p-4 flex items-center gap-4">
+                    <Avatar className={`w-14 h-14 ${getAvatarColor(balance.participantName)}`}>
+                      <div className="w-full h-full flex items-center justify-center text-white font-bold">
+                        {getInitials(balance.participantName)}
+                      </div>
+                    </Avatar>
+
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">
+                        {balance.participantName}
+                      </h4>
+                      <div className="flex gap-4 text-sm text-gray-600">
+                        <span>지불: {formatCurrency(balance.totalPaid)}원</span>
+                        <span>부담: {formatCurrency(balance.totalOwed)}원</span>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <Badge
+                        variant={balance.balance > 0 ? 'default' : balance.balance < 0 ? 'destructive' : 'secondary'}
+                        className="text-base px-3 py-1"
+                      >
+                        {balance.balance > 0 && '+'}
+                        {formatCurrency(balance.balance)}원
+                      </Badge>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {balance.balance > 0 && '받을 금액'}
+                        {balance.balance < 0 && '보낼 금액'}
+                        {balance.balance === 0 && '정산 완료'}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </Card>
+
+        {/* Expense Details */}
+        <Card className="border-0 shadow-lg bg-white">
+          <div className="p-6 space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-500 rounded-full" />
+              <h3 className="text-2xl font-black text-gray-900">지출 내역</h3>
+            </div>
+
+            <div className="space-y-2">
+              {settlement.expenses.map((expense) => {
+                const payer = settlement.participants.find(
+                  (p) => p.id === expense.paidBy
+                );
+                const participants = expense.participantIds
+                  .map((id) => settlement.participants.find((p) => p.id === id)?.name)
+                  .filter(Boolean);
+
+                return (
+                  <div
+                    key={expense.id}
+                    className="p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-bold text-gray-900">{expense.name}</h4>
+                      <p className="text-xl font-black text-gray-900">
+                        {formatCurrency(expense.amount)}원
+                      </p>
+                    </div>
+                    <div className="flex gap-4 text-sm text-gray-600">
+                      <span>결제: {payer?.name}</span>
+                      <span>참여: {participants.join(', ')}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Card>
       </div>
 
-      <div className="flex gap-2">
-        <Button onClick={handleCopyText} variant="outline" className="flex-1">
-          <Copy className="w-4 h-4 mr-2" />
-          텍스트 복사
+      {/* Action Buttons */}
+      <div className="grid grid-cols-3 gap-3">
+        <Button
+          onClick={handleCopyText}
+          variant="outline"
+          size="lg"
+          className="h-16 flex flex-col gap-1 hover:bg-gray-50"
+        >
+          <Copy className="w-5 h-5" />
+          <span className="text-sm font-semibold">텍스트 복사</span>
         </Button>
-        <Button onClick={handleDownloadImage} variant="outline" className="flex-1">
-          <Download className="w-4 h-4 mr-2" />
-          이미지 저장
+        <Button
+          onClick={handleDownloadImage}
+          variant="outline"
+          size="lg"
+          className="h-16 flex flex-col gap-1 hover:bg-gray-50"
+        >
+          <Download className="w-5 h-5" />
+          <span className="text-sm font-semibold">이미지 저장</span>
         </Button>
-        <Button onClick={handleShare} className="flex-1">
-          <Share2 className="w-4 h-4 mr-2" />
-          공유하기
+        <Button
+          onClick={handleShare}
+          size="lg"
+          className="h-16 flex flex-col gap-1 bg-gradient-to-br from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+        >
+          <Share2 className="w-5 h-5" />
+          <span className="text-sm font-semibold">공유하기</span>
         </Button>
       </div>
     </div>

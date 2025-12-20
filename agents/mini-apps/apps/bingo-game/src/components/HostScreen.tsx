@@ -208,31 +208,92 @@ export function HostScreen() {
 
           {/* Center: Current Call */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Current Call Display */}
+            {/* Current Call Display - Enhanced */}
             <motion.div
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-12 text-center"
+              className="relative overflow-hidden"
             >
-              <h3 className="text-2xl font-semibold text-gray-600 dark:text-gray-400 mb-4">
-                현재 호출
-              </h3>
-              <motion.div
-                key={currentCall}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-8xl font-bold text-blue-600 dark:text-blue-400 mb-8"
-              >
-                {currentCall || '—'}
-              </motion.div>
-              <button
-                onClick={handleRandomCall}
-                disabled={remainingItems.length === 0 || autoCallEnabled}
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Shuffle className="w-6 h-6" />
-                <span>랜덤 호출</span>
-              </button>
+              {/* Animated background glow */}
+              {currentCall && (
+                <motion.div
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.2, 0.5, 0.2],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 bg-blue-500 blur-3xl"
+                />
+              )}
+
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-12 text-center border-4 border-gray-200 dark:border-gray-700">
+                {/* Top decoration stripe */}
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
+
+                <h3 className="text-2xl font-bold text-gray-600 dark:text-gray-400 mb-6 uppercase tracking-wider">
+                  현재 호출
+                </h3>
+
+                {/* Number display with bounce animation */}
+                <motion.div
+                  key={currentCall}
+                  initial={{ scale: 0.5, opacity: 0, y: 50 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }}
+                  className="mb-10 relative"
+                >
+                  {/* Glow behind number */}
+                  {currentCall && (
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                      }}
+                      className="absolute inset-0 blur-3xl bg-blue-400"
+                    />
+                  )}
+
+                  <div className={`relative text-9xl font-black tracking-tighter ${
+                    currentCall
+                      ? 'text-blue-600 dark:text-blue-400 call-bounce'
+                      : 'text-gray-300 dark:text-gray-600'
+                  }`}
+                  style={{
+                    textShadow: currentCall ? '4px 4px 0px rgba(0,0,0,0.1)' : 'none',
+                  }}>
+                    {currentCall || '—'}
+                  </div>
+                </motion.div>
+
+                {/* Call button */}
+                <motion.button
+                  onClick={handleRandomCall}
+                  disabled={remainingItems.length === 0 || autoCallEnabled}
+                  whileHover={remainingItems.length > 0 && !autoCallEnabled ? { scale: 1.05, y: -2 } : {}}
+                  whileTap={remainingItems.length > 0 && !autoCallEnabled ? { scale: 0.95 } : {}}
+                  className="px-10 py-5 bg-blue-600 text-white rounded-xl font-bold text-xl hover:bg-blue-700 transition-all flex items-center justify-center space-x-3 mx-auto disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                >
+                  <Shuffle className="w-7 h-7" />
+                  <span>랜덤 호출</span>
+                </motion.button>
+
+                {/* Remaining count */}
+                <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+                  남은 항목: <span className="font-bold text-gray-700 dark:text-gray-300">{remainingItems.length}</span> / {totalItems}
+                </div>
+              </div>
             </motion.div>
 
             {/* Call History */}

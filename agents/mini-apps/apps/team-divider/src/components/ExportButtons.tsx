@@ -72,17 +72,18 @@ export function ExportButtons() {
         disabled={isExporting}
         size="lg"
         variant="default"
+        className="bg-blue-600 hover:bg-blue-700 px-8"
       >
         <FileText className="w-5 h-5 mr-2" />
         {isExporting ? 'PDF 생성 중...' : 'PDF로 저장'}
       </Button>
 
-      <Button onClick={handleJSONExport} size="lg" variant="outline">
+      <Button onClick={handleJSONExport} size="lg" variant="outline" className="border-gray-300 hover:bg-gray-50 px-8">
         <Download className="w-5 h-5 mr-2" />
         JSON 다운로드
       </Button>
 
-      <Button onClick={handleShare} size="lg" variant="outline">
+      <Button onClick={handleShare} size="lg" variant="outline" className="border-gray-300 hover:bg-gray-50 px-8">
         <Share2 className="w-5 h-5 mr-2" />
         공유하기
       </Button>

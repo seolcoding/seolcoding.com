@@ -15,19 +15,19 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   onRadiusChange,
 }) => {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md">
-      <h3 className="font-bold text-lg mb-4">검색 반경 설정</h3>
+    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+      <h3 className="font-bold text-xl mb-5 text-gray-900">검색 반경 설정</h3>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {RADIUS_OPTIONS.map((option) => (
           <Button
             key={option.value}
             onClick={() => onRadiusChange(option.value)}
             variant={radius === option.value ? 'default' : 'outline'}
-            className={`py-2 px-4 rounded-lg font-medium transition-all ${
+            className={`py-3 px-4 rounded-lg font-bold transition-all ${
               radius === option.value
-                ? 'bg-blue-500 text-white shadow-md'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-sm border-orange-600'
+                : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300'
             }`}
           >
             {option.label}

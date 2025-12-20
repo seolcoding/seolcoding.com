@@ -120,29 +120,82 @@ export function PlayerScreen() {
           </div>
         </motion.div>
 
-        {/* Current Call Banner */}
+        {/* Current Call Banner - Exciting visualization */}
         {currentCall && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="mb-6 p-6 bg-blue-600 text-white rounded-2xl shadow-xl text-center"
+            key={currentCall}
+            initial={{ scale: 0.8, y: -50, opacity: 0 }}
+            animate={{ scale: 1, y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20
+            }}
+            className="mb-6 relative overflow-hidden"
           >
-            <p className="text-lg font-semibold mb-2">방금 호출됨</p>
-            <p className="text-5xl font-bold">{currentCall}</p>
+            {/* Animated background glow */}
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute inset-0 bg-blue-500 blur-3xl"
+            />
+
+            {/* Call card */}
+            <div className="relative bg-white dark:bg-gray-800 border-4 border-blue-500 rounded-2xl shadow-2xl p-8">
+              {/* Top decoration */}
+              <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-sm font-bold text-blue-600 dark:text-blue-400 mb-3 uppercase tracking-wider"
+              >
+                방금 호출됨
+              </motion.p>
+
+              <motion.div
+                className="call-bounce"
+              >
+                <p className="text-6xl sm:text-7xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tight">
+                  {currentCall}
+                </p>
+              </motion.div>
+
+              {/* Sparkle decorations */}
+              <div className="absolute top-4 right-4">
+                <motion.div
+                  animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="text-3xl"
+                >
+                  ✨
+                </motion.div>
+              </div>
+              <div className="absolute bottom-4 left-4">
+                <motion.div
+                  animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                  className="text-2xl"
+                >
+                  ⭐
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
         )}
 
-        {/* Bingo Grid */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 sm:p-6 mb-6"
-        >
-          <BingoGrid
-            state={bingoState}
-            onCellClick={handleCellClick}
-          />
-        </motion.div>
+        {/* Bingo Grid - removed duplicate container since BingoGrid has its own */}
+        <BingoGrid
+          state={bingoState}
+          onCellClick={handleCellClick}
+        />
 
         {/* Instructions */}
         <motion.div

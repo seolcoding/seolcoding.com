@@ -93,32 +93,32 @@ export class WheelRenderer {
   }
 
   private drawPointer() {
-    const pointerSize = 30;
+    const pointerSize = 35;
     this.ctx.beginPath();
     this.ctx.moveTo(this.centerX, 0);
     this.ctx.lineTo(this.centerX - pointerSize / 2, pointerSize);
     this.ctx.lineTo(this.centerX + pointerSize / 2, pointerSize);
     this.ctx.closePath();
-    this.ctx.fillStyle = "#ff4444";
-    this.ctx.fill();
-    this.ctx.strokeStyle = "#ffffff";
-    this.ctx.lineWidth = 2;
-    this.ctx.stroke();
-  }
-
-  private drawCenterButton() {
-    const buttonRadius = 50;
-    this.ctx.beginPath();
-    this.ctx.arc(this.centerX, this.centerY, buttonRadius, 0, Math.PI * 2);
-    this.ctx.fillStyle = "#333333";
+    this.ctx.fillStyle = "#9333ea"; // purple-600
     this.ctx.fill();
     this.ctx.strokeStyle = "#ffffff";
     this.ctx.lineWidth = 3;
     this.ctx.stroke();
+  }
+
+  private drawCenterButton() {
+    const buttonRadius = 55;
+    this.ctx.beginPath();
+    this.ctx.arc(this.centerX, this.centerY, buttonRadius, 0, Math.PI * 2);
+    this.ctx.fillStyle = "#9333ea"; // purple-600
+    this.ctx.fill();
+    this.ctx.strokeStyle = "#ffffff";
+    this.ctx.lineWidth = 4;
+    this.ctx.stroke();
 
     // "SPIN" text
     this.ctx.fillStyle = "#ffffff";
-    this.ctx.font = "bold 18px sans-serif";
+    this.ctx.font = "bold 20px sans-serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.fillText("SPIN", this.centerX, this.centerY);

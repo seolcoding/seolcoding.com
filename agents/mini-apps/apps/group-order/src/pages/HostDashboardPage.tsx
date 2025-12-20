@@ -16,9 +16,9 @@ export function HostDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">로딩 중...</p>
         </div>
       </div>
@@ -27,11 +27,11 @@ export function HostDashboardPage() {
 
   if (error || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Card className="max-w-md border-gray-200">
           <CardContent className="pt-6 text-center">
             <p className="text-red-600 mb-4">{error || '세션을 찾을 수 없습니다.'}</p>
-            <Button onClick={() => navigate('/')}>홈으로 돌아가기</Button>
+            <Button onClick={() => navigate('/')} className="bg-green-600 hover:bg-green-700">홈으로 돌아가기</Button>
           </CardContent>
         </Card>
       </div>
@@ -71,17 +71,17 @@ export function HostDashboardPage() {
   const participantNames = Array.from(new Set(orders.map(o => o.participantName)));
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">{session.restaurantName}</h1>
+          <h1 className="text-3xl font-bold mb-2 text-gray-900">{session.restaurantName}</h1>
           <div className="flex items-center gap-2">
-            <Badge variant={session.isActive ? 'default' : 'secondary'}>
+            <Badge variant={session.isActive ? 'default' : 'secondary'} className={session.isActive ? 'bg-green-600' : ''}>
               {session.isActive ? '진행 중' : '마감됨'}
             </Badge>
             {session.deadline && (
-              <Badge variant="outline">
+              <Badge variant="outline" className="border-gray-300 text-gray-700">
                 <Clock className="w-3 h-3 mr-1" />
                 마감: {new Date(session.deadline).toLocaleString('ko-KR')}
               </Badge>
@@ -92,20 +92,20 @@ export function HostDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: QR Code & Invite */}
           <div className="lg:col-span-1 space-y-6">
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>참여 QR 코드</CardTitle>
+                <CardTitle className="text-gray-900">참여 QR 코드</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col items-center">
-                <div className="bg-white p-4 rounded-lg border">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
                   <QRCodeSVG value={joinUrl} size={200} />
                 </div>
                 <div className="mt-4 w-full space-y-2">
-                  <Button variant="outline" className="w-full" onClick={handleCopyLink}>
+                  <Button variant="outline" className="w-full border-gray-300" onClick={handleCopyLink}>
                     <Copy className="w-4 h-4 mr-2" />
                     링크 복사
                   </Button>
-                  <Button variant="outline" className="w-full" onClick={handleShare}>
+                  <Button variant="outline" className="w-full border-gray-300" onClick={handleShare}>
                     <Share2 className="w-4 h-4 mr-2" />
                     공유하기
                   </Button>
@@ -114,31 +114,31 @@ export function HostDashboardPage() {
             </Card>
 
             {/* Stats */}
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>주문 현황</CardTitle>
+                <CardTitle className="text-gray-900">주문 현황</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Users className="w-5 h-5 mr-2 text-blue-600" />
-                    <span className="text-sm">참여 인원</span>
+                    <Users className="w-5 h-5 mr-2 text-green-600" />
+                    <span className="text-sm text-gray-700">참여 인원</span>
                   </div>
-                  <span className="font-semibold">{summary.participantCount}명</span>
+                  <span className="font-semibold text-gray-900">{summary.participantCount}명</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <DollarSign className="w-5 h-5 mr-2 text-green-600" />
-                    <span className="text-sm">총 금액</span>
+                    <span className="text-sm text-gray-700">총 금액</span>
                   </div>
-                  <span className="font-semibold">{summary.totalAmount.toLocaleString()}원</span>
+                  <span className="font-semibold text-gray-900">{summary.totalAmount.toLocaleString()}원</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <DollarSign className="w-5 h-5 mr-2 text-purple-600" />
-                    <span className="text-sm">1인당</span>
+                    <DollarSign className="w-5 h-5 mr-2 text-green-600" />
+                    <span className="text-sm text-gray-700">1인당</span>
                   </div>
-                  <span className="font-semibold">{summary.perPersonAmount.toLocaleString()}원</span>
+                  <span className="font-semibold text-gray-900">{summary.perPersonAmount.toLocaleString()}원</span>
                 </div>
               </CardContent>
             </Card>
@@ -147,9 +147,9 @@ export function HostDashboardPage() {
           {/* Right: Orders & Menu Summary */}
           <div className="lg:col-span-2 space-y-6">
             {/* Participants */}
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>참여자 ({participantNames.length}명)</CardTitle>
+                <CardTitle className="text-gray-900">참여자 ({participantNames.length}명)</CardTitle>
               </CardHeader>
               <CardContent>
                 {participantNames.length === 0 ? (
@@ -157,7 +157,7 @@ export function HostDashboardPage() {
                 ) : (
                   <div className="flex flex-wrap gap-2">
                     {participantNames.map(name => (
-                      <Badge key={name} variant="secondary">
+                      <Badge key={name} variant="secondary" className="bg-gray-100 text-gray-700">
                         {name}
                       </Badge>
                     ))}
@@ -167,9 +167,9 @@ export function HostDashboardPage() {
             </Card>
 
             {/* Menu Summary */}
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>메뉴별 집계</CardTitle>
+                <CardTitle className="text-gray-900">메뉴별 집계</CardTitle>
               </CardHeader>
               <CardContent>
                 {summary.menuSummary.length === 0 ? (
@@ -177,14 +177,14 @@ export function HostDashboardPage() {
                 ) : (
                   <div className="space-y-3">
                     {summary.menuSummary.map((item, index) => (
-                      <div key={index} className="flex items-center justify-between border-b pb-3">
+                      <div key={index} className="flex items-center justify-between border-b border-gray-200 pb-3">
                         <div>
-                          <p className="font-medium">{item.menuName}</p>
+                          <p className="font-medium text-gray-900">{item.menuName}</p>
                           <p className="text-sm text-gray-500">
                             {item.unitPrice.toLocaleString()}원 × {item.totalQuantity}개
                           </p>
                         </div>
-                        <p className="font-semibold text-lg">
+                        <p className="font-semibold text-lg text-gray-900">
                           {item.subtotal.toLocaleString()}원
                         </p>
                       </div>
@@ -195,9 +195,9 @@ export function HostDashboardPage() {
             </Card>
 
             {/* Individual Orders */}
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>개인별 주문 내역</CardTitle>
+                <CardTitle className="text-gray-900">개인별 주문 내역</CardTitle>
               </CardHeader>
               <CardContent>
                 {orders.length === 0 ? (
@@ -210,10 +210,10 @@ export function HostDashboardPage() {
                         0
                       );
                       return (
-                        <div key={order.id} className="border rounded-lg p-4">
+                        <div key={order.id} className="border border-gray-200 rounded-lg p-4">
                           <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-semibold">{order.participantName}</h4>
-                            <span className="font-semibold text-blue-600">
+                            <h4 className="font-semibold text-gray-900">{order.participantName}</h4>
+                            <span className="font-semibold text-green-600">
                               {orderTotal.toLocaleString()}원
                             </span>
                           </div>
@@ -228,7 +228,7 @@ export function HostDashboardPage() {
                             ))}
                           </div>
                           {order.specialRequest && (
-                            <div className="mt-2 text-xs text-gray-500 border-t pt-2">
+                            <div className="mt-2 text-xs text-gray-500 border-t border-gray-200 pt-2">
                               메모: {order.specialRequest}
                             </div>
                           )}
@@ -242,7 +242,7 @@ export function HostDashboardPage() {
 
             {/* Actions */}
             {session.isActive && (
-              <Button size="lg" className="w-full" onClick={handleCloseSession}>
+              <Button size="lg" className="w-full bg-green-600 hover:bg-green-700" onClick={handleCloseSession}>
                 <CheckCircle className="w-5 h-5 mr-2" />
                 주문 마감하고 주문서 생성
               </Button>

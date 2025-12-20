@@ -29,15 +29,15 @@ export function SemesterList({ semesters, scale, onDeleteSemester, onDeleteCours
         const result = calculateSemesterGPA(semester.courses, scale);
 
         return (
-          <Card key={semester.id}>
+          <Card key={semester.id} className="border-gray-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>{semester.name}</CardTitle>
+                <CardTitle className="text-lg font-bold text-gray-900">{semester.name}</CardTitle>
                 <div className="flex gap-2 mt-2">
-                  <Badge variant="secondary">
+                  <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-200">
                     학기 GPA: {result.gpa.toFixed(2)}
                   </Badge>
-                  <Badge variant="outline">
+                  <Badge variant="outline" className="border-gray-300 text-gray-700">
                     이수: {result.earnedCredits}학점
                   </Badge>
                 </div>
@@ -46,6 +46,7 @@ export function SemesterList({ semesters, scale, onDeleteSemester, onDeleteCours
                 variant="ghost"
                 size="sm"
                 onClick={() => onDeleteSemester(semester.id)}
+                className="hover:bg-red-50 hover:text-red-600"
               >
                 <Trash2 className="w-4 h-4" />
               </Button>
@@ -59,13 +60,13 @@ export function SemesterList({ semesters, scale, onDeleteSemester, onDeleteCours
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">과목명</th>
-                        <th className="text-center py-2">학점</th>
-                        <th className="text-center py-2">성적</th>
-                        <th className="text-center py-2">구분</th>
-                        <th className="text-center py-2">P/F</th>
-                        <th className="text-center py-2"></th>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <th className="text-left py-3 px-2 font-semibold text-gray-700">과목명</th>
+                        <th className="text-center py-3 px-2 font-semibold text-gray-700">학점</th>
+                        <th className="text-center py-3 px-2 font-semibold text-gray-700">성적</th>
+                        <th className="text-center py-3 px-2 font-semibold text-gray-700">구분</th>
+                        <th className="text-center py-3 px-2 font-semibold text-gray-700">P/F</th>
+                        <th className="text-center py-3 px-2 font-semibold text-gray-700"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -101,26 +102,34 @@ function CourseRow({ course, onDelete }: CourseRowProps) {
     return category;
   };
 
+  const getGradeBadgeColor = (grade: string) => {
+    if (grade.startsWith('A')) return 'bg-blue-100 text-blue-700 hover:bg-blue-200';
+    if (grade.startsWith('B')) return 'bg-green-100 text-green-700 hover:bg-green-200';
+    if (grade.startsWith('C')) return 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200';
+    return 'bg-gray-100 text-gray-700 hover:bg-gray-200';
+  };
+
   return (
-    <tr className="border-b hover:bg-gray-50">
-      <td className="py-2">{course.name}</td>
-      <td className="text-center">{course.credit}</td>
-      <td className="text-center">
-        <Badge variant={course.grade.startsWith('A') ? 'default' : 'secondary'}>
+    <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+      <td className="py-3 px-2 font-medium text-gray-900">{course.name}</td>
+      <td className="text-center py-3 px-2 text-gray-700">{course.credit}</td>
+      <td className="text-center py-3 px-2">
+        <Badge variant="secondary" className={getGradeBadgeColor(course.grade)}>
           {course.grade}
         </Badge>
       </td>
-      <td className="text-center text-xs text-gray-600">
+      <td className="text-center py-3 px-2 text-xs text-gray-600">
         {getCategoryText(course.category)}
       </td>
-      <td className="text-center text-xs">
+      <td className="text-center py-3 px-2 text-xs text-gray-600">
         {course.isPassFail ? 'Y' : 'N'}
       </td>
-      <td className="text-center">
+      <td className="text-center py-3 px-2">
         <Button
           variant="ghost"
           size="sm"
           onClick={onDelete}
+          className="hover:bg-red-50 hover:text-red-600"
         >
           <Trash2 className="w-3 h-3" />
         </Button>

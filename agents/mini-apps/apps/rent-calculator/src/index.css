@@ -9,7 +9,8 @@
 body {
   min-height: 100vh;
   background-color: #f9fafb;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #111827;
 }
 
 #root {

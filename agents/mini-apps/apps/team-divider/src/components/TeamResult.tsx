@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import type { Participant } from '@/types/team';
-import { generateTeamColors } from '@/utils/colors';
 import { Card } from '@mini-apps/ui';
 import Confetti from 'react-confetti';
 import { Users } from 'lucide-react';
@@ -15,8 +14,6 @@ export function TeamResult({ teams, showConfetti = false }: TeamResultProps) {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-
-  const colors = generateTeamColors(teams.length);
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,44 +41,20 @@ export function TeamResult({ teams, showConfetti = false }: TeamResultProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {teams.map((team, index) => {
-          const color = colors[index];
-          const isHSL = color.bg.startsWith('hsl');
-
           return (
             <Card
               key={index}
-              className={`p-6 border-2 ${!isHSL ? color.bg + ' ' + color.border : ''}`}
-              style={
-                isHSL
-                  ? {
-                      backgroundColor: color.bg,
-                      borderColor: color.border,
-                    }
-                  : {}
-              }
+              className="p-6 border-2 border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center ${!isHSL ? color.text + ' bg-white/50' : ''}`}
-                  style={
-                    isHSL
-                      ? {
-                          color: color.text,
-                          backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        }
-                      : {}
-                  }
-                >
+              <div className="flex items-center gap-3 mb-5 pb-4 border-b-2 border-blue-600">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-600 text-white">
                   <Users className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3
-                    className={`text-2xl font-bold ${!isHSL ? color.text : ''}`}
-                    style={isHSL ? { color: color.text } : {}}
-                  >
+                  <h3 className="text-2xl font-bold text-gray-900">
                     팀 {index + 1}
                   </h3>
-                  <p className="text-sm opacity-75">{team.length}명</p>
+                  <p className="text-sm text-gray-600 font-medium">{team.length}명</p>
                 </div>
               </div>
 
@@ -89,12 +62,12 @@ export function TeamResult({ teams, showConfetti = false }: TeamResultProps) {
                 {team.map((member, idx) => (
                   <li
                     key={member.id}
-                    className="flex items-center gap-2 bg-white/70 px-3 py-2 rounded backdrop-blur-sm"
+                    className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
                   >
-                    <span className="font-bold text-gray-500 min-w-[24px]">
+                    <span className="font-bold text-blue-600 min-w-[28px] text-lg">
                       {idx + 1}.
                     </span>
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-900">
                       {member.name}
                     </span>
                   </li>

@@ -36,33 +36,34 @@ export const RoomManager: React.FC<{ onRoomSelect: (roomId: string) => void }> =
   return (
     <div className="space-y-8 max-w-4xl mx-auto p-6">
       {/* Room 생성 */}
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-4">🏫 새 교실 만들기</h2>
+      <Card className="p-6 border-gray-200 shadow-sm">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">새 교실 만들기</h2>
         <div className="flex gap-3">
           <input
             type="text"
             value={newRoomName}
             onChange={(e) => setNewRoomName(e.target.value)}
             placeholder="교실 이름 (예: React 부트캠프 2기)"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all"
           />
           <Button
             onClick={handleCreateRoom}
             disabled={!newRoomName.trim() || !profile}
+            className="bg-blue-600 hover:bg-blue-700"
           >
             생성하기
           </Button>
         </div>
         {!profile && (
-          <p className="text-sm text-red-500 mt-2">
-            ⚠️ 먼저 프로필을 생성해주세요
+          <p className="text-sm text-red-600 mt-3">
+            먼저 프로필을 생성해주세요
           </p>
         )}
       </Card>
 
       {/* Room 참여 */}
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-4">🔑 교실 참여하기</h2>
+      <Card className="p-6 border-gray-200 shadow-sm">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">교실 참여하기</h2>
         <div className="flex gap-3">
           <input
             type="text"
@@ -70,12 +71,13 @@ export const RoomManager: React.FC<{ onRoomSelect: (roomId: string) => void }> =
             onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
             placeholder="6자리 코드 입력 (예: ABC123)"
             maxLength={6}
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500
+            className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all
                        font-mono text-xl tracking-widest uppercase"
           />
           <Button
             onClick={handleJoinRoom}
             disabled={joinCode.length !== 6 || !profile}
+            className="bg-blue-600 hover:bg-blue-700"
           >
             참여하기
           </Button>
@@ -84,9 +86,9 @@ export const RoomManager: React.FC<{ onRoomSelect: (roomId: string) => void }> =
 
       {/* 내 교실 목록 */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">📚 내 교실</h2>
+        <h2 className="text-xl font-bold text-gray-900">내 교실</h2>
         {rooms.length === 0 ? (
-          <Card className="p-8 text-center text-gray-500">
+          <Card className="p-8 text-center text-gray-500 border-gray-200 shadow-sm">
             참여 중인 교실이 없습니다
           </Card>
         ) : (
@@ -124,11 +126,11 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onLeave, onSelect, getProfile
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 border-gray-200 shadow-sm">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-xl font-bold text-gray-800">{room.name}</h3>
-          <p className="text-sm text-gray-500">
+          <h3 className="text-lg font-bold text-gray-900">{room.name}</h3>
+          <p className="text-sm text-gray-600 mt-1">
             참여자: {room.members.length}명
           </p>
         </div>
@@ -154,11 +156,11 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onLeave, onSelect, getProfile
       </div>
 
       {showCode && (
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg flex items-center justify-between">
-          <span className="font-mono text-2xl font-bold tracking-widest">
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
+          <span className="font-mono text-2xl font-bold tracking-widest text-gray-900">
             {room.id}
           </span>
-          <Button onClick={copyRoomCode} size="sm">
+          <Button onClick={copyRoomCode} size="sm" className="bg-blue-600 hover:bg-blue-700">
             <Copy className="w-4 h-4 mr-1" />
             복사
           </Button>
@@ -166,36 +168,35 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onLeave, onSelect, getProfile
       )}
 
       {/* 참여자 프로필 그리드 */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
         {members.map((member: any) => (
           <div
             key={member.id}
-            className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors
-                       cursor-pointer"
+            className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100"
           >
             {member.avatarUrl ? (
               <img
                 src={member.avatarUrl}
                 alt={member.name}
-                className="w-16 h-16 rounded-full mx-auto mb-2 object-cover"
+                className="w-14 h-14 rounded-full mx-auto mb-2 object-cover"
               />
             ) : (
-              <div className="w-16 h-16 rounded-full bg-blue-100
-                              flex items-center justify-center text-2xl mx-auto mb-2 text-blue-600">
+              <div className="w-14 h-14 rounded-full bg-blue-100
+                              flex items-center justify-center text-xl mx-auto mb-2 text-blue-600">
                 {member.name[0]}
               </div>
             )}
-            <p className="text-sm font-medium text-center truncate">
+            <p className="text-sm font-medium text-center truncate text-gray-900">
               {member.name}
             </p>
-            <p className="text-xs text-gray-500 text-center truncate">
+            <p className="text-xs text-gray-600 text-center truncate">
               {member.field}
             </p>
           </div>
         ))}
       </div>
 
-      <Button onClick={onSelect} className="w-full">
+      <Button onClick={onSelect} className="w-full bg-blue-600 hover:bg-blue-700">
         교실 입장하기
       </Button>
     </Card>

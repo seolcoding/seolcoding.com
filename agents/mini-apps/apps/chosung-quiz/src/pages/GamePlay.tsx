@@ -77,36 +77,45 @@ export function GamePlay() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-3xl p-6 md:p-8 bg-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-purple-300/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-pink-300/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/3 w-36 h-36 bg-blue-300/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <Card className="relative w-full max-w-3xl p-6 md:p-8 bg-white/95 backdrop-blur-sm shadow-2xl border-2 border-white">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Timer
               duration={gameConfig?.timeLimit || 30}
               onTimeUp={handleTimeUp}
               onTick={setTimeRemaining}
             />
             <div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm font-semibold text-gray-600 mb-1">
                 {categoryLabels[gameConfig?.category || 'movie']}
               </div>
-              <div className="text-2xl font-bold text-purple-600 flex items-center gap-2">
-                <Trophy className="w-6 h-6" />
+              <div className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
+                <Trophy className="w-7 h-7 text-yellow-500 drop-shadow-md" />
                 {score}점
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-sm text-gray-600">문제</div>
-            <div className="text-2xl font-bold text-purple-600">
-              {currentQuestionIndex + 1} / {questions.length}
+            <div className="text-sm font-semibold text-gray-600 mb-1">문제</div>
+            <div className="text-3xl font-black text-purple-600">
+              {currentQuestionIndex + 1}<span className="text-gray-400">/</span>{questions.length}
             </div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <Progress value={progress} className="mb-6" />
+        <div className="mb-8">
+          <Progress value={progress} className="h-3 bg-gray-200" />
+        </div>
 
         {/* Chosung Display */}
         <ChosungDisplay chosung={currentQuestion.chosung} />
@@ -114,18 +123,23 @@ export function GamePlay() {
         {/* Feedback */}
         {showFeedback && (
           <div
-            className={`text-center py-4 px-6 rounded-lg mb-4 ${
+            className={`text-center py-6 px-8 rounded-2xl mb-6 transform transition-all ${
               isCorrect
-                ? 'bg-green-100 border-2 border-green-500 text-green-800'
-                : 'bg-red-100 border-2 border-red-500 text-red-800'
+                ? 'bg-gradient-to-br from-green-400 to-emerald-500 border-4 border-green-300 text-white shadow-2xl animate-success-burst'
+                : 'bg-gradient-to-br from-red-400 to-rose-500 border-4 border-red-300 text-white shadow-2xl animate-shake'
             }`}
           >
-            <div className="text-xl font-bold mb-1">
-              {isCorrect ? '정답입니다! 🎉' : '아쉽네요! 😢'}
+            <div className="text-3xl font-black mb-2 drop-shadow-md">
+              {isCorrect ? '정답입니다!' : '아쉽네요!'}
             </div>
-            <div className="text-lg">
-              정답: <span className="font-bold">{currentQuestion.word}</span>
+            <div className="text-2xl font-bold">
+              정답: <span className="font-black drop-shadow-md">{currentQuestion.word}</span>
             </div>
+            {isCorrect && (
+              <div className="mt-2 text-sm font-semibold opacity-90">
+                멋져요! 계속 도전하세요!
+              </div>
+            )}
           </div>
         )}
 

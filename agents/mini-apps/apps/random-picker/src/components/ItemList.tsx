@@ -41,10 +41,10 @@ export const ItemList: React.FC<ItemListProps> = ({
   return (
     <div className="space-y-2">
       {items.map((item) => (
-        <Card key={item.id} className="p-3">
-          <div className="flex items-center gap-2">
+        <Card key={item.id} className="p-3 bg-gray-50 border-gray-200">
+          <div className="flex items-center gap-3">
             <div
-              className="w-4 h-4 rounded-full flex-shrink-0"
+              className="w-5 h-5 rounded-full flex-shrink-0 shadow-sm"
               style={{ backgroundColor: item.color }}
             />
             {editingId === item.id ? (
@@ -52,7 +52,7 @@ export const ItemList: React.FC<ItemListProps> = ({
                 <Input
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
-                  className="flex-1"
+                  className="flex-1 border-gray-300"
                   maxLength={50}
                   autoFocus
                   onKeyDown={(e) => {
@@ -64,21 +64,30 @@ export const ItemList: React.FC<ItemListProps> = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => saveEdit(item.id)}
+                  className="hover:bg-gray-200 text-green-600"
                 >
                   <Check className="h-4 w-4" />
                 </Button>
-                <Button size="icon" variant="ghost" onClick={cancelEdit}>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={cancelEdit}
+                  className="hover:bg-gray-200 text-gray-600"
+                >
                   <X className="h-4 w-4" />
                 </Button>
               </>
             ) : (
               <>
-                <span className="flex-1 truncate">{item.label}</span>
+                <span className="flex-1 truncate font-medium text-gray-800">
+                  {item.label}
+                </span>
                 <Button
                   size="icon"
                   variant="ghost"
                   onClick={() => startEdit(item)}
                   disabled={disabled}
+                  className="hover:bg-gray-200 text-gray-600"
                 >
                   <Edit2 className="h-4 w-4" />
                 </Button>
@@ -87,6 +96,7 @@ export const ItemList: React.FC<ItemListProps> = ({
                   variant="ghost"
                   onClick={() => onRemove(item.id)}
                   disabled={disabled}
+                  className="hover:bg-gray-200 text-red-600"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

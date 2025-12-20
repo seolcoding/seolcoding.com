@@ -84,23 +84,23 @@ export const RoomView: React.FC<RoomViewProps> = ({ roomId, onBack }) => {
               {members.map(member => (
                 <div
                   key={member.id}
-                  className="p-6 bg-white rounded-xl shadow-sm border-2 border-gray-100
-                             hover:border-blue-300 transition-colors"
+                  className="p-6 bg-white rounded-lg shadow-sm border border-gray-200
+                             hover:border-blue-600 transition-colors"
                 >
                   {member.avatarUrl ? (
                     <img
                       src={member.avatarUrl}
                       alt={member.name}
-                      className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+                      className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-2 border-blue-600"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded-full bg-blue-100
-                                    flex items-center justify-center text-3xl mx-auto mb-4 text-blue-600">
+                    <div className="w-20 h-20 rounded-full bg-blue-100
+                                    flex items-center justify-center text-2xl mx-auto mb-4 text-blue-600">
                       {member.name[0]}
                     </div>
                   )}
-                  <h3 className="text-xl font-bold text-center mb-2">{member.name}</h3>
-                  <p className="text-gray-600 text-sm text-center mb-3">{member.tagline}</p>
+                  <h3 className="text-lg font-bold text-center mb-2 text-gray-900">{member.name}</h3>
+                  <p className="text-gray-600 text-sm text-center mb-2">{member.tagline}</p>
                   <p className="text-center text-sm text-gray-500 mb-4">{member.field}</p>
 
                   {member.interests.length > 0 && (
@@ -108,13 +108,13 @@ export const RoomView: React.FC<RoomViewProps> = ({ roomId, onBack }) => {
                       {member.interests.slice(0, 3).map((interest: string) => (
                         <span
                           key={interest}
-                          className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs"
+                          className="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium border border-blue-200"
                         >
                           {interest}
                         </span>
                       ))}
                       {member.interests.length > 3 && (
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">
+                        <span className="px-2 py-1 bg-gray-50 text-gray-600 rounded-lg text-xs border border-gray-200">
                           +{member.interests.length - 3}
                         </span>
                       )}

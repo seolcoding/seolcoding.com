@@ -49,17 +49,25 @@ export const BulkInput: React.FC<BulkInputProps> = ({ onAdd, disabled }) => {
           </DialogDescription>
         </DialogHeader>
         <textarea
-          className="w-full h-64 p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full h-64 p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
           placeholder="예시:&#10;사과&#10;바나나&#10;포도"
           value={text}
           onChange={(e) => setText(e.target.value)}
           maxLength={2000}
         />
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button
+            variant="outline"
+            onClick={() => setOpen(false)}
+            className="border-gray-300 hover:bg-gray-100"
+          >
             취소
           </Button>
-          <Button onClick={handleSubmit} disabled={!text.trim()}>
+          <Button
+            onClick={handleSubmit}
+            disabled={!text.trim()}
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
             추가
           </Button>
         </DialogFooter>

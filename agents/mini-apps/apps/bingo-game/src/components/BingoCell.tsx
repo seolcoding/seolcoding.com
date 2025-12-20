@@ -10,56 +10,112 @@ interface BingoCellProps {
 }
 
 export function BingoCell({ cell, isPartOfBingo, onClick, disabled = false }: BingoCellProps) {
+  const isFree = cell.value === 'FREE';
+  const isMarked = cell.isMarked;
+
   return (
     <motion.button
       type="button"
       onClick={onClick}
-      disabled={disabled || cell.value === 'FREE'}
+      disabled={disabled || isFree}
       className={clsx(
         'relative h-16 sm:h-20 md:h-24',
         'flex items-center justify-center',
-        'border-2 rounded-lg font-bold',
+        'border-3 font-bold overflow-hidden',
         'transition-all duration-200',
         'text-sm sm:text-base md:text-lg lg:text-xl',
         {
-          // FREE 칸
-          'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-default':
-            cell.value === 'FREE',
+          // Border radius
+          'rounded-full': isFree,
+          'rounded-lg': !isFree,
 
-          // 마킹되지 않은 칸
-          'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600':
-            !cell.isMarked && cell.value !== 'FREE',
+          // FREE cell - special styling
+          'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700':
+            isFree,
+          'cursor-default': isFree,
 
-          // 마킹된 칸 (빙고 라인 아님)
-          'bg-blue-500 text-white border-blue-600':
-            cell.isMarked && !isPartOfBingo && cell.value !== 'FREE',
+          // Unmarked cells - clean white card
+          'bg-white dark:bg-gray-800': !isMarked && !isFree,
+          'border-gray-300 dark:border-gray-600': !isMarked && !isFree,
+          'shadow-sm': !isMarked && !isFree,
 
-          // 빙고 라인의 일부
-          'bg-yellow-400 dark:bg-yellow-500 text-gray-900 border-yellow-600 animate-pulse':
-            isPartOfBingo,
+          // Marked cells (not bingo line) - stamped effect
+          'bg-blue-600 text-white border-blue-700': isMarked && !isPartOfBingo && !isFree,
+          'shadow-lg': isMarked && !isPartOfBingo && !isFree,
 
-          // 호버 효과
-          'hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 active:scale-95':
-            !cell.isMarked && !disabled && cell.value !== 'FREE',
+          // Bingo line cells - golden celebration
+          'bg-yellow-400 dark:bg-yellow-500 text-gray-900 border-yellow-600': isPartOfBingo,
+          'shadow-2xl': isPartOfBingo,
+          'bingo-line-cell': isPartOfBingo,
+
+          // Hover effects - tactile feedback
+          'hover:shadow-md hover:scale-[1.02] active:scale-95': !isMarked && !disabled && !isFree,
+          'hover:border-blue-400 dark:hover:border-blue-500': !isMarked && !disabled && !isFree,
+          'cursor-pointer': !disabled && !isFree,
         }
       )}
-      whileTap={{ scale: disabled ? 1 : 0.95 }}
-      animate={{
-        scale: cell.isMarked && !isPartOfBingo ? [1, 1.1, 1] : 1,
-      }}
-      transition={{ duration: 0.2 }}
+      whileHover={!disabled && !isFree ? { y: -2 } : {}}
+      whileTap={!disabled && !isFree ? { scale: 0.95 } : {}}
     >
-      <span className="break-words px-1 text-center">{cell.value}</span>
+      {/* Cell background pattern for texture */}
+      <div className={clsx(
+        'absolute inset-0 opacity-5',
+        {
+          'bg-[radial-gradient(circle_at_1px_1px,_rgb(0_0_0_/_15%)_1px,_transparent_0)]': !isMarked,
+          'bg-[size:8px_8px]': !isMarked,
+        }
+      )} />
 
-      {cell.isMarked && cell.value !== 'FREE' && (
+      {/* Cell number/text */}
+      <span className={clsx(
+        'relative z-10 break-words px-1 text-center',
+        {
+          'font-extrabold tracking-tight': !isFree,
+          'font-semibold text-amber-700 dark:text-amber-400': isFree,
+        }
+      )}>
+        {cell.value}
+      </span>
+
+      {/* Stamp mark for marked cells */}
+      {isMarked && !isFree && (
         <motion.div
-          initial={{ scale: 0, rotate: -45 }}
-          animate={{ scale: 1, rotate: 0 }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          initial={{ scale: 0, rotate: -45, opacity: 0 }}
+          animate={{ scale: 1, rotate: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 25
+          }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 stamp-animation"
         >
-          <div className="w-full h-full flex items-center justify-center">
+          {/* Checkmark or stamp effect */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="relative"
+          >
+            {/* Stamp circle background */}
+            <div className={clsx(
+              'absolute inset-0 rounded-full',
+              {
+                'bg-blue-400/30': !isPartOfBingo,
+                'bg-yellow-300/50': isPartOfBingo,
+              }
+            )}
+            style={{ transform: 'scale(1.8)' }}
+            />
+
+            {/* Checkmark icon */}
             <svg
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+              className={clsx(
+                'relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 drop-shadow-lg',
+                {
+                  'text-white': !isPartOfBingo,
+                  'text-yellow-700': isPartOfBingo,
+                }
+              )}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -67,11 +123,31 @@ export function BingoCell({ cell, isPartOfBingo, onClick, disabled = false }: Bi
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={3}
+                strokeWidth={3.5}
                 d="M5 13l4 4L19 7"
               />
             </svg>
-          </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Bingo line sparkle effect */}
+      {isPartOfBingo && (
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute inset-0 pointer-events-none"
+        >
+          <div className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full" />
+          <div className="absolute bottom-1 left-1 w-2 h-2 bg-white rounded-full" />
+          <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2" />
         </motion.div>
       )}
     </motion.button>

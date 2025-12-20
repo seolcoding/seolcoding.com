@@ -30,11 +30,11 @@ export function JeonseToWolseConverter() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* 입력 영역 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>입력</CardTitle>
+      <Card className="border-gray-200 shadow-sm">
+        <CardHeader className="border-b border-gray-100 bg-white">
+          <CardTitle className="text-lg font-semibold text-gray-900">입력</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 bg-white">
           <div>
             <Label htmlFor="jeonse">전세금</Label>
             <NumberInput
@@ -83,40 +83,40 @@ export function JeonseToWolseConverter() {
       </Card>
 
       {/* 결과 영역 */}
-      <Card className="bg-blue-50">
-        <CardHeader>
-          <CardTitle>결과</CardTitle>
+      <Card className="border-blue-200 shadow-sm bg-white">
+        <CardHeader className="border-b border-blue-100 bg-blue-50">
+          <CardTitle className="text-lg font-semibold text-gray-900">결과</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6 bg-white">
           {error ? (
             <div className="text-red-600 text-sm">{error}</div>
           ) : (
             <>
-              <div>
-                <p className="text-sm text-gray-600">월세</p>
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p className="text-sm font-medium text-gray-600 mb-2">월세</p>
                 <CurrencyDisplay
                   value={monthlyRent}
                   className="text-3xl font-bold text-blue-600"
                 />
               </div>
 
-              <div className="pt-4 border-t border-blue-200">
-                <p className="text-sm text-gray-600 mb-2">계산 공식</p>
-                <p className="text-xs text-gray-500">
-                  월세 = (전세금 - 보증금) × 전환율 ÷ 12
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  = ({jeonse.toLocaleString()} - {depositForWolse.toLocaleString()})
-                  × {conversionRateJeonse}% ÷ 12
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  = <CurrencyDisplay value={monthlyRent} />
-                </p>
+              <div className="pt-4 border-t border-gray-200">
+                <p className="text-sm font-medium text-gray-700 mb-3">계산 공식</p>
+                <div className="space-y-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                  <p>월세 = (전세금 - 보증금) × 전환율 ÷ 12</p>
+                  <p>
+                    = ({jeonse.toLocaleString()} - {depositForWolse.toLocaleString()})
+                    × {conversionRateJeonse}% ÷ 12
+                  </p>
+                  <p className="font-semibold text-gray-900">
+                    = <CurrencyDisplay value={monthlyRent} />
+                  </p>
+                </div>
               </div>
 
-              <div className="pt-4 border-t border-blue-200">
-                <p className="text-sm text-gray-600">보증금 + 월세</p>
-                <p className="text-lg font-semibold">
+              <div className="pt-4 border-t border-gray-200">
+                <p className="text-sm font-medium text-gray-700 mb-2">보증금 + 월세</p>
+                <p className="text-lg font-semibold text-gray-900">
                   <CurrencyDisplay value={depositForWolse} /> + <CurrencyDisplay value={monthlyRent} />
                 </p>
               </div>

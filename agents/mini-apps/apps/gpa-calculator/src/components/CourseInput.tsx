@@ -40,15 +40,15 @@ export function CourseInput({ onAddCourse }: CourseInputProps) {
   };
 
   return (
-    <Card>
+    <Card className="border-gray-200 shadow-sm">
       <CardHeader>
-        <CardTitle>과목 추가</CardTitle>
+        <CardTitle className="text-lg font-bold text-gray-900">과목 추가</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="course-name">과목명</Label>
+            <div className="space-y-2">
+              <Label htmlFor="course-name" className="text-sm font-medium text-gray-700">과목명</Label>
               <Input
                 id="course-name"
                 type="text"
@@ -59,8 +59,8 @@ export function CourseInput({ onAddCourse }: CourseInputProps) {
               />
             </div>
 
-            <div>
-              <Label htmlFor="course-credit">학점</Label>
+            <div className="space-y-2">
+              <Label htmlFor="course-credit" className="text-sm font-medium text-gray-700">학점</Label>
               <Select value={credit.toString()} onValueChange={(v) => setCredit(Number(v))}>
                 <SelectTrigger id="course-credit">
                   <SelectValue />
@@ -78,8 +78,8 @@ export function CourseInput({ onAddCourse }: CourseInputProps) {
               </Select>
             </div>
 
-            <div>
-              <Label htmlFor="course-grade">성적</Label>
+            <div className="space-y-2">
+              <Label htmlFor="course-grade" className="text-sm font-medium text-gray-700">성적</Label>
               <Select value={grade} onValueChange={(v) => setGrade(v as Grade)}>
                 <SelectTrigger id="course-grade">
                   <SelectValue />
@@ -94,8 +94,8 @@ export function CourseInput({ onAddCourse }: CourseInputProps) {
               </Select>
             </div>
 
-            <div>
-              <Label htmlFor="course-category">과목 구분</Label>
+            <div className="space-y-2">
+              <Label htmlFor="course-category" className="text-sm font-medium text-gray-700">과목 구분</Label>
               <Select value={category} onValueChange={(v) => setCategory(v as CourseCategory)}>
                 <SelectTrigger id="course-category">
                   <SelectValue />
@@ -109,16 +109,16 @@ export function CourseInput({ onAddCourse }: CourseInputProps) {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
             <Switch
               id="pass-fail"
               checked={isPassFail}
               onCheckedChange={setIsPassFail}
             />
-            <Label htmlFor="pass-fail">Pass/Fail 과목</Label>
+            <Label htmlFor="pass-fail" className="text-sm text-gray-700">Pass/Fail 과목</Label>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
             <Plus className="w-4 h-4 mr-2" />
             과목 추가
           </Button>

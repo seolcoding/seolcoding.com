@@ -78,14 +78,14 @@ export function DataManager({ semesters, onImport, onClearAll }: DataManagerProp
   };
 
   return (
-    <Card>
+    <Card className="border-gray-200 shadow-sm">
       <CardHeader>
-        <CardTitle>데이터 관리</CardTitle>
+        <CardTitle className="text-lg font-bold text-gray-900">데이터 관리</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-semibold mb-2">내보내기</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">내보내기</h3>
             <div className="flex flex-wrap gap-2">
               <Button
                 variant="outline"
@@ -109,7 +109,7 @@ export function DataManager({ semesters, onImport, onClearAll }: DataManagerProp
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold mb-2">가져오기</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">가져오기</h3>
             <div className="flex flex-wrap gap-2">
               <Button
                 variant="outline"
@@ -157,9 +157,9 @@ export function DataManager({ semesters, onImport, onClearAll }: DataManagerProp
             </Button>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded text-xs text-gray-600">
-            <p className="font-semibold mb-1">안내:</p>
-            <ul className="list-disc list-inside space-y-1">
+          <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <p className="font-semibold text-sm text-gray-900 mb-2">안내:</p>
+            <ul className="list-disc list-inside space-y-1 text-xs text-gray-600">
               <li>CSV: 엑셀에서 열람 가능한 형식</li>
               <li>JSON: 완전한 백업 형식 (권장)</li>
               <li>데이터는 브라우저에만 저장됩니다</li>

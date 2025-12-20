@@ -7,11 +7,11 @@ export function QRCodeDisplay() {
 
   if (isGeneratingQR) {
     return (
-      <Card className="p-8">
+      <Card className="p-10 border-gray-200 shadow-sm bg-white">
         <div className="text-center">
-          <QrCode className="w-12 h-12 animate-pulse mx-auto mb-4 text-gray-600" />
-          <p className="text-lg font-medium text-gray-900">QR 코드 생성 중...</p>
-          <p className="text-sm text-gray-600 mt-2">
+          <QrCode className="w-16 h-16 animate-pulse mx-auto mb-5 text-blue-600" />
+          <p className="text-xl font-bold text-gray-900 mb-2">QR 코드 생성 중...</p>
+          <p className="text-sm text-gray-600">
             {teams.flat().length}개의 QR 코드를 생성하고 있습니다
           </p>
         </div>
@@ -24,9 +24,9 @@ export function QRCodeDisplay() {
   }
 
   return (
-    <Card className="p-6">
-      <h2 className="text-2xl font-bold mb-4">QR 코드</h2>
-      <p className="text-sm text-gray-600 mb-6">
+    <Card className="p-8 border-gray-200 shadow-sm bg-white">
+      <h2 className="text-3xl font-bold mb-3 text-gray-900">QR 코드</h2>
+      <p className="text-base text-gray-600 mb-8">
         각 참가자에게 QR 코드를 스캔하여 팀 배정 결과를 확인할 수 있습니다
       </p>
 
@@ -38,23 +38,23 @@ export function QRCodeDisplay() {
             return (
               <div
                 key={member.id}
-                className="bg-white border-2 border-gray-200 rounded-lg p-3 text-center hover:shadow-lg transition-shadow"
+                className="bg-white border-2 border-gray-200 rounded-xl p-4 text-center hover:border-blue-600 hover:shadow-md transition-all"
               >
                 {qrDataUrl ? (
                   <img
                     src={qrDataUrl}
                     alt={`${member.name} QR`}
-                    className="w-full h-auto mb-2 rounded"
+                    className="w-full h-auto mb-3 rounded-lg"
                   />
                 ) : (
-                  <div className="w-full aspect-square bg-gray-100 rounded mb-2 flex items-center justify-center">
-                    <QrCode className="w-8 h-8 text-gray-400" />
+                  <div className="w-full aspect-square bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
+                    <QrCode className="w-10 h-10 text-gray-400" />
                   </div>
                 )}
-                <p className="font-bold text-sm text-gray-900">
+                <p className="font-bold text-sm text-blue-600 mb-1">
                   팀 {teamIndex + 1}
                 </p>
-                <p className="text-xs text-gray-600 truncate">{member.name}</p>
+                <p className="text-xs text-gray-700 font-medium truncate">{member.name}</p>
               </div>
             );
           })

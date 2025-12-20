@@ -48,7 +48,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onDownload })
       <div
         ref={cardRef}
         className="w-[600px] h-[800px] bg-white
-                   p-12 rounded-2xl shadow-2xl border-4 border-gray-200"
+                   p-12 rounded-2xl shadow-lg border border-gray-200"
       >
         {/* 헤더 영역 */}
         <div className="flex items-start gap-6 mb-8">
@@ -57,25 +57,25 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onDownload })
             <img
               src={profile.avatarUrl}
               alt={profile.name}
-              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+              className="w-24 h-24 rounded-full object-cover border-4 border-blue-600"
               crossOrigin="anonymous"
             />
           ) : (
             <div className="w-24 h-24 rounded-full bg-blue-100
-                            flex items-center justify-center text-4xl border-4 border-white shadow-lg text-blue-600">
+                            flex items-center justify-center text-4xl border-4 border-blue-600 text-blue-600">
               {profile.name[0]}
             </div>
           )}
 
           {/* 이름 & 소개 */}
           <div className="flex-1">
-            <h2 className="text-4xl font-bold text-gray-800 mb-2">
+            <h2 className="text-4xl font-bold text-gray-900 mb-2">
               {profile.name}
             </h2>
-            <p className="text-xl text-gray-600 mb-3">
+            <p className="text-xl text-gray-600 mb-4">
               {profile.tagline}
             </p>
-            <div className="inline-block px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">
+            <div className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">
               {profile.field}
             </div>
           </div>
@@ -84,15 +84,15 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onDownload })
         {/* 관심사 태그 */}
         {profile.interests.length > 0 && (
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
-              🏷️ 관심사
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              관심사
             </h3>
             <div className="flex flex-wrap gap-2">
               {profile.interests.map(interest => (
                 <span
                   key={interest}
-                  className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm
-                             shadow-md border border-gray-200"
+                  className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium
+                             border border-blue-200"
                 >
                   {interest}
                 </span>
@@ -148,9 +148,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onDownload })
       {/* 다운로드 버튼 */}
       <Button
         onClick={handleDownload}
-        className="w-full py-3 bg-green-600 hover:bg-green-700
-                   text-white font-bold rounded-lg hover:shadow-xl
-                   transform hover:scale-105 transition-all"
+        className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
       >
         <Download className="w-5 h-5 mr-2" />
         프로필 카드 다운로드 (PNG)

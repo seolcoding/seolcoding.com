@@ -81,12 +81,12 @@ export function CreateSessionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="container mx-auto px-4 max-w-3xl">
-        <Card>
+        <Card className="border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">주문방 만들기</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl text-gray-900">주문방 만들기</CardTitle>
+            <CardDescription className="text-gray-600">
               단체 주문을 위한 주문방을 생성합니다.
             </CardDescription>
           </CardHeader>
@@ -149,7 +149,7 @@ export function CreateSessionPage() {
 
                   <div className="space-y-3">
                     {menus.map((menu) => (
-                      <Card key={menu.id}>
+                      <Card key={menu.id} className="border-gray-200">
                         <CardContent className="pt-4">
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div className="md:col-span-2">
@@ -210,7 +210,7 @@ export function CreateSessionPage() {
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" size="lg" className="w-full">
+              <Button type="submit" size="lg" className="w-full bg-green-600 hover:bg-green-700">
                 주문방 생성
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

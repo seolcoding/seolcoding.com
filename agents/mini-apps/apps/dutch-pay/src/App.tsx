@@ -31,27 +31,32 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <Calculator className="w-10 h-10 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">더치페이 정산</h1>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-4 shadow-lg">
+            <Calculator className="w-10 h-10 text-white" />
           </div>
-          <p className="text-gray-600">
+          <h1 className="text-5xl font-black text-gray-900 mb-3 tracking-tight">
+            더치페이 정산
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             모임 후 정산을 간편하게 처리하세요. 최소 송금 횟수로 최적화합니다.
           </p>
-          <div className="mt-4">
-            <Button onClick={handleReset} variant="outline" size="sm">
-              <RotateCcw className="w-4 h-4 mr-2" />
-              초기화
-            </Button>
-          </div>
+          <Button
+            onClick={handleReset}
+            variant="outline"
+            size="lg"
+            className="shadow-sm hover:shadow-md transition-shadow"
+          >
+            <RotateCcw className="w-5 h-5 mr-2" />
+            초기화
+          </Button>
         </div>
 
         {/* Main Content */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* 기본 정보 */}
           <BasicInfoForm />
 
@@ -68,18 +73,20 @@ function App() {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 text-center text-sm text-gray-500">
-          <p>
-            더치페이 정산 계산기 by{' '}
-            <a
-              href="https://seolcoding.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              SeolCoding
-            </a>
-          </p>
+        <div className="mt-16 text-center">
+          <div className="inline-block px-6 py-3 bg-white rounded-full shadow-sm">
+            <p className="text-sm text-gray-600">
+              더치페이 정산 계산기 by{' '}
+              <a
+                href="https://seolcoding.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-blue-600 hover:text-purple-600 transition-colors"
+              >
+                SeolCoding
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

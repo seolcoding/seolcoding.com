@@ -13,9 +13,9 @@ export function SummaryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">로딩 중...</p>
         </div>
       </div>
@@ -24,11 +24,11 @@ export function SummaryPage() {
 
   if (error || !session || !sessionId) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Card className="max-w-md border-gray-200">
           <CardContent className="pt-6 text-center">
             <p className="text-red-600 mb-4">{error || '세션을 찾을 수 없습니다.'}</p>
-            <Button onClick={() => navigate('/')}>홈으로 돌아가기</Button>
+            <Button onClick={() => navigate('/')} className="bg-green-600 hover:bg-green-700">홈으로 돌아가기</Button>
           </CardContent>
         </Card>
       </div>
@@ -63,21 +63,21 @@ export function SummaryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-6 text-center">
-          <h1 className="text-3xl font-bold mb-2">주문 완료</h1>
+          <h1 className="text-3xl font-bold mb-2 text-gray-900">주문 완료</h1>
           <p className="text-gray-600">주문이 성공적으로 마감되었습니다.</p>
         </div>
 
         {/* Summary Card for Export */}
-        <Card id="order-summary-card" className="mb-6">
+        <Card id="order-summary-card" className="mb-6 border-gray-200">
           <CardHeader>
             <div className="text-center">
-              <CardTitle className="text-2xl mb-2">{summary.restaurantName}</CardTitle>
+              <CardTitle className="text-2xl mb-2 text-gray-900">{summary.restaurantName}</CardTitle>
               <div className="flex justify-center gap-2">
-                <Badge>주문 마감</Badge>
-                <Badge variant="outline">
+                <Badge className="bg-green-600">주문 마감</Badge>
+                <Badge variant="outline" className="border-gray-300 text-gray-700">
                   {new Date().toLocaleDateString('ko-KR')}
                 </Badge>
               </div>
@@ -87,19 +87,19 @@ export function SummaryPage() {
           <CardContent className="space-y-6">
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="border rounded-lg p-3">
+              <div className="border border-gray-200 rounded-lg p-3">
                 <p className="text-sm text-gray-500 mb-1">참여 인원</p>
-                <p className="text-2xl font-bold text-blue-600">{summary.participantCount}명</p>
+                <p className="text-2xl font-bold text-green-600">{summary.participantCount}명</p>
               </div>
-              <div className="border rounded-lg p-3">
+              <div className="border border-gray-200 rounded-lg p-3">
                 <p className="text-sm text-gray-500 mb-1">총 금액</p>
                 <p className="text-2xl font-bold text-green-600">
                   {summary.totalAmount.toLocaleString()}원
                 </p>
               </div>
-              <div className="border rounded-lg p-3">
+              <div className="border border-gray-200 rounded-lg p-3">
                 <p className="text-sm text-gray-500 mb-1">1인당</p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-2xl font-bold text-green-600">
                   {summary.perPersonAmount.toLocaleString()}원
                 </p>
               </div>
@@ -107,17 +107,17 @@ export function SummaryPage() {
 
             {/* Menu Summary */}
             <div>
-              <h3 className="font-semibold mb-3 text-lg">📝 주문 내역</h3>
+              <h3 className="font-semibold mb-3 text-lg text-gray-900">주문 내역</h3>
               <div className="space-y-2">
                 {summary.menuSummary.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between border-b pb-2">
+                  <div key={index} className="flex items-center justify-between border-b border-gray-200 pb-2">
                     <div>
-                      <p className="font-medium">{item.menuName}</p>
+                      <p className="font-medium text-gray-900">{item.menuName}</p>
                       <p className="text-sm text-gray-500">
                         {item.unitPrice.toLocaleString()}원 × {item.totalQuantity}개
                       </p>
                     </div>
-                    <p className="font-semibold">{item.subtotal.toLocaleString()}원</p>
+                    <p className="font-semibold text-gray-900">{item.subtotal.toLocaleString()}원</p>
                   </div>
                 ))}
               </div>
@@ -125,7 +125,7 @@ export function SummaryPage() {
 
             {/* Individual Orders */}
             <div>
-              <h3 className="font-semibold mb-3 text-lg">👥 개인별 주문</h3>
+              <h3 className="font-semibold mb-3 text-lg text-gray-900">개인별 주문</h3>
               <div className="space-y-3">
                 {summary.orders.map(order => {
                   const orderTotal = order.items.reduce(
@@ -133,10 +133,10 @@ export function SummaryPage() {
                     0
                   );
                   return (
-                    <div key={order.id} className="border rounded-lg p-3 bg-white">
+                    <div key={order.id} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold">{order.participantName}</span>
-                        <span className="font-semibold text-blue-600">
+                        <span className="font-semibold text-gray-900">{order.participantName}</span>
+                        <span className="font-semibold text-green-600">
                           {orderTotal.toLocaleString()}원
                         </span>
                       </div>
@@ -148,7 +148,7 @@ export function SummaryPage() {
                         ))}
                       </div>
                       {order.specialRequest && (
-                        <div className="mt-2 text-xs text-gray-500 border-t pt-2">
+                        <div className="mt-2 text-xs text-gray-500 border-t border-gray-200 pt-2">
                           메모: {order.specialRequest}
                         </div>
                       )}
@@ -162,22 +162,22 @@ export function SummaryPage() {
 
         {/* Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <Button variant="outline" onClick={handleDownloadImage}>
+          <Button variant="outline" className="border-gray-300" onClick={handleDownloadImage}>
             <Download className="w-4 h-4 mr-2" />
             이미지 저장
           </Button>
-          <Button variant="outline" onClick={handleCopyText}>
+          <Button variant="outline" className="border-gray-300" onClick={handleCopyText}>
             <Copy className="w-4 h-4 mr-2" />
             텍스트 복사
           </Button>
-          <Button variant="outline" onClick={handleShare}>
+          <Button variant="outline" className="border-gray-300" onClick={handleShare}>
             <Share2 className="w-4 h-4 mr-2" />
             공유하기
           </Button>
         </div>
 
         <div className="mt-6">
-          <Button variant="outline" className="w-full" onClick={() => navigate('/')}>
+          <Button variant="outline" className="w-full border-gray-300" onClick={() => navigate('/')}>
             <Home className="w-4 h-4 mr-2" />
             홈으로 돌아가기
           </Button>

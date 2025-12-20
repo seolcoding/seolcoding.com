@@ -84,7 +84,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({
         <Button
           onClick={handleKakaoShare}
           className="flex items-center gap-2 px-6 py-3 bg-[#FEE500] text-black
-                     rounded-lg font-medium hover:bg-[#FFEB00] transition-colors"
+                     rounded-lg font-bold hover:bg-[#FFEB00] transition-colors"
         >
           <MessageCircle className="w-5 h-5" />
           카카오톡 공유
@@ -95,8 +95,8 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({
       {hasNativeShare && (
         <Button
           onClick={handleNativeShare}
-          className="flex items-center gap-2 px-6 py-3 bg-blue-500 text-white
-                     rounded-lg font-medium hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 px-6 py-3 bg-orange-600 text-white
+                     rounded-lg font-bold hover:bg-orange-700 transition-colors"
         >
           <Share2 className="w-5 h-5" />
           공유하기
@@ -107,8 +107,8 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({
       <Button
         onClick={handleCopyUrl}
         variant="outline"
-        className="flex items-center gap-2 px-6 py-3 bg-gray-700 text-white
-                   rounded-lg font-medium hover:bg-gray-800 transition-colors"
+        className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700
+                   border-gray-300 rounded-lg font-bold hover:bg-gray-50 transition-colors"
       >
         <Link2 className="w-5 h-5" />
         링크 복사

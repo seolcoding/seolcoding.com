@@ -63,8 +63,10 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
       />
       {items.length < 2 && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-muted-foreground bg-background/80 p-6 rounded-lg">
-            <p className="font-semibold">최소 2개 이상의 항목이 필요합니다</p>
+          <div className="text-center text-gray-600 bg-white/90 p-8 rounded-lg shadow-md border border-gray-200">
+            <p className="font-bold text-lg text-gray-900">
+              최소 2개 이상의 항목이 필요합니다
+            </p>
             <p className="text-sm mt-2">왼쪽 패널에서 항목을 추가해주세요</p>
           </div>
         </div>

@@ -42,26 +42,26 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
 
         <div className="max-h-96 overflow-y-auto space-y-2">
           {history.length === 0 ? (
-            <div className="text-center text-muted-foreground py-8">
+            <div className="text-center text-gray-500 py-8">
               히스토리가 없습니다
             </div>
           ) : (
             history.map((result) => {
               const date = new Date(result.timestamp);
               return (
-                <Card key={result.id} className="p-3">
+                <Card key={result.id} className="p-3 bg-gray-50 border-gray-200">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs"
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-sm"
                       style={{ backgroundColor: result.selectedItem.color }}
                     >
                       🎯
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold">
+                      <div className="font-bold text-gray-900">
                         {result.selectedItem.label}
                       </div>
-                      <div className="text-xs text-muted-foreground">
+                      <div className="text-xs text-gray-500">
                         {date.toLocaleString("ko-KR")}
                       </div>
                     </div>

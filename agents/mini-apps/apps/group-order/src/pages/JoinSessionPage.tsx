@@ -35,9 +35,9 @@ export function JoinSessionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">로딩 중...</p>
         </div>
       </div>
@@ -46,12 +46,12 @@ export function JoinSessionPage() {
 
   if (error || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+        <Card className="max-w-md border-gray-200">
           <CardContent className="pt-6 text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <p className="text-red-600 mb-4">{error || '세션을 찾을 수 없습니다.'}</p>
-            <Button onClick={() => navigate('/')}>홈으로 돌아가기</Button>
+            <Button onClick={() => navigate('/')} className="bg-green-600 hover:bg-green-700">홈으로 돌아가기</Button>
           </CardContent>
         </Card>
       </div>
@@ -60,12 +60,12 @@ export function JoinSessionPage() {
 
   if (isSessionClosed(session.id)) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+        <Card className="max-w-md border-gray-200">
           <CardContent className="pt-6 text-center">
             <AlertCircle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
             <p className="text-yellow-600 mb-4">이 주문방은 마감되었습니다.</p>
-            <Button onClick={() => navigate('/')}>홈으로 돌아가기</Button>
+            <Button onClick={() => navigate('/')} className="bg-green-600 hover:bg-green-700">홈으로 돌아가기</Button>
           </CardContent>
         </Card>
       </div>
@@ -167,11 +167,11 @@ export function JoinSessionPage() {
 
   if (step === 'name') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <Card className="max-w-md w-full">
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+        <Card className="max-w-md w-full border-gray-200">
           <CardHeader>
-            <CardTitle>{session.restaurantName}</CardTitle>
-            <CardDescription>닉네임을 입력하고 주문을 시작하세요.</CardDescription>
+            <CardTitle className="text-gray-900">{session.restaurantName}</CardTitle>
+            <CardDescription className="text-gray-600">닉네임을 입력하고 주문을 시작하세요.</CardDescription>
           </CardHeader>
           <form onSubmit={handleNameSubmit}>
             <CardContent className="space-y-4">
@@ -188,7 +188,7 @@ export function JoinSessionPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
                 다음
               </Button>
             </CardFooter>
@@ -199,19 +199,19 @@ export function JoinSessionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">{session.restaurantName}</h1>
+          <h1 className="text-3xl font-bold mb-2 text-gray-900">{session.restaurantName}</h1>
           <p className="text-gray-600">주문자: {participantName}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Menu Selection */}
           <div className="lg:col-span-2 space-y-4">
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>메뉴 선택</CardTitle>
+                <CardTitle className="text-gray-900">메뉴 선택</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {session.mode === 'fixed' ? (
@@ -222,10 +222,10 @@ export function JoinSessionPage() {
                     session.menus.map(menu => (
                       <div
                         key={menu.id}
-                        className="flex items-center justify-between border rounded-lg p-4 hover:border-blue-500 transition-colors"
+                        className="flex items-center justify-between border border-gray-200 rounded-lg p-4 hover:border-green-500 transition-colors"
                       >
                         <div>
-                          <h3 className="font-medium">{menu.name}</h3>
+                          <h3 className="font-medium text-gray-900">{menu.name}</h3>
                           <p className="text-sm text-gray-600">
                             {menu.price.toLocaleString()}원
                           </p>
@@ -236,6 +236,7 @@ export function JoinSessionPage() {
                         <Button
                           variant="outline"
                           size="sm"
+                          className="border-gray-300"
                           onClick={() => handleAddToCart(menu.id, menu.name, menu.price)}
                         >
                           <Plus className="w-4 h-4" />
@@ -262,7 +263,7 @@ export function JoinSessionPage() {
                         min="0"
                       />
                     </div>
-                    <Button variant="outline" className="w-full" onClick={handleAddFreeItem}>
+                    <Button variant="outline" className="w-full border-gray-300" onClick={handleAddFreeItem}>
                       <Plus className="w-4 h-4 mr-2" />
                       장바구니에 추가
                     </Button>
@@ -274,9 +275,9 @@ export function JoinSessionPage() {
 
           {/* Cart */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-4">
+            <Card className="sticky top-4 border-gray-200">
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-center text-gray-900">
                   <ShoppingCart className="w-5 h-5 mr-2" />
                   장바구니
                 </CardTitle>
@@ -289,9 +290,9 @@ export function JoinSessionPage() {
                 ) : (
                   <>
                     {cartItems.map(item => (
-                      <div key={item.id} className="flex items-center justify-between border-b pb-2">
+                      <div key={item.id} className="flex items-center justify-between border-b border-gray-200 pb-2">
                         <div className="flex-1">
-                          <p className="text-sm font-medium">{item.menuName}</p>
+                          <p className="text-sm font-medium text-gray-900">{item.menuName}</p>
                           <p className="text-xs text-gray-500">
                             {item.price.toLocaleString()}원
                           </p>
@@ -300,16 +301,16 @@ export function JoinSessionPage() {
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-6 w-6"
+                            className="h-6 w-6 border-gray-300"
                             onClick={() => handleQuantityChange(item.id, -1)}
                           >
                             <Minus className="w-3 h-3" />
                           </Button>
-                          <span className="text-sm w-6 text-center">{item.quantity}</span>
+                          <span className="text-sm w-6 text-center text-gray-900">{item.quantity}</span>
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-6 w-6"
+                            className="h-6 w-6 border-gray-300"
                             onClick={() => handleQuantityChange(item.id, 1)}
                           >
                             <Plus className="w-3 h-3" />
@@ -318,10 +319,10 @@ export function JoinSessionPage() {
                       </div>
                     ))}
 
-                    <div className="pt-3 border-t">
+                    <div className="pt-3 border-t border-gray-200">
                       <div className="flex items-center justify-between font-semibold">
-                        <span>합계</span>
-                        <span className="text-blue-600">{cartTotal.toLocaleString()}원</span>
+                        <span className="text-gray-900">합계</span>
+                        <span className="text-green-600">{cartTotal.toLocaleString()}원</span>
                       </div>
                     </div>
 
@@ -337,7 +338,7 @@ export function JoinSessionPage() {
                       />
                     </div>
 
-                    <Button className="w-full" onClick={handleSubmitOrder}>
+                    <Button className="w-full bg-green-600 hover:bg-green-700" onClick={handleSubmitOrder}>
                       주문하기
                     </Button>
                   </>
