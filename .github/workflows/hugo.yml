@@ -81,16 +81,16 @@ jobs:
       #     mkdir -p ../../website/static/slides/2026-ai-agent
       #     cp -r dist/* ../../website/static/slides/2026-ai-agent/
 
-      # Build prompt-tutorial mini app
+      # Build prompt-tutorial mini app (standalone, not in pnpm workspace)
       - name: Install prompt-tutorial dependencies
         working-directory: agents/mini-apps/prompt-tutorial/web
-        run: pnpm install
+        run: npm install
 
       - name: Build prompt-tutorial
         working-directory: agents/mini-apps/prompt-tutorial/web
         env:
           VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: pnpm build
+        run: npm run build
 
       - name: Copy prompt-tutorial to website
         run: |
