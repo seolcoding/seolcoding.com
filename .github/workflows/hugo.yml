@@ -112,12 +112,11 @@ jobs:
 
       - name: Copy mini-apps to website
         run: |
-          cd agents/mini-apps/apps
-          for app in */; do
+          for app in agents/mini-apps/apps/*/; do
             if [ -d "${app}dist" ]; then
-              app_name="${app%/}"
-              mkdir -p "../../../agents/website/static/mini-apps/${app_name}"
-              cp -r "${app}dist/"* "../../../agents/website/static/mini-apps/${app_name}/"
+              app_name=$(basename "$app")
+              mkdir -p "agents/website/static/mini-apps/${app_name}"
+              cp -r "${app}dist/"* "agents/website/static/mini-apps/${app_name}/"
             fi
           done
 
