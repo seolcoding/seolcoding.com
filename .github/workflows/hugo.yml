@@ -97,6 +97,30 @@ jobs:
           mkdir -p agents/website/static/mini-apps/prompt-tutorial
           cp -r agents/mini-apps/prompt-tutorial/web/dist/* agents/website/static/mini-apps/prompt-tutorial/
 
+      # Build all mini-apps (16 apps)
+      - name: Install mini-apps dependencies
+        working-directory: agents/mini-apps
+        run: pnpm install
+
+      - name: Build mini-apps UI package
+        working-directory: agents/mini-apps
+        run: pnpm --filter @mini-apps/ui build
+
+      - name: Build all mini-apps
+        working-directory: agents/mini-apps
+        run: pnpm --filter "./apps/*" build
+
+      - name: Copy mini-apps to website
+        run: |
+          cd agents/mini-apps/apps
+          for app in */; do
+            if [ -d "${app}dist" ]; then
+              app_name="${app%/}"
+              mkdir -p "../../../agents/website/static/mini-apps/${app_name}"
+              cp -r "${app}dist/"* "../../../agents/website/static/mini-apps/${app_name}/"
+            fi
+          done
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
