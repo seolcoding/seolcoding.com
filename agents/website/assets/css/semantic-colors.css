@@ -473,11 +473,11 @@
 }
 
 .hero-text-accent {
-  color: var(--color-primary-light);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .hero-text-muted {
-  color: var(--color-primary-lighter);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Card and Component Colors */
@@ -547,11 +547,11 @@
 
 /* Dark Mode Variants */
 .dark .hero-text-accent {
-  color: var(--color-primary-light);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .dark .hero-text-muted {
-  color: var(--color-primary-lighter);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .dark .card-bg-primary {

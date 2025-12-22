@@ -144,6 +144,15 @@ other = "멘토링"
 [mentoringDesc]
 other = "시민개발자 및 공공혁신 멘토링"
 
+[miniAppsService]
+other = "미니앱스"
+
+[miniAppsDesc]
+other = "유용한 웹 도구 및 미니 앱 모음"
+
+[visitApps]
+other = "앱 보러가기"
+
 [developmentService]
 other = "개발"
 
