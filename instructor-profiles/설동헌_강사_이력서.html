@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 18mm;
+        }
+
+        /* 헤더 */
+        header {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .name {
+            font-size: 26pt;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 3px;
+        }
+
+        .name .nickname {
+            font-weight: 400;
+            color: #555;
+        }
+
+        .subtitle {
+            font-size: 12pt;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+
+        .contact {
+            font-size: 11pt;
+            color: #444;
+        }
+
+        .contact span {
+            margin-right: 18px;
+        }
+
+        /* 인트로 */
+        .intro {
+            margin: 20px 0;
+            font-size: 12pt;
+            color: #333;
+            line-height: 1.75;
+        }
+
+        /* 섹션 */
+        section {
+            margin-bottom: 14px;
+        }
+
+        h2 {
+            font-size: 11pt;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+            background: #f7f7f7;
+            padding: 6px 10px;
+            border-left: 3px solid #888;
+        }
+
+        /* 2컬럼 레이아웃 */
+        .two-col {
+            display: flex;
+            gap: 32px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        /* 경력/학력 */
+        .item {
+            margin-bottom: 12px;
+        }
+
+        .item-title {
+            font-weight: 500;
+            font-size: 12pt;
+        }
+
+        .item-sub {
+            font-size: 11pt;
+            color: #666;
+        }
+
+        .item-desc {
+            font-size: 11pt;
+            color: #444;
+            margin-top: 4px;
+            line-height: 1.7;
+        }
+
+        /* 수상 리스트 */
+        .awards {
+            font-size: 11pt;
+            color: #333;
+        }
+
+        .awards li {
+            margin-bottom: 4px;
+            list-style: none;
+        }
+
+        .awards .year {
+            display: inline-block;
+            width: 42px;
+            color: #888;
+        }
+
+        /* 자격증 */
+        .certs {
+            font-size: 11pt;
+            color: #444;
+            line-height: 1.75;
+        }
+
+        /* 강의 분야 */
+        .teaching-section p {
+            font-size: 11pt;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .teaching {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tag {
+            font-size: 10pt;
+            color: #444;
+            background: #f5f5f5;
+            padding: 5px 11px;
+            border-radius: 3px;
+        }
+
+        /* 푸터 */
+        footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11pt;
+            color: #666;
+        }
+
+        .cta {
+            margin-top: 10px;
+            font-size: 11pt;
+            color: #444;
+        }
+
+        .cta strong {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="name">설동헌 <span class="nickname">(설코딩)</span></div>
+            <div class="subtitle">AI 강사 · 생성형 AI 개발자</div>
+            <div class="contact">
+                <span>ssalssi1@gmail.com</span>
+                <span>010-4699-6874</span>
+                <span>seolcoding.com</span>
+            </div>
+        </header>
+
+        <div class="intro">
+            공공기관 10년차 재직 중, 생성형 AI와 공공데이터, IT 기술을 활용해 현실의 문제를 해결하는 개발자입니다.
+            과기정통부 장관상, 행안부 장관상, 부산시장상 등 정부 주관 개발·데이터 분야 대회에서 6회 수상했습니다.
+            실습 중심의 강의 및 프로젝트 멘토링이 가능합니다.
+        </div>
+
+        <div class="two-col">
+            <div class="col">
+                <section>
+                    <h2>경력</h2>
+                    <div class="item">
+                        <div class="item-title">부산교통공사 <span style="font-size: 10pt; font-weight: 400; color: #666;">운영직 대리</span></div>
+                        <div class="item-sub">2016.06 – 현재 (10년차)</div>
+                        <div class="item-desc">
+                            · 생성형 AI 직원 교육 챗봇 개발<br>
+                            · 노년층 AI 어시스턴트 'AI 컴쌤' 개발<br>
+                            · 공공데이터 탐색 시스템 구축<br>
+                            · 국회 AI 비서관 개발
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-title">해운대구 청년센터 위촉강사</div>
+                        <div class="item-desc">
+                            · 부산보건대학교 출강<br>
+                            · 해운대구 청년센터 출강
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>학력</h2>
+                    <div class="item">
+                        <div class="item-title">부경대학교 정보통신공학 석사 <span style="font-size: 9pt; font-weight: 400; color: #888;">2026.02 졸업예정</span></div>
+                        <div style="font-size: 9.5pt; color: #666;">(공공부문 On-premise RAG 파이프라인 최적화 연구)</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>수상</h2>
+                    <ul class="awards">
+                        <li><span class="year">2025</span>AI TOP 100 특별상 (카카오임팩트)</li>
+                        <li><span class="year">2024</span>과학기술정보통신부 장관상</li>
+                        <li><span class="year">2024</span>부산시장상, 한국중부발전 사장상</li>
+                        <li><span class="year">2024</span>국회사무처 장려상</li>
+                        <li><span class="year">2023</span>행정안전부 장관상</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="col">
+                <section>
+                    <h2>자격</h2>
+                    <div class="certs">
+                        행정안전부 공인 공공부문 AI 챔피언 블루<br>
+                        AICE Associate<br>
+                        AWS Solutions Architect Associate<br>
+                        AWS AI Practitioner<br>
+                        Google Certified Educator Level 1, 2<br>
+                        Gemini Certified Educator<br>
+                        SQL 개발자<br>
+                        정보처리기사
+                    </div>
+                </section>
+
+                <section class="teaching-section">
+                    <h2>강의 분야</h2>
+                    <p>비전공자·입문자 대상 실습 중심 강의</p>
+                    <div class="teaching">
+                        <span class="tag">ChatGPT·Claude·Gemini 활용</span>
+                        <span class="tag">프롬프트 엔지니어링</span>
+                        <span class="tag">AI 챗봇·에이전트 개발</span>
+                        <span class="tag">바이브 코딩</span>
+                        <span class="tag">Claude Code·Cursor</span>
+                        <span class="tag">n8n</span>
+                        <span class="tag">Google AI Studio</span>
+                        <span class="tag">OpenAI Agent Builder</span>
+                        <span class="tag">AWS 클라우드 입문</span>
+                        <span class="tag">Python 데이터 분석</span>
+                        <span class="tag">공공데이터 활용</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer>
+            강의 문의: ssalssi1@gmail.com
+            <div class="cta">
+                상세 프로필 및 활동 내역은 Google에서 <strong>"설코딩"</strong> 검색
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

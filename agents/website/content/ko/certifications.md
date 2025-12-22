@@ -1,7 +1,7 @@
 ---
 title: "자격증"
 type: "homepage"
-intro: "정부공인 AI 자격증, AWS 클라우드 공인 자격증, 정보처리기사 보유"
+intro: "행정안전부 공인 AI 챔피언, 정부공인 AI 자격증, AWS 클라우드 공인 자격증, Google/Gemini Certified Educator 보유"
 
 certifications:
   - title: "AI 챔피언 블루"
@@ -33,6 +33,27 @@ certifications:
     icon: "cloud"
     color: "text-primary dark:text-primary-light"
     description: "클라우드 아키텍처 설계 및 구축 전문 자격증"
+
+  - title: "Google Certified Educator Level 1, 2"
+    organization: "Google"
+    date: "2024"
+    icon: "graduation-cap"
+    color: "text-primary dark:text-primary-light"
+    description: "Google Workspace를 활용한 교육 전문가 인증"
+
+  - title: "Gemini Certified Educator"
+    organization: "Google"
+    date: "2024"
+    icon: "brain"
+    color: "text-primary dark:text-primary-light"
+    description: "Google Gemini AI를 활용한 교육 전문가 인증"
+
+  - title: "SQL 개발자"
+    organization: "한국데이터산업진흥원"
+    date: "2022"
+    icon: "database"
+    color: "text-primary dark:text-primary-light"
+    description: "SQL을 활용한 데이터베이스 개발 및 관리 역량 인증"
 
   - title: "정보처리기사"
     organization: "한국산업인력공단"
