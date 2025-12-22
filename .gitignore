@@ -185,3 +185,24 @@ slidev-agent/*/node_modules/
 
 # Allow Slidev public assets
 !slidev-agent/*/public/
+
+# Claude Code
+.claude/
+.mcp.json
+
+# Playwright test artifacts
+playwright-report/
+test-results/
+.playwright-mcp/
+
+# Temporary/backup files
+*.rej
+*.backup
+
+# Root-level lock files (use workspace-level only)
+/pnpm-lock.yaml
+
+# Temporary improvement/bug docs
+**/UI_IMPROVEMENTS.md
+**/DESIGN_CHANGES.md
+**/BUG_REPORT.md
