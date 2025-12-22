@@ -7,17 +7,22 @@ intro: >-
 domains:
   - icon: "brain"
     title: "생성형 AI"
-    description: ""
+    description: "ChatGPT, Claude, Gemini 활용"
     devicon_class: "devicon-python-plain colored"
+
+  - icon: "robot"
+    title: "AI 에이전트 & 자동화"
+    description: "n8n, Google AI Studio, OpenAI Agent Builder"
+    devicon_class: "devicon-nodejs-plain colored"
 
   - icon: "cloud"
     title: "클라우드 & 인프라"
-    description: ""
+    description: "AWS 아키텍처 설계 및 구축"
     devicon_class: "devicon-amazonwebservices-plain-wordmark colored"
 
   - icon: "code"
-    title: "프로그래밍 기초 & 바이브 코딩"
-    description: ""
+    title: "바이브 코딩"
+    description: "Claude Code, Cursor를 활용한 AI 협업 개발"
     devicon_class: "devicon-javascript-plain colored"
 
   - icon: "database"
