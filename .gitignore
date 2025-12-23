@@ -157,9 +157,6 @@ desktop.ini
 *.swp
 *~
 
-# Local reports / artifacts
-data/image-reference-report.txt
-
 # Claude Code
 .claude/
 .mcp.json
@@ -179,4 +176,4 @@ test-results/
 **/BUG_REPORT.md
 
 # Archived content (kept locally, not in git)
-agents/slides/
+# (none currently)

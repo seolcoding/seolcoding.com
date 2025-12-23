@@ -22,10 +22,11 @@ git submodule update --init --recursive  # Theme
 
 ## Architecture
 
-- **Framework**: Hugo v0.147+ (Extended)
+- **Framework**: Hugo v0.152+ (Extended)
 - **Theme**: CareerCanvas (Git submodule in `themes/`) - NEVER edit directly
 - **Styling**: Tailwind CSS via Hugo Pipes
 - **Content**: Korean-only (`content/ko/`), no /ko/ URL prefix
+- **Diagram**: `docs/architecture.excalidraw`
 
 Override theme by copying to project layouts:
 ```bash
@@ -36,28 +37,46 @@ cp themes/careercanvas/layouts/partials/nav.html layouts/partials/nav.html
 
 ```
 seolcoding.com/
-├── config.toml          # Hugo main config
-├── content/ko/          # Korean content
-│   ├── about.md         # Profile section
-│   ├── awards.md        # Awards (6)
-│   ├── certifications.md # Certifications (8)
-│   ├── blog/            # Blog posts
-│   ├── courses/         # Courses
-│   ├── projects/        # Projects
-│   └── services/        # Services (dev/edu/consulting)
-├── layouts/             # Theme overrides
-├── static/              # Static files
-│   ├── images/          # awards/, certifications/, qr/
-│   ├── mini-apps/       # prompt-tutorial build
-│   └── files/           # Resume PDF
-└── themes/careercanvas/ # Theme (submodule - DO NOT edit)
+├── .github/workflows/       # CI/CD (GitHub Actions)
+├── archetypes/              # Hugo content templates
+├── assets/                  # Source files (CSS, JS)
+│   ├── css/                 # Tailwind source
+│   └── js/                  # JavaScript source
+├── content/ko/              # Korean content (Markdown)
+│   ├── about.md             # Profile section
+│   ├── awards.md            # Awards (6)
+│   ├── certifications.md    # Certifications (8)
+│   ├── blog/                # Blog posts
+│   ├── courses/             # Courses
+│   ├── projects/            # Projects
+│   └── services/            # Services (dev/edu/consulting)
+├── docs/                    # Documentation
+│   └── architecture.excalidraw
+├── i18n/                    # Internationalization
+├── layouts/                 # Theme overrides
+│   ├── _default/
+│   ├── homepage/
+│   └── partials/
+├── static/                  # Static files (copied as-is)
+│   ├── files/               # Resume PDF, downloads
+│   ├── images/              # awards/, certifications/, qr/
+│   ├── mini-apps/           # prompt-tutorial (React build)
+│   └── busan_edu_db/        # Busan education DB
+├── themes/careercanvas/     # Theme (Git submodule - DO NOT edit)
+├── config.toml              # Hugo main config
+├── package.json             # Node.js dependencies (Tailwind)
+├── tailwind.config.js       # Tailwind configuration
+├── postcss.config.js        # PostCSS configuration
+└── CLAUDE.md                # This file
 ```
 
 ## Deployment
 
 GitHub Actions on push to `main`:
-1. Build Hugo site with `--minify`
-2. Deploy to GitHub Pages (seolcoding.com)
+1. Install Hugo Extended v0.152.2
+2. Install Node.js dependencies (Tailwind)
+3. Build with `hugo --minify`
+4. Deploy to GitHub Pages (seolcoding.com)
 
 ## Key Constraints
 
@@ -65,7 +84,11 @@ GitHub Actions on push to `main`:
 - **Hugo server**: Often runs in background on localhost:1313
 - **Korean content**: Use word-break: keep-all for proper wrapping
 - **External links**: Menu items for apps/slides point to external domains
+- **Build artifacts**: `public/` and `resources/` are git-ignored
 
-## Archived Content
+## Git-Ignored Directories
 
-- `agents/slides/` - Slides (archived, git-ignored, kept locally)
+- `public/` - Hugo build output
+- `resources/` - Hugo cache
+- `node_modules/` - npm packages
+- `.DS_Store` - macOS metadata
