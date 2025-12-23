@@ -1,89 +1,98 @@
 # Website Agent - 포트폴리오 & 블로그
 
-Hugo 기반 포트폴리오 웹사이트 및 블로그 개발 에이전트.
-
----
+Hugo 기반 포트폴리오 웹사이트.
 
 ## Quick Start
 
 ```bash
 cd agents/website
-npm install          # Install dependencies (Tailwind CSS)
-hugo server -D       # Start dev server at localhost:1313
+npm install          # Tailwind CSS
+hugo server -D       # localhost:1313
 ```
-
----
 
 ## Architecture
 
 - **Framework**: Hugo v0.147+ (Extended)
 - **Theme**: CareerCanvas (Git submodule)
-- **Styling**: Tailwind CSS 3.4+
+- **Styling**: Tailwind CSS via Hugo Pipes
 - **Language**: Korean (defaultContentLanguage = "ko")
-- **Deploy**: GitHub Actions → GitHub Pages
 - **Domain**: https://seolcoding.com
 
----
+## 사이트 구조 (Live)
+
+| 섹션 | URL | 설명 |
+|------|-----|------|
+| 홈 | `/` | Hero, 소개, 수상, 자격증, 연락처 |
+| 프로젝트 | `/projects/` | AI 프로젝트 목록 |
+| 강의 | `/courses/` | AI 교육 프로그램 |
+| 블로그 | `/blog/` | 기술 블로그 |
+| 서비스 | `/services/` | 드롭다운 메뉴 (개발/교육/컨설팅) |
+| 부산 평생교육 DB | `/busan_edu_db/` | 외부 서비스 |
 
 ## 디렉토리 구조
 
 ```
 agents/website/
-├── archetypes/          # 콘텐츠 템플릿
-├── assets/              # CSS, JS 소스
-│   ├── css/
-│   └── js/
-├── config/              # 추가 설정
 ├── config.toml          # Hugo 메인 설정
 ├── content/ko/          # 한국어 콘텐츠
-│   ├── about.md
+│   ├── about.md         # 소개 섹션
+│   ├── awards.md        # 수상 이력 (6개)
+│   ├── certifications.md # 자격증 (8개)
 │   ├── blog/            # 블로그 포스트
 │   ├── courses/         # 강의
 │   ├── projects/        # 프로젝트
-│   └── services/        # 서비스
-├── i18n/                # 다국어 번역
-├── layouts/             # 레이아웃 오버라이드
-├── static/              # 정적 파일 (이미지, 파일)
-└── themes/careercanvas/ # 테마 (submodule)
+│   └── services/        # 서비스 (개발/교육/컨설팅)
+├── layouts/             # 테마 오버라이드
+│   ├── partials/        # 10개 파셜 오버라이드
+│   └── _default/        # 5개 기본 레이아웃
+├── static/              # 정적 파일
+│   ├── images/          # awards/, certifications/, qr/
+│   ├── mini-apps/       # prompt-tutorial 빌드 결과
+│   └── apps/            # 기타 앱
+└── themes/careercanvas/ # 테마 (submodule - 수정 금지)
 ```
 
----
+## Theme Customization
 
-## Theme Customization Strategy
+**⚠️ CRITICAL**: `themes/careercanvas/` 직접 수정 금지.
 
-**⚠️ CRITICAL**: Theme is a Git submodule. NEVER modify `themes/careercanvas/` directly.
-
-### Override Method
-
-Copy theme files to project layouts:
-
+오버라이드 방법:
 ```bash
 cp themes/careercanvas/layouts/partials/contact.html layouts/partials/contact.html
 ```
 
-Hugo priority: `layouts/` > `themes/careercanvas/layouts/`
+### 현재 Layout Overrides
 
----
+| 파일 | 변경 내용 |
+|------|-----------|
+| `partials/hero.html` | 서비스 카드 3개, 타이핑 애니메이션 |
+| `partials/about.html` | 현재 직책, 학력, 주요 수상, 자격증, 기술, 관심사 |
+| `partials/awards.html` | 수상 이력 6개 + 이미지 갤러리 |
+| `partials/certifications.html` | 자격증 8개 + 이미지 갤러리 |
+| `partials/contact.html` | 구글폼 QR + 카카오톡 QR + 연락처 |
+| `partials/nav.html` | 서비스 드롭다운 메뉴 |
+| `partials/footer.html` | 간소화 (SNS 링크만) |
+| `partials/skills.html` | 기술 스택 시각화 |
+| `partials/head.html` | 메타태그, OG 이미지 |
+| `partials/experience.html` | 경력 사항 |
+| `_default/list.html` | Lorem Picsum 플레이스홀더 |
+| `_default/404.html` | 커스텀 404 |
+| `_default/baseof.html` | 기본 템플릿 |
 
-## 콘텐츠 작성 가이드
+## 콘텐츠 작성
 
-### Blog Post
-
+### Blog Post (YAML front matter)
 ```markdown
 ---
 title: "포스트 제목"
 date: 2025-01-01
 tags: [태그1, 태그2]
-categories: [카테고리]
 description: "포스트 설명"
 featured_image: "/images/blog/image.jpg"
 ---
-
-본문 내용...
 ```
 
-### Project
-
+### Project (TOML front matter)
 ```toml
 +++
 title = "프로젝트 제목"
@@ -94,62 +103,48 @@ description = "프로젝트 설명"
 +++
 ```
 
----
+## 주요 설정 (config.toml)
 
-## 주요 Commands
+```toml
+# 연락처
+google_form_url = "https://docs.google.com/forms/d/..."
+kakao_openchat_url = "https://open.kakao.com/o/sqQTFSTh"
 
-```bash
-# Development
-hugo server -D              # 개발 서버 (draft 포함)
+# 브랜딩 색상
+[params.colors]
+main_color   = "#095BB0"  # LinkedIn Blue
+second_color = "#004182"  # Darker Blue
+third_color  = "#8C8C8C"  # Neutral Gray
 
-# Production
-npm run build               # 전체 빌드
-
-# Theme management
-git submodule update --init --recursive
-git submodule update --remote
+# 서비스 메뉴 (드롭다운)
+[[languages.ko.menu.main]]
+name = "서비스"
+identifier = "services"
+  [[languages.ko.menu.main]]
+  name = "AI 솔루션 개발"
+  parent = "services"
 ```
 
----
+## 배포
 
-## 현재 커스터마이징 목록
+GitHub Actions (`push to main`):
+1. prompt-tutorial 빌드 → `static/mini-apps/prompt-tutorial/`
+2. Hugo 빌드 (`--minify`)
+3. GitHub Pages 배포
 
-### Layout Overrides
-
-| 파일                            | 변경 내용                     |
-| ------------------------------- | ----------------------------- |
-| `layouts/partials/hero.html`    | 서비스 카드 3개 추가          |
-| `layouts/partials/about.html`   | LinkedIn 버튼 제거, 로고 추가 |
-| `layouts/partials/contact.html` | QR 코드 레이아웃              |
-| `layouts/partials/footer.html`  | 간소화                        |
-| `layouts/partials/nav.html`     | 드롭다운 메뉴                 |
-| `layouts/_default/list.html`    | 이미지 플레이스홀더           |
-| `layouts/_default/404.html`     | 이력서 버튼 제거              |
-
----
-
-## 정적 에셋 구조
+## 정적 에셋
 
 ```
 static/
 ├── images/
-│   ├── awards/           # 수상 이미지
-│   ├── certifications/   # 자격증 이미지
-│   ├── logos/            # 로고
+│   ├── awards/           # 수상 이미지 (13개)
+│   ├── certifications/   # 자격증 이미지 (10개)
 │   ├── qr/               # QR 코드
-│   └── blog/             # 블로그 이미지
-├── files/
-│   └── seoldonghun_resume.pdf
-└── robots.txt
+│   └── logos/            # 로고
+├── mini-apps/
+│   └── prompt-tutorial/  # 빌드된 React 앱
+├── apps/                 # 기타 앱
+├── busan_edu_db/         # 부산 평생교육 DB
+└── files/
+    └── seoldonghun_resume.pdf
 ```
-
----
-
-## 배포
-
-GitHub Actions에서 자동 빌드/배포:
-
-1. Hugo 빌드 (--minify) (Hugo Pipes로 CSS도 함께 빌드)
-2. GitHub Pages 배포
-
-빌드 결과물: `public/` → seolcoding.com
