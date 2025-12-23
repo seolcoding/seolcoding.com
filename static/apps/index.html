@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Apps | SeolCoding</title>
+    <meta name="description" content="설코딩의 미니 웹 애플리케이션 갤러리 - 16+ 인터랙티브 앱">
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo", sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header-bg {
+            background: #1e293b;
+            padding: 40px 20px 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .home-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+            color: white;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            color: #3b82f6;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 20px;
+            margin-top: -30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            font-size: 0.85em;
+            color: #64748b;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: white;
+            color: #475569;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .filter-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+
+        .app-card.hidden {
+            display: none;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .app-icon {
+            width: 48px;
+            height: 48px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .app-info {
+            flex: 1;
+        }
+
+        .app-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .app-category {
+            font-size: 0.8em;
+            color: #64748b;
+        }
+
+        .app-description {
+            color: #475569;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            font-size: 0.75em;
+            color: #475569;
+        }
+
+        .app-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .app-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .status-live {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-live .status-dot {
+            background: #22c55e;
+        }
+
+        .status-soon .status-dot {
+            background: #f59e0b;
+        }
+
+        .app-link {
+            color: #3b82f6;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #1e293b;
+            color: rgba(255,255,255,0.6);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                gap: 24px;
+            }
+
+            .stat-number {
+                font-size: 1.5em;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bg">
+        <div class="container">
+            <header>
+                <a href="/" class="home-link">← SeolCoding</a>
+                <h1>Mini Apps</h1>
+                <p>인터랙티브 웹 애플리케이션 갤러리</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">Total Apps</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">Live</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filter-section">
+            <div class="filter-title">카테고리 필터</div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="game">게임 / 재미</button>
+                <button class="filter-btn" data-filter="random">랜덤 / 뽑기</button>
+                <button class="filter-btn" data-filter="calculator">계산기</button>
+                <button class="filter-btn" data-filter="social">모임 / 협업</button>
+                <button class="filter-btn" data-filter="education">교육</button>
+            </div>
+        </div>
+
+        <div class="apps-grid">
+            <!-- 게임 / 재미 -->
+            <a href="/mini-apps/ideal-worldcup/" class="app-card" data-category="game">
+                <div class="app-header">
+                    <div class="app-icon">💕</div>
+                    <div class="app-info">
+                        <h2 class="app-title">이상형 월드컵</h2>
+                        <span class="app-category">게임 / 재미</span>
+                    </div>
+                </div>
+                <p class="app-description">나만의 이상형 월드컵을 만들고 공유하세요. 이미지 업로드와 토너먼트 방식으로 최종 우승자를 결정합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">토너먼트</span>
+                    <span class="tag">이미지</span>
+                    <span class="tag">공유</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/balance-game/" class="app-card" data-category="game">
+                <div class="app-header">
+                    <div class="app-icon">⚖️</div>
+                    <div class="app-info">
+                        <h2 class="app-title">밸런스 게임</h2>
+                        <span class="app-category">게임 / 재미</span>
+                    </div>
+                </div>
+                <p class="app-description">두 가지 선택지 중 하나를 고르는 밸런스 게임. 다양한 카테고리의 질문으로 친구들과 토론하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">선택</span>
+                    <span class="tag">토론</span>
+                    <span class="tag">통계</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/chosung-quiz/" class="app-card" data-category="game">
+                <div class="app-header">
+                    <div class="app-icon">ㄱㄴㄷ</div>
+                    <div class="app-info">
+                        <h2 class="app-title">초성 퀴즈</h2>
+                        <span class="app-category">게임 / 재미</span>
+                    </div>
+                </div>
+                <p class="app-description">초성 힌트로 단어를 맞추는 퀴즈 게임. 다양한 카테고리와 난이도로 두뇌를 자극하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">퀴즈</span>
+                    <span class="tag">한글</span>
+                    <span class="tag">두뇌게임</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/bingo-game/" class="app-card" data-category="game">
+                <div class="app-header">
+                    <div class="app-icon">🎯</div>
+                    <div class="app-info">
+                        <h2 class="app-title">빙고 게임</h2>
+                        <span class="app-category">게임 / 재미</span>
+                    </div>
+                </div>
+                <p class="app-description">친구들과 함께하는 빙고 게임. 커스텀 빙고판을 만들고 실시간으로 즐기세요.</p>
+                <div class="app-tags">
+                    <span class="tag">빙고</span>
+                    <span class="tag">멀티플레이</span>
+                    <span class="tag">파티</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <!-- 랜덤 / 뽑기 -->
+            <a href="/mini-apps/lunch-roulette/" class="app-card" data-category="random">
+                <div class="app-header">
+                    <div class="app-icon">🍽️</div>
+                    <div class="app-info">
+                        <h2 class="app-title">점심 룰렛</h2>
+                        <span class="app-category">랜덤 / 뽑기</span>
+                    </div>
+                </div>
+                <p class="app-description">오늘 점심 뭐 먹지? 룰렛을 돌려 메뉴를 결정하세요. 커스텀 메뉴 추가도 가능합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">룰렛</span>
+                    <span class="tag">점심</span>
+                    <span class="tag">랜덤</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/random-picker/" class="app-card" data-category="random">
+                <div class="app-header">
+                    <div class="app-icon">🎲</div>
+                    <div class="app-info">
+                        <h2 class="app-title">랜덤 뽑기</h2>
+                        <span class="app-category">랜덤 / 뽑기</span>
+                    </div>
+                </div>
+                <p class="app-description">목록에서 무작위로 항목을 선택합니다. 발표자, 담당자, 순서 등을 공정하게 정하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">무작위</span>
+                    <span class="tag">뽑기</span>
+                    <span class="tag">추첨</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/ladder-game/" class="app-card" data-category="random">
+                <div class="app-header">
+                    <div class="app-icon">🪜</div>
+                    <div class="app-info">
+                        <h2 class="app-title">사다리 게임</h2>
+                        <span class="app-category">랜덤 / 뽑기</span>
+                    </div>
+                </div>
+                <p class="app-description">전통적인 사다리 타기 게임. 참가자와 결과를 입력하고 사다리를 타며 결과를 확인하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">사다리</span>
+                    <span class="tag">게임</span>
+                    <span class="tag">결정</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/team-divider/" class="app-card" data-category="random">
+                <div class="app-header">
+                    <div class="app-icon">👥</div>
+                    <div class="app-info">
+                        <h2 class="app-title">팀 나누기</h2>
+                        <span class="app-category">랜덤 / 뽑기</span>
+                    </div>
+                </div>
+                <p class="app-description">참가자를 무작위로 팀으로 나눕니다. 팀 수, 인원 수 설정으로 유연하게 조편성하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">팀</span>
+                    <span class="tag">조편성</span>
+                    <span class="tag">그룹</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <!-- 계산기 -->
+            <a href="/mini-apps/salary-calculator/" class="app-card" data-category="calculator">
+                <div class="app-header">
+                    <div class="app-icon">💰</div>
+                    <div class="app-info">
+                        <h2 class="app-title">연봉 계산기</h2>
+                        <span class="app-category">계산기</span>
+                    </div>
+                </div>
+                <p class="app-description">연봉에서 세금과 4대보험을 계산하여 실수령액을 확인하세요. 월급/연봉 변환도 지원합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">연봉</span>
+                    <span class="tag">세금</span>
+                    <span class="tag">실수령</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/rent-calculator/" class="app-card" data-category="calculator">
+                <div class="app-header">
+                    <div class="app-icon">🏠</div>
+                    <div class="app-info">
+                        <h2 class="app-title">전월세 계산기</h2>
+                        <span class="app-category">계산기</span>
+                    </div>
+                </div>
+                <p class="app-description">전세/월세 전환율을 계산하고, 어떤 조건이 유리한지 비교 분석해 드립니다.</p>
+                <div class="app-tags">
+                    <span class="tag">전세</span>
+                    <span class="tag">월세</span>
+                    <span class="tag">부동산</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/gpa-calculator/" class="app-card" data-category="calculator">
+                <div class="app-header">
+                    <div class="app-icon">📚</div>
+                    <div class="app-info">
+                        <h2 class="app-title">학점 계산기</h2>
+                        <span class="app-category">계산기</span>
+                    </div>
+                </div>
+                <p class="app-description">수강 과목과 학점을 입력하여 평균 평점(GPA)을 계산합니다. 학기별, 전체 평점 관리가 가능합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">GPA</span>
+                    <span class="tag">학점</span>
+                    <span class="tag">대학</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/id-validator/" class="app-card" data-category="calculator">
+                <div class="app-header">
+                    <div class="app-icon">🔢</div>
+                    <div class="app-info">
+                        <h2 class="app-title">주민번호 검증기</h2>
+                        <span class="app-category">계산기</span>
+                    </div>
+                </div>
+                <p class="app-description">주민등록번호 형식과 검증 알고리즘을 확인합니다. 테스트용 번호 생성도 지원합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">검증</span>
+                    <span class="tag">주민번호</span>
+                    <span class="tag">알고리즘</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <!-- 모임 / 협업 -->
+            <a href="/mini-apps/live-voting/" class="app-card" data-category="social">
+                <div class="app-header">
+                    <div class="app-icon">🗳️</div>
+                    <div class="app-info">
+                        <h2 class="app-title">실시간 투표</h2>
+                        <span class="app-category">모임 / 협업</span>
+                    </div>
+                </div>
+                <p class="app-description">실시간으로 투표를 생성하고 결과를 확인하세요. QR 코드로 쉽게 참여할 수 있습니다.</p>
+                <div class="app-tags">
+                    <span class="tag">투표</span>
+                    <span class="tag">실시간</span>
+                    <span class="tag">QR</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/group-order/" class="app-card" data-category="social">
+                <div class="app-header">
+                    <div class="app-icon">🛒</div>
+                    <div class="app-info">
+                        <h2 class="app-title">공동 주문</h2>
+                        <span class="app-category">모임 / 협업</span>
+                    </div>
+                </div>
+                <p class="app-description">단체 음식 주문을 쉽게 정리하세요. 각자 원하는 메뉴를 선택하고 한눈에 집계합니다.</p>
+                <div class="app-tags">
+                    <span class="tag">주문</span>
+                    <span class="tag">단체</span>
+                    <span class="tag">집계</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/dutch-pay/" class="app-card" data-category="social">
+                <div class="app-header">
+                    <div class="app-icon">💸</div>
+                    <div class="app-info">
+                        <h2 class="app-title">더치페이</h2>
+                        <span class="app-category">모임 / 협업</span>
+                    </div>
+                </div>
+                <p class="app-description">모임 비용을 공정하게 나누세요. 각자 사용한 금액을 입력하면 정산 금액을 계산해 드립니다.</p>
+                <div class="app-tags">
+                    <span class="tag">정산</span>
+                    <span class="tag">더치페이</span>
+                    <span class="tag">비용분담</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <a href="/mini-apps/student-network/" class="app-card" data-category="social">
+                <div class="app-header">
+                    <div class="app-icon">🔗</div>
+                    <div class="app-info">
+                        <h2 class="app-title">학생 네트워크</h2>
+                        <span class="app-category">모임 / 협업</span>
+                    </div>
+                </div>
+                <p class="app-description">학생들 간의 관계를 시각화하고 네트워크를 분석합니다. 그룹 역학을 이해하는 데 도움이 됩니다.</p>
+                <div class="app-tags">
+                    <span class="tag">네트워크</span>
+                    <span class="tag">관계</span>
+                    <span class="tag">시각화</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <!-- 교육 -->
+            <a href="/mini-apps/prompt-tutorial/" class="app-card" data-category="education">
+                <div class="app-header">
+                    <div class="app-icon">📝</div>
+                    <div class="app-info">
+                        <h2 class="app-title">프롬프트 엔지니어링 튜토리얼</h2>
+                        <span class="app-category">교육</span>
+                    </div>
+                </div>
+                <p class="app-description">Anthropic 공식 프롬프트 엔지니어링 가이드를 인터랙티브하게 학습하세요.</p>
+                <div class="app-tags">
+                    <span class="tag">AI</span>
+                    <span class="tag">프롬프트</span>
+                    <span class="tag">학습</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-status status-live"><span class="status-dot"></span>Live</span>
+                    <span class="app-link">열기 →</span>
+                </div>
+            </a>
+
+            <div class="no-results" style="display: none;">
+                해당 카테고리에 앱이 없습니다.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made by <a href="/">SeolCoding</a></p>
+        <p style="margin-top: 10px; font-size: 0.9em;">더 많은 앱이 계속 추가될 예정입니다</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const appCards = document.querySelectorAll('.app-card');
+            const noResults = document.querySelector('.no-results');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter cards
+                    let visibleCount = 0;
+                    appCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+
+                    // Show/hide no results message
+                    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

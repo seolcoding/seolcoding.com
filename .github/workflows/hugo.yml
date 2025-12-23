@@ -1,37 +1,29 @@
-# Sample workflow for building and deploying a Hugo site to GitHub Pages
+# Deploy Hugo site to GitHub Pages
 name: Deploy Hugo site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# Default to bash
 defaults:
   run:
     shell: bash
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.147.3
+      HUGO_VERSION: 0.152.2
     steps:
       - name: Install Hugo CLI
         run: |
@@ -58,82 +50,20 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Install Website dependencies
-        run: |
-          cd agents/website
-          npm install
-
-      # Build Slidev presentations (temporarily disabled due to twoslash-vue compatibility issue)
-      # - name: Install Slidev dependencies
-      #   run: |
-      #     cd agents/slides/2026-ai-agent
-      #     pnpm install
-
-      # - name: Build Slidev presentations
-      #   run: |
-      #     cd agents/slides/2026-ai-agent
-      #     pnpm build --base /slides/2026-ai-agent/
-      #     mkdir -p ../../website/static/slides/2026-ai-agent
-      #     cp -r dist/* ../../website/static/slides/2026-ai-agent/
-
-      # Build prompt-tutorial mini app (standalone, not in pnpm workspace)
-      - name: Install prompt-tutorial dependencies
-        working-directory: agents/mini-apps/prompt-tutorial/web
+      - name: Install dependencies
         run: npm install
-
-      - name: Build prompt-tutorial
-        working-directory: agents/mini-apps/prompt-tutorial/web
-        env:
-          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: npm run build
-
-      - name: Copy prompt-tutorial to website
-        run: |
-          mkdir -p agents/website/static/mini-apps/prompt-tutorial
-          cp -r agents/mini-apps/prompt-tutorial/web/dist/* agents/website/static/mini-apps/prompt-tutorial/
-
-      # Build all mini-apps (16 apps)
-      - name: Install mini-apps dependencies
-        working-directory: agents/mini-apps
-        run: pnpm install
-
-      - name: Build mini-apps UI package
-        working-directory: agents/mini-apps
-        run: pnpm --filter @mini-apps/ui build
-
-      - name: Build and copy all mini-apps
-        working-directory: agents/mini-apps
-        run: |
-          for app_dir in apps/*/; do
-            app_name=$(basename "$app_dir")
-            echo "Building $app_name..."
-            cd "$app_dir"
-            pnpm build
-            cd ../..
-            mkdir -p "../website/static/mini-apps/${app_name}"
-            cp -r "${app_dir}dist/"* "../website/static/mini-apps/${app_name}/"
-            echo "✓ $app_name done"
-          done
 
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
-        run: |
-          cd agents/website
-          hugo --minify
+        run: hugo --minify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./agents/website/public
+          path: ./public
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages

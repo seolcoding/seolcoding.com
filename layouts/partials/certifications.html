@@ -1,0 +1,124 @@
+<section id="certifications" class="py-12 bg-gradient-to-br from-bg-secondary to-bg-tertiary dark:from-bg-secondary dark:to-bg-tertiary border-t border-border-primary" data-animate>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ with .Site.GetPage "certifications" }}
+    <h2 class="text-3xl font-bold text-center mb-4 font-heading text-text-primary dark:text-text-primary">{{ .Title }}</h2>
+    <p class="text-lg text-center mb-8 text-gray-700 dark:text-text-tertiary italic">{{ .Params.intro }}</p>
+
+    <!-- 2-Column Layout: Certifications List (Left) + Carousel (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-start">
+
+      <!-- Left Column: Certifications List -->
+      <div class="space-y-2">
+        {{ range .Params.certifications }}
+        <div class="bg-bg dark:bg-bg p-3 rounded-lg shadow-md border border-border-primary dark:border-border-primary hover:shadow-lg transition-shadow" data-animate>
+          <div class="flex items-start gap-4">
+            <div class="flex flex-col items-center gap-1 flex-shrink-0">
+              <div class="w-10 h-10 rounded-md bg-primary-lighter dark:bg-primary flex items-center justify-center">
+                <i class="fas fa-{{ .icon }} text-primary dark:text-white text-lg"></i>
+              </div>
+              <span class="text-[9px] font-semibold text-gray-600 dark:text-gray-300 text-center leading-tight">{{ .date }}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-[13px] font-bold text-text-primary dark:text-text-primary leading-tight line-clamp-2">{{ .title }}</h3>
+              <p class="text-[11px] font-semibold {{ .color }} leading-tight line-clamp-1 mt-0.5">{{ .organization }}</p>
+              <p class="text-[10px] text-gray-500 dark:text-text-tertiary leading-tight line-clamp-2 mt-0.5">{{ .description }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      <!-- Right Column: Image Carousel -->
+      <div class="certs-carousel relative overflow-hidden rounded-xl shadow-2xl bg-white dark:bg-gray-800" style="aspect-ratio: 4/3;">
+        <div class="carousel-images relative h-full">
+          {{ $images := readDir "static/images/certifications" }}
+          {{ if $images }}
+            {{ range $index, $image := $images }}
+              {{ if or (strings.HasSuffix $image.Name ".jpg") (strings.HasSuffix $image.Name ".jpeg") (strings.HasSuffix $image.Name ".png") (strings.HasSuffix $image.Name ".gif") (strings.HasSuffix $image.Name ".webp") }}
+              <a href="/images/certifications/{{ $image.Name }}" data-fslightbox="certifications" class="certs-slide absolute inset-0 transition-opacity duration-700 {{ if eq $index 0 }}opacity-100{{ else }}opacity-0{{ end }}">
+                <img src="/images/certifications/{{ $image.Name }}"
+                     alt="Certification image {{ add $index 1 }}"
+                     class="w-full h-full object-contain bg-gray-100 dark:bg-gray-700"
+                     loading="lazy">
+              </a>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </div>
+        <!-- Navigation -->
+        <button class="certs-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-10">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button class="certs-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-10">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+        <!-- Indicators -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          {{ if $images }}
+            {{ range $index, $image := $images }}
+              {{ if or (strings.HasSuffix $image.Name ".jpg") (strings.HasSuffix $image.Name ".jpeg") (strings.HasSuffix $image.Name ".png") (strings.HasSuffix $image.Name ".gif") (strings.HasSuffix $image.Name ".webp") }}
+              <button class="certs-indicator w-1.5 h-1.5 rounded-full transition-all {{ if eq $index 0 }}bg-white w-6{{ else }}bg-white/50{{ end }}"></button>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </div>
+      </div>
+
+    </div>
+    {{ end }}
+  </div>
+
+  <script>
+    (function() {
+      const carousel = document.querySelector('.certs-carousel');
+      if (!carousel) return;
+      const slides = carousel.querySelectorAll('.certs-slide');
+      const indicators = carousel.querySelectorAll('.certs-indicator');
+      const prevBtn = carousel.querySelector('.certs-prev');
+      const nextBtn = carousel.querySelector('.certs-next');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+      let autoPlayInterval;
+
+      function showSlide(index) {
+        if (index >= totalSlides) index = 0;
+        if (index < 0) index = totalSlides - 1;
+        currentSlide = index;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('opacity-100', i === currentSlide);
+          slide.classList.toggle('opacity-0', i !== currentSlide);
+        });
+        indicators.forEach((indicator, i) => {
+          indicator.classList.toggle('bg-white', i === currentSlide);
+          indicator.classList.toggle('w-6', i === currentSlide);
+          indicator.classList.toggle('bg-white/50', i !== currentSlide);
+        });
+      }
+
+      function startAutoPlay() { autoPlayInterval = setInterval(() => showSlide(currentSlide + 1), 4000); }
+      function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+      nextBtn?.addEventListener('click', () => { showSlide(currentSlide + 1); stopAutoPlay(); startAutoPlay(); });
+      prevBtn?.addEventListener('click', () => { showSlide(currentSlide - 1); stopAutoPlay(); startAutoPlay(); });
+      indicators.forEach((indicator, i) => indicator.addEventListener('click', () => { showSlide(i); stopAutoPlay(); startAutoPlay(); }));
+      carousel.addEventListener('mouseenter', stopAutoPlay);
+      carousel.addEventListener('mouseleave', startAutoPlay);
+
+      // Touch swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      carousel.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; stopAutoPlay(); }, { passive: true });
+      carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) { // Minimum swipe distance
+          if (diff > 0) showSlide(currentSlide + 1); // Swipe left
+          else showSlide(currentSlide - 1); // Swipe right
+        }
+        startAutoPlay();
+      }, { passive: true });
+
+      setTimeout(startAutoPlay, 2000);
+    })();
+  </script>
+</section>

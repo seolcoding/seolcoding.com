@@ -1,0 +1,164 @@
+<!-- Unified Skills Section -->
+<section id="skills" class="py-12 bg-bg-secondary dark:bg-bg-secondary skills-section border-t border-border-primary" data-animate>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ with .Site.GetPage "skills" }}
+    {{ $technicalPage := .Site.GetPage "technical" }}
+
+    <!-- Section heading -->
+    <h2 class="text-3xl font-bold text-center mb-4 font-heading text-text-primary dark:text-text-primary">{{ .Title }}</h2>
+    <p class="text-lg text-center mb-12 text-text-secondary dark:text-text-tertiary italic">{{ .Params.intro }}</p>
+
+    <!-- Skills Grid with Icons -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range $i, $domain := .Params.domains }}
+      <div class="bg-gradient-to-br from-bg to-bg-tertiary dark:from-bg dark:to-bg-secondary p-6 rounded-xl shadow-lg border border-border-primary dark:border-border-primary card-hover" data-animate>
+
+        <!-- Domain Header -->
+        <div class="flex items-center mb-3">
+          {{ $colors := slice "text-primary" "text-second" "text-third" "text-success" "text-warning" "text-error" }}
+          {{ $randomColor := index $colors (mod $i (len $colors)) }}
+          <i class="fas fa-{{ $domain.icon }} text-3xl mr-3 {{ $randomColor }}" aria-hidden="true"></i>
+          <h3 class="text-xl font-heading font-bold text-text-primary dark:text-text-primary">{{ $domain.title }}</h3>
+        </div>
+
+        <!-- Description -->
+        <p class="text-sm text-text-secondary dark:text-text-tertiary leading-relaxed mb-4">{{ $domain.description }}</p>
+
+        <!-- Tech Stack Icons -->
+        <div class="flex flex-wrap gap-4 justify-start mt-4 pt-4 border-t border-border-primary/30 dark:border-border-primary/30">
+          {{ if eq $domain.title "생성형 AI" }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if eq .title "생성형 AI" }}
+                {{ range .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-purple-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else if eq $domain.title "클라우드 & 인프라" }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if eq .title "클라우드 & 인프라" }}
+                {{ range .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-orange-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else if or (eq $domain.title "소프트웨어 개발") (eq $domain.title "프로그래밍 기초 & 바이브 코딩") }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if or (eq .title "프로그래밍 언어") (eq .title "웹 개발") }}
+                {{ range first 3 .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-blue-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else if or (eq $domain.title "데이터베이스 & 분석") (eq $domain.title "데이터 분석 & 머신러닝 기초") }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if or (eq .title "데이터베이스") (eq .title "데이터 분석") }}
+                {{ range first 4 .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-green-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else if or (eq $domain.title "교육 및 트레이닝") (eq $domain.title "구글 워크스페이스 도구들") }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if eq .title "교육 플랫폼" }}
+                {{ range first 3 .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-red-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else if eq $domain.title "프로젝트 관리" }}
+            {{ range $technicalPage.Params.technical_groups }}
+              {{ if eq .title "개발 도구" }}
+                {{ range first 4 .skills }}
+                <div class="flex items-center justify-center">
+                  {{ if .devicon_name }}
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-original.svg"
+                       alt="{{ .name }}"
+                       title="{{ .name }}"
+                       width="32"
+                       height="32"
+                       class="opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" />
+                  {{ else }}
+                  <i class="fas fa-{{ .icon }} text-2xl text-green-500 opacity-80 hover:opacity-100 hover:scale-[1.2] transition-all cursor-pointer" aria-hidden="true" title="{{ .name }}"></i>
+                  {{ end }}
+                </div>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+          {{ else }}
+            <!-- Default: show FontAwesome icon -->
+            <div class="flex items-center gap-2 text-text-tertiary text-sm">
+              <i class="fas fa-tools"></i>
+              <span>{{ $domain.title }}</span>
+            </div>
+          {{ end }}
+        </div>
+
+      </div>
+      {{ end }}
+    </div>
+
+    {{ end }}
+  </div>
+</section>

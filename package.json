@@ -1,25 +1,22 @@
 {
-  "name": "seolcoding-monorepo",
+  "name": "seolcoding-portfolio",
   "version": "2.0.0",
-  "description": "SeolCoding Agentic Monorepo - Portfolio, Slides, Mini Apps",
+  "description": "SeolCoding Portfolio Website - Hugo + Tailwind CSS",
   "private": true,
   "scripts": {
-    "dev:website": "cd agents/website && hugo server -D",
-    "dev:slides": "cd agents/slides/2026-ai-agent && pnpm dev",
-    "dev:prompt": "cd agents/mini-apps/prompt-tutorial/web && pnpm dev",
-    "build:website": "cd agents/website && npm run build",
-    "build:slides": "cd agents/slides/2026-ai-agent && pnpm build",
-    "build:prompt": "cd agents/mini-apps/prompt-tutorial/web && pnpm build",
-    "build:all": "npm run build:website && npm run build:slides && npm run build:prompt",
-    "test:build": "npm run test:build:website && npm run test:build:slides && npm run test:build:prompt",
-    "test:build:website": "cd agents/website && hugo --minify",
-    "test:build:slides": "cd agents/slides/2026-ai-agent && pnpm build",
-    "test:build:prompt": "cd agents/mini-apps/prompt-tutorial/web && pnpm build",
+    "dev": "hugo server -D",
+    "build": "hugo --gc --minify",
+    "build:css": "echo \"CSS is built by Hugo Pipes during 'npm run dev' / 'npm run build'\"",
     "convert:pdf": "echo '📄 PDF files detected - no conversion needed for resume PDFs'"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.0"
+  },
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
+    "node": ">=18"
   }
 }
