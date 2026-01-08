@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcases | SeolCoding</title>
+    <meta name="description" content="딥뉴스 데이터 시각화 프로젝트 - CES 2026, 뉴스 분석, 인터랙티브 쇼케이스">
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo", sans-serif;
+            background: #0f0f23;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .home-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.4);
+            color: white;
+        }
+
+        .title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .card-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 32px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="home-link">← SeolCoding</a>
+            <h1 class="title">🎨 데이터 쇼케이스</h1>
+            <p class="subtitle">딥뉴스 AI로 분석한 뉴스 데이터 시각화 프로젝트</p>
+        </header>
+
+        <div class="grid">
+            <!-- Card 1: Corporate Battle -->
+            <a href="ces-corporate-battle.html" class="card" style="--accent: #1428a0;">
+                <div class="card-emoji" role="img" aria-label="트로피">🏆</div>
+                <h2 class="card-title">CES 2026 한국기업 대결</h2>
+                <p class="card-desc">삼성전자, 현대차, SK하이닉스, LG전자의 CES 2026 뉴스량 비교 분석</p>
+                <div class="card-tags">
+                    <span class="tag">#데이터분석</span>
+                    <span class="tag">#시각화</span>
+                </div>
+            </a>
+
+            <!-- Card 2: Keyword Battle -->
+            <a href="ces-keyword-battle.html" class="card" style="--accent: #a855f7;">
+                <div class="card-emoji" role="img" aria-label="검">⚔️</div>
+                <h2 class="card-title">CES 2026 핫 키워드 배틀</h2>
+                <p class="card-desc">피지컬 AI, 자율주행, HBM, 가정용 로봇 키워드 뉴스량 대결</p>
+                <div class="card-tags">
+                    <span class="tag">#키워드분석</span>
+                    <span class="tag">#트렌드</span>
+                </div>
+            </a>
+
+            <!-- Card 3: Keyword Map -->
+            <a href="ces-keyword-map.html" class="card" style="--accent: #6366f1;">
+                <div class="card-emoji" role="img" aria-label="지도">🗺️</div>
+                <h2 class="card-title">CES 2026 키워드 맵</h2>
+                <p class="card-desc">AI가 분석한 CES 2026 핵심 키워드 연관 관계 시각화</p>
+                <div class="card-tags">
+                    <span class="tag">#연관어분석</span>
+                    <span class="tag">#워드클라우드</span>
+                </div>
+            </a>
+
+            <!-- Card 4: Meme Cards -->
+            <a href="ces-meme-cards.html" class="card" style="--accent: #667eea;">
+                <div class="card-emoji" role="img" aria-label="웃는얼굴">😂</div>
+                <h2 class="card-title">CES 2026 밈 카드</h2>
+                <p class="card-desc">뉴스 데이터를 소셜 미디어 스타일로 재해석한 밈 카드 모음</p>
+                <div class="card-tags">
+                    <span class="tag">#밈</span>
+                    <span class="tag">#소셜미디어</span>
+                </div>
+            </a>
+
+            <!-- Card 5: Quiz -->
+            <a href="ces-quiz.html" class="card" style="--accent: #ec4899;">
+                <div class="card-emoji" role="img" aria-label="과녁">🎯</div>
+                <h2 class="card-title">CES 2026 퀴즈</h2>
+                <p class="card-desc">CES 2026 뉴스 데이터를 활용한 인터랙티브 퀴즈 (3문제)</p>
+                <div class="card-tags">
+                    <span class="tag">#퀴즈</span>
+                    <span class="tag">#인터랙티브</span>
+                </div>
+            </a>
+
+            <!-- Card 6: Hot Issues -->
+            <a href="2026-hot-issues.html" class="card" style="--accent: #ffd700;">
+                <div class="card-emoji" role="img" aria-label="신문">📰</div>
+                <h2 class="card-title">2026년 신년 핫이슈 TOP 10</h2>
+                <p class="card-desc">2026년 첫 주 뉴스 트렌드 분석 - 기업 신년사, 안성기 추모, 한중외교</p>
+                <div class="card-tags">
+                    <span class="tag">#뉴스랭킹</span>
+                    <span class="tag">#트렌드</span>
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>📊 데이터: 딥뉴스 뉴스 분석 | 분석: Claude AI | 2026.01.01~08 기준</p>
+        </footer>
+    </div>
+</body>
+</html>

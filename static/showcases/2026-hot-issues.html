@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📰 2026 신년 뉴스 핫이슈 TOP 10</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #ff0000, #ff4444);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: livePulse 2s infinite;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+        }
+
+        button:focus, .option:focus, a:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .title .highlight {
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .date-info {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .news-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--item-color);
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--item-color);
+        }
+
+        .rank {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
+        .rank-2 { background: linear-gradient(135deg, #c0c0c0, #888); color: #000; }
+        .rank-3 { background: linear-gradient(135deg, #cd7f32, #8b4513); color: #fff; }
+        .rank-other { background: rgba(255, 255, 255, 0.1); color: #888; }
+
+        .news-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .news-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .article-count {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--item-color);
+            font-weight: 700;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 10px;
+        }
+
+        /* Category Colors */
+        .politics { --item-color: #ef4444; }
+        .tech { --item-color: #3b82f6; }
+        .economy { --item-color: #10b981; }
+        .society { --item-color: #f59e0b; }
+        .culture { --item-color: #8b5cf6; }
+        .international { --item-color: #06b6d4; }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .section-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 28px;
+            background: linear-gradient(90deg, #00f5d4, #00bbf9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .trending-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .topic-pill {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .topic-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .topic-pill .emoji {
+            font-size: 16px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .source {
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .hashtag {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 170, 0, 0.2));
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #ffd700;
+        }
+
+        .special-badge {
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                LIVE 뉴스 트렌드
+            </div>
+            <h1 class="title">2026년 <span class="highlight">첫 주</span><br>핫이슈 TOP 10</h1>
+            <p class="date-info">📅 2026.01.01 ~ 01.08 기준</p>
+        </header>
+
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">분석 일수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">50</div>
+                <div class="stat-label">주요 이슈</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1K+</div>
+                <div class="stat-label">분석 기사</div>
+            </div>
+        </div>
+
+        <div class="trending-topics">
+            <div class="topic-pill"><span class="emoji">🇨🇳</span> 한중외교</div>
+            <div class="topic-pill"><span class="emoji">🤖</span> CES 2026</div>
+            <div class="topic-pill"><span class="emoji">🎬</span> 안성기 추모</div>
+            <div class="topic-pill"><span class="emoji">⚖️</span> 비상계엄</div>
+            <div class="topic-pill"><span class="emoji">🏢</span> 기업 신년사</div>
+        </div>
+
+        <div class="section-divider">
+            <span class="section-title">🏆 이번 주 TOP 10</span>
+        </div>
+
+        <div class="news-list">
+            <div class="news-item politics" style="position: relative;">
+                <div class="special-badge">HOT</div>
+                <div class="rank rank-1">1</div>
+                <div class="news-content">
+                    <div class="news-title">주요 그룹 회장들 신년사에서 혁신과 성장 강조</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 231건</span>
+                        <span class="category-tag">경제</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item economy">
+                <div class="rank rank-2">2</div>
+                <div class="news-content">
+                    <div class="news-title">마스턴투자운용, 신뢰 회복과 혁신 강조</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 160건</span>
+                        <span class="category-tag">금융</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item culture">
+                <div class="rank rank-3">3</div>
+                <div class="news-content">
+                    <div class="news-title">고 안성기 배우 추모 열기 확산</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 142건</span>
+                        <span class="category-tag">문화</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item economy">
+                <div class="rank rank-other">4</div>
+                <div class="news-content">
+                    <div class="news-title">정정훈 캠코 사장, 생산적·포용적 금융 강화 약속</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 117건</span>
+                        <span class="category-tag">금융</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item politics">
+                <div class="rank rank-other">5</div>
+                <div class="news-content">
+                    <div class="news-title">국민의힘 장동혁 대표, 12·3 비상계엄 사과</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 116건</span>
+                        <span class="category-tag">정치</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item international">
+                <div class="rank rank-other">6</div>
+                <div class="news-content">
+                    <div class="news-title">이재명 대통령, 중국 국빈 방문 성과</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 99건</span>
+                        <span class="category-tag">외교</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item economy">
+                <div class="rank rank-other">7</div>
+                <div class="news-content">
+                    <div class="news-title">기업 경영인들의 신년 의지와 계획</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 78건</span>
+                        <span class="category-tag">경제</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item tech">
+                <div class="rank rank-other">8</div>
+                <div class="news-content">
+                    <div class="news-title">국내외 기업, CES 2026에서 글로벌 성과 창출</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 70건</span>
+                        <span class="category-tag">IT/테크</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item culture">
+                <div class="rank rank-other">9</div>
+                <div class="news-content">
+                    <div class="news-title">2026 퍼스트브랜드 대상 수상자 발표</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 68건</span>
+                        <span class="category-tag">문화</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item international">
+                <div class="rank rank-other">10</div>
+                <div class="news-content">
+                    <div class="news-title">이재명 대통령, 한중 관계 복원 의지 강조</div>
+                    <div class="news-meta">
+                        <span class="article-count">📰 64건</span>
+                        <span class="category-tag">외교</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <span class="section-title">💡 인사이트</span>
+        </div>
+
+        <div style="background: rgba(255, 215, 0, 0.1); border-radius: 15px; padding: 20px; border: 1px solid rgba(255, 215, 0, 0.3);">
+            <p style="font-size: 14px; line-height: 1.7; color: #ccc;">
+                🏢 <strong style="color: #ffd700;">기업 신년사</strong>가 1위! 새해 기업들의 비전 선포가 화제<br><br>
+                🎬 <strong style="color: #ffd700;">안성기 배우</strong> 별세 소식에 추모 물결<br><br>
+                🇨🇳 <strong style="color: #ffd700;">한중 정상외교</strong> 관련 뉴스가 다수 순위권 진입<br><br>
+                🤖 <strong style="color: #ffd700;">CES 2026</strong> 개막으로 테크 뉴스 급증 예상!
+            </p>
+        </div>
+
+        <footer class="footer">
+            <p class="source">📊 데이터: 딥뉴스 뉴스 분석 | 분석: Claude AI</p>
+            <div class="hashtags">
+                <span class="hashtag">#2026핫이슈</span>
+                <span class="hashtag">#뉴스트렌드</span>
+                <span class="hashtag">#안성기</span>
+                <span class="hashtag">#CES2026</span>
+                <span class="hashtag">#설코딩랩</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

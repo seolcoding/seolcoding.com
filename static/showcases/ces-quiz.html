@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 CES 2026 퀴즈</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .quiz-container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        .slide {
+            display: none;
+            background: linear-gradient(180deg, #1e1e3f 0%, #2d1f4e 50%, #1a1a2e 100%);
+            border-radius: 24px;
+            padding: 25px 20px;
+            min-height: 85vh;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .slide.active { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+        
+        .progress-bar { display: flex; gap: 6px; margin-bottom: 20px; }
+        .progress-segment { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: all 0.3s; }
+        .progress-segment.done { background: #10b981; }
+        .progress-segment.active { background: white; }
+        
+        .quiz-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .question-number { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+        .question {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 26px;
+            line-height: 1.35;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .question .highlight { color: #f472b6; }
+        .emoji-big { font-size: 60px; text-align: center; margin: 10px 0; }
+        
+        .options { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+        .option {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option:hover { background: rgba(255,255,255,0.15); transform: scale(1.02); }
+        .option.correct {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: #10b981;
+        }
+        .option.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+        .option.disabled { pointer-events: none; opacity: 0.6; }
+
+        button:focus, .option:focus, a:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .option-letter {
+            width: 26px; height: 26px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .answer-reveal {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+        .answer-reveal.show { display: block; animation: fadeIn 0.4s ease; }
+        .answer-title { font-weight: 800; color: #a78bfa; margin-bottom: 6px; font-size: 14px; }
+        .answer-text { font-size: 13px; color: #ccc; line-height: 1.5; }
+        .answer-text strong { color: #f472b6; }
+        
+        .next-btn {
+            display: none;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            border: none;
+            border-radius: 14px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        .next-btn.show { display: block; animation: fadeIn 0.3s ease; }
+        .next-btn:hover { transform: scale(1.03); box-shadow: 0 5px 20px rgba(236,72,153,0.4); }
+        
+        .result-content { text-align: center; padding: 20px 0; }
+        .result-emoji { font-size: 80px; margin-bottom: 20px; }
+        .result-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .result-score {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 64px;
+            background: linear-gradient(90deg, #f472b6, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .result-text { color: #aaa; font-size: 14px; margin: 15px 0; }
+        .result-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+        .share-hint {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .hashtag {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #a5b4fc;
+        }
+        .restart-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 14px;
+            padding: 14px 30px;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .restart-btn:hover { background: rgba(255,255,255,0.2); }
+        .footer-tag {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 15px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+        }
+    </style>
+</head>
+<body>
+    <a href="#slide1" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;">퀴즈로 건너뛰기</a>
+    <div class="quiz-container">
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="progress-segment active"></div>
+                    <div class="progress-segment"></div>
+                    <div class="progress-segment"></div>
+                </div>
+                <div class="quiz-badge">🎯 CES 2026 퀴즈</div>
+                <div class="question-number">Q1 / 3</div>
+                <div class="question">
+                    CES 2026에서<br>
+                    <span class="highlight">가장 많이</span> 언급된<br>
+                    한국 기업은?
+                </div>
+                <div class="emoji-big">🏆</div>
+                <div class="options" id="options1">
+                    <div class="option" onclick="answer(1, this, false)">
+                        <span class="option-letter">A</span> LG전자 (965건)
+                    </div>
+                    <div class="option" onclick="answer(1, this, false)">
+                        <span class="option-letter">B</span> 현대차 (1,475건)
+                    </div>
+                    <div class="option" onclick="answer(1, this, true)" data-correct="true">
+                        <span class="option-letter">C</span> 삼성전자 (3,619건)
+                    </div>
+                    <div class="option" onclick="answer(1, this, false)">
+                        <span class="option-letter">D</span> SK하이닉스 (1,374건)
+                    </div>
+                </div>
+                <div class="answer-reveal" id="answer1">
+                    <div class="answer-title">✨ 정답: 삼성전자!</div>
+                    <div class="answer-text">
+                        삼성전자가 <strong>3,619건</strong>으로 압도적 1위!<br>
+                        2위 현대차의 <strong>2.5배</strong> 언급량 📊
+                    </div>
+                </div>
+                <button class="next-btn" id="next1" onclick="nextSlide(2)">다음 문제 →</button>
+                <div class="footer-tag">📊 딥뉴스 데이터 | @설코딩랩</div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="progress-segment done"></div>
+                    <div class="progress-segment active"></div>
+                    <div class="progress-segment"></div>
+                </div>
+                <div class="quiz-badge">🎯 CES 2026 퀴즈</div>
+                <div class="question-number">Q2 / 3</div>
+                <div class="question">
+                    CES 2026의<br>
+                    <span class="highlight">핫 키워드</span> 1위는?
+                </div>
+                <div class="emoji-big">🤖</div>
+                <div class="options" id="options2">
+                    <div class="option" onclick="answer(2, this, false)">
+                        <span class="option-letter">A</span> 자율주행 (1,313건)
+                    </div>
+                    <div class="option" onclick="answer(2, this, true)" data-correct="true">
+                        <span class="option-letter">B</span> 피지컬 AI (1,472건)
+                    </div>
+                    <div class="option" onclick="answer(2, this, false)">
+                        <span class="option-letter">C</span> HBM (816건)
+                    </div>
+                    <div class="option" onclick="answer(2, this, false)">
+                        <span class="option-letter">D</span> 가정용 로봇 (168건)
+                    </div>
+                </div>
+                <div class="answer-reveal" id="answer2">
+                    <div class="answer-title">✨ 정답: 피지컬 AI!</div>
+                    <div class="answer-text">
+                        AI가 <strong>몸을 갖게 되는</strong> 시대!<br>
+                        엔비디아가 주도하는 <strong>휴머노이드 로봇</strong> 열풍 🤖
+                    </div>
+                </div>
+                <button class="next-btn" id="next2" onclick="nextSlide(3)">다음 문제 →</button>
+                <div class="footer-tag">📊 딥뉴스 데이터 | @설코딩랩</div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="progress-segment done"></div>
+                    <div class="progress-segment done"></div>
+                    <div class="progress-segment active"></div>
+                </div>
+                <div class="quiz-badge">🎯 CES 2026 퀴즈</div>
+                <div class="question-number">Q3 / 3</div>
+                <div class="question">
+                    SK하이닉스가 공개한<br>
+                    <span class="highlight">HBM4</span>의 스펙은?
+                </div>
+                <div class="emoji-big">🧠</div>
+                <div class="options" id="options3">
+                    <div class="option" onclick="answer(3, this, false)">
+                        <span class="option-letter">A</span> 8단 24GB
+                    </div>
+                    <div class="option" onclick="answer(3, this, false)">
+                        <span class="option-letter">B</span> 12단 36GB
+                    </div>
+                    <div class="option" onclick="answer(3, this, true)" data-correct="true">
+                        <span class="option-letter">C</span> 16단 48GB
+                    </div>
+                    <div class="option" onclick="answer(3, this, false)">
+                        <span class="option-letter">D</span> 20단 64GB
+                    </div>
+                </div>
+                <div class="answer-reveal" id="answer3">
+                    <div class="answer-title">✨ 정답: 16단 48GB!</div>
+                    <div class="answer-text">
+                        AI 시대 핵심 부품 <strong>HBM4</strong><br>
+                        엔비디아 차세대 GPU에 탑재 예정 💎
+                    </div>
+                </div>
+                <button class="next-btn" id="next3" onclick="showResult()">결과 보기 🎉</button>
+                <div class="footer-tag">📊 딥뉴스 데이터 | @설코딩랩</div>
+            </div>
+        </div>
+
+        <!-- Result Slide -->
+        <div class="slide" id="slideResult">
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="progress-segment done"></div>
+                    <div class="progress-segment done"></div>
+                    <div class="progress-segment done"></div>
+                </div>
+                <div class="result-content">
+                    <div class="result-emoji" id="resultEmoji">🎉</div>
+                    <div class="result-title">퀴즈 완료!</div>
+                    <div class="result-score"><span id="scoreText">0</span>/3</div>
+                    <div class="result-text" id="resultMsg">결과 메시지</div>
+                    <div class="result-badge" id="resultBadge">칭호</div>
+                    <div class="hashtags">
+                        <span class="hashtag">#CES2026</span>
+                        <span class="hashtag">#테크퀴즈</span>
+                        <span class="hashtag">#설코딩랩</span>
+                    </div>
+                    <div class="share-hint">📸 스크린샷 찍어서 친구에게 공유하세요!</div>
+                    <button class="restart-btn" onclick="restart()">🔄 다시 풀기</button>
+                </div>
+                <div class="footer-tag">📊 딥뉴스 데이터 | @설코딩랩</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let answered = [false, false, false];
+
+        function answer(q, el, isCorrect) {
+            if (answered[q-1]) return;
+            answered[q-1] = true;
+
+            const options = document.querySelectorAll(`#options${q} .option`);
+            options.forEach(opt => {
+                opt.classList.add('disabled');
+                if (opt.dataset.correct === 'true') {
+                    opt.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                el.classList.add('correct');
+                score++;
+            } else {
+                el.classList.add('wrong');
+            }
+
+            document.getElementById(`answer${q}`).classList.add('show');
+            document.getElementById(`next${q}`).classList.add('show');
+        }
+
+        function nextSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+        }
+
+        function showResult() {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById('slideResult').classList.add('active');
+            
+            document.getElementById('scoreText').textContent = score;
+            
+            let emoji, msg, badge;
+            if (score === 3) {
+                emoji = '🏆'; msg = '완벽해요! 테크 트렌드 전문가!'; badge = '🎖️ CES 마스터';
+            } else if (score === 2) {
+                emoji = '👏'; msg = '잘했어요! 거의 다 맞췄네요!'; badge = '⭐ 테크 매니아';
+            } else if (score === 1) {
+                emoji = '😊'; msg = '조금 더 관심을 가져보세요!'; badge = '🌱 테크 입문자';
+            } else {
+                emoji = '😅'; msg = '다음엔 더 잘할 수 있어요!'; badge = '🔰 테크 새내기';
+            }
+            
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultMsg').textContent = msg;
+            document.getElementById('resultBadge').textContent = badge;
+        }
+
+        function restart() {
+            score = 0;
+            answered = [false, false, false];
+            
+            for (let i = 1; i <= 3; i++) {
+                document.querySelectorAll(`#options${i} .option`).forEach(opt => {
+                    opt.classList.remove('correct', 'wrong', 'disabled');
+                });
+                document.getElementById(`answer${i}`).classList.remove('show');
+                document.getElementById(`next${i}`).classList.remove('show');
+            }
+            
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById('slide1').classList.add('active');
+        }
+    </script>
+</body>
+</html>

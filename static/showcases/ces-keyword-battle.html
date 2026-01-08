@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 CES 2026 핫 키워드 배틀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            min-height: 100vh;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(120, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 200, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .year-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #00f5d4, #00bbf9);
+            color: #000;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .title span {
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .keyword-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:focus, .option:focus, a:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .keyword-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .keyword-card:hover {
+            transform: translateX(5px);
+            border-color: var(--accent);
+        }
+
+        .keyword-card::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent);
+        }
+
+        .keyword-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .keyword-name {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword-count {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .keyword-count span {
+            font-size: 14px;
+            color: #666;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .mini-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent), var(--accent-light));
+            border-radius: 4px 4px 0 0;
+            min-height: 5px;
+            animation: growBar 1s ease-out forwards;
+            transform-origin: bottom;
+        }
+
+        @keyframes growBar {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0, 255, 150, 0.15);
+            color: #00ff96;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .trend-badge.hot {
+            background: rgba(255, 50, 50, 0.15);
+            color: #ff5050;
+        }
+
+        /* Color schemes */
+        .physical-ai { --accent: #a855f7; --accent-light: #d8b4fe; }
+        .autonomous { --accent: #3b82f6; --accent-light: #93c5fd; }
+        .hbm { --accent: #ef4444; --accent-light: #fca5a5; }
+        .robot { --accent: #10b981; --accent-light: #6ee7b7; }
+
+        .comparison-box {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .comparison-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .comparison-label {
+            width: 90px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .comparison-bar-container {
+            flex: 1;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .comparison-bar {
+            height: 100%;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { width: 0; }
+        }
+
+        .highlight-text {
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+
+        .insight-pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin: 5px;
+        }
+
+        .insight-pill strong {
+            color: #00f5d4;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .source {
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .hashtag {
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .fire-emoji {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="year-badge">2026 TECH TREND</div>
+            <h1 class="title"><span>CES 핫 키워드</span><br>뉴스 대전!</h1>
+            <p class="subtitle">이번 CES에서 가장 핫한 기술은? 🤔</p>
+        </header>
+
+        <div class="keyword-section">
+            <div class="section-title">🏆 이번 주 TOP 4 키워드</div>
+
+            <div class="keyword-card physical-ai">
+                <div class="keyword-header">
+                    <div class="keyword-name">
+                        🤖 피지컬 AI
+                        <span class="trend-badge hot"><span class="fire-emoji">🔥</span> HOT</span>
+                    </div>
+                    <div class="keyword-count">1,472 <span>건</span></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 55%;"></div>
+                    <div class="chart-bar" style="height: 47%;"></div>
+                    <div class="chart-bar" style="height: 7%;"></div>
+                    <div class="chart-bar" style="height: 32%;"></div>
+                    <div class="chart-bar" style="height: 100%;"></div>
+                    <div class="chart-bar" style="height: 90%;"></div>
+                    <div class="chart-bar" style="height: 80%;"></div>
+                    <div class="chart-bar" style="height: 48%;"></div>
+                </div>
+                <div class="chart-labels">
+                    <span>1일</span>
+                    <span>8일</span>
+                </div>
+            </div>
+
+            <div class="keyword-card autonomous">
+                <div class="keyword-header">
+                    <div class="keyword-name">
+                        🚗 자율주행
+                        <span class="trend-badge">📈 상승중</span>
+                    </div>
+                    <div class="keyword-count">1,313 <span>건</span></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 34%;"></div>
+                    <div class="chart-bar" style="height: 44%;"></div>
+                    <div class="chart-bar" style="height: 5%;"></div>
+                    <div class="chart-bar" style="height: 34%;"></div>
+                    <div class="chart-bar" style="height: 100%;"></div>
+                    <div class="chart-bar" style="height: 84%;"></div>
+                    <div class="chart-bar" style="height: 89%;"></div>
+                    <div class="chart-bar" style="height: 41%;"></div>
+                </div>
+                <div class="chart-labels">
+                    <span>1일</span>
+                    <span>8일</span>
+                </div>
+            </div>
+
+            <div class="keyword-card hbm">
+                <div class="keyword-header">
+                    <div class="keyword-name">
+                        🧠 HBM
+                        <span class="trend-badge">💎 AI 핵심</span>
+                    </div>
+                    <div class="keyword-count">816 <span>건</span></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 52%;"></div>
+                    <div class="chart-bar" style="height: 100%;"></div>
+                    <div class="chart-bar" style="height: 17%;"></div>
+                    <div class="chart-bar" style="height: 35%;"></div>
+                    <div class="chart-bar" style="height: 78%;"></div>
+                    <div class="chart-bar" style="height: 82%;"></div>
+                    <div class="chart-bar" style="height: 65%;"></div>
+                    <div class="chart-bar" style="height: 65%;"></div>
+                </div>
+                <div class="chart-labels">
+                    <span>1일</span>
+                    <span>8일</span>
+                </div>
+            </div>
+
+            <div class="keyword-card robot">
+                <div class="keyword-header">
+                    <div class="keyword-name">
+                        🏠 가정용 로봇
+                        <span class="trend-badge">🌱 신흥</span>
+                    </div>
+                    <div class="keyword-count">168 <span>건</span></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 26%;"></div>
+                    <div class="chart-bar" style="height: 7%;"></div>
+                    <div class="chart-bar" style="height: 7%;"></div>
+                    <div class="chart-bar" style="height: 56%;"></div>
+                    <div class="chart-bar" style="height: 96%;"></div>
+                    <div class="chart-bar" style="height: 100%;"></div>
+                    <div class="chart-bar" style="height: 60%;"></div>
+                    <div class="chart-bar" style="height: 44%;"></div>
+                </div>
+                <div class="chart-labels">
+                    <span>1일</span>
+                    <span>8일</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-box">
+            <div class="comparison-title">📊 키워드별 점유율</div>
+            
+            <div class="comparison-row">
+                <div class="comparison-label">피지컬 AI</div>
+                <div class="comparison-bar-container">
+                    <div class="comparison-bar" style="width: 39%; background: linear-gradient(90deg, #a855f7, #d8b4fe);">39%</div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-label">자율주행</div>
+                <div class="comparison-bar-container">
+                    <div class="comparison-bar" style="width: 35%; background: linear-gradient(90deg, #3b82f6, #93c5fd);">35%</div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-label">HBM</div>
+                <div class="comparison-bar-container">
+                    <div class="comparison-bar" style="width: 22%; background: linear-gradient(90deg, #ef4444, #fca5a5);">22%</div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-label">가정용 로봇</div>
+                <div class="comparison-bar-container">
+                    <div class="comparison-bar" style="width: 4%; background: linear-gradient(90deg, #10b981, #6ee7b7);">4%</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+            <div class="insight-pill">🤖 <strong>피지컬 AI</strong>가 올해의 키워드!</div>
+            <div class="insight-pill">🚗 <strong>자율주행</strong> 바짝 추격중</div>
+            <div class="insight-pill">🏠 <strong>가정용 로봇</strong> 다크호스?</div>
+        </div>
+
+        <footer class="footer">
+            <p class="source">📊 데이터: 딥뉴스 뉴스 분석 | 기간: 2026.01.01~08</p>
+            <div class="hashtags">
+                <span class="hashtag">#CES2026</span>
+                <span class="hashtag">#피지컬AI</span>
+                <span class="hashtag">#자율주행</span>
+                <span class="hashtag">#HBM</span>
+                <span class="hashtag">#설코딩랩</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 CES 2026 키워드 맵</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(145deg, #0d0d1a 0%, #1a1a2e 50%, #0a0a15 100%);
+            border-radius: 30px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        button:focus, .option:focus, a:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .ces-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .keyword-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 0;
+            min-height: 280px;
+        }
+
+        .keyword {
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: floatIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .keyword:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword sizes based on weight */
+        .size-1 { font-size: 28px; }
+        .size-2 { font-size: 22px; }
+        .size-3 { font-size: 18px; }
+        .size-4 { font-size: 14px; }
+        .size-5 { font-size: 12px; }
+
+        /* Keyword colors */
+        .color-ai { background: linear-gradient(135deg, #6366f1, #a855f7); }
+        .color-tech { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .color-company { background: linear-gradient(135deg, #10b981, #34d399); }
+        .color-trend { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+        .color-neutral { background: rgba(255, 255, 255, 0.15); color: #aaa; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .top-keyword-box {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .top-keyword-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .top-keyword-value {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 36px;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-keyword-score {
+            font-size: 14px;
+            color: #a78bfa;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .source {
+            font-size: 10px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .hashtag {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #a5b4fc;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 3s ease-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="pulse-ring"></div>
+        <div class="content">
+            <header class="header">
+                <div class="ces-badge">CES 2026</div>
+                <h1 class="title">키워드 맵 🗺️</h1>
+                <p class="subtitle">AI가 분석한 CES 2026 핫 키워드</p>
+            </header>
+
+            <div class="keyword-cloud">
+                <span class="keyword size-1 color-ai" style="animation-delay: 0.1s;">AI</span>
+                <span class="keyword size-2 color-trend" style="animation-delay: 0.15s;">혁신상</span>
+                <span class="keyword size-2 color-tech" style="animation-delay: 0.2s;">피지컬 AI</span>
+                <span class="keyword size-3 color-company" style="animation-delay: 0.25s;">삼성전자</span>
+                <span class="keyword size-3 color-company" style="animation-delay: 0.3s;">현대차</span>
+                <span class="keyword size-3 color-tech" style="animation-delay: 0.35s;">로봇</span>
+                <span class="keyword size-3 color-company" style="animation-delay: 0.4s;">엔비디아</span>
+                <span class="keyword size-4 color-tech" style="animation-delay: 0.45s;">자율주행차</span>
+                <span class="keyword size-4 color-tech" style="animation-delay: 0.5s;">HBM</span>
+                <span class="keyword size-4 color-trend" style="animation-delay: 0.55s;">휴머노이드</span>
+                <span class="keyword size-4 color-neutral" style="animation-delay: 0.6s;">라스베이거스</span>
+                <span class="keyword size-4 color-tech" style="animation-delay: 0.65s;">모빌리티</span>
+                <span class="keyword size-4 color-tech" style="animation-delay: 0.7s;">헬스케어</span>
+                <span class="keyword size-5 color-company" style="animation-delay: 0.75s;">LG전자</span>
+                <span class="keyword size-5 color-neutral" style="animation-delay: 0.8s;">CTA</span>
+                <span class="keyword size-5 color-trend" style="animation-delay: 0.85s;">글로벌 진출</span>
+                <span class="keyword size-5 color-company" style="animation-delay: 0.9s;">SK하이닉스</span>
+                <span class="keyword size-5 color-neutral" style="animation-delay: 0.95s;">ICT</span>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: linear-gradient(135deg, #6366f1, #a855f7);"></div>
+                    AI/핵심
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);"></div>
+                    기술
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: linear-gradient(135deg, #10b981, #34d399);"></div>
+                    기업
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"></div>
+                    트렌드
+                </div>
+            </div>
+
+            <div class="top-keyword-box">
+                <div class="top-keyword-label">🏆 1위 키워드</div>
+                <div class="top-keyword-value">AI</div>
+                <div class="top-keyword-score">중요도 점수: 22.4</div>
+            </div>
+
+            <footer class="footer">
+                <p class="source">📊 딥뉴스 연관어 분석 | 504건 기사 기반</p>
+                <div class="hashtags">
+                    <span class="hashtag">#CES2026</span>
+                    <span class="hashtag">#AI</span>
+                    <span class="hashtag">#피지컬AI</span>
+                    <span class="hashtag">#설코딩랩</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

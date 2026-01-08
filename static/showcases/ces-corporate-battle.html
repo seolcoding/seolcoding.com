@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 CES 2026 한국기업 뉴스 대결</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        button:focus, .option:focus, a:focus {
+            outline: 3px solid #00f5d4;
+            outline-offset: 2px;
+        }
+
+        .title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 42px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5, #f15bb5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .battle-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .battle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-color), transparent);
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--card-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .company-name {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 28px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .company-logo {
+            font-size: 32px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 48px;
+            color: var(--card-color);
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .bar-container {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--card-color), var(--card-light));
+            border-radius: 10px;
+            animation: fillBar 1.5s ease-out forwards;
+            transform-origin: left;
+        }
+
+        @keyframes fillBar {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .peak-day {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .trend-emoji {
+            font-size: 24px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Card Colors */
+        .samsung { --card-color: #1428a0; --card-light: #3b82f6; }
+        .hyundai { --card-color: #002c5f; --card-light: #0891b2; }
+        .skhynix { --card-color: #d31145; --card-light: #f472b6; }
+        .lg { --card-color: #a50034; --card-light: #ec4899; }
+
+        .winner-crown {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            animation: crownBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes crownBounce {
+            0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+            50% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2));
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .insight-title {
+            font-weight: 900;
+            color: #a78bfa;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insight-text {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .source {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .hashtag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #00f5d4;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 24px;
+            color: #ff416c;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .vs-divider::before,
+        .vs-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 65, 108, 0.5));
+        }
+
+        .vs-divider::before { left: 0; }
+        .vs-divider::after { right: 0; transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">🔴 LIVE DATA</div>
+            <h1 class="title">CES 2026<br>뉴스량 대결!</h1>
+            <p class="subtitle">2026.01.01 ~ 01.08 기준 | 한국 주요 언론</p>
+        </header>
+
+        <div class="battle-card samsung" style="position: relative;">
+            <div class="winner-crown">👑</div>
+            <div class="rank-badge">1</div>
+            <div class="company-name">
+                <span class="company-logo">💎</span>
+                삼성전자
+            </div>
+            <div class="stats-row">
+                <div>
+                    <div class="stat-number">3,619</div>
+                    <div class="stat-label">총 뉴스 건수</div>
+                </div>
+                <div class="trend-emoji">📈</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-fill" style="width: 100%;"></div>
+            </div>
+            <div class="peak-day">🔥 피크: 1/5 (879건) - AI 통합 비전 발표</div>
+        </div>
+
+        <div class="vs-divider">VS</div>
+
+        <div class="battle-card hyundai">
+            <div class="rank-badge">2</div>
+            <div class="company-name">
+                <span class="company-logo">🚗</span>
+                현대차
+            </div>
+            <div class="stats-row">
+                <div>
+                    <div class="stat-number">1,475</div>
+                    <div class="stat-label">총 뉴스 건수</div>
+                </div>
+                <div class="trend-emoji">🚀</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-fill" style="width: 40.8%;"></div>
+            </div>
+            <div class="peak-day">🔥 피크: 1/6 (421건) - 자율주행 시연</div>
+        </div>
+
+        <div class="vs-divider">VS</div>
+
+        <div class="battle-card skhynix">
+            <div class="rank-badge">3</div>
+            <div class="company-name">
+                <span class="company-logo">🧠</span>
+                SK하이닉스
+            </div>
+            <div class="stats-row">
+                <div>
+                    <div class="stat-number">1,374</div>
+                    <div class="stat-label">총 뉴스 건수</div>
+                </div>
+                <div class="trend-emoji">🔥</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-fill" style="width: 38.0%;"></div>
+            </div>
+            <div class="peak-day">🔥 피크: 1/6 (303건) - HBM4 16단 48GB 공개</div>
+        </div>
+
+        <div class="vs-divider">VS</div>
+
+        <div class="battle-card lg">
+            <div class="rank-badge">4</div>
+            <div class="company-name">
+                <span class="company-logo">🏠</span>
+                LG전자
+            </div>
+            <div class="stats-row">
+                <div>
+                    <div class="stat-number">965</div>
+                    <div class="stat-label">총 뉴스 건수</div>
+                </div>
+                <div class="trend-emoji">🤖</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-fill" style="width: 26.7%;"></div>
+            </div>
+            <div class="peak-day">🔥 피크: 1/5 (228건) - 가정용 로봇 발표</div>
+        </div>
+
+        <div class="insight-box">
+            <div class="insight-title">💡 인사이트</div>
+            <div class="insight-text">
+                삼성전자가 압도적 1위! 2위 현대차의 <strong>2.5배</strong> 뉴스량 기록 📊<br><br>
+                CES 개막일(1/5)부터 모든 기업 뉴스 폭발 💥<br>
+                SK하이닉스의 <strong>HBM4</strong>가 현대차와 치열한 2위 경쟁!
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p class="source">📊 데이터: 딥뉴스 뉴스 분석 | 분석: Claude AI</p>
+            <div class="hashtags">
+                <span class="hashtag">#CES2026</span>
+                <span class="hashtag">#삼성전자</span>
+                <span class="hashtag">#한국기업</span>
+                <span class="hashtag">#AI혁신</span>
+                <span class="hashtag">#설코딩랩</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
