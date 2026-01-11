@@ -26,7 +26,7 @@ export default {
         headers: {
           'Access-Control-Allow-Origin': origin || '*',
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-stainless-os, x-stainless-lang, x-stainless-package-version, x-stainless-runtime, x-stainless-runtime-version, x-stainless-arch',
           'Access-Control-Max-Age': '86400',
         },
       });
