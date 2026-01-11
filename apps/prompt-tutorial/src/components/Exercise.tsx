@@ -18,14 +18,15 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
   const [systemPrompt, setSystemPrompt] = useState(exercise.defaultSystemPrompt || '');
   const [userPrompt, setUserPrompt] = useState(exercise.defaultUserPrompt || '');
   const [response, setResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isGrading, setIsGrading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<GradingResult | null>(null);
   const [showHints, setShowHints] = useState(false);
   const [visibleHints, setVisibleHints] = useState(0);
 
   const handleRun = async (sys: string, user: string) => {
-    setIsLoading(true);
+    setIsRunning(true);
     setError(null);
     setResponse('');
     setResult(null);
@@ -45,31 +46,68 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
     } catch (e) {
       setError(e instanceof Error ? e.message : '알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsLoading(false);
+      setIsRunning(false);
     }
   };
 
   const handleSubmit = async () => {
-    // 응답이 필요한 경우 먼저 실행
-    if (needsLLMResponse(exercise) && !response) {
-      await handleRun(systemPrompt, userPrompt);
+    setIsGrading(true);
+    setResult(null);
+
+    try {
+      // 응답이 필요한 경우 먼저 실행
+      if (needsLLMResponse(exercise) && !response) {
+        setIsRunning(true);
+        setError(null);
+        setResponse('');
+
+        const messages: Message[] = [];
+        if (systemPrompt.trim()) {
+          messages.push({ role: 'system', content: systemPrompt });
+        }
+        messages.push({ role: 'user', content: userPrompt });
+
+        let fullResponse = '';
+        await streamCompletion(messages, {
+          onChunk: (chunk) => {
+            fullResponse += chunk;
+            setResponse(fullResponse);
+          },
+        });
+        setIsRunning(false);
+
+        // 채점 실행
+        const input = exercise.systemPromptEditable ? systemPrompt : userPrompt;
+        const gradingResult = await gradeExercise(exercise, input, fullResponse);
+        setResult(gradingResult);
+
+        // 진행상황 저장
+        updateExerciseProgress(chapterId, exercise.id, {
+          completed: gradingResult.passed,
+          bestScore: gradingResult.score,
+          lastAttempt: new Date().toISOString(),
+          userSolution: { systemPrompt, userPrompt },
+        });
+      } else {
+        // 이미 응답이 있는 경우 바로 채점
+        const input = exercise.systemPromptEditable ? systemPrompt : userPrompt;
+        const gradingResult = await gradeExercise(exercise, input, response);
+        setResult(gradingResult);
+
+        // 진행상황 저장
+        updateExerciseProgress(chapterId, exercise.id, {
+          completed: gradingResult.passed,
+          bestScore: gradingResult.score,
+          lastAttempt: new Date().toISOString(),
+          userSolution: { systemPrompt, userPrompt },
+        });
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setIsRunning(false);
+      setIsGrading(false);
     }
-
-    // 채점 실행 (LLM 채점 지원)
-    const input = exercise.systemPromptEditable ? systemPrompt : userPrompt;
-    const gradingResult = await gradeExercise(exercise, input, response);
-    setResult(gradingResult);
-
-    // 진행상황 저장
-    updateExerciseProgress(chapterId, exercise.id, {
-      completed: gradingResult.passed,
-      bestScore: gradingResult.score,
-      lastAttempt: new Date().toISOString(),
-      userSolution: {
-        systemPrompt,
-        userPrompt,
-      },
-    });
   };
 
   const revealNextHint = () => {
@@ -81,7 +119,7 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       e.preventDefault();
-      if (!isLoading) {
+      if (!isRunning && !isGrading) {
         handleSubmit();
       }
     }
@@ -118,12 +156,12 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
           onSystemPromptChange={setSystemPrompt}
           onUserPromptChange={setUserPrompt}
           onRun={handleRun}
-          isLoading={isLoading}
+          isLoading={isRunning}
           onKeyDown={handleKeyDown}
         />
 
         {/* Response */}
-        <ResponseViewer response={response} isLoading={isLoading} error={error} />
+        <ResponseViewer response={response} isLoading={isRunning} error={error} />
 
         {/* Action Buttons */}
         <div className="flex gap-2">
@@ -143,7 +181,7 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
               힌트
             </span>
           </button>
-          {isLoading ? (
+          {isGrading ? (
             <button className="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-neutral-200 text-neutral-500 cursor-not-allowed">
               <span className="flex items-center justify-center gap-2">
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
@@ -156,7 +194,7 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
           ) : (
             <button
               onClick={handleSubmit}
-              disabled={!systemPrompt.trim() && !userPrompt.trim()}
+              disabled={isRunning || (!systemPrompt.trim() && !userPrompt.trim())}
               className="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-green-600 text-white hover:bg-green-700 active:scale-[0.98] disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed transition-all"
             >
               <span className="flex items-center justify-center gap-2">

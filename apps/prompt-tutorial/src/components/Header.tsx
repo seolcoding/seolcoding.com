@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { getCurrentModel } from '@/lib/llm';
 import { resetAllProgress } from '@/lib/storage';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentModel] = useState(getCurrentModel());
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export function Header() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              <span>무료</span>
+              <span>{currentModel}</span>
             <svg className={`w-4 h-4 transition-transform ${menuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
