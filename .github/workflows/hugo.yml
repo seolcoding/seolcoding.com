@@ -56,52 +56,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
 
-      - name: Check API Keys
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          echo "🔑 Checking API keys..."
-
-          # Check if at least one API key exists and starts with 'sk'
-          has_valid_key=false
-
-          if [ -n "$OPENROUTER_API_KEY" ]; then
-            if [[ "$OPENROUTER_API_KEY" == sk* ]]; then
-              echo "✅ OPENROUTER_API_KEY is set and valid"
-              has_valid_key=true
-            else
-              echo "⚠️  OPENROUTER_API_KEY is set but doesn't start with 'sk'"
-            fi
-          else
-            echo "⚠️  OPENROUTER_API_KEY is not set"
-          fi
-
-          if [ -n "$OPENAI_API_KEY" ]; then
-            if [[ "$OPENAI_API_KEY" == sk* ]]; then
-              echo "✅ OPENAI_API_KEY is set and valid"
-              has_valid_key=true
-            else
-              echo "⚠️  OPENAI_API_KEY is set but doesn't start with 'sk'"
-            fi
-          else
-            echo "⚠️  OPENAI_API_KEY is not set"
-          fi
-
-          if [ "$has_valid_key" = false ]; then
-            echo "❌ No valid API key found. Please set at least one valid API key in GitHub Secrets."
-            echo "   - OPENROUTER_API_KEY (recommended): https://openrouter.ai/keys"
-            echo "   - OPENAI_API_KEY (optional)"
-            exit 1
-          fi
-
-          echo "🎉 At least one valid API key found. Proceeding with build."
-
       - name: Build Prompt Tutorial
-        env:
-          NODE_ENV: production
-          VITE_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           cd apps/prompt-tutorial
           bun install
