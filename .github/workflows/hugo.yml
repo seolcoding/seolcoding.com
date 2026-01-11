@@ -53,6 +53,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: Build Prompt Tutorial
         env:
           NODE_ENV: production
@@ -60,8 +63,8 @@ jobs:
           VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           cd apps/prompt-tutorial
-          npm install
-          npm run build
+          bun install
+          bun run build
           mkdir -p ../../static/mini-apps/prompt-tutorial
           cp -r dist/* ../../static/mini-apps/prompt-tutorial/
 
