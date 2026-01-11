@@ -9,6 +9,7 @@ interface PromptEditorProps {
   onUserPromptChange?: (value: string) => void;
   onRun: (systemPrompt: string, userPrompt: string) => void;
   isLoading?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 function CopyButton({ text, className = '' }: { text: string; className?: string }) {
@@ -76,6 +77,7 @@ export function PromptEditor({
   onUserPromptChange,
   onRun,
   isLoading = false,
+  onKeyDown,
 }: PromptEditorProps) {
   const [localSystemPrompt, setLocalSystemPrompt] = useState(systemPrompt);
   const [localUserPrompt, setLocalUserPrompt] = useState(userPrompt);
@@ -92,6 +94,15 @@ export function PromptEditor({
 
   const handleRun = () => {
     onRun(localSystemPrompt, localUserPrompt);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      if (!isLoading && localUserPrompt.trim()) {
+        handleRun();
+      }
+    }
   };
 
   return (
@@ -145,7 +156,11 @@ export function PromptEditor({
           <textarea
             value={localUserPrompt}
             onChange={(e) => handleUserChange(e.target.value)}
-            placeholder="프롬프트를 입력하세요..."
+            onKeyDown={(e) => {
+              handleKeyDown(e);
+              onKeyDown?.(e);
+            }}
+            placeholder="프롬프트를 입력하세요... (Cmd/Ctrl+Enter로 실행)"
             className="w-full px-3 py-2 rounded-lg border-2 border-blue-300 bg-blue-50 text-neutral-900 text-sm font-mono resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all focus:outline-none"
             rows={4}
           />
