@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const INTRO_SEEN_KEY = 'intro_seen';
+const basename = import.meta.env.MODE === 'production' ? '/mini-apps/prompt-tutorial' : '';
 
 export function IntroModal() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,7 +26,7 @@ export function IntroModal() {
         {/* Infographic Image */}
         <div className="w-full mb-8 rounded-xl overflow-hidden shadow-lg">
           <img
-            src="/prompt/intro-infographic.png"
+            src={`${basename}/intro-infographic.png`}
             alt="프롬프트 엔지니어링 튜토리얼 워크플로"
             className="w-full h-auto"
           />
