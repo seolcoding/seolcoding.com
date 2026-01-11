@@ -248,27 +248,9 @@ export function Exercise({ exercise, chapterId, exerciseNumber, totalExercises }
                 점수: {result.score}/100
               </span>
             </div>
-            <p className={`text-sm mb-3 ${result.passed ? 'text-green-700' : 'text-red-700'}`}>
+            <p className={`text-sm ${result.passed ? 'text-green-700' : 'text-red-700'}`}>
               {result.feedback}
             </p>
-            <div className="space-y-1">
-              {result.details.map((detail, idx) => (
-                <div key={idx} className="flex items-start gap-2 text-sm">
-                  {detail.passed ? (
-                    <svg className="w-4 h-4 text-green-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    <svg className="w-4 h-4 text-red-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  )}
-                  <span className={detail.passed ? 'text-green-700' : 'text-red-700'}>
-                    {detail.feedback}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         )}
       </div>
