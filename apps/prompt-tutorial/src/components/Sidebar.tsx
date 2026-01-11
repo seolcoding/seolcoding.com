@@ -74,10 +74,10 @@ export function Sidebar() {
                     key={chapter.id}
                     to={`/chapter/${chapter.id}`}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700 font-medium'
-                        : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
+                        ? 'bg-blue-100 text-blue-700 font-medium border-2 border-blue-200 shadow-sm'
+                        : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 border-2 border-transparent'
                     }`}
                   >
                     <div
