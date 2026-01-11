@@ -178,3 +178,7 @@ test-results/
 # Archived content (kept locally, not in git)
 # (none currently)
 .serena/
+
+# Cloudflare Workers
+.wrangler/
+.dev.vars

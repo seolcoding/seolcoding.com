@@ -1,8 +1,18 @@
 import OpenAI from 'openai';
 
-// OpenRouter 기본 설정 (API 키 없어도 사용 가능)
+// OpenRouter 기본 설정
 const DEFAULT_MODEL = 'openai/gpt-oss-120b';
-const DEFAULT_BASE_URL = 'https://openrouter.ai/api/v1';
+
+// API Base URL: 환경변수 > Production Worker > Dev 직접 호출
+const DEFAULT_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  || (import.meta.env.PROD
+    ? 'https://openrouter-proxy.seolcoding.workers.dev/v1'
+    : 'https://openrouter.ai/api/v1');
+
+// Worker 사용 여부 확인 (export for Header component)
+export const isUsingWorker = DEFAULT_BASE_URL.includes('workers.dev')
+  || DEFAULT_BASE_URL.includes('localhost:8787');
+
 const API_KEY_STORAGE_KEY = 'openai_api_key';
 const OPENROUTER_API_KEY_STORAGE_KEY = 'openrouter_api_key';
 
@@ -18,6 +28,16 @@ interface APIConfig {
 
 // 환경 변수 또는 localStorage에서 API 설정 가져오기
 function getAPIConfig(): APIConfig {
+  // Worker 사용 시 API 키 불필요 (Worker가 주입)
+  if (isUsingWorker) {
+    return {
+      provider: 'openrouter',
+      apiKey: 'worker-proxy',  // OpenAI SDK 요구사항 (실제 사용 안함)
+      baseURL: DEFAULT_BASE_URL,
+      model: DEFAULT_MODEL,
+    };
+  }
+
   // 1. OpenRouter API 키 (우선 - 무료/저렴)
   let openrouterKey = import.meta.env.VITE_OPENROUTER_API_KEY || '';
   if (typeof window !== 'undefined' && !openrouterKey) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getCurrentModel, getCurrentProvider, setApiKey, getStoredApiKey, validateApiKey } from '@/lib/llm';
+import { getCurrentModel, getCurrentProvider, setApiKey, getStoredApiKey, validateApiKey, isUsingWorker } from '@/lib/llm';
 import { resetAllProgress } from '@/lib/storage';
 
 export function Header() {
@@ -97,11 +97,7 @@ export function Header() {
               <text x="12" y="17" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor" className="text-amber-700">a</text>
             </svg>
           </div>
-          <div className="hidden sm:block">
-            <div className="font-semibold text-neutral-900">Anthropic 공식 프롬프트 엔지니어링 코스</div>
-            <div className="text-xs text-neutral-500">AI와 효과적으로 대화하는 방법을 배워보세요</div>
-            <div className="text-xs text-neutral-400">공식 코스의 주피터 노트북을 한국어로 번역하고 웹앱으로 리팩터링했습니다</div>
-          </div>
+          <span className="hidden sm:block font-semibold text-neutral-900">Anthropic 공식 프롬프트 엔지니어링 코스</span>
           <span className="font-semibold text-neutral-900 sm:hidden">Anthropic PE</span>
         </Link>
 
@@ -161,16 +157,16 @@ export function Header() {
                     onFocus={handleInputFocus}
                     onKeyDown={(e) => e.key === 'Enter' && handleSaveApiKey()}
                     placeholder={currentProvider === 'openrouter' ? 'sk-or-...' : 'sk-...'}
-                    disabled={currentProvider === 'openrouter'}
+                    disabled={isUsingWorker || currentProvider === 'openrouter'}
                     className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                      ${currentProvider === 'openrouter'
+                      ${(isUsingWorker || currentProvider === 'openrouter')
                         ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed border-neutral-200'
                         : 'border-neutral-200'
                       }`}
                   />
 
-                  {/* OpenRouter 안내 메시지 */}
-                  {currentProvider === 'openrouter' && (
+                  {/* Worker 또는 OpenRouter 안내 메시지 */}
+                  {(isUsingWorker || currentProvider === 'openrouter') && (
                     <div className="p-2 bg-green-50 rounded-lg border border-green-200">
                       <p className="text-xs text-green-700 flex items-start gap-1">
                         <svg className="w-3 h-3 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,9 +182,9 @@ export function Header() {
                   )}
                 </div>
 
-                {/* 버튼들 - OpenRouter는 저장 버튼 숨김 */}
+                {/* 버튼들 - Worker 또는 OpenRouter는 저장 버튼 숨김 */}
                 <div className="flex gap-2">
-                  {currentProvider === 'openai' && (
+                  {!isUsingWorker && currentProvider === 'openai' && (
                     <>
                       <button
                         onClick={handleSaveApiKey}
@@ -207,9 +203,9 @@ export function Header() {
                       )}
                     </>
                   )}
-                  {currentProvider === 'openrouter' && (
+                  {(isUsingWorker || currentProvider === 'openrouter') && (
                     <div className="flex-1 text-center text-xs text-neutral-400 py-2">
-                      OpenRouter API (개발자 부담)
+                      {isUsingWorker ? 'API 프록시 사용 중' : 'OpenRouter API'} (개발자 부담)
                     </div>
                   )}
                 </div>

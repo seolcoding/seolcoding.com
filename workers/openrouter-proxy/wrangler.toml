@@ -1,0 +1,7 @@
+name = "openrouter-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 기본 도메인: openrouter-proxy.seolcoding.workers.dev
+# (커스텀 도메인 설정 불필요)
