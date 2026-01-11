@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getCurrentModel } from '@/lib/llm';
 import { resetAllProgress } from '@/lib/storage';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentModel] = useState(getCurrentModel());
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,15 +57,15 @@ export function Header() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              <span>{currentModel}</span>
+              <span>무료</span>
             <svg className={`w-4 h-4 transition-transform ${menuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           {menuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 p-3">
-              <div className="font-medium text-neutral-900 text-center">{currentModel}</div>
+            <div className="absolute right-0 mt-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+              <span className="text-xs text-green-700">API 비용은 개발자가 부담합니다 😇</span>
             </div>
           )}
           </div>
