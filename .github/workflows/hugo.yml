@@ -53,6 +53,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build Prompt Tutorial
+        env:
+          VITE_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          cd apps/prompt-tutorial
+          npm install
+          npm run build
+          mkdir -p ../../static/mini-apps/prompt-tutorial
+          cp -r dist/* ../../static/mini-apps/prompt-tutorial/
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
