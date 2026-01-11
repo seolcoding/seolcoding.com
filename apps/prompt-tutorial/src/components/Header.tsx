@@ -97,7 +97,11 @@ export function Header() {
               <text x="12" y="17" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor" className="text-amber-700">a</text>
             </svg>
           </div>
-          <span className="font-semibold text-neutral-900 hidden sm:inline">Anthropic 프롬프트 엔지니어링</span>
+          <div className="hidden sm:block">
+            <div className="font-semibold text-neutral-900">Anthropic 공식 프롬프트 엔지니어링 코스</div>
+            <div className="text-xs text-neutral-500">AI와 효과적으로 대화하는 방법을 배워보세요</div>
+            <div className="text-xs text-neutral-400">공식 코스의 주피터 노트북을 한국어로 번역하고 웹앱으로 리팩터링했습니다</div>
+          </div>
           <span className="font-semibold text-neutral-900 sm:hidden">Anthropic PE</span>
         </Link>
 
