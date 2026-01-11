@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>...</title>
+  <script type="text/javascript">
+    // Single Page App routing for GitHub Pages
+    // Redirect to index.html and let React Router handle the URL
+    var path = window.location.pathname;
+    var search = window.location.search;
+    var hash = window.location.hash;
+
+    // Preserve the full path by redirecting to root with the path as hash
+    window.location.replace('/mini-apps/prompt-tutorial/index.html' + (path + search + hash));
+  </script>
+</head>
+<body>
+</body>
+</html>
