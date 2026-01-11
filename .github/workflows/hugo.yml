@@ -55,6 +55,7 @@ jobs:
 
       - name: Build Prompt Tutorial
         env:
+          NODE_ENV: production
           VITE_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |

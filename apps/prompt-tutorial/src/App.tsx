@@ -6,9 +6,11 @@ import { Sidebar } from '@/components/Sidebar';
 import { Footer } from '@/components/Footer';
 import { IntroModal } from '@/components/IntroModal';
 
+const basename = import.meta.env.MODE === 'production' ? '/mini-apps/prompt-tutorial' : '/';
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <IntroModal />
       <div className="min-h-screen flex flex-col">
         <Header />
