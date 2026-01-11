@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Home } from '@/pages/Home';
 import { Chapter } from '@/pages/Chapter';
 import { Header } from '@/components/Header';
@@ -6,11 +6,9 @@ import { Sidebar } from '@/components/Sidebar';
 import { Footer } from '@/components/Footer';
 import { IntroModal } from '@/components/IntroModal';
 
-const basename = import.meta.env.MODE === 'production' ? '/mini-apps/prompt-tutorial' : '/';
-
 function App() {
   return (
-    <BrowserRouter basename={basename}>
+    <HashRouter>
       <IntroModal />
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -25,7 +23,7 @@ function App() {
         </div>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
