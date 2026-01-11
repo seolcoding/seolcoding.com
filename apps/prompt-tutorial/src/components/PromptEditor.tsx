@@ -57,12 +57,15 @@ function ReadOnlyTextarea({ value, placeholder, rows }: ReadOnlyTextareaProps) {
         value={value}
         disabled
         placeholder={placeholder}
-        className="w-full px-3 py-2 rounded-lg border-2 border-neutral-200 bg-neutral-50 text-neutral-500 text-sm font-mono resize-none cursor-not-allowed"
+        className="w-full px-3 py-2 rounded-lg border-2 border-neutral-200 bg-neutral-50 text-neutral-500 text-sm font-mono resize-none"
         rows={rows}
       />
-      {/* 금지 이모지 오버레이 - 호버 시 나타남 */}
-      <div className="absolute inset-0 flex items-center justify-center bg-neutral-50/80 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        <span className="text-4xl">🚫</span>
+      {/* 읽기전용 안내 오버레이 - 호버 시 나타남 */}
+      <div className="absolute inset-0 flex items-center justify-center gap-2 bg-neutral-100/90 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <svg className="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+        </svg>
+        <span className="text-sm text-neutral-600 font-medium">이 문제에서는 변경할 수 없습니다</span>
       </div>
     </div>
   );
