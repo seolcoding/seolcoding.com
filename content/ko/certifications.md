@@ -1,9 +1,18 @@
 ---
 title: "자격증"
 type: "homepage"
-intro: "행정안전부 공인 AI 챔피언, 정부공인 AI 자격증, AWS 클라우드 공인 자격증, Google/Gemini Certified Educator 보유"
+intro: "AWS Certified Generative AI Developer – Professional, 행정안전부 공인 AI 챔피언, 정부공인 AI 자격증, AWS 클라우드 공인 자격증, Google/Gemini Certified Educator 보유"
 
 certifications:
+  - title: "AWS Certified Generative AI Developer – Professional"
+    organization: "Amazon Web Services"
+    date: "2026.05"
+    expiry: "2029.05"
+    credential_id: "e12efd0a-238e-4d68-a954-7036bc7194ed"
+    icon: "wand-magic-sparkles"
+    color: "text-primary dark:text-primary-light"
+    description: "생성형 AI 애플리케이션 설계·개발·운영 전문 역량 인증 (Bedrock, RAG, 에이전트 등)"
+
   - title: "AI 챔피언 블루"
     organization: "행정안전부 / NIA 한국지능정보사회진흥원"
     date: "2025"

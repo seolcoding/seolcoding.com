@@ -6,7 +6,7 @@ intro: >-
   안녕하세요! 저는 공공기관 10년차 재직 중, 생성형 AI와 공공데이터, IT 기술을 활용해 현실의 문제를 해결하는 개발자 설동헌(설코딩)입니다 🚇💻. 과기정통부 장관상(대상), 행안부 장관상(최우수상)을 포함해 정부 공식 대회에서 6회 수상했으며, 2025년 카카오 AI_TOP_100 본선에 진출하여 특별상을 수상했습니다 🏆. 실습 중심의 강의 및 프로젝트 멘토링이 가능합니다.
 
 study: >-
-  현재 부산을 기반으로 부경대학교 정보통신공학 석사 졸업 예정(2026년 2월, 공공부문 On-premise RAG 파이프라인 최적화 연구)이며 🎓, 정부공인 AI 자격증(AICE Associate), AWS 클라우드 공인 자격증(Solutions Architect, AI Practitioner), Google Certified Educator, Gemini Certified Educator, SQL 개발자, 정보처리기사를 보유하고 있습니다 ☁️. Python, 생성형 AI, 클라우드 아키텍처를 활용해 공공 부문의 실질적인 문제를 해결하는 솔루션을 개발합니다.
+  현재 부산을 기반으로 부경대학교 정보통신공학 석사 졸업 예정(2026년 2월, 공공부문 On-premise RAG 파이프라인 최적화 연구)이며 🎓, 정부공인 AI 자격증(AICE Associate), AWS 클라우드 공인 자격증(Generative AI Developer – Professional, Solutions Architect, AI Practitioner), Google Certified Educator, Gemini Certified Educator, SQL 개발자, 정보처리기사를 보유하고 있습니다 ☁️. Python, 생성형 AI, 클라우드 아키텍처를 활용해 공공 부문의 실질적인 문제를 해결하는 솔루션을 개발합니다.
 
 passion_title: "열정을 쏟고 있는 분야"
 passion_text: >-
@@ -33,6 +33,7 @@ quickfacts:
     value: |
       - 🏅 행정안전부 공인 공공부문 AI 챔피언 블루
       - 🧠 정부공인 AI 자격증 (AICE Associate)
+      - ✨ AWS Certified Generative AI Developer – Professional
       - ☁️ AWS 클라우드 공인 자격증 (Solutions Architect, AI Practitioner)
       - 👨‍🏫 Google Certified Educator Level 1, 2 / Gemini Certified Educator
       - 💾 SQL 개발자
