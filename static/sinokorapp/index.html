@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>운항 모니터링</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>가상 운항 업무</h1>
+      <span class="brand-sub">운항 모니터링</span>
+    </div>
+    <p class="replay-clock">운항 재생 <time id="replayTime">—</time> <span class="tz">KST</span></p>
+    <div id="sessionBar" class="session" hidden>
+      <span id="workspaceUser" class="session-user"></span>
+      <span id="saveStatus" class="save-status" role="status" aria-live="polite">잠김</span>
+      <button type="button" id="lockWorkspace">잠그기</button>
+    </div>
+  </header>
+
+  <div id="workspaceGate" class="gate" role="dialog" aria-modal="true" aria-labelledby="workspaceTitle">
+    <form id="workspaceForm" class="gate-card" novalidate>
+      <h2 id="workspaceTitle">새 작업공간 만들기</h2>
+      <p class="gate-lead">이 브라우저에 저장되는 개인 작업공간입니다.</p>
+      <label class="field">작업 선택
+        <select id="workspaceMode">
+          <option value="create">새 작업공간 만들기</option>
+          <option value="login">기존 작업공간 로그인</option>
+        </select>
+      </label>
+      <label class="field">아이디
+        <input type="text" id="workspaceId" list="workspaceIds" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="32" required>
+      </label>
+      <datalist id="workspaceIds"></datalist>
+      <label class="field" id="workspaceNameField">이름
+        <input type="text" id="workspaceName" autocomplete="name" maxlength="40" required>
+      </label>
+      <label class="field">비밀번호 (8자 이상)
+        <input type="password" id="workspacePassword" autocomplete="new-password" required>
+      </label>
+      <label class="field" id="workspaceConfirmField">비밀번호 확인
+        <input type="password" id="workspaceConfirm" autocomplete="new-password" required>
+      </label>
+      <p id="workspaceHint" class="gate-hint">비밀번호를 잊으면 이 작업공간의 기록을 열 수 없습니다.</p>
+      <p id="workspaceError" class="form-error" role="alert" hidden></p>
+      <button type="submit" id="workspaceSubmit">작업공간 만들기</button>
+    </form>
+  </div>
+
+  <main class="workspace" inert>
+    <aside class="panel ships-panel" aria-labelledby="shipsTitle">
+      <h2 id="shipsTitle">선박 <span id="shipCount" class="count"></span></h2>
+      <label class="check"><input type="checkbox" id="watchOnly"> 관심 선박만 보기</label>
+      <ul id="shipList" class="ship-list"></ul>
+    </aside>
+
+    <section class="map-area" aria-label="운항 지도">
+      <div class="map-wrap">
+        <div id="map" tabindex="0" aria-label="선박·항구·항로 지도. 선박이나 항구 버튼을 눌러 상세를 엽니다."></div>
+        <p id="mapNotice" class="map-notice" role="status" hidden></p>
+        <div class="map-tools">
+          <button type="button" id="fitAll">전체 지도 보기</button>
+          <button type="button" id="fitSelected">선택 항로 보기</button>
+        </div>
+      </div>
+
+      <div class="replay-bar" role="group" aria-label="운항 재생 조작">
+        <div class="replay-row">
+          <button type="button" id="playToggle" class="primary" aria-pressed="false">재생</button>
+          <label class="field inline">재생 속도
+            <select id="speedSelect"></select>
+          </label>
+          <label class="field slider-field">재생 시각 <span id="sliderValue" class="mono"></span>
+            <input type="range" id="timeSlider">
+          </label>
+        </div>
+        <form id="jumpForm" class="replay-row" novalidate>
+          <label class="field inline">날짜
+            <input type="date" id="jumpDate" required>
+          </label>
+          <label class="field inline">시각 (KST)
+            <input type="time" id="jumpTime" step="60" required>
+          </label>
+          <button type="submit" id="jumpSubmit">이 시각으로 이동</button>
+          <button type="button" id="jumpDefault">기본 시각 09/16 13:30</button>
+          <p id="jumpError" class="form-error" role="alert" hidden></p>
+        </form>
+      </div>
+
+      <section class="news" aria-labelledby="newsTitle">
+        <h2 id="newsTitle">운항 소식 <span class="count">운항 재생 기준 최근 순</span></h2>
+        <ul id="newsList" class="news-list"></ul>
+      </section>
+    </section>
+
+    <aside class="panel detail-panel" aria-labelledby="detailTitle">
+      <div class="detail-head">
+        <h2 id="detailTitle" tabindex="-1">상세</h2>
+        <button type="button" id="detailToggle" aria-expanded="true" aria-controls="detailBody">상세 접기</button>
+      </div>
+      <div id="detailBody">
+        <section id="workMonitor" class="work-monitor" aria-labelledby="workTitle" hidden></section>
+        <section id="notePanel" class="note-panel" aria-labelledby="noteTitle" hidden>
+          <label for="voyageNote" id="noteTitle" class="note-title">항차 메모 · <span id="noteVoyage"></span></label>
+          <textarea id="voyageNote" rows="3" maxlength="2000"></textarea>
+          <div class="note-actions">
+            <button type="button" id="saveNote">메모 저장</button>
+            <span id="noteStatus" class="note-status" role="status" aria-live="polite"></span>
+          </div>
+        </section>
+        <div id="detailContent"></div>
+      </div>
+    </aside>
+  </main>
+
+  <section id="businessPanel" class="business" aria-labelledby="businessTitle" inert>
+    <div class="business-head">
+      <div>
+        <h2 id="businessTitle">작업속도별 고객 영향</h2>
+        <p id="businessBasis" class="scope-note"></p>
+      </div>
+      <div class="business-controls">
+        <label class="field">이후 하역 속도 (오사카 S06)
+          <select id="observedRate">
+            <option value="30">30회/시간</option>
+            <option value="40">40회/시간</option>
+            <option value="60">60회/시간</option>
+          </select>
+        </label>
+        <button type="button" id="businessReset">기본값 복원 · 09/16 13:30 · S06 · 30회</button>
+        <span id="businessStatus" class="business-status" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div id="businessReport"></div>
+    <h3>속도별 비교</h3>
+    <div id="impactCards" class="impact-cards"></div>
+    <div class="booking-head">
+      <h3 id="bookingTitle">부킹별 도착 약속과 입항 예상</h3>
+      <label class="check"><input type="checkbox" id="impactedOnly"> 안내 필요만 보기</label>
+    </div>
+    <p id="bookingSummary" class="booking-summary" aria-live="polite"></p>
+    <div class="table-scroll">
+      <table class="data-table" aria-labelledby="bookingTitle">
+        <thead><tr><th scope="col">부킹 (눌러서 기록)</th><th scope="col">고객</th><th scope="col">선박·구간</th><th scope="col">화물</th><th scope="col" class="num">TEU</th><th scope="col">담당</th><th scope="col">고객 도착 약속</th><th scope="col">최신 입항 예상</th><th scope="col">약속 초과</th><th scope="col">안내</th><th scope="col">화물 상태</th><th scope="col">대응 상태</th><th scope="col">안내 초안</th></tr></thead>
+        <tbody id="bookingRows"></tbody>
+      </table>
+    </div>
+    <p id="businessLimits" class="scope-note"></p>
+
+    <section id="responsePanel" class="response" aria-labelledby="responseTitle">
+      <h3 id="responseTitle">부킹 대응 기록과 고객 안내 초안</h3>
+      <p class="scope-note">기록과 초안은 이 작업공간에만 저장됩니다. 이 화면에서는 고객에게 발송하지 않습니다.</p>
+      <div class="response-grid">
+        <div class="response-form">
+          <label class="field">부킹
+            <select id="responseBooking"></select>
+          </label>
+          <p id="responseSummary" class="response-summary"></p>
+          <div class="response-row">
+            <label class="field">담당 팀
+              <select id="responseTeam"></select>
+            </label>
+            <label class="field">대응 상태
+              <select id="responseStatus">
+                <option value="미확인">미확인</option>
+                <option value="확인">확인</option>
+                <option value="진행중">진행중</option>
+                <option value="해결">해결</option>
+              </select>
+            </label>
+          </div>
+          <label class="field">대응 메모
+            <textarea id="responseNote" rows="5" maxlength="2000"></textarea>
+          </label>
+          <p id="responseMeta" class="response-meta"></p>
+        </div>
+        <div class="response-draft">
+          <label class="field">고객 안내 초안 (발송되지 않음)
+            <textarea id="customerDraft" rows="15" maxlength="4000"></textarea>
+          </label>
+          <div id="draftCheck" class="draft-check" hidden></div>
+          <div class="response-actions">
+            <button type="button" id="makeDraft">현재 조건으로 초안 만들기</button>
+            <button type="button" id="undoDraft" hidden>이전 초안 되돌리기</button>
+            <button type="button" id="copyDraft">초안 복사</button>
+            <button type="button" id="saveResponse" class="primary">기록·초안 저장</button>
+          </div>
+          <p id="draftStatus" class="draft-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="monthly" aria-labelledby="monthlyTitle" inert>
+    <div class="monthly-head">
+      <div>
+        <h2 id="monthlyTitle">참고 월간 실적 · 2026년 9월</h2>
+        <p class="scope-note">운항 재생 시각과 별개인 9월 전체 30항차 집계입니다. 지도의 운항 40구간·부킹과 합산하지 않습니다.</p>
+      </div>
+      <label class="field">노선
+        <select id="routeFilter"></select>
+      </label>
+    </div>
+    <div id="monthlySummary" class="summary-cards" aria-live="polite"></div>
+    <h3>노선별 비교</h3>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr><th scope="col">노선</th><th scope="col">항차</th><th scope="col">총선복TEU</th><th scope="col">선적TEU</th><th scope="col">가중 소석률</th><th scope="col">롤오버TEU</th><th scope="col">운임수입USD</th></tr></thead>
+        <tbody id="routeCompareRows"></tbody>
+      </table>
+    </div>
+    <h3>항차 목록</h3>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr><th scope="col">항차번호</th><th scope="col">선박</th><th scope="col">노선</th><th scope="col">ETD</th><th scope="col">총선복TEU</th><th scope="col">확정부킹TEU</th><th scope="col">선적TEU</th><th scope="col">롤오버TEU</th><th scope="col">소석률</th><th scope="col">운임수입USD</th></tr></thead>
+        <tbody id="monthlyRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+  <script src="operations.js"></script>
+  <script src="monitor.js"></script>
+  <script src="workspace.js"></script>
+  <script src="business.js"></script>
+</body>
+</html>

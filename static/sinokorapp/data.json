@@ -1,0 +1,4161 @@
+{
+ "version": 4,
+ "dataNote": "공식 홈페이지의 업무 구조를 참고해 새로 작성한 합성 데이터. 실제 고객·선박·운항실적을 복제하지 않음.",
+ "timezone": "Asia/Seoul",
+ "replay": {
+  "start": "2026-09-09T00:00:00+09:00",
+  "end": "2026-10-20T00:00:00+09:00",
+  "initial": "2026-09-16T13:30:00+09:00",
+  "speeds": [
+   1,
+   10,
+   30,
+   60
+  ],
+  "minutesPerSecondAt1x": 5
+ },
+ "ports": [
+  {
+   "id": "BUS",
+   "name": "부산",
+   "lat": 35.074,
+   "lng": 129.076,
+   "berths": 6,
+   "normalOccupied": 3,
+   "terminalName": "부산 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "INC",
+   "name": "인천",
+   "lat": 37.438,
+   "lng": 126.586,
+   "berths": 4,
+   "normalOccupied": 2,
+   "terminalName": "인천 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "TAO",
+   "name": "칭다오",
+   "lat": 35.955,
+   "lng": 120.205,
+   "berths": 4,
+   "normalOccupied": 2,
+   "terminalName": "칭다오 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "WEH",
+   "name": "웨이하이",
+   "lat": 37.51,
+   "lng": 122.154,
+   "berths": 3,
+   "normalOccupied": 1,
+   "terminalName": "웨이하이 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "SHA",
+   "name": "상하이",
+   "lat": 30.63,
+   "lng": 122.06,
+   "berths": 8,
+   "normalOccupied": 4,
+   "terminalName": "상하이 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "OSA",
+   "name": "오사카",
+   "lat": 34.61,
+   "lng": 135.36,
+   "berths": 5,
+   "normalOccupied": 2,
+   "terminalName": "오사카 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "SIN",
+   "name": "싱가포르",
+   "lat": 1.24,
+   "lng": 103.8,
+   "berths": 12,
+   "normalOccupied": 7,
+   "terminalName": "싱가포르 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "KOB",
+   "name": "고베",
+   "lat": 34.67,
+   "lng": 135.2,
+   "berths": 5,
+   "normalOccupied": 2,
+   "terminalName": "고베 터미널 A",
+   "maxDraftM": 14
+  },
+  {
+   "id": "KHH",
+   "name": "가오슝",
+   "lat": 22.6,
+   "lng": 120.3,
+   "berths": 6,
+   "normalOccupied": 3,
+   "terminalName": "가오슝 터미널 A",
+   "maxDraftM": 14
+  }
+ ],
+ "routes": [
+  {
+   "id": "A",
+   "name": "한중 A",
+   "from": "BUS",
+   "to": "TAO",
+   "path": [
+    [
+     35.074,
+     129.076
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     33.75,
+     126.8
+    ],
+    [
+     33.5,
+     125
+    ],
+    [
+     34.5,
+     122.3
+    ],
+    [
+     35.3,
+     121
+    ],
+    [
+     35.72,
+     120.42
+    ],
+    [
+     35.955,
+     120.205
+    ]
+   ],
+   "durationHours": 36,
+   "distanceNm": 537.396
+  },
+  {
+   "id": "A-BACK",
+   "name": "한중 A 복귀",
+   "from": "TAO",
+   "to": "BUS",
+   "path": [
+    [
+     35.955,
+     120.205
+    ],
+    [
+     35.72,
+     120.42
+    ],
+    [
+     35.3,
+     121
+    ],
+    [
+     34.5,
+     122.3
+    ],
+    [
+     33.5,
+     125
+    ],
+    [
+     33.75,
+     126.8
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     35.074,
+     129.076
+    ]
+   ],
+   "durationHours": 36,
+   "distanceNm": 537.396
+  },
+  {
+   "id": "B",
+   "name": "한중 B",
+   "from": "INC",
+   "to": "WEH",
+   "path": [
+    [
+     37.438,
+     126.586
+    ],
+    [
+     37.1,
+     125.9
+    ],
+    [
+     37.2,
+     124.8
+    ],
+    [
+     37.3,
+     123.3
+    ],
+    [
+     37.51,
+     122.154
+    ]
+   ],
+   "durationHours": 20,
+   "distanceNm": 219.564
+  },
+  {
+   "id": "B-BACK",
+   "name": "한중 B 복귀",
+   "from": "WEH",
+   "to": "INC",
+   "path": [
+    [
+     37.51,
+     122.154
+    ],
+    [
+     37.3,
+     123.3
+    ],
+    [
+     37.2,
+     124.8
+    ],
+    [
+     37.1,
+     125.9
+    ],
+    [
+     37.438,
+     126.586
+    ]
+   ],
+   "durationHours": 20,
+   "distanceNm": 219.564
+  },
+  {
+   "id": "C",
+   "name": "한중 C",
+   "from": "BUS",
+   "to": "SHA",
+   "path": [
+    [
+     35.074,
+     129.076
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     32.6,
+     126.8
+    ],
+    [
+     31.3,
+     124
+    ],
+    [
+     30.5,
+     122.8
+    ],
+    [
+     30.63,
+     122.06
+    ]
+   ],
+   "durationHours": 40,
+   "distanceNm": 481.202
+  },
+  {
+   "id": "C-BACK",
+   "name": "한중 C 복귀",
+   "from": "SHA",
+   "to": "BUS",
+   "path": [
+    [
+     30.63,
+     122.06
+    ],
+    [
+     30.5,
+     122.8
+    ],
+    [
+     31.3,
+     124
+    ],
+    [
+     32.6,
+     126.8
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     35.074,
+     129.076
+    ]
+   ],
+   "durationHours": 40,
+   "distanceNm": 481.202
+  },
+  {
+   "id": "JP-OUT",
+   "name": "한일 순환 · 부산→오사카",
+   "from": "BUS",
+   "to": "OSA",
+   "path": [
+    [
+     35.074,
+     129.076
+    ],
+    [
+     34.3,
+     129.55
+    ],
+    [
+     33.55,
+     129.35
+    ],
+    [
+     32.65,
+     129.05
+    ],
+    [
+     31.25,
+     130.4
+    ],
+    [
+     30.85,
+     131.35
+    ],
+    [
+     32,
+     133.5
+    ],
+    [
+     33.2,
+     135.15
+    ],
+    [
+     33.8,
+     135.03
+    ],
+    [
+     34.27,
+     135.12
+    ],
+    [
+     34.61,
+     135.36
+    ]
+   ],
+   "durationHours": 40,
+   "distanceNm": 646.274
+  },
+  {
+   "id": "JP-KOB",
+   "name": "한일 순환 · 오사카→고베",
+   "from": "OSA",
+   "to": "KOB",
+   "path": [
+    [
+     34.61,
+     135.36
+    ],
+    [
+     34.53,
+     135.27
+    ],
+    [
+     34.58,
+     135.17
+    ],
+    [
+     34.67,
+     135.2
+    ]
+   ],
+   "durationHours": 2,
+   "distanceNm": 17.935
+  },
+  {
+   "id": "JP-BACK",
+   "name": "한일 순환 · 고베→부산",
+   "from": "KOB",
+   "to": "BUS",
+   "path": [
+    [
+     34.67,
+     135.2
+    ],
+    [
+     34.58,
+     135.17
+    ],
+    [
+     34.53,
+     135.27
+    ],
+    [
+     34.61,
+     135.36
+    ],
+    [
+     34.27,
+     135.12
+    ],
+    [
+     33.8,
+     135.03
+    ],
+    [
+     33.2,
+     135.15
+    ],
+    [
+     32,
+     133.5
+    ],
+    [
+     30.85,
+     131.35
+    ],
+    [
+     31.25,
+     130.4
+    ],
+    [
+     32.65,
+     129.05
+    ],
+    [
+     33.55,
+     129.35
+    ],
+    [
+     34.3,
+     129.55
+    ],
+    [
+     35.074,
+     129.076
+    ]
+   ],
+   "durationHours": 42,
+   "distanceNm": 664.209
+  },
+  {
+   "id": "AS-KHH",
+   "name": "동남아 순환 · 상하이→가오슝",
+   "from": "SHA",
+   "to": "KHH",
+   "path": [
+    [
+     30.63,
+     122.06
+    ],
+    [
+     30.3,
+     123
+    ],
+    [
+     27,
+     123.5
+    ],
+    [
+     24.5,
+     123.3
+    ],
+    [
+     22.2,
+     121.4
+    ],
+    [
+     21.7,
+     120.7
+    ],
+    [
+     22.15,
+     120.15
+    ],
+    [
+     22.6,
+     120.3
+    ]
+   ],
+   "durationHours": 52,
+   "distanceNm": 694.523
+  },
+  {
+   "id": "AS-KHH-BACK",
+   "name": "동남아 순환 · 가오슝→상하이",
+   "from": "KHH",
+   "to": "SHA",
+   "path": [
+    [
+     22.6,
+     120.3
+    ],
+    [
+     22.15,
+     120.15
+    ],
+    [
+     21.7,
+     120.7
+    ],
+    [
+     22.2,
+     121.4
+    ],
+    [
+     24.5,
+     123.3
+    ],
+    [
+     27,
+     123.5
+    ],
+    [
+     30.3,
+     123
+    ],
+    [
+     30.63,
+     122.06
+    ]
+   ],
+   "durationHours": 52,
+   "distanceNm": 694.523
+  },
+  {
+   "id": "AS-SIN",
+   "name": "동남아 순환 · 가오슝→싱가포르",
+   "from": "KHH",
+   "to": "SIN",
+   "path": [
+    [
+     22.6,
+     120.3
+    ],
+    [
+     22,
+     119.8
+    ],
+    [
+     19.3,
+     117
+    ],
+    [
+     15,
+     113.6
+    ],
+    [
+     10,
+     110.4
+    ],
+    [
+     6,
+     106.8
+    ],
+    [
+     2.2,
+     104.8
+    ],
+    [
+     1.15,
+     104.2
+    ],
+    [
+     1.24,
+     103.8
+    ]
+   ],
+   "durationHours": 120,
+   "distanceNm": 1625.407
+  },
+  {
+   "id": "AS-SIN-BACK",
+   "name": "동남아 순환 · 싱가포르→가오슝",
+   "from": "SIN",
+   "to": "KHH",
+   "path": [
+    [
+     1.24,
+     103.8
+    ],
+    [
+     1.15,
+     104.2
+    ],
+    [
+     2.2,
+     104.8
+    ],
+    [
+     6,
+     106.8
+    ],
+    [
+     10,
+     110.4
+    ],
+    [
+     15,
+     113.6
+    ],
+    [
+     19.3,
+     117
+    ],
+    [
+     22,
+     119.8
+    ],
+    [
+     22.6,
+     120.3
+    ]
+   ],
+   "durationHours": 120,
+   "distanceNm": 1625.407
+  }
+ ],
+ "ships": [
+  {
+   "id": "S01",
+   "name": "선박 S01",
+   "capacityTEU": 900,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "CN"
+  },
+  {
+   "id": "S02",
+   "name": "선박 S02",
+   "capacityTEU": 900,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "CN"
+  },
+  {
+   "id": "S03",
+   "name": "선박 S03",
+   "capacityTEU": 900,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "CN"
+  },
+  {
+   "id": "S04",
+   "name": "선박 S04",
+   "capacityTEU": 900,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "CN"
+  },
+  {
+   "id": "S05",
+   "name": "선박 S05",
+   "capacityTEU": 900,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "CN"
+  },
+  {
+   "id": "S06",
+   "name": "선박 S06",
+   "capacityTEU": 1100,
+   "maxSpeedKn": 18,
+   "draftM": 8.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "JP"
+  },
+  {
+   "id": "S07",
+   "name": "선박 S07",
+   "capacityTEU": 1800,
+   "maxSpeedKn": 18,
+   "draftM": 9.2,
+   "initialOnboardTEU": 400,
+   "serviceId": "AS"
+  }
+ ],
+ "portCalls": [
+  {
+   "id": "PC-S01-00",
+   "shipId": "S01",
+   "sequence": 0,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-11T00:00:00+09:00",
+    "berth": "2026-09-11T01:00:00+09:00",
+    "dischargeStart": "2026-09-11T01:30:00+09:00",
+    "dischargeEnd": "2026-09-11T03:30:00+09:00",
+    "loadStart": "2026-09-11T03:30:00+09:00",
+    "loadEnd": "2026-09-11T07:30:00+09:00",
+    "ready": "2026-09-11T08:00:00+09:00",
+    "departure": "2026-09-11T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-11T08:00:00+09:00",
+   "berthWindow": "2026-09-11T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-01",
+   "shipId": "S01",
+   "sequence": 1,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-12T21:00:00+09:00",
+    "berth": "2026-09-12T22:00:00+09:00",
+    "dischargeStart": "2026-09-12T22:30:00+09:00",
+    "dischargeEnd": "2026-09-13T00:30:00+09:00",
+    "loadStart": "2026-09-13T00:30:00+09:00",
+    "loadEnd": "2026-09-13T04:30:00+09:00",
+    "ready": "2026-09-13T05:00:00+09:00",
+    "departure": "2026-09-13T06:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-13T05:00:00+09:00",
+   "berthWindow": "2026-09-12T22:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-02",
+   "shipId": "S01",
+   "sequence": 2,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-14T18:00:00+09:00",
+    "berth": "2026-09-14T19:00:00+09:00",
+    "dischargeStart": "2026-09-14T19:30:00+09:00",
+    "dischargeEnd": "2026-09-14T21:30:00+09:00",
+    "loadStart": "2026-09-14T21:30:00+09:00",
+    "loadEnd": "2026-09-15T01:30:00+09:00",
+    "ready": "2026-09-15T02:00:00+09:00",
+    "departure": "2026-09-15T03:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-15T02:00:00+09:00",
+   "berthWindow": "2026-09-14T19:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-03",
+   "shipId": "S01",
+   "sequence": 3,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-16T15:00:00+09:00",
+    "berth": "2026-09-16T16:00:00+09:00",
+    "dischargeStart": "2026-09-16T16:30:00+09:00",
+    "dischargeEnd": "2026-09-16T18:30:00+09:00",
+    "loadStart": "2026-09-16T18:30:00+09:00",
+    "loadEnd": "2026-09-16T22:30:00+09:00",
+    "ready": "2026-09-16T23:00:00+09:00",
+    "departure": "2026-09-17T00:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-16T23:00:00+09:00",
+   "berthWindow": "2026-09-16T16:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-04",
+   "shipId": "S01",
+   "sequence": 4,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-18T12:00:00+09:00",
+    "berth": "2026-09-18T13:00:00+09:00",
+    "dischargeStart": "2026-09-18T13:30:00+09:00",
+    "dischargeEnd": "2026-09-18T15:30:00+09:00",
+    "loadStart": "2026-09-18T15:30:00+09:00",
+    "loadEnd": "2026-09-18T19:30:00+09:00",
+    "ready": "2026-09-18T20:00:00+09:00",
+    "departure": "2026-09-18T21:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-18T20:00:00+09:00",
+   "berthWindow": "2026-09-18T13:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-05",
+   "shipId": "S01",
+   "sequence": 5,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-20T09:00:00+09:00",
+    "berth": "2026-09-20T10:00:00+09:00",
+    "dischargeStart": "2026-09-20T10:30:00+09:00",
+    "dischargeEnd": "2026-09-20T12:30:00+09:00",
+    "loadStart": "2026-09-20T12:30:00+09:00",
+    "loadEnd": "2026-09-20T16:30:00+09:00",
+    "ready": "2026-09-20T17:00:00+09:00",
+    "departure": "2026-09-20T18:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-20T17:00:00+09:00",
+   "berthWindow": "2026-09-20T10:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S01-06",
+   "shipId": "S01",
+   "sequence": 6,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-22T06:00:00+09:00",
+    "berth": "2026-09-22T07:00:00+09:00",
+    "dischargeStart": "2026-09-22T07:30:00+09:00",
+    "dischargeEnd": "2026-09-22T09:30:00+09:00",
+    "loadStart": "2026-09-22T09:30:00+09:00",
+    "loadEnd": "2026-09-22T13:30:00+09:00",
+    "ready": "2026-09-22T14:00:00+09:00",
+    "departure": "2026-09-22T15:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-22T14:00:00+09:00",
+   "berthWindow": "2026-09-22T07:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-00",
+   "shipId": "S02",
+   "sequence": 0,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-12T00:00:00+09:00",
+    "berth": "2026-09-12T01:00:00+09:00",
+    "dischargeStart": "2026-09-12T01:30:00+09:00",
+    "dischargeEnd": "2026-09-12T03:30:00+09:00",
+    "loadStart": "2026-09-12T03:30:00+09:00",
+    "loadEnd": "2026-09-12T07:30:00+09:00",
+    "ready": "2026-09-12T08:00:00+09:00",
+    "departure": "2026-09-12T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-12T08:00:00+09:00",
+   "berthWindow": "2026-09-12T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-01",
+   "shipId": "S02",
+   "sequence": 1,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-13T05:00:00+09:00",
+    "berth": "2026-09-13T06:00:00+09:00",
+    "dischargeStart": "2026-09-13T06:30:00+09:00",
+    "dischargeEnd": "2026-09-13T08:30:00+09:00",
+    "loadStart": "2026-09-13T08:30:00+09:00",
+    "loadEnd": "2026-09-13T12:30:00+09:00",
+    "ready": "2026-09-13T13:00:00+09:00",
+    "departure": "2026-09-13T14:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-13T13:00:00+09:00",
+   "berthWindow": "2026-09-13T06:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-02",
+   "shipId": "S02",
+   "sequence": 2,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-14T10:00:00+09:00",
+    "berth": "2026-09-14T11:00:00+09:00",
+    "dischargeStart": "2026-09-14T11:30:00+09:00",
+    "dischargeEnd": "2026-09-14T13:30:00+09:00",
+    "loadStart": "2026-09-14T13:30:00+09:00",
+    "loadEnd": "2026-09-14T17:30:00+09:00",
+    "ready": "2026-09-14T18:00:00+09:00",
+    "departure": "2026-09-14T19:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-14T18:00:00+09:00",
+   "berthWindow": "2026-09-14T11:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-03",
+   "shipId": "S02",
+   "sequence": 3,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-15T15:00:00+09:00",
+    "berth": "2026-09-15T16:00:00+09:00",
+    "dischargeStart": "2026-09-15T16:30:00+09:00",
+    "dischargeEnd": "2026-09-15T18:30:00+09:00",
+    "loadStart": "2026-09-15T18:30:00+09:00",
+    "loadEnd": "2026-09-15T22:30:00+09:00",
+    "ready": "2026-09-15T23:00:00+09:00",
+    "departure": "2026-09-16T00:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-15T23:00:00+09:00",
+   "berthWindow": "2026-09-15T16:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-04",
+   "shipId": "S02",
+   "sequence": 4,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-16T20:00:00+09:00",
+    "berth": "2026-09-16T21:00:00+09:00",
+    "dischargeStart": "2026-09-16T21:30:00+09:00",
+    "dischargeEnd": "2026-09-16T23:30:00+09:00",
+    "loadStart": "2026-09-16T23:30:00+09:00",
+    "loadEnd": "2026-09-17T03:30:00+09:00",
+    "ready": "2026-09-17T04:00:00+09:00",
+    "departure": "2026-09-17T05:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-17T04:00:00+09:00",
+   "berthWindow": "2026-09-16T21:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-05",
+   "shipId": "S02",
+   "sequence": 5,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-18T01:00:00+09:00",
+    "berth": "2026-09-18T02:00:00+09:00",
+    "dischargeStart": "2026-09-18T02:30:00+09:00",
+    "dischargeEnd": "2026-09-18T04:30:00+09:00",
+    "loadStart": "2026-09-18T04:30:00+09:00",
+    "loadEnd": "2026-09-18T08:30:00+09:00",
+    "ready": "2026-09-18T09:00:00+09:00",
+    "departure": "2026-09-18T10:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-18T09:00:00+09:00",
+   "berthWindow": "2026-09-18T02:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S02-06",
+   "shipId": "S02",
+   "sequence": 6,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-19T06:00:00+09:00",
+    "berth": "2026-09-19T07:00:00+09:00",
+    "dischargeStart": "2026-09-19T07:30:00+09:00",
+    "dischargeEnd": "2026-09-19T09:30:00+09:00",
+    "loadStart": "2026-09-19T09:30:00+09:00",
+    "loadEnd": "2026-09-19T13:30:00+09:00",
+    "ready": "2026-09-19T14:00:00+09:00",
+    "departure": "2026-09-19T15:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-19T14:00:00+09:00",
+   "berthWindow": "2026-09-19T07:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-00",
+   "shipId": "S03",
+   "sequence": 0,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-13T00:00:00+09:00",
+    "berth": "2026-09-13T01:00:00+09:00",
+    "dischargeStart": "2026-09-13T01:30:00+09:00",
+    "dischargeEnd": "2026-09-13T03:30:00+09:00",
+    "loadStart": "2026-09-13T03:30:00+09:00",
+    "loadEnd": "2026-09-13T07:30:00+09:00",
+    "ready": "2026-09-13T08:00:00+09:00",
+    "departure": "2026-09-13T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-13T08:00:00+09:00",
+   "berthWindow": "2026-09-13T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-01",
+   "shipId": "S03",
+   "sequence": 1,
+   "portId": "SHA",
+   "terminalName": "상하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-15T01:00:00+09:00",
+    "berth": "2026-09-15T02:00:00+09:00",
+    "dischargeStart": "2026-09-15T02:30:00+09:00",
+    "dischargeEnd": "2026-09-15T04:30:00+09:00",
+    "loadStart": "2026-09-15T04:30:00+09:00",
+    "loadEnd": "2026-09-15T08:30:00+09:00",
+    "ready": "2026-09-15T09:00:00+09:00",
+    "departure": "2026-09-15T10:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-15T09:00:00+09:00",
+   "berthWindow": "2026-09-15T02:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-02",
+   "shipId": "S03",
+   "sequence": 2,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-17T02:00:00+09:00",
+    "berth": "2026-09-17T03:00:00+09:00",
+    "dischargeStart": "2026-09-17T03:30:00+09:00",
+    "dischargeEnd": "2026-09-17T05:30:00+09:00",
+    "loadStart": "2026-09-17T05:30:00+09:00",
+    "loadEnd": "2026-09-17T09:30:00+09:00",
+    "ready": "2026-09-17T10:00:00+09:00",
+    "departure": "2026-09-17T11:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-17T10:00:00+09:00",
+   "berthWindow": "2026-09-17T03:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-03",
+   "shipId": "S03",
+   "sequence": 3,
+   "portId": "SHA",
+   "terminalName": "상하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-19T03:00:00+09:00",
+    "berth": "2026-09-19T04:00:00+09:00",
+    "dischargeStart": "2026-09-19T04:30:00+09:00",
+    "dischargeEnd": "2026-09-19T06:30:00+09:00",
+    "loadStart": "2026-09-19T06:30:00+09:00",
+    "loadEnd": "2026-09-19T10:30:00+09:00",
+    "ready": "2026-09-19T11:00:00+09:00",
+    "departure": "2026-09-19T12:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-19T11:00:00+09:00",
+   "berthWindow": "2026-09-19T04:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-04",
+   "shipId": "S03",
+   "sequence": 4,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-21T04:00:00+09:00",
+    "berth": "2026-09-21T05:00:00+09:00",
+    "dischargeStart": "2026-09-21T05:30:00+09:00",
+    "dischargeEnd": "2026-09-21T07:30:00+09:00",
+    "loadStart": "2026-09-21T07:30:00+09:00",
+    "loadEnd": "2026-09-21T11:30:00+09:00",
+    "ready": "2026-09-21T12:00:00+09:00",
+    "departure": "2026-09-21T13:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-21T12:00:00+09:00",
+   "berthWindow": "2026-09-21T05:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-05",
+   "shipId": "S03",
+   "sequence": 5,
+   "portId": "SHA",
+   "terminalName": "상하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-23T05:00:00+09:00",
+    "berth": "2026-09-23T06:00:00+09:00",
+    "dischargeStart": "2026-09-23T06:30:00+09:00",
+    "dischargeEnd": "2026-09-23T08:30:00+09:00",
+    "loadStart": "2026-09-23T08:30:00+09:00",
+    "loadEnd": "2026-09-23T12:30:00+09:00",
+    "ready": "2026-09-23T13:00:00+09:00",
+    "departure": "2026-09-23T14:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-23T13:00:00+09:00",
+   "berthWindow": "2026-09-23T06:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S03-06",
+   "shipId": "S03",
+   "sequence": 6,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-25T06:00:00+09:00",
+    "berth": "2026-09-25T07:00:00+09:00",
+    "dischargeStart": "2026-09-25T07:30:00+09:00",
+    "dischargeEnd": "2026-09-25T09:30:00+09:00",
+    "loadStart": "2026-09-25T09:30:00+09:00",
+    "loadEnd": "2026-09-25T13:30:00+09:00",
+    "ready": "2026-09-25T14:00:00+09:00",
+    "departure": "2026-09-25T15:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-25T14:00:00+09:00",
+   "berthWindow": "2026-09-25T07:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-00",
+   "shipId": "S04",
+   "sequence": 0,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-14T00:00:00+09:00",
+    "berth": "2026-09-14T01:00:00+09:00",
+    "dischargeStart": "2026-09-14T01:30:00+09:00",
+    "dischargeEnd": "2026-09-14T03:30:00+09:00",
+    "loadStart": "2026-09-14T03:30:00+09:00",
+    "loadEnd": "2026-09-14T07:30:00+09:00",
+    "ready": "2026-09-14T08:00:00+09:00",
+    "departure": "2026-09-14T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-14T08:00:00+09:00",
+   "berthWindow": "2026-09-14T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-01",
+   "shipId": "S04",
+   "sequence": 1,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-15T21:00:00+09:00",
+    "berth": "2026-09-15T22:00:00+09:00",
+    "dischargeStart": "2026-09-15T22:30:00+09:00",
+    "dischargeEnd": "2026-09-16T00:30:00+09:00",
+    "loadStart": "2026-09-16T00:30:00+09:00",
+    "loadEnd": "2026-09-16T04:30:00+09:00",
+    "ready": "2026-09-16T05:00:00+09:00",
+    "departure": "2026-09-16T06:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-16T05:00:00+09:00",
+   "berthWindow": "2026-09-15T22:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-02",
+   "shipId": "S04",
+   "sequence": 2,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-17T18:00:00+09:00",
+    "berth": "2026-09-17T19:00:00+09:00",
+    "dischargeStart": "2026-09-17T19:30:00+09:00",
+    "dischargeEnd": "2026-09-17T21:30:00+09:00",
+    "loadStart": "2026-09-17T21:30:00+09:00",
+    "loadEnd": "2026-09-18T01:30:00+09:00",
+    "ready": "2026-09-18T02:00:00+09:00",
+    "departure": "2026-09-18T03:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-18T02:00:00+09:00",
+   "berthWindow": "2026-09-17T19:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-03",
+   "shipId": "S04",
+   "sequence": 3,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-19T15:00:00+09:00",
+    "berth": "2026-09-19T16:00:00+09:00",
+    "dischargeStart": "2026-09-19T16:30:00+09:00",
+    "dischargeEnd": "2026-09-19T18:30:00+09:00",
+    "loadStart": "2026-09-19T18:30:00+09:00",
+    "loadEnd": "2026-09-19T22:30:00+09:00",
+    "ready": "2026-09-19T23:00:00+09:00",
+    "departure": "2026-09-20T00:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-19T23:00:00+09:00",
+   "berthWindow": "2026-09-19T16:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-04",
+   "shipId": "S04",
+   "sequence": 4,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-21T12:00:00+09:00",
+    "berth": "2026-09-21T13:00:00+09:00",
+    "dischargeStart": "2026-09-21T13:30:00+09:00",
+    "dischargeEnd": "2026-09-21T15:30:00+09:00",
+    "loadStart": "2026-09-21T15:30:00+09:00",
+    "loadEnd": "2026-09-21T19:30:00+09:00",
+    "ready": "2026-09-21T20:00:00+09:00",
+    "departure": "2026-09-21T21:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-21T20:00:00+09:00",
+   "berthWindow": "2026-09-21T13:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-05",
+   "shipId": "S04",
+   "sequence": 5,
+   "portId": "TAO",
+   "terminalName": "칭다오 터미널 A",
+   "planned": {
+    "arrival": "2026-09-23T09:00:00+09:00",
+    "berth": "2026-09-23T10:00:00+09:00",
+    "dischargeStart": "2026-09-23T10:30:00+09:00",
+    "dischargeEnd": "2026-09-23T12:30:00+09:00",
+    "loadStart": "2026-09-23T12:30:00+09:00",
+    "loadEnd": "2026-09-23T16:30:00+09:00",
+    "ready": "2026-09-23T17:00:00+09:00",
+    "departure": "2026-09-23T18:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-23T17:00:00+09:00",
+   "berthWindow": "2026-09-23T10:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S04-06",
+   "shipId": "S04",
+   "sequence": 6,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-25T06:00:00+09:00",
+    "berth": "2026-09-25T07:00:00+09:00",
+    "dischargeStart": "2026-09-25T07:30:00+09:00",
+    "dischargeEnd": "2026-09-25T09:30:00+09:00",
+    "loadStart": "2026-09-25T09:30:00+09:00",
+    "loadEnd": "2026-09-25T13:30:00+09:00",
+    "ready": "2026-09-25T14:00:00+09:00",
+    "departure": "2026-09-25T15:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-25T14:00:00+09:00",
+   "berthWindow": "2026-09-25T07:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-00",
+   "shipId": "S05",
+   "sequence": 0,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-15T00:00:00+09:00",
+    "berth": "2026-09-15T01:00:00+09:00",
+    "dischargeStart": "2026-09-15T01:30:00+09:00",
+    "dischargeEnd": "2026-09-15T03:30:00+09:00",
+    "loadStart": "2026-09-15T03:30:00+09:00",
+    "loadEnd": "2026-09-15T07:30:00+09:00",
+    "ready": "2026-09-15T08:00:00+09:00",
+    "departure": "2026-09-15T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-15T08:00:00+09:00",
+   "berthWindow": "2026-09-15T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-01",
+   "shipId": "S05",
+   "sequence": 1,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-16T05:00:00+09:00",
+    "berth": "2026-09-16T06:00:00+09:00",
+    "dischargeStart": "2026-09-16T06:30:00+09:00",
+    "dischargeEnd": "2026-09-16T08:30:00+09:00",
+    "loadStart": "2026-09-16T08:30:00+09:00",
+    "loadEnd": "2026-09-16T12:30:00+09:00",
+    "ready": "2026-09-16T13:00:00+09:00",
+    "departure": "2026-09-16T14:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-16T13:00:00+09:00",
+   "berthWindow": "2026-09-16T06:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-02",
+   "shipId": "S05",
+   "sequence": 2,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-17T10:00:00+09:00",
+    "berth": "2026-09-17T11:00:00+09:00",
+    "dischargeStart": "2026-09-17T11:30:00+09:00",
+    "dischargeEnd": "2026-09-17T13:30:00+09:00",
+    "loadStart": "2026-09-17T13:30:00+09:00",
+    "loadEnd": "2026-09-17T17:30:00+09:00",
+    "ready": "2026-09-17T18:00:00+09:00",
+    "departure": "2026-09-17T19:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-17T18:00:00+09:00",
+   "berthWindow": "2026-09-17T11:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-03",
+   "shipId": "S05",
+   "sequence": 3,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-18T15:00:00+09:00",
+    "berth": "2026-09-18T16:00:00+09:00",
+    "dischargeStart": "2026-09-18T16:30:00+09:00",
+    "dischargeEnd": "2026-09-18T18:30:00+09:00",
+    "loadStart": "2026-09-18T18:30:00+09:00",
+    "loadEnd": "2026-09-18T22:30:00+09:00",
+    "ready": "2026-09-18T23:00:00+09:00",
+    "departure": "2026-09-19T00:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-18T23:00:00+09:00",
+   "berthWindow": "2026-09-18T16:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-04",
+   "shipId": "S05",
+   "sequence": 4,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-19T20:00:00+09:00",
+    "berth": "2026-09-19T21:00:00+09:00",
+    "dischargeStart": "2026-09-19T21:30:00+09:00",
+    "dischargeEnd": "2026-09-19T23:30:00+09:00",
+    "loadStart": "2026-09-19T23:30:00+09:00",
+    "loadEnd": "2026-09-20T03:30:00+09:00",
+    "ready": "2026-09-20T04:00:00+09:00",
+    "departure": "2026-09-20T05:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-20T04:00:00+09:00",
+   "berthWindow": "2026-09-19T21:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-05",
+   "shipId": "S05",
+   "sequence": 5,
+   "portId": "WEH",
+   "terminalName": "웨이하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-21T01:00:00+09:00",
+    "berth": "2026-09-21T02:00:00+09:00",
+    "dischargeStart": "2026-09-21T02:30:00+09:00",
+    "dischargeEnd": "2026-09-21T04:30:00+09:00",
+    "loadStart": "2026-09-21T04:30:00+09:00",
+    "loadEnd": "2026-09-21T08:30:00+09:00",
+    "ready": "2026-09-21T09:00:00+09:00",
+    "departure": "2026-09-21T10:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-21T09:00:00+09:00",
+   "berthWindow": "2026-09-21T02:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S05-06",
+   "shipId": "S05",
+   "sequence": 6,
+   "portId": "INC",
+   "terminalName": "인천 터미널 A",
+   "planned": {
+    "arrival": "2026-09-22T06:00:00+09:00",
+    "berth": "2026-09-22T07:00:00+09:00",
+    "dischargeStart": "2026-09-22T07:30:00+09:00",
+    "dischargeEnd": "2026-09-22T09:30:00+09:00",
+    "loadStart": "2026-09-22T09:30:00+09:00",
+    "loadEnd": "2026-09-22T13:30:00+09:00",
+    "ready": "2026-09-22T14:00:00+09:00",
+    "departure": "2026-09-22T15:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-22T14:00:00+09:00",
+   "berthWindow": "2026-09-22T07:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S06-00",
+   "shipId": "S06",
+   "sequence": 0,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-14T04:40:00+09:00",
+    "berth": "2026-09-14T05:40:00+09:00",
+    "dischargeStart": "2026-09-14T06:10:00+09:00",
+    "dischargeEnd": "2026-09-14T08:10:00+09:00",
+    "loadStart": "2026-09-14T08:10:00+09:00",
+    "loadEnd": "2026-09-14T16:30:00+09:00",
+    "ready": "2026-09-14T17:00:00+09:00",
+    "departure": "2026-09-14T18:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 400,
+     "40HC": 100
+    },
+    "moves": 500,
+    "teu": 600,
+    "rateMovesPerHour": 60
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-14T17:00:00+09:00",
+   "berthWindow": "2026-09-14T05:40:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S06-01",
+   "shipId": "S06",
+   "sequence": 1,
+   "portId": "OSA",
+   "terminalName": "오사카 터미널 A",
+   "planned": {
+    "arrival": "2026-09-16T10:00:00+09:00",
+    "berth": "2026-09-16T11:00:00+09:00",
+    "dischargeStart": "2026-09-16T11:30:00+09:00",
+    "dischargeEnd": "2026-09-16T15:30:00+09:00",
+    "loadStart": "2026-09-16T15:30:00+09:00",
+    "loadEnd": "2026-09-16T19:30:00+09:00",
+    "ready": "2026-09-16T20:00:00+09:00",
+    "departure": "2026-09-16T21:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 160,
+     "40HC": 80
+    },
+    "moves": 240,
+    "teu": 320,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 180,
+     "40HC": 60
+    },
+    "moves": 240,
+    "teu": 300,
+    "rateMovesPerHour": 60
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-16T20:00:00+09:00",
+   "berthWindow": "2026-09-16T11:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S06-02",
+   "shipId": "S06",
+   "sequence": 2,
+   "portId": "KOB",
+   "terminalName": "고베 터미널 A",
+   "planned": {
+    "arrival": "2026-09-16T23:00:00+09:00",
+    "berth": "2026-09-16T23:30:00+09:00",
+    "dischargeStart": "2026-09-17T00:00:00+09:00",
+    "dischargeEnd": "2026-09-17T02:00:00+09:00",
+    "loadStart": "2026-09-17T02:00:00+09:00",
+    "loadEnd": "2026-09-17T06:00:00+09:00",
+    "ready": "2026-09-17T06:30:00+09:00",
+    "departure": "2026-09-17T07:30:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-17T06:30:00+09:00",
+   "berthWindow": "2026-09-16T23:30:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S06-03",
+   "shipId": "S06",
+   "sequence": 3,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-19T01:30:00+09:00",
+    "berth": "2026-09-19T02:30:00+09:00",
+    "dischargeStart": "2026-09-19T03:00:00+09:00",
+    "dischargeEnd": "2026-09-19T05:00:00+09:00",
+    "loadStart": "2026-09-19T05:00:00+09:00",
+    "loadEnd": "2026-09-19T09:00:00+09:00",
+    "ready": "2026-09-19T09:30:00+09:00",
+    "departure": "2026-09-19T10:30:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-19T09:30:00+09:00",
+   "berthWindow": "2026-09-19T02:30:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S06-04",
+   "shipId": "S06",
+   "sequence": 4,
+   "portId": "OSA",
+   "terminalName": "오사카 터미널 A",
+   "planned": {
+    "arrival": "2026-09-21T02:30:00+09:00",
+    "berth": "2026-09-21T03:30:00+09:00",
+    "dischargeStart": "2026-09-21T04:00:00+09:00",
+    "dischargeEnd": "2026-09-21T06:00:00+09:00",
+    "loadStart": "2026-09-21T06:00:00+09:00",
+    "loadEnd": "2026-09-21T10:00:00+09:00",
+    "ready": "2026-09-21T10:30:00+09:00",
+    "departure": "2026-09-21T11:30:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-21T10:30:00+09:00",
+   "berthWindow": "2026-09-21T03:30:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-00",
+   "shipId": "S07",
+   "sequence": 0,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-08T23:00:00+09:00",
+    "berth": "2026-09-09T00:00:00+09:00",
+    "dischargeStart": "2026-09-09T00:30:00+09:00",
+    "dischargeEnd": "2026-09-09T02:30:00+09:00",
+    "loadStart": "2026-09-09T02:30:00+09:00",
+    "loadEnd": "2026-09-09T06:30:00+09:00",
+    "ready": "2026-09-09T07:00:00+09:00",
+    "departure": "2026-09-09T08:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-09T07:00:00+09:00",
+   "berthWindow": "2026-09-09T00:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-01",
+   "shipId": "S07",
+   "sequence": 1,
+   "portId": "SHA",
+   "terminalName": "상하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-11T00:00:00+09:00",
+    "berth": "2026-09-11T01:00:00+09:00",
+    "dischargeStart": "2026-09-11T01:30:00+09:00",
+    "dischargeEnd": "2026-09-11T03:30:00+09:00",
+    "loadStart": "2026-09-11T03:30:00+09:00",
+    "loadEnd": "2026-09-11T07:30:00+09:00",
+    "ready": "2026-09-11T08:00:00+09:00",
+    "departure": "2026-09-11T09:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-11T08:00:00+09:00",
+   "berthWindow": "2026-09-11T01:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-02",
+   "shipId": "S07",
+   "sequence": 2,
+   "portId": "KHH",
+   "terminalName": "가오슝 터미널 A",
+   "planned": {
+    "arrival": "2026-09-13T13:00:00+09:00",
+    "berth": "2026-09-13T14:00:00+09:00",
+    "dischargeStart": "2026-09-13T14:30:00+09:00",
+    "dischargeEnd": "2026-09-13T16:30:00+09:00",
+    "loadStart": "2026-09-13T16:30:00+09:00",
+    "loadEnd": "2026-09-13T20:30:00+09:00",
+    "ready": "2026-09-13T21:00:00+09:00",
+    "departure": "2026-09-13T22:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-13T21:00:00+09:00",
+   "berthWindow": "2026-09-13T14:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-03",
+   "shipId": "S07",
+   "sequence": 3,
+   "portId": "SIN",
+   "terminalName": "싱가포르 터미널 A",
+   "planned": {
+    "arrival": "2026-09-18T22:00:00+09:00",
+    "berth": "2026-09-18T23:00:00+09:00",
+    "dischargeStart": "2026-09-18T23:30:00+09:00",
+    "dischargeEnd": "2026-09-19T01:30:00+09:00",
+    "loadStart": "2026-09-19T01:30:00+09:00",
+    "loadEnd": "2026-09-19T05:30:00+09:00",
+    "ready": "2026-09-19T06:00:00+09:00",
+    "departure": "2026-09-19T07:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-19T06:00:00+09:00",
+   "berthWindow": "2026-09-18T23:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-04",
+   "shipId": "S07",
+   "sequence": 4,
+   "portId": "KHH",
+   "terminalName": "가오슝 터미널 A",
+   "planned": {
+    "arrival": "2026-09-24T07:00:00+09:00",
+    "berth": "2026-09-24T08:00:00+09:00",
+    "dischargeStart": "2026-09-24T08:30:00+09:00",
+    "dischargeEnd": "2026-09-24T10:30:00+09:00",
+    "loadStart": "2026-09-24T10:30:00+09:00",
+    "loadEnd": "2026-09-24T14:30:00+09:00",
+    "ready": "2026-09-24T15:00:00+09:00",
+    "departure": "2026-09-24T16:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-24T15:00:00+09:00",
+   "berthWindow": "2026-09-24T08:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-05",
+   "shipId": "S07",
+   "sequence": 5,
+   "portId": "SHA",
+   "terminalName": "상하이 터미널 A",
+   "planned": {
+    "arrival": "2026-09-26T20:00:00+09:00",
+    "berth": "2026-09-26T21:00:00+09:00",
+    "dischargeStart": "2026-09-26T21:30:00+09:00",
+    "dischargeEnd": "2026-09-26T23:30:00+09:00",
+    "loadStart": "2026-09-26T23:30:00+09:00",
+    "loadEnd": "2026-09-27T03:30:00+09:00",
+    "ready": "2026-09-27T04:00:00+09:00",
+    "departure": "2026-09-27T05:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-27T04:00:00+09:00",
+   "berthWindow": "2026-09-26T21:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  },
+  {
+   "id": "PC-S07-06",
+   "shipId": "S07",
+   "sequence": 6,
+   "portId": "BUS",
+   "terminalName": "부산 터미널 A",
+   "planned": {
+    "arrival": "2026-09-28T21:00:00+09:00",
+    "berth": "2026-09-28T22:00:00+09:00",
+    "dischargeStart": "2026-09-28T22:30:00+09:00",
+    "dischargeEnd": "2026-09-29T00:30:00+09:00",
+    "loadStart": "2026-09-29T00:30:00+09:00",
+    "loadEnd": "2026-09-29T04:30:00+09:00",
+    "ready": "2026-09-29T05:00:00+09:00",
+    "departure": "2026-09-29T06:00:00+09:00"
+   },
+   "discharge": {
+    "containers": {
+     "20GP": 80,
+     "40HC": 40
+    },
+    "moves": 120,
+    "teu": 160,
+    "rateMovesPerHour": 60
+   },
+   "load": {
+    "containers": {
+     "20GP": 120,
+     "40HC": 40
+    },
+    "moves": 160,
+    "teu": 200,
+    "rateMovesPerHour": 40
+   },
+   "setupHours": 0.5,
+   "departurePreparationHours": 0.5,
+   "servicesReady": "2026-09-29T05:00:00+09:00",
+   "berthWindow": "2026-09-28T22:00:00+09:00",
+   "sourceId": "SYN-PORTCALL"
+  }
+ ],
+ "voyages": [
+  {
+   "id": "OP-S01-01",
+   "displayId": "S01-01",
+   "shipId": "S01",
+   "routeId": "A",
+   "fromCallId": "PC-S01-00",
+   "toCallId": "PC-S01-01",
+   "departure": "2026-09-11T09:00:00+09:00",
+   "plannedArrival": "2026-09-12T21:00:00+09:00",
+   "arrival": "2026-09-12T21:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S01-02",
+   "displayId": "S01-02",
+   "shipId": "S01",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S01-01",
+   "toCallId": "PC-S01-02",
+   "departure": "2026-09-13T06:00:00+09:00",
+   "plannedArrival": "2026-09-14T18:00:00+09:00",
+   "arrival": "2026-09-14T18:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S01-03",
+   "displayId": "S01-03",
+   "shipId": "S01",
+   "routeId": "A",
+   "fromCallId": "PC-S01-02",
+   "toCallId": "PC-S01-03",
+   "departure": "2026-09-15T03:00:00+09:00",
+   "plannedArrival": "2026-09-16T15:00:00+09:00",
+   "arrival": "2026-09-16T15:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S01-04",
+   "displayId": "S01-04",
+   "shipId": "S01",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S01-03",
+   "toCallId": "PC-S01-04",
+   "departure": "2026-09-17T00:00:00+09:00",
+   "plannedArrival": "2026-09-18T12:00:00+09:00",
+   "arrival": "2026-09-18T12:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S01-05",
+   "displayId": "S01-05",
+   "shipId": "S01",
+   "routeId": "A",
+   "fromCallId": "PC-S01-04",
+   "toCallId": "PC-S01-05",
+   "departure": "2026-09-18T21:00:00+09:00",
+   "plannedArrival": "2026-09-20T09:00:00+09:00",
+   "arrival": "2026-09-20T09:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S01-06",
+   "displayId": "S01-06",
+   "shipId": "S01",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S01-05",
+   "toCallId": "PC-S01-06",
+   "departure": "2026-09-20T18:00:00+09:00",
+   "plannedArrival": "2026-09-22T06:00:00+09:00",
+   "arrival": "2026-09-22T06:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-01",
+   "displayId": "S02-01",
+   "shipId": "S02",
+   "routeId": "B",
+   "fromCallId": "PC-S02-00",
+   "toCallId": "PC-S02-01",
+   "departure": "2026-09-12T09:00:00+09:00",
+   "plannedArrival": "2026-09-13T05:00:00+09:00",
+   "arrival": "2026-09-13T05:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-02",
+   "displayId": "S02-02",
+   "shipId": "S02",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S02-01",
+   "toCallId": "PC-S02-02",
+   "departure": "2026-09-13T14:00:00+09:00",
+   "plannedArrival": "2026-09-14T10:00:00+09:00",
+   "arrival": "2026-09-14T10:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-03",
+   "displayId": "S02-03",
+   "shipId": "S02",
+   "routeId": "B",
+   "fromCallId": "PC-S02-02",
+   "toCallId": "PC-S02-03",
+   "departure": "2026-09-14T19:00:00+09:00",
+   "plannedArrival": "2026-09-15T15:00:00+09:00",
+   "arrival": "2026-09-15T15:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-04",
+   "displayId": "S02-04",
+   "shipId": "S02",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S02-03",
+   "toCallId": "PC-S02-04",
+   "departure": "2026-09-16T00:00:00+09:00",
+   "plannedArrival": "2026-09-16T20:00:00+09:00",
+   "arrival": "2026-09-16T20:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-05",
+   "displayId": "S02-05",
+   "shipId": "S02",
+   "routeId": "B",
+   "fromCallId": "PC-S02-04",
+   "toCallId": "PC-S02-05",
+   "departure": "2026-09-17T05:00:00+09:00",
+   "plannedArrival": "2026-09-18T01:00:00+09:00",
+   "arrival": "2026-09-18T01:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S02-06",
+   "displayId": "S02-06",
+   "shipId": "S02",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S02-05",
+   "toCallId": "PC-S02-06",
+   "departure": "2026-09-18T10:00:00+09:00",
+   "plannedArrival": "2026-09-19T06:00:00+09:00",
+   "arrival": "2026-09-19T06:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-01",
+   "displayId": "S03-01",
+   "shipId": "S03",
+   "routeId": "C",
+   "fromCallId": "PC-S03-00",
+   "toCallId": "PC-S03-01",
+   "departure": "2026-09-13T09:00:00+09:00",
+   "plannedArrival": "2026-09-15T01:00:00+09:00",
+   "arrival": "2026-09-15T01:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-02",
+   "displayId": "S03-02",
+   "shipId": "S03",
+   "routeId": "C-BACK",
+   "fromCallId": "PC-S03-01",
+   "toCallId": "PC-S03-02",
+   "departure": "2026-09-15T10:00:00+09:00",
+   "plannedArrival": "2026-09-17T02:00:00+09:00",
+   "arrival": "2026-09-17T02:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-03",
+   "displayId": "S03-03",
+   "shipId": "S03",
+   "routeId": "C",
+   "fromCallId": "PC-S03-02",
+   "toCallId": "PC-S03-03",
+   "departure": "2026-09-17T11:00:00+09:00",
+   "plannedArrival": "2026-09-19T03:00:00+09:00",
+   "arrival": "2026-09-19T03:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-04",
+   "displayId": "S03-04",
+   "shipId": "S03",
+   "routeId": "C-BACK",
+   "fromCallId": "PC-S03-03",
+   "toCallId": "PC-S03-04",
+   "departure": "2026-09-19T12:00:00+09:00",
+   "plannedArrival": "2026-09-21T04:00:00+09:00",
+   "arrival": "2026-09-21T04:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-05",
+   "displayId": "S03-05",
+   "shipId": "S03",
+   "routeId": "C",
+   "fromCallId": "PC-S03-04",
+   "toCallId": "PC-S03-05",
+   "departure": "2026-09-21T13:00:00+09:00",
+   "plannedArrival": "2026-09-23T05:00:00+09:00",
+   "arrival": "2026-09-23T05:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S03-06",
+   "displayId": "S03-06",
+   "shipId": "S03",
+   "routeId": "C-BACK",
+   "fromCallId": "PC-S03-05",
+   "toCallId": "PC-S03-06",
+   "departure": "2026-09-23T14:00:00+09:00",
+   "plannedArrival": "2026-09-25T06:00:00+09:00",
+   "arrival": "2026-09-25T06:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-01",
+   "displayId": "S04-01",
+   "shipId": "S04",
+   "routeId": "A",
+   "fromCallId": "PC-S04-00",
+   "toCallId": "PC-S04-01",
+   "departure": "2026-09-14T09:00:00+09:00",
+   "plannedArrival": "2026-09-15T21:00:00+09:00",
+   "arrival": "2026-09-15T21:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-02",
+   "displayId": "S04-02",
+   "shipId": "S04",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S04-01",
+   "toCallId": "PC-S04-02",
+   "departure": "2026-09-16T06:00:00+09:00",
+   "plannedArrival": "2026-09-17T18:00:00+09:00",
+   "arrival": "2026-09-17T18:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-03",
+   "displayId": "S04-03",
+   "shipId": "S04",
+   "routeId": "A",
+   "fromCallId": "PC-S04-02",
+   "toCallId": "PC-S04-03",
+   "departure": "2026-09-18T03:00:00+09:00",
+   "plannedArrival": "2026-09-19T15:00:00+09:00",
+   "arrival": "2026-09-19T15:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-04",
+   "displayId": "S04-04",
+   "shipId": "S04",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S04-03",
+   "toCallId": "PC-S04-04",
+   "departure": "2026-09-20T00:00:00+09:00",
+   "plannedArrival": "2026-09-21T12:00:00+09:00",
+   "arrival": "2026-09-21T12:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-05",
+   "displayId": "S04-05",
+   "shipId": "S04",
+   "routeId": "A",
+   "fromCallId": "PC-S04-04",
+   "toCallId": "PC-S04-05",
+   "departure": "2026-09-21T21:00:00+09:00",
+   "plannedArrival": "2026-09-23T09:00:00+09:00",
+   "arrival": "2026-09-23T09:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S04-06",
+   "displayId": "S04-06",
+   "shipId": "S04",
+   "routeId": "A-BACK",
+   "fromCallId": "PC-S04-05",
+   "toCallId": "PC-S04-06",
+   "departure": "2026-09-23T18:00:00+09:00",
+   "plannedArrival": "2026-09-25T06:00:00+09:00",
+   "arrival": "2026-09-25T06:00:00+09:00",
+   "durationHours": 36,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-01",
+   "displayId": "S05-01",
+   "shipId": "S05",
+   "routeId": "B",
+   "fromCallId": "PC-S05-00",
+   "toCallId": "PC-S05-01",
+   "departure": "2026-09-15T09:00:00+09:00",
+   "plannedArrival": "2026-09-16T05:00:00+09:00",
+   "arrival": "2026-09-16T05:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-02",
+   "displayId": "S05-02",
+   "shipId": "S05",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S05-01",
+   "toCallId": "PC-S05-02",
+   "departure": "2026-09-16T14:00:00+09:00",
+   "plannedArrival": "2026-09-17T10:00:00+09:00",
+   "arrival": "2026-09-17T10:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-03",
+   "displayId": "S05-03",
+   "shipId": "S05",
+   "routeId": "B",
+   "fromCallId": "PC-S05-02",
+   "toCallId": "PC-S05-03",
+   "departure": "2026-09-17T19:00:00+09:00",
+   "plannedArrival": "2026-09-18T15:00:00+09:00",
+   "arrival": "2026-09-18T15:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-04",
+   "displayId": "S05-04",
+   "shipId": "S05",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S05-03",
+   "toCallId": "PC-S05-04",
+   "departure": "2026-09-19T00:00:00+09:00",
+   "plannedArrival": "2026-09-19T20:00:00+09:00",
+   "arrival": "2026-09-19T20:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-05",
+   "displayId": "S05-05",
+   "shipId": "S05",
+   "routeId": "B",
+   "fromCallId": "PC-S05-04",
+   "toCallId": "PC-S05-05",
+   "departure": "2026-09-20T05:00:00+09:00",
+   "plannedArrival": "2026-09-21T01:00:00+09:00",
+   "arrival": "2026-09-21T01:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S05-06",
+   "displayId": "S05-06",
+   "shipId": "S05",
+   "routeId": "B-BACK",
+   "fromCallId": "PC-S05-05",
+   "toCallId": "PC-S05-06",
+   "departure": "2026-09-21T10:00:00+09:00",
+   "plannedArrival": "2026-09-22T06:00:00+09:00",
+   "arrival": "2026-09-22T06:00:00+09:00",
+   "durationHours": 20,
+   "performance": null
+  },
+  {
+   "id": "OP-S06-01",
+   "displayId": "S06-01",
+   "shipId": "S06",
+   "routeId": "JP-OUT",
+   "fromCallId": "PC-S06-00",
+   "toCallId": "PC-S06-01",
+   "departure": "2026-09-14T18:00:00+09:00",
+   "plannedArrival": "2026-09-16T10:00:00+09:00",
+   "arrival": "2026-09-16T10:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S06-02",
+   "displayId": "S06-02",
+   "shipId": "S06",
+   "routeId": "JP-KOB",
+   "fromCallId": "PC-S06-01",
+   "toCallId": "PC-S06-02",
+   "departure": "2026-09-16T21:00:00+09:00",
+   "plannedArrival": "2026-09-16T23:00:00+09:00",
+   "arrival": "2026-09-16T23:00:00+09:00",
+   "durationHours": 2,
+   "performance": null
+  },
+  {
+   "id": "OP-S06-03",
+   "displayId": "S06-03",
+   "shipId": "S06",
+   "routeId": "JP-BACK",
+   "fromCallId": "PC-S06-02",
+   "toCallId": "PC-S06-03",
+   "departure": "2026-09-17T07:30:00+09:00",
+   "plannedArrival": "2026-09-19T01:30:00+09:00",
+   "arrival": "2026-09-19T01:30:00+09:00",
+   "durationHours": 42,
+   "performance": null
+  },
+  {
+   "id": "OP-S06-04",
+   "displayId": "S06-04",
+   "shipId": "S06",
+   "routeId": "JP-OUT",
+   "fromCallId": "PC-S06-03",
+   "toCallId": "PC-S06-04",
+   "departure": "2026-09-19T10:30:00+09:00",
+   "plannedArrival": "2026-09-21T02:30:00+09:00",
+   "arrival": "2026-09-21T02:30:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-01",
+   "displayId": "S07-01",
+   "shipId": "S07",
+   "routeId": "C",
+   "fromCallId": "PC-S07-00",
+   "toCallId": "PC-S07-01",
+   "departure": "2026-09-09T08:00:00+09:00",
+   "plannedArrival": "2026-09-11T00:00:00+09:00",
+   "arrival": "2026-09-11T00:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-02",
+   "displayId": "S07-02",
+   "shipId": "S07",
+   "routeId": "AS-KHH",
+   "fromCallId": "PC-S07-01",
+   "toCallId": "PC-S07-02",
+   "departure": "2026-09-11T09:00:00+09:00",
+   "plannedArrival": "2026-09-13T13:00:00+09:00",
+   "arrival": "2026-09-13T13:00:00+09:00",
+   "durationHours": 52,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-03",
+   "displayId": "S07-03",
+   "shipId": "S07",
+   "routeId": "AS-SIN",
+   "fromCallId": "PC-S07-02",
+   "toCallId": "PC-S07-03",
+   "departure": "2026-09-13T22:00:00+09:00",
+   "plannedArrival": "2026-09-18T22:00:00+09:00",
+   "arrival": "2026-09-18T22:00:00+09:00",
+   "durationHours": 120,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-04",
+   "displayId": "S07-04",
+   "shipId": "S07",
+   "routeId": "AS-SIN-BACK",
+   "fromCallId": "PC-S07-03",
+   "toCallId": "PC-S07-04",
+   "departure": "2026-09-19T07:00:00+09:00",
+   "plannedArrival": "2026-09-24T07:00:00+09:00",
+   "arrival": "2026-09-24T07:00:00+09:00",
+   "durationHours": 120,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-05",
+   "displayId": "S07-05",
+   "shipId": "S07",
+   "routeId": "AS-KHH-BACK",
+   "fromCallId": "PC-S07-04",
+   "toCallId": "PC-S07-05",
+   "departure": "2026-09-24T16:00:00+09:00",
+   "plannedArrival": "2026-09-26T20:00:00+09:00",
+   "arrival": "2026-09-26T20:00:00+09:00",
+   "durationHours": 52,
+   "performance": null
+  },
+  {
+   "id": "OP-S07-06",
+   "displayId": "S07-06",
+   "shipId": "S07",
+   "routeId": "C-BACK",
+   "fromCallId": "PC-S07-05",
+   "toCallId": "PC-S07-06",
+   "departure": "2026-09-27T05:00:00+09:00",
+   "plannedArrival": "2026-09-28T21:00:00+09:00",
+   "arrival": "2026-09-28T21:00:00+09:00",
+   "durationHours": 40,
+   "performance": null
+  }
+ ],
+ "bookings": [
+  {
+   "id": "BK-1001",
+   "customerId": "A01",
+   "customerName": "고객 A01",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-01",
+   "dischargeCallId": "PC-S06-02",
+   "containerType": "20GP",
+   "containerCount": 10,
+   "teu": 10,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-16T23:15:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1002",
+   "customerId": "A02",
+   "customerName": "고객 A02",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-01",
+   "dischargeCallId": "PC-S06-02",
+   "containerType": "40HC",
+   "containerCount": 8,
+   "teu": 16,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-16T23:30:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1003",
+   "customerId": "A03",
+   "customerName": "고객 A03",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-01",
+   "dischargeCallId": "PC-S06-03",
+   "containerType": "20GP",
+   "containerCount": 6,
+   "teu": 6,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-19T01:45:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1004",
+   "customerId": "A04",
+   "customerName": "고객 A04",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-00",
+   "dischargeCallId": "PC-S06-01",
+   "containerType": "40HC",
+   "containerCount": 10,
+   "teu": 20,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-16T10:30:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1110",
+   "customerId": "B10",
+   "customerName": "고객 B10",
+   "shipId": "S01",
+   "loadCallId": "PC-S01-00",
+   "dischargeCallId": "PC-S01-01",
+   "containerType": "20GP",
+   "containerCount": 9,
+   "teu": 9,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-12T22:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1111",
+   "customerId": "B11",
+   "customerName": "고객 B11",
+   "shipId": "S01",
+   "loadCallId": "PC-S01-01",
+   "dischargeCallId": "PC-S01-02",
+   "containerType": "40HC",
+   "containerCount": 9,
+   "teu": 18,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-14T19:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1120",
+   "customerId": "B20",
+   "customerName": "고객 B20",
+   "shipId": "S02",
+   "loadCallId": "PC-S02-00",
+   "dischargeCallId": "PC-S02-01",
+   "containerType": "20GP",
+   "containerCount": 10,
+   "teu": 10,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-13T06:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1121",
+   "customerId": "B21",
+   "customerName": "고객 B21",
+   "shipId": "S02",
+   "loadCallId": "PC-S02-01",
+   "dischargeCallId": "PC-S02-02",
+   "containerType": "40HC",
+   "containerCount": 10,
+   "teu": 20,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-14T11:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1130",
+   "customerId": "B30",
+   "customerName": "고객 B30",
+   "shipId": "S03",
+   "loadCallId": "PC-S03-00",
+   "dischargeCallId": "PC-S03-01",
+   "containerType": "20GP",
+   "containerCount": 11,
+   "teu": 11,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-15T02:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1131",
+   "customerId": "B31",
+   "customerName": "고객 B31",
+   "shipId": "S03",
+   "loadCallId": "PC-S03-01",
+   "dischargeCallId": "PC-S03-02",
+   "containerType": "40HC",
+   "containerCount": 11,
+   "teu": 22,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-17T03:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1140",
+   "customerId": "B40",
+   "customerName": "고객 B40",
+   "shipId": "S04",
+   "loadCallId": "PC-S04-00",
+   "dischargeCallId": "PC-S04-01",
+   "containerType": "20GP",
+   "containerCount": 12,
+   "teu": 12,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-15T22:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1141",
+   "customerId": "B41",
+   "customerName": "고객 B41",
+   "shipId": "S04",
+   "loadCallId": "PC-S04-01",
+   "dischargeCallId": "PC-S04-02",
+   "containerType": "40HC",
+   "containerCount": 12,
+   "teu": 24,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-17T19:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1150",
+   "customerId": "B50",
+   "customerName": "고객 B50",
+   "shipId": "S05",
+   "loadCallId": "PC-S05-00",
+   "dischargeCallId": "PC-S05-01",
+   "containerType": "20GP",
+   "containerCount": 13,
+   "teu": 13,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-16T06:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1151",
+   "customerId": "B51",
+   "customerName": "고객 B51",
+   "shipId": "S05",
+   "loadCallId": "PC-S05-01",
+   "dischargeCallId": "PC-S05-02",
+   "containerType": "40HC",
+   "containerCount": 13,
+   "teu": 26,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-17T11:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1160",
+   "customerId": "B60",
+   "customerName": "고객 B60",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-00",
+   "dischargeCallId": "PC-S06-01",
+   "containerType": "20GP",
+   "containerCount": 14,
+   "teu": 14,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-16T11:00:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1161",
+   "customerId": "B61",
+   "customerName": "고객 B61",
+   "shipId": "S06",
+   "loadCallId": "PC-S06-01",
+   "dischargeCallId": "PC-S06-02",
+   "containerType": "40HC",
+   "containerCount": 14,
+   "teu": 28,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-17T00:00:00+09:00",
+   "ownerTeam": "영업 1팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1170",
+   "customerId": "B70",
+   "customerName": "고객 B70",
+   "shipId": "S07",
+   "loadCallId": "PC-S07-00",
+   "dischargeCallId": "PC-S07-01",
+   "containerType": "20GP",
+   "containerCount": 15,
+   "teu": 15,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-11T01:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  },
+  {
+   "id": "BK-1171",
+   "customerId": "B71",
+   "customerName": "고객 B71",
+   "shipId": "S07",
+   "loadCallId": "PC-S07-01",
+   "dischargeCallId": "PC-S07-02",
+   "containerType": "40HC",
+   "containerCount": 15,
+   "teu": 30,
+   "cargoCategory": "일반화물",
+   "promisedArrival": "2026-09-13T14:00:00+09:00",
+   "ownerTeam": "영업 2팀",
+   "bookingStatus": "확정",
+   "reference": "도착 안내 약속 기준"
+  }
+ ],
+ "observations": [
+  {
+   "id": "OBS-OSA-01",
+   "callId": "PC-S06-01",
+   "stage": "discharge",
+   "reportedAt": "2026-09-16T13:30:00+09:00",
+   "completedMoves": 120,
+   "rateMovesPerHour": 30,
+   "normalRateMovesPerHour": 60,
+   "reason": "작업 크레인 1기 점검으로 처리속도 저하",
+   "reportedBy": "오사카 터미널 담당"
+  }
+ ],
+ "sources": [
+  {
+   "id": "WEB-JP",
+   "url": "https://www.sinokor.co.kr/MapRoute/ENIndex?page=2",
+   "usedFor": "항구·터미널·연속 기항·계획 ETA/ETD 필드"
+  },
+  {
+   "id": "WEB-AS",
+   "url": "https://www.sinokor.co.kr/MapRoute/ENIndex?page=3",
+   "usedFor": "여러 항구를 거치는 아시아 서비스 구조"
+  },
+  {
+   "id": "WEB-VSL",
+   "url": "https://www.sinokor.co.kr/en/Vessel-Info.html",
+   "usedFor": "TEU·흘수·선박 제원 필드"
+  },
+  {
+   "id": "WEB-BOOK",
+   "url": "https://www.sinokor.co.kr/Notice/Download?nacd=KR&num=564&seq=1",
+   "usedFor": "부킹·컨테이너·담당·지연 안내 연결 (2019 공개 매뉴얼)"
+  },
+  {
+   "id": "SYN-PORTCALL",
+   "url": "https://dcsa.org/standards/port-call/documentation-port-call",
+   "usedFor": "계획/예상/실제와 항만 작업별 이벤트 구분"
+  }
+ ],
+ "assumptions": {
+  "dischargeRateScope": "보고 후30/40/60회 조건은 오사카 PC-S06-01의 남은 양하에만 적용한다.",
+  "loadingRateBasis": "오사카 선적은 별도 배정 작업조·장비의 계획 속도60회/시간을 적용한다. 해당 자원 계획이 유지되는 조건의 전망이다.",
+  "departureBufferMeaning": "ready는 포함된 필수 준비가 끝난 시각이다. 계획 ready20:00부터 departure21:00까지1시간은 추가 필수 절차가 아닌 흡수 가능한 일정 여유다.",
+  "bookingPromiseBasis": "고객 약속과 비교하는 도착은 목적항 입항이다. 접안·양하 완료·화물 반출 시각으로 바꾸어 비교하지 않는다.",
+  "forecastScope": "모든 작업·위치는 재생 데이터 기준이다. 다른 장비 고장·입출항 통제·날씨·선석 재배정은 이 전망에 추가로 계산하지 않는다."
+ },
+ "historicalVoyages": [
+  {
+   "id": "가상-ST-001",
+   "displayId": "ST-001",
+   "shipId": "S01",
+   "routeId": "A",
+   "departure": "2026-09-01T09:00:00+09:00",
+   "plannedArrival": "2026-09-02T21:00:00+09:00",
+   "arrival": "2026-09-02T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 520,
+    "선적TEU": 520,
+    "롤오버TEU": 0,
+    "운임수입USD": 109200
+   }
+  },
+  {
+   "id": "가상-ST-002",
+   "displayId": "ST-002",
+   "shipId": "S02",
+   "routeId": "B",
+   "departure": "2026-09-02T09:00:00+09:00",
+   "plannedArrival": "2026-09-03T05:00:00+09:00",
+   "arrival": "2026-09-03T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 607,
+    "선적TEU": 597,
+    "롤오버TEU": 10,
+    "운임수입USD": 140295
+   }
+  },
+  {
+   "id": "가상-ST-003",
+   "displayId": "ST-003",
+   "shipId": "S03",
+   "routeId": "C",
+   "departure": "2026-09-03T09:00:00+09:00",
+   "plannedArrival": "2026-09-05T01:00:00+09:00",
+   "arrival": "2026-09-05T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 694,
+    "선적TEU": 674,
+    "롤오버TEU": 20,
+    "운임수입USD": 175240
+   }
+  },
+  {
+   "id": "가상-ST-004",
+   "displayId": "ST-004",
+   "shipId": "S04",
+   "routeId": "A",
+   "departure": "2026-09-04T09:00:00+09:00",
+   "plannedArrival": "2026-09-05T21:00:00+09:00",
+   "arrival": "2026-09-05T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 781,
+    "선적TEU": 751,
+    "롤오버TEU": 30,
+    "운임수입USD": 157710
+   }
+  },
+  {
+   "id": "가상-ST-005",
+   "displayId": "ST-005",
+   "shipId": "S05",
+   "routeId": "B",
+   "departure": "2026-09-05T09:00:00+09:00",
+   "plannedArrival": "2026-09-06T05:00:00+09:00",
+   "arrival": "2026-09-06T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 828,
+    "선적TEU": 828,
+    "롤오버TEU": 0,
+    "운임수입USD": 194580
+   }
+  },
+  {
+   "id": "가상-ST-006",
+   "displayId": "ST-006",
+   "shipId": "S01",
+   "routeId": "C",
+   "departure": "2026-09-06T09:00:00+09:00",
+   "plannedArrival": "2026-09-08T01:00:00+09:00",
+   "arrival": "2026-09-08T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 415,
+    "선적TEU": 405,
+    "롤오버TEU": 10,
+    "운임수입USD": 105300
+   }
+  },
+  {
+   "id": "가상-ST-007",
+   "displayId": "ST-007",
+   "shipId": "S02",
+   "routeId": "A",
+   "departure": "2026-09-07T09:00:00+09:00",
+   "plannedArrival": "2026-09-08T21:00:00+09:00",
+   "arrival": "2026-09-08T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 502,
+    "선적TEU": 482,
+    "롤오버TEU": 20,
+    "운임수입USD": 101220
+   }
+  },
+  {
+   "id": "가상-ST-008",
+   "displayId": "ST-008",
+   "shipId": "S03",
+   "routeId": "B",
+   "departure": "2026-09-08T09:00:00+09:00",
+   "plannedArrival": "2026-09-09T05:00:00+09:00",
+   "arrival": "2026-09-09T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 589,
+    "선적TEU": 559,
+    "롤오버TEU": 30,
+    "운임수입USD": 131365
+   }
+  },
+  {
+   "id": "가상-ST-009",
+   "displayId": "ST-009",
+   "shipId": "S04",
+   "routeId": "C",
+   "departure": "2026-09-09T09:00:00+09:00",
+   "plannedArrival": "2026-09-11T01:00:00+09:00",
+   "arrival": "2026-09-11T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 636,
+    "선적TEU": 636,
+    "롤오버TEU": 0,
+    "운임수입USD": 165360
+   }
+  },
+  {
+   "id": "가상-ST-010",
+   "displayId": "ST-010",
+   "shipId": "S05",
+   "routeId": "A",
+   "departure": "2026-09-10T09:00:00+09:00",
+   "plannedArrival": "2026-09-11T21:00:00+09:00",
+   "arrival": "2026-09-11T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 723,
+    "선적TEU": 713,
+    "롤오버TEU": 10,
+    "운임수입USD": 149730
+   }
+  },
+  {
+   "id": "가상-ST-011",
+   "displayId": "ST-011",
+   "shipId": "S01",
+   "routeId": "B",
+   "departure": "2026-09-11T09:00:00+09:00",
+   "plannedArrival": "2026-09-12T05:00:00+09:00",
+   "arrival": "2026-09-12T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 530,
+    "선적TEU": 510,
+    "롤오버TEU": 20,
+    "운임수입USD": 119850
+   }
+  },
+  {
+   "id": "가상-ST-012",
+   "displayId": "ST-012",
+   "shipId": "S02",
+   "routeId": "C",
+   "departure": "2026-09-12T09:00:00+09:00",
+   "plannedArrival": "2026-09-14T01:00:00+09:00",
+   "arrival": "2026-09-14T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 617,
+    "선적TEU": 587,
+    "롤오버TEU": 30,
+    "운임수입USD": 152620
+   }
+  },
+  {
+   "id": "가상-ST-013",
+   "displayId": "ST-013",
+   "shipId": "S03",
+   "routeId": "A",
+   "departure": "2026-09-13T09:00:00+09:00",
+   "plannedArrival": "2026-09-14T21:00:00+09:00",
+   "arrival": "2026-09-15T03:00:00+09:00",
+   "delayKnownAt": "2026-09-14T18:00:00+09:00",
+   "delayReason": "선석 혼잡",
+   "portEventId": "TAO-0914",
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 664,
+    "선적TEU": 664,
+    "롤오버TEU": 0,
+    "운임수입USD": 139440
+   }
+  },
+  {
+   "id": "가상-ST-014",
+   "displayId": "ST-014",
+   "shipId": "S04",
+   "routeId": "B",
+   "departure": "2026-09-14T09:00:00+09:00",
+   "plannedArrival": "2026-09-15T05:00:00+09:00",
+   "arrival": "2026-09-15T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 751,
+    "선적TEU": 741,
+    "롤오버TEU": 10,
+    "운임수입USD": 174135
+   }
+  },
+  {
+   "id": "가상-ST-015",
+   "displayId": "ST-015",
+   "shipId": "S05",
+   "routeId": "C",
+   "departure": "2026-09-15T09:00:00+09:00",
+   "plannedArrival": "2026-09-17T01:00:00+09:00",
+   "arrival": "2026-09-17T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 838,
+    "선적TEU": 818,
+    "롤오버TEU": 20,
+    "운임수입USD": 212680
+   }
+  },
+  {
+   "id": "가상-ST-016",
+   "displayId": "ST-016",
+   "shipId": "S01",
+   "routeId": "A",
+   "departure": "2026-09-16T09:00:00+09:00",
+   "plannedArrival": "2026-09-17T21:00:00+09:00",
+   "arrival": "2026-09-17T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 425,
+    "선적TEU": 395,
+    "롤오버TEU": 30,
+    "운임수입USD": 82950
+   }
+  },
+  {
+   "id": "가상-ST-017",
+   "displayId": "ST-017",
+   "shipId": "S02",
+   "routeId": "B",
+   "departure": "2026-09-17T09:00:00+09:00",
+   "plannedArrival": "2026-09-18T05:00:00+09:00",
+   "arrival": "2026-09-18T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 472,
+    "선적TEU": 472,
+    "롤오버TEU": 0,
+    "운임수입USD": 110920
+   }
+  },
+  {
+   "id": "가상-ST-018",
+   "displayId": "ST-018",
+   "shipId": "S03",
+   "routeId": "C",
+   "departure": "2026-09-18T09:00:00+09:00",
+   "plannedArrival": "2026-09-20T01:00:00+09:00",
+   "arrival": "2026-09-20T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 559,
+    "선적TEU": 549,
+    "롤오버TEU": 10,
+    "운임수입USD": 142740
+   }
+  },
+  {
+   "id": "가상-ST-019",
+   "displayId": "ST-019",
+   "shipId": "S04",
+   "routeId": "A",
+   "departure": "2026-09-19T09:00:00+09:00",
+   "plannedArrival": "2026-09-20T21:00:00+09:00",
+   "arrival": "2026-09-20T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 646,
+    "선적TEU": 626,
+    "롤오버TEU": 20,
+    "운임수입USD": 131460
+   }
+  },
+  {
+   "id": "가상-ST-020",
+   "displayId": "ST-020",
+   "shipId": "S05",
+   "routeId": "B",
+   "departure": "2026-09-20T09:00:00+09:00",
+   "plannedArrival": "2026-09-21T05:00:00+09:00",
+   "arrival": "2026-09-21T08:00:00+09:00",
+   "delayKnownAt": "2026-09-20T23:00:00+09:00",
+   "delayReason": "접안 순서 조정",
+   "portEventId": "WEH-0920",
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 733,
+    "선적TEU": 703,
+    "롤오버TEU": 30,
+    "운임수입USD": 165205
+   }
+  },
+  {
+   "id": "가상-ST-021",
+   "displayId": "ST-021",
+   "shipId": "S01",
+   "routeId": "C",
+   "departure": "2026-09-21T09:00:00+09:00",
+   "plannedArrival": "2026-09-23T01:00:00+09:00",
+   "arrival": "2026-09-23T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 500,
+    "선적TEU": 500,
+    "롤오버TEU": 0,
+    "운임수입USD": 130000
+   }
+  },
+  {
+   "id": "가상-ST-022",
+   "displayId": "ST-022",
+   "shipId": "S02",
+   "routeId": "A",
+   "departure": "2026-09-22T09:00:00+09:00",
+   "plannedArrival": "2026-09-23T21:00:00+09:00",
+   "arrival": "2026-09-23T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 587,
+    "선적TEU": 577,
+    "롤오버TEU": 10,
+    "운임수입USD": 121170
+   }
+  },
+  {
+   "id": "가상-ST-023",
+   "displayId": "ST-023",
+   "shipId": "S03",
+   "routeId": "B",
+   "departure": "2026-09-23T09:00:00+09:00",
+   "plannedArrival": "2026-09-24T05:00:00+09:00",
+   "arrival": "2026-09-24T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 674,
+    "선적TEU": 654,
+    "롤오버TEU": 20,
+    "운임수입USD": 153690
+   }
+  },
+  {
+   "id": "가상-ST-024",
+   "displayId": "ST-024",
+   "shipId": "S04",
+   "routeId": "C",
+   "departure": "2026-09-24T09:00:00+09:00",
+   "plannedArrival": "2026-09-26T01:00:00+09:00",
+   "arrival": "2026-09-26T05:00:00+09:00",
+   "delayKnownAt": "2026-09-25T22:00:00+09:00",
+   "delayReason": "선석 혼잡",
+   "portEventId": "SHA-0925",
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 761,
+    "선적TEU": 731,
+    "롤오버TEU": 30,
+    "운임수입USD": 190060
+   }
+  },
+  {
+   "id": "가상-ST-025",
+   "displayId": "ST-025",
+   "shipId": "S05",
+   "routeId": "A",
+   "departure": "2026-09-25T09:00:00+09:00",
+   "plannedArrival": "2026-09-26T21:00:00+09:00",
+   "arrival": "2026-09-26T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 808,
+    "선적TEU": 808,
+    "롤오버TEU": 0,
+    "운임수입USD": 169680
+   }
+  },
+  {
+   "id": "가상-ST-026",
+   "displayId": "ST-026",
+   "shipId": "S01",
+   "routeId": "B",
+   "departure": "2026-09-26T09:00:00+09:00",
+   "plannedArrival": "2026-09-27T05:00:00+09:00",
+   "arrival": "2026-09-27T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 600,
+    "확정부킹TEU": 395,
+    "선적TEU": 385,
+    "롤오버TEU": 10,
+    "운임수입USD": 90475
+   }
+  },
+  {
+   "id": "가상-ST-027",
+   "displayId": "ST-027",
+   "shipId": "S02",
+   "routeId": "C",
+   "departure": "2026-09-27T09:00:00+09:00",
+   "plannedArrival": "2026-09-29T01:00:00+09:00",
+   "arrival": "2026-09-29T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 700,
+    "확정부킹TEU": 482,
+    "선적TEU": 462,
+    "롤오버TEU": 20,
+    "운임수입USD": 120120
+   }
+  },
+  {
+   "id": "가상-ST-028",
+   "displayId": "ST-028",
+   "shipId": "S03",
+   "routeId": "A",
+   "departure": "2026-09-28T09:00:00+09:00",
+   "plannedArrival": "2026-09-29T21:00:00+09:00",
+   "arrival": "2026-09-29T21:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 800,
+    "확정부킹TEU": 569,
+    "선적TEU": 539,
+    "롤오버TEU": 30,
+    "운임수입USD": 113190
+   }
+  },
+  {
+   "id": "가상-ST-029",
+   "displayId": "ST-029",
+   "shipId": "S04",
+   "routeId": "B",
+   "departure": "2026-09-29T09:00:00+09:00",
+   "plannedArrival": "2026-09-30T05:00:00+09:00",
+   "arrival": "2026-09-30T05:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 900,
+    "확정부킹TEU": 616,
+    "선적TEU": 616,
+    "롤오버TEU": 0,
+    "운임수입USD": 144760
+   }
+  },
+  {
+   "id": "가상-ST-030",
+   "displayId": "ST-030",
+   "shipId": "S05",
+   "routeId": "C",
+   "departure": "2026-09-30T09:00:00+09:00",
+   "plannedArrival": "2026-10-02T01:00:00+09:00",
+   "arrival": "2026-10-02T01:00:00+09:00",
+   "delayKnownAt": null,
+   "delayReason": "",
+   "portEventId": null,
+   "performance": {
+    "총선복TEU": 1000,
+    "확정부킹TEU": 923,
+    "선적TEU": 913,
+    "롤오버TEU": 10,
+    "운임수입USD": 237380
+   }
+  }
+ ],
+ "historicalRoutes": [
+  {
+   "id": "A",
+   "sourceRoute": "가상 한중 A",
+   "name": "한중 A",
+   "from": "BUS",
+   "to": "TAO",
+   "durationHours": 36,
+   "path": [
+    [
+     35.074,
+     129.076
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     33.75,
+     126.8
+    ],
+    [
+     33.5,
+     125
+    ],
+    [
+     34.5,
+     122.3
+    ],
+    [
+     35.3,
+     121
+    ],
+    [
+     35.72,
+     120.42
+    ],
+    [
+     35.955,
+     120.205
+    ]
+   ]
+  },
+  {
+   "id": "B",
+   "sourceRoute": "가상 한중 B",
+   "name": "한중 B",
+   "from": "INC",
+   "to": "WEH",
+   "durationHours": 20,
+   "path": [
+    [
+     37.438,
+     126.586
+    ],
+    [
+     37.1,
+     125.9
+    ],
+    [
+     37.2,
+     124.8
+    ],
+    [
+     37.3,
+     123.3
+    ],
+    [
+     37.51,
+     122.154
+    ]
+   ]
+  },
+  {
+   "id": "C",
+   "sourceRoute": "가상 한중 C",
+   "name": "한중 C",
+   "from": "BUS",
+   "to": "SHA",
+   "durationHours": 40,
+   "path": [
+    [
+     35.074,
+     129.076
+    ],
+    [
+     34.3,
+     129
+    ],
+    [
+     33.8,
+     127.8
+    ],
+    [
+     32.6,
+     126.8
+    ],
+    [
+     31.3,
+     124
+    ],
+    [
+     30.5,
+     122.8
+    ],
+    [
+     30.63,
+     122.06
+    ]
+   ]
+  }
+ ],
+ "generatedAt": "2026-09-14T01:57:14.562Z",
+ "performanceSource": [
+  "가상_항차일정.csv",
+  "가상_선복실적.csv",
+  "가상_운임실적.csv"
+ ]
+}
