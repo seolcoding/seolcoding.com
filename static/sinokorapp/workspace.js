@@ -7,6 +7,10 @@
   const ITERATIONS = 600000;
   const SAVE_DELAY_MS = 400;
   const MIN_PASSWORD = 8;
+  // 공개 체험용 자격 정보다. 실제 계정이나 비밀 정보가 아니며 데이터는 이 브라우저에만 암호화해 저장한다.
+  const DEMO_ID = 'sinokor';
+  const DEMO_PASSWORD = 'sinokor1234';
+  const DEMO_NAME = '공개 체험';
   const ID_RULE = /^[\p{L}\p{N}_-]{2,32}$/u;
   const $ = (id) => document.getElementById(id);
   const pad = (n) => String(n).padStart(2, '0');
@@ -187,7 +191,7 @@
     $('workspaceSubmit').textContent = creating ? '작업공간 만들기' : '로그인';
     $('workspaceHint').textContent = creating
       ? '아이디·이름·비밀번호는 직접 정합니다. 비밀번호를 잊으면 이 작업공간의 기록을 열 수 없습니다.'
-      : '만들 때 정한 아이디와 비밀번호를 입력하세요.';
+      : `공개 가상 교육용 계정 · 아이디 ${DEMO_ID} · 비밀번호 ${DEMO_PASSWORD}`;
     clearError();
   }
 
@@ -220,8 +224,8 @@
   function showGate(id) {
     const ids = listIds();
     $('workspaceIds').innerHTML = ids.map((x) => `<option value="${x.replace(/[&<>"']/g, '')}"></option>`).join('');
-    setMode(ids.length ? 'login' : 'create');
-    $('workspaceId').value = id || (ids.length === 1 ? ids[0] : '');
+    setMode('login');
+    $('workspaceId').value = id || DEMO_ID;
     $('workspaceName').value = '';
     clearPasswords();
     for (const el of lockTargets()) el.inert = true;
@@ -268,6 +272,9 @@
       const password = $('workspacePassword').value;
       app = await appReady;
       if (mode === 'create') await create(id, name, password);
+      else if (id === DEMO_ID && password === DEMO_PASSWORD && localStorage.getItem(storageKey(id)) === null) {
+        await create(DEMO_ID, DEMO_NAME, DEMO_PASSWORD);
+      }
       else await login(id, password);
     } catch (err) {
       if (!err.userMessage) console.error(err);
