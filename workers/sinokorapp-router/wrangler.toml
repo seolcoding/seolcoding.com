@@ -1,0 +1,8 @@
+name = "sinokorapp-router"
+main = "src/index.js"
+compatibility_date = "2026-09-14"
+workers_dev = false
+
+[[routes]]
+pattern = "seolcoding.com/sinokorapp*"
+zone_name = "seolcoding.com"
