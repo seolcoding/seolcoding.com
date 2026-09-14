@@ -1,0 +1,519 @@
+/* 가온물산 인사·총무 앱 — 공개 시연용 (seolcoding.com/erp) · 교육용 가상 자료
+ *
+ * 구조 (위에서 아래 순서)
+ *   :root 변수      색·여백·모서리·글꼴 — DESIGN.md §12 값. 여기 없는 색은 쓰지 않습니다.
+ *   배너·머리·탭     항상 보이는 상단 영역
+ *   버튼·표·배지·폼  화면 안에서 반복해서 쓰는 부품
+ *   명세·확인 창     급여 명세 카드, 초기화 확인 창
+ *   시연용 추가      소개 패널 · 따라해보기 가이드 · 툴팁 · "이 위치 보기" 강조 (맨 아래 "시연용" 절)
+ *   좁은 화면        767px 이하에서 표를 접고 여백을 줄임
+ *
+ * 외부 글꼴·CDN 을 쓰지 않고 시스템 글꼴만 씁니다. */
+
+:root {
+  /* 면 */
+  --bg:            #ffffff;
+  --surface-soft:  #f8f9fa;
+  --surface-card:  #f5f5f5;
+  --line:          #e5e7eb;
+  --line-soft:     #f3f4f6;
+
+  /* 글자 */
+  --ink:           #111111;
+  --body:          #374151;
+  --muted:         #6b7280;
+  --muted-soft:    #898989;
+  --on-dark:       #ffffff;
+
+  /* 동작 */
+  --primary:        #111111;
+  --primary-active: #242424;
+  --disabled-bg:    #e5e7eb;
+
+  /* 상태 */
+  --pending:  #f59e0b;   /* 대기 */
+  --approved: #10b981;   /* 승인 */
+  --rejected: #ef4444;   /* 반려 · 오류 문구 */
+
+  /* 여백 */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-6: 24px; --sp-8: 32px; --sp-12: 48px;
+
+  /* 모서리 */
+  --r-md: 8px;  --r-lg: 12px; --r-pill: 9999px;
+
+  /* 글꼴 — 별도 설치 없이 한글을 표시하기 위한 시스템 글꼴 (DESIGN.md §3-1) */
+  --font: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic",
+          "맑은 고딕", "Noto Sans KR", sans-serif;
+
+  /* 그림자 */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.가운데 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--sp-6);
+  padding-right: var(--sp-6);
+}
+
+/* ── 교육용 배너 (DESIGN.md §6) ─────────────────────────── */
+.교육용배너 {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface-card);
+  border-left: 3px solid var(--pending);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  padding: var(--sp-3) var(--sp-4);
+  margin: var(--sp-2) var(--sp-6);
+}
+
+/* ── 머리 · 탭 ──────────────────────────────────────────── */
+.앱머리 .가운데 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-top: var(--sp-6);
+  padding-bottom: var(--sp-4);
+}
+
+.앱제목 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+
+.탭영역 { border-bottom: 1px solid var(--line-soft); }
+.탭영역 .가운데 { padding-bottom: var(--sp-4); }
+
+.탭묶음 {
+  display: inline-flex;
+  gap: var(--sp-1);
+  background: var(--surface-soft);
+  border-radius: var(--r-pill);
+  padding: 6px;
+}
+
+.탭 {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  padding: var(--sp-2) 14px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.탭-활성 {
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.본문 { padding-top: var(--sp-12); padding-bottom: var(--sp-12); }
+
+.화면제목 {
+  margin: 0 0 var(--sp-6);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+}
+
+.덩어리 + .덩어리 { margin-top: var(--sp-8); }
+
+.카드제목 {
+  margin: 0 0 var(--sp-4);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.설명 { margin: 0 0 var(--sp-4); font-size: 14px; color: var(--muted); }
+
+/* ── 버튼 (DESIGN.md §5) ────────────────────────────────── */
+.버튼 {
+  height: 40px;
+  padding: var(--sp-3) 20px;
+  border-radius: var(--r-md);
+  border: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--on-dark);
+}
+.버튼:active { background: var(--primary-active); }
+
+.버튼-보조 {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.버튼-보조:active { background: var(--surface-card); }
+
+.버튼-위험 {
+  background: var(--bg);
+  color: var(--rejected);
+  border: 1px solid var(--rejected);
+}
+.버튼-위험:active { background: var(--surface-card); }
+
+.버튼[disabled],
+.버튼-보조[disabled] {
+  background: var(--disabled-bg);
+  color: var(--muted);
+  border-color: var(--disabled-bg);
+  cursor: not-allowed;
+}
+
+.버튼줄 { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+/* ── 표 (DESIGN.md §4-3) ────────────────────────────────── */
+.표감쌈 {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+table { width: 100%; border-collapse: collapse; }
+
+thead th {
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: 14px;
+  color: var(--body);
+  border-top: 1px solid var(--line-soft);
+  min-height: 44px;
+}
+
+tbody tr td:first-child { color: var(--ink); }
+
+.강조 { color: var(--ink); font-weight: 600; }
+
+/* 금액·일수 — 오른쪽 정렬, 자릿수 고정 (DESIGN.md §3-3) */
+.수 {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+th.수 { text-align: right; }
+
+.합계줄 td {
+  background: var(--surface-card);
+  color: var(--ink);
+  font-weight: 600;
+  border-top: 1px solid var(--line);
+}
+
+/* ── 상태 배지 (DESIGN.md §7) ───────────────────────────── */
+.배지 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-card);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--r-pill);
+  padding: var(--sp-1) var(--sp-3);
+  white-space: nowrap;
+}
+
+.배지 .점 {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  flex: none;
+}
+.배지-대기 .점 { background: var(--pending); }
+.배지-승인 .점 { background: var(--approved); }
+.배지-반려 .점 { background: var(--rejected); }
+
+/* ── 입력 폼 (DESIGN.md §8) ─────────────────────────────── */
+.폼 {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+}
+
+.칸모음 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.칸 { display: flex; flex-direction: column; }
+
+.칸 label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: var(--sp-2);
+}
+
+.칸 input,
+.칸 select {
+  height: 40px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+}
+
+.칸 input:focus,
+.칸 select:focus { outline: none; border-color: var(--ink); }
+
+.칸-막힘 input,
+.칸-막힘 select { border-color: var(--rejected); }
+
+.안내문구 {
+  margin-top: var(--sp-1);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--rejected);
+  min-height: 18px;
+}
+
+.줄안내 {
+  margin: var(--sp-1) 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--rejected);
+}
+
+/* ── 가상 명세 (레퍼런스.md flex 참고 · 지급/공제/실지급액 3단) ── */
+.명세 {
+  background: var(--surface-card);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+}
+
+.명세단 + .명세단 { margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--line); }
+.명세단 h4 { margin: 0 0 var(--sp-2); font-size: 16px; font-weight: 600; color: var(--ink); }
+
+.명세줄 {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  font-size: 14px;
+  padding: var(--sp-1) 0;
+}
+.명세줄 span:last-child { font-variant-numeric: tabular-nums; }
+
+.명세합 {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.명세합 span:last-child { font-variant-numeric: tabular-nums; }
+
+/* ── 확인 창 (DESIGN.md §8-3) ───────────────────────────── */
+.덮개 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  z-index: 50;
+}
+.덮개[hidden] { display: none; }
+
+.확인창 {
+  background: var(--bg);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+.확인제목 { margin: 0 0 var(--sp-2); font-size: 18px; font-weight: 600; color: var(--ink); }
+.확인문구 { margin: 0 0 var(--sp-6); font-size: 14px; color: var(--body); }
+.확인버튼줄 { display: flex; gap: var(--sp-2); justify-content: flex-end; }
+
+/* ── 기타 ───────────────────────────────────────────────── */
+.검색줄 { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-bottom: var(--sp-4); }
+.검색줄 input, .검색줄 select {
+  height: 40px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+}
+.검색줄 input:focus, .검색줄 select:focus { outline: none; border-color: var(--ink); }
+
+.꼬리말 {
+  padding-top: var(--sp-6);
+  padding-bottom: var(--sp-12);
+  font-size: 13px;
+  color: var(--muted-soft);
+  border-top: 1px solid var(--line-soft);
+}
+
+.불러오는중 { color: var(--muted); }
+
+/* 직원 상세와 비품도 기존 DESIGN.md의 색·여백·모서리를 사용합니다. */
+.이름버튼 { border: 0; padding: 4px 0; font: inherit; font-weight: 600; color: var(--ink); background: none; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.이름버튼:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.직원상세 { margin-top: var(--sp-12); padding-top: var(--sp-8); border-top: 1px solid var(--line); }
+.요약카드묶음 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--sp-4); margin-bottom: var(--sp-8); }
+.요약카드 { padding: var(--sp-6); background: var(--surface-soft); border: 1px solid var(--line); border-radius: var(--r-lg); display: flex; flex-direction: column; gap: var(--sp-2); }
+.요약카드 span, .요약카드 small { font-size: 13px; color: var(--muted); }
+.요약카드 strong { font-size: 24px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.비품처리 { display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; }
+.비품처리 select { max-width: 100%; min-height: 40px; padding: 8px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); font: inherit; }
+.배지-배정 .점 { background: var(--approved); }
+.배지-미배정 .점 { background: var(--muted); }
+.표감쌈 { overflow-x: auto; }
+
+/* ═══ 시연용 추가 — 소개 패널 · 가이드 · 툴팁 · 강조 ═══════════ */
+
+/* 머리: 제목 + 부제, 오른쪽에 설명 보기·초기화 버튼 */
+.제목묶음 { min-width: 0; }
+.부제 { margin: var(--sp-1) 0 0; font-size: 14px; color: var(--muted); }
+.머리버튼줄 { display: flex; gap: var(--sp-2); flex-wrap: wrap; align-items: center; }
+.작은버튼 { height: 32px; padding: 6px 12px; font-size: 13px; }
+.버튼-켜짐 { background: var(--primary); color: var(--on-dark); border-color: var(--primary); }
+.버튼-켜짐:active { background: var(--primary-active); }
+/* 설명 보기 모드가 켜지면 설명이 있는 요소 위에 "?" 커서 */
+body.도움말모드 [data-tip] { cursor: help; }
+
+/* 소개 패널 · 가이드 패널 — 카드 하나씩, 머리에 접기 버튼 */
+.소개패널, .가이드패널 { margin-top: var(--sp-4); }
+.소개패널 > .패널머리, .소개패널 > .패널내용,
+.가이드패널 > .패널머리, .가이드패널 > .패널내용 { max-width: none; }
+.패널머리 {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface-soft); padding: var(--sp-3) var(--sp-4);
+}
+.패널머리:has(+ .패널내용:not([hidden])) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 0; }
+.패널제목 { margin: 0; font-size: 16px; font-weight: 600; color: var(--ink); }
+.패널내용 {
+  border: 1px solid var(--line); border-top: 0;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  padding: var(--sp-4);
+}
+.패널내용[hidden] { display: none; }
+.소개한줄 { margin: 0 0 var(--sp-4); font-size: 14px; color: var(--body); }
+.소개격자 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-3); }
+.소개카드 { background: var(--surface-card); border-radius: var(--r-md); padding: var(--sp-4); font-size: 13px; color: var(--body); }
+.소개카드 h3 { margin: 0 0 var(--sp-2); font-size: 14px; font-weight: 600; color: var(--ink); }
+.소개카드 ul { margin: 0; padding-left: 18px; }
+.소개카드 li + li { margin-top: var(--sp-1); }
+.소개카드 p { margin: 0 0 var(--sp-2); }
+.소개식 { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; letter-spacing: 0.2px; }
+
+/* 가이드 — 시나리오마다 details 하나, 단계는 번호 목록 */
+.가이드목록 { display: grid; gap: var(--sp-2); }
+.가이드 { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); }
+.가이드 summary {
+  cursor: pointer; padding: var(--sp-3) var(--sp-4); list-style: none;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.가이드 summary::-webkit-details-marker { display: none; }
+.가이드 summary::before { content: '▸ '; color: var(--muted); }
+.가이드[open] summary::before { content: '▾ '; }
+.가이드제목 { font-size: 14px; font-weight: 600; color: var(--ink); }
+.가이드요약 { font-size: 13px; color: var(--muted); }
+.가이드단계 { margin: 0; padding: 0 var(--sp-4) var(--sp-4) 36px; font-size: 14px; color: var(--body); }
+.가이드단계 li { margin-top: var(--sp-2); line-height: 1.6; }
+.가이드단계 em { font-style: normal; color: var(--pending); font-weight: 600; }
+.위치버튼 { margin-left: var(--sp-1); vertical-align: middle; white-space: nowrap; }
+
+/* "이 위치 보기" 강조 — 2초간 노란 테두리가 부드럽게 깜빡임 */
+.가이드강조 { animation: 가이드깜빡 0.7s ease-in-out 3; outline: 3px solid var(--pending); outline-offset: 2px; border-radius: var(--r-md); }
+tr.가이드강조 { outline-offset: -3px; }
+tr.가이드강조 td { background: #fff7e6; }
+@keyframes 가이드깜빡 { 0%, 100% { outline-color: var(--pending); } 50% { outline-color: transparent; } }
+
+/* 툴팁 — 화면에 하나뿐인 #툴팁 상자를 app.js 가 옮겨 가며 보여 줌 */
+.툴팁 {
+  position: absolute; z-index: 60;
+  max-width: min(320px, calc(100vw - 16px));
+  background: var(--ink); color: var(--on-dark);
+  font-size: 13px; line-height: 1.5; font-weight: 400;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  white-space: normal; word-break: keep-all;
+}
+.툴팁[hidden] { display: none; }
+.툴팁::before {
+  content: ''; position: absolute; left: 50%; top: -5px; margin-left: -5px;
+  border: 5px solid transparent; border-top: 0; border-bottom-color: var(--ink);
+}
+.툴팁-위::before { top: auto; bottom: -5px; border-top: 5px solid var(--ink); border-bottom: 0; }
+/* 설명이 있는 표 머리글·배지·카드는 점선 밑줄로 "올려 보면 설명이 있다"는 신호 */
+th[data-tip] { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+.배지[data-tip], .요약카드[data-tip], .명세합[data-tip] { cursor: help; }
+th[data-tip]:focus-visible, .배지:focus-visible, .요약카드:focus-visible, .명세합:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ── 좁은 화면 (DESIGN.md §11) ──────────────────────────── */
+@media (max-width: 767px) {
+  .가운데 { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+  .교육용배너 { margin-left: var(--sp-4); margin-right: var(--sp-4); }
+  .본문 { padding-top: var(--sp-8); padding-bottom: var(--sp-8); }
+  .탭영역 .가운데 { overflow-x: auto; }
+  .앱머리 .가운데 { flex-wrap: wrap; }
+  .앱제목 { font-size: 22px; }
+  /* 급여 표는 직원·실지급액만 남기고 접음 */
+  .급여표 .접힘 { display: none; }
+  .요약카드묶음 { grid-template-columns: 1fr; }
+  .칸 input, .칸 select { min-width: 0; width: 100%; }
+  .소개격자 { grid-template-columns: 1fr; }
+  .가이드단계 { padding-left: 28px; }
+  /* 표는 글자를 세로로 쪼개지 않고 가로 스크롤(.표감쌈 overflow-x)로 봅니다 */
+  tbody td { white-space: nowrap; }
+  tbody td .줄안내, tbody td .설명 { white-space: normal; min-width: 160px; }
+  .위치버튼 { display: inline-block; margin: var(--sp-1) 0 0; }
+}

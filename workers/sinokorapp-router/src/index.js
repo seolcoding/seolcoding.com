@@ -1,7 +1,12 @@
+const PROXIED_PREFIXES = ["/sinokorapp", "/erp"];
+
 export default {
   async fetch(request) {
     const incoming = new URL(request.url);
-    if (incoming.pathname === "/sinokorapp" || incoming.pathname.startsWith("/sinokorapp/")) {
+    const proxied = PROXIED_PREFIXES.some(
+      (prefix) => incoming.pathname === prefix || incoming.pathname.startsWith(`${prefix}/`),
+    );
+    if (proxied) {
       const upstream = new URL(incoming.pathname + incoming.search, "https://seolcoding.pages.dev");
       return fetch(new Request(upstream, request));
     }

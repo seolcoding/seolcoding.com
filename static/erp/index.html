@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  가온물산 인사·총무 앱 — 공개 시연용 (seolcoding.com/erp)
+
+  파일 역할
+  · index.html  : 화면의 뼈대. 고정된 영역(배너·머리·소개 패널·따라해보기 가이드·탭·확인 창)만 여기 있고,
+                  탭 안의 내용(직원·휴가·급여·비품)은 app.js 가 상황에 맞게 그려 넣습니다.
+  · styles.css  : 색·여백·글꼴 등 겉모습. 툴팁·소개 패널·가이드 강조 효과도 여기서 정의합니다.
+  · app.js      : 자료 불러오기·저장·계산·화면 그리기·버튼 동작·툴팁·가이드 로직.
+  · data/erp-demo-data.json : 처음 화면에 보이는 가상 자료(직원 12·휴가 6·급여 12·비품 6).
+
+  구조 (위에서 아래로)
+  1. 교육용 배너            항상 맨 위에 붙어 "가상 자료"임을 알립니다.
+  2. 앱 머리                제목 · 설명 보기 모드 버튼 · 가상 데이터 초기화 버튼
+  3. 소개 패널 (접기 가능)   이 앱이 무엇인지, 화면별 역할, 계산 규칙, 저장 방식
+  4. 따라해보기 가이드       4개 시나리오 · "이 위치 보기" 버튼으로 해당 화면으로 이동
+  5. 탭 (직원·휴가·급여·비품) 누르면 app.js 가 #본문 을 다시 그립니다.
+  6. #본문                  탭 내용이 들어가는 자리
+  7. 초기화 확인 창          초기화 버튼을 눌렀을 때만 보입니다.
+
+  모든 경로는 상대경로라서 /erp/ 처럼 하위 주소에서도 그대로 동작합니다. 외부 CDN·폰트·분석 스크립트는 쓰지 않습니다.
+-->
+<title>가온물산 인사·총무 ERP 시연 — 교육용 가상 자료</title>
+<meta name="description" content="Claude Code로 만든 교육용 가상 인사·총무 ERP 시연입니다. 직원·휴가·급여·비품 화면을 마우스 호버 설명과 따라해보기 가이드로 살펴볼 수 있습니다. 모든 자료는 가상입니다.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 교육용 표시 · 항상 화면 맨 위에 고정 (DESIGN.md §6) -->
+<div class="교육용배너" role="note">
+  교육용 가상 자료 — 실제 인사 정보가 아닙니다 · 공개 시연용 (seolcoding.com/erp)
+</div>
+
+<header class="앱머리">
+  <div class="가운데">
+    <div class="제목묶음">
+      <h1 class="앱제목">가온물산 인사·총무 앱</h1>
+      <p class="부제">가상 회사 "가온물산(주)"의 직원·휴가·급여·비품을 한 화면에서 다루는 작은 ERP 시연</p>
+    </div>
+    <div class="머리버튼줄">
+      <!-- 설명 보기 모드: 켜면 화면의 버튼·칸을 눌러도 동작하지 않고 설명만 보입니다 (터치 기기용) -->
+      <button type="button" id="도움말모드" class="버튼 버튼-보조" aria-pressed="false"
+        data-tip="켜면 화면의 버튼·입력칸·배지를 눌렀을 때 동작 대신 설명이 뜹니다. 마우스가 없는 터치 기기에서 설명을 보는 방법입니다. 다시 누르면 꺼집니다.">
+        <span aria-hidden="true">?</span> 설명 보기
+      </button>
+      <button type="button" id="초기화버튼" class="버튼 버튼-위험"
+        data-tip="이 브라우저에 저장된 변경 내용을 모두 지우고 처음 가상 자료(직원 12·휴가 6·급여 12·비품 6)로 되돌립니다. 누르면 먼저 확인 창이 뜹니다.">가상 데이터 초기화</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── 소개 패널 · 첫 방문 시 펼침, 접힘 여부는 이 브라우저에 기억 ───────── -->
+<section class="가운데 소개패널" id="소개패널" aria-labelledby="소개제목">
+  <div class="패널머리">
+    <h2 class="패널제목" id="소개제목">이 앱은 무엇인가요?</h2>
+    <button type="button" id="소개토글" class="버튼 버튼-보조 작은버튼" aria-expanded="true" aria-controls="소개내용"
+      data-tip="소개 글을 접거나 펼칩니다. 접은 상태는 이 브라우저에 기억됩니다.">접기</button>
+  </div>
+  <div id="소개내용" class="패널내용">
+    <p class="소개한줄">
+      <strong>Claude Code로 만든 교육용 예제</strong>입니다. 서버·로그인 없이 브라우저 안에서만 도는
+      작은 인사·총무 ERP로, "업무 앱이 자료를 어떻게 연결하고 규칙을 어떻게 지키는지"를 보여 주기 위해 만들었습니다.
+      모든 값은 지어낸 가상 자료입니다.
+    </p>
+    <div class="소개격자">
+      <div class="소개카드">
+        <h3>화면(탭)별 역할</h3>
+        <ul>
+          <li><strong>직원</strong> — 가상 임직원 12명 조회. 이름을 누르면 그 사람의 휴가·급여·비품이 한 번에 보입니다.</li>
+          <li><strong>휴가</strong> — 연차 신청 6건. 대기 건을 승인·반려하고, 새 신청을 등록합니다.</li>
+          <li><strong>급여</strong> — 8월 급여 12건. 월 합계·목록·입력·가상 명세를 봅니다.</li>
+          <li><strong>비품</strong> — 노트북 3·모니터 3. 직원에게 배정하고 반납합니다.</li>
+        </ul>
+      </div>
+      <div class="소개카드">
+        <h3>자료가 연결되는 방법</h3>
+        <p>모든 기록은 <strong>사번</strong>(예: GAON-2026-001)으로 이어집니다. 휴가·급여·비품 표에는 사번만 있고,
+          화면에 보이는 이름은 직원 표에서 찾아 붙입니다. 그래서 직원 상세에서 세 가지를 함께 볼 수 있습니다.</p>
+        <p class="소개식">직원 ──사번──▶ 휴가 · 급여 · 비품</p>
+      </div>
+      <div class="소개카드">
+        <h3>계산 규칙</h3>
+        <ul>
+          <li><strong>남은 연차 = 부여 − 승인된 사용일수</strong>. 대기·반려는 빼지 않습니다. 저장하지 않고 볼 때마다 다시 셉니다.</li>
+          <li><strong>실지급액 = 기본급 + 수당 − 공제</strong>. 세금·4대보험은 계산하지 않습니다.</li>
+          <li>남은 연차보다 많은 휴가는 승인되지 않고, 이미 처리된 건은 다시 처리할 수 없습니다.</li>
+          <li>한 비품은 한 직원에게만 배정됩니다. 반납해야 다시 배정할 수 있습니다.</li>
+        </ul>
+      </div>
+      <div class="소개카드">
+        <h3>저장 방식과 보는 방법</h3>
+        <ul>
+          <li>변경 내용은 <strong>이 브라우저(localStorage)에만</strong> 저장됩니다. 새로고침해도 남고, 다른 사람에게는 보이지 않습니다.</li>
+          <li>오른쪽 위 <strong>가상 데이터 초기화</strong>를 누르면 처음 자료로 돌아갑니다.</li>
+          <li>버튼·표 머리글·배지 위에 마우스를 올리면 설명이 뜹니다. 터치 기기는 <strong>? 설명 보기</strong>를 켜고 누르세요.</li>
+          <li>아래 <strong>따라해보기</strong>에서 "이 위치 보기"를 누르면 해당 화면으로 이동해 자리를 잠깐 강조합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 따라해보기 가이드 · 시나리오 4개 · 대상 요청번호/비품은 app.js 가 현재 자료에서 찾아 채움 ── -->
+<section class="가운데 가이드패널" id="가이드패널" aria-labelledby="가이드제목">
+  <div class="패널머리">
+    <h2 class="패널제목" id="가이드제목">따라해보기 (4가지 시나리오)</h2>
+    <button type="button" id="가이드토글" class="버튼 버튼-보조 작은버튼" aria-expanded="true" aria-controls="가이드내용"
+      data-tip="따라해보기 목록을 접거나 펼칩니다.">접기</button>
+  </div>
+  <div id="가이드내용" class="패널내용">
+    <p class="설명">각 단계의 <strong>이 위치 보기</strong>를 누르면 해당 탭으로 이동하고 그 자리를 잠깐 강조합니다. 실제로 눌러 보고 숫자가 어떻게 바뀌는지 확인하세요.</p>
+    <div id="가이드목록" class="가이드목록"></div>
+  </div>
+</section>
+
+<nav class="탭영역">
+  <div class="가운데">
+    <div class="탭묶음" role="tablist" aria-label="화면 선택">
+      <button type="button" class="탭 탭-활성" role="tab" data-화면="직원"
+        data-tip="가상 임직원 12명의 명단입니다. 이름을 누르면 그 직원의 휴가·급여·배정 비품을 한 화면에서 볼 수 있습니다.">직원</button>
+      <button type="button" class="탭" role="tab" data-화면="휴가"
+        data-tip="연차 신청 목록입니다. 대기 건을 승인·반려할 수 있고, 새 신청을 등록하면 대기 상태로 추가됩니다.">휴가</button>
+      <button type="button" class="탭" role="tab" data-화면="급여"
+        data-tip="2026-08 가상 급여 12건입니다. 월 합계, 목록, 입력(수정), 가상 명세를 볼 수 있습니다. 세금·4대보험은 계산하지 않습니다.">급여</button>
+      <button type="button" class="탭" role="tab" data-화면="비품"
+        data-tip="노트북 3대·모니터 3대를 직원에게 배정하거나 반납합니다. 한 비품은 한 명에게만 배정됩니다.">비품</button>
+    </div>
+  </div>
+</nav>
+
+<main class="가운데 본문" id="본문">
+  <p class="불러오는중">가상 자료를 불러오는 중…</p>
+</main>
+
+<footer class="가운데 꼬리말">
+  교육용 가상 자료입니다. 세금·4대보험을 계산하지 않으며 실제 인사·급여 실무에 사용할 수 없습니다.
+  이 시연은 Claude Code 로 만든 교육 예제이며 자료는 이 브라우저에만 저장됩니다.
+</footer>
+
+<!-- 초기화 확인 창 (DESIGN.md §8-3) · 기본은 취소 -->
+<div class="덮개" id="확인덮개" hidden>
+  <div class="확인창" role="dialog" aria-modal="true" aria-labelledby="확인제목">
+    <h2 class="확인제목" id="확인제목">가상 데이터 초기화</h2>
+    <p class="확인문구">입력한 내용이 모두 사라지고 처음 가상 자료로 돌아갑니다. 계속할까요?</p>
+    <div class="확인버튼줄">
+      <button type="button" id="확인취소" class="버튼 버튼-보조">취소</button>
+      <button type="button" id="확인실행" class="버튼 버튼-위험">초기화</button>
+    </div>
+  </div>
+</div>
+
+<!-- 툴팁 상자 · 화면에 하나만 두고 app.js 가 내용과 위치를 바꿔 가며 보여 줍니다 -->
+<div class="툴팁" id="툴팁" role="tooltip" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
