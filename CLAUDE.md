@@ -72,11 +72,14 @@ seolcoding.com/
 
 ## Deployment
 
-GitHub Actions on push to `main`:
-1. Install Hugo Extended v0.152.2
-2. Install Node.js dependencies (Tailwind)
-3. Build with `hugo --minify`
-4. Deploy to GitHub Pages (seolcoding.com)
+`.github/workflows/hugo.yml` runs on push to `main` or manual dispatch:
+1. Install Hugo Extended v0.155.3 and Node.js 20
+2. Build `apps/prompt-tutorial/` with Bun into `static/mini-apps/prompt-tutorial/`
+3. Build with `hugo --gc --minify`
+4. Deploy `public/` to Cloudflare Pages project `seolcoding` (serves `seolcoding.com`, `www.seolcoding.com`)
+
+Required GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+Operations notes and logs live in the Agent OS repo (`seolcoding/seolcoding-agent-os`, `ops/seolcoding.com/`).
 
 ## Key Constraints
 
