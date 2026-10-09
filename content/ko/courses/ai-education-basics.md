@@ -9,14 +9,6 @@ tags = ["AI교육", "생성형AI", "Gemini", "ChatGPT", "공공혁신"]
 
 **AI 활용 교육 기초과정**에 오신 것을 환영합니다. 이 과정은 공공 기관 실무자들이 생성형 AI를 업무에 효과적으로 활용할 수 있도록 설계된 교육 프로그램입니다. 🤖📚
 
----
-
-## 🖼️ 과정 소개
-
-{{< demo-image
-  src="/images/courses/ai-education.png"
-  alt="AI 활용 교육 기초과정"
->}}
 
 ---
 

@@ -1,0 +1,5 @@
+{{- /* 문구 서식: [대괄호] → 형광펜(<em>), 줄바꿈(\n) → <br>. 글자는 먼저 이스케이프한다. 쓰기: partial "rich.html" "문구" */ -}}
+{{- $s := . | string | htmlEscape -}}
+{{- $s = replaceRE `\[([^\]]+)\]` "<em>$1</em>" $s -}}
+{{- $s = replaceRE `\r?\n` "<br>" $s -}}
+{{- $s | safeHTML -}}
