@@ -3,10 +3,8 @@ main = "src/index.js"
 compatibility_date = "2026-09-14"
 workers_dev = false
 
+# /sinokorapp* 만 받는다. 전체(seolcoding.com/*) 라우트는 2026-10-09에 껐다 —
+# 그 라우트가 www 없는 주소 전체를 Notion으로 보내고 있었다. 다시 붙이지 않는다.
 [[routes]]
 pattern = "seolcoding.com/sinokorapp*"
-zone_name = "seolcoding.com"
-
-[[routes]]
-pattern = "seolcoding.com/*"
 zone_name = "seolcoding.com"
