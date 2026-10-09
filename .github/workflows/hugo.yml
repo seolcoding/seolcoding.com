@@ -62,6 +62,11 @@ jobs:
           HUGO_ENVIRONMENT: production
         run: hugo --gc --minify
 
+      - name: Check for API keys
+        # 올라갈 파일 전체(public/)에 API 키가 있으면 멈춘다(VITE_* 값은 브라우저 코드에 그대로 박힌다)
+        run: |
+          if grep -rEq '(^|[^A-Za-z0-9])sk-(or-v1|ant-api03|proj)-[A-Za-z0-9_-]{20,}' public; then echo "✖ API 키가 배포 파일에 들어감 | VITE_ 환경 변수나 커밋된 빌드본 | 키를 빼고 다시 빌드"; exit 1; fi
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

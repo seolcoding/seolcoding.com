@@ -38,6 +38,10 @@ defaultContentLanguageInSubdir = false
       url = "/blog/"
       weight = 4
     [[languages.ko.menu.main]]
+      name = "앱"
+      url = "https://apps.seolcoding.com/"
+      weight = 4
+    [[languages.ko.menu.main]]
       name = "서비스"
       url = "/services/"
       weight = 5

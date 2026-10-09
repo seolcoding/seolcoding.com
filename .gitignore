@@ -182,3 +182,6 @@ test-results/
 # Cloudflare Workers
 .wrangler/
 .dev.vars
+
+# 프롬프트 튜토리얼 빌드본은 CI가 apps/prompt-tutorial에서 만든다(커밋하지 않음 — 예전 빌드본에 API 키가 박혀 있었음)
+/static/mini-apps/

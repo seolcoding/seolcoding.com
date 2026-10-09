@@ -1,1 +1,24 @@
 /semco https://files.seolcoding.com/semco/ai-basic-training.pptx 302
+
+# 미니 앱·쇼케이스는 apps.seolcoding.com으로 옮겼다(2026-10-09). 프롬프트 튜토리얼(/mini-apps/prompt-tutorial/)만 여기 남는다.
+/mini-apps                  https://apps.seolcoding.com/#mini-apps 301
+/mini-apps/                 https://apps.seolcoding.com/#mini-apps 301
+/mini-apps/index.html       https://apps.seolcoding.com/#mini-apps 301
+/mini-apps/chosung-quiz/*   https://dajam.seolcoding.com/realtime-quiz 301
+/mini-apps/lunch-roulette/* https://dajam.seolcoding.com/random-picker 301
+/mini-apps/ladder-game/*    https://dajam.seolcoding.com/random-picker 301
+/mini-apps/balance-game/*      https://dajam.seolcoding.com/balance-game 301
+/mini-apps/bingo-game/*        https://dajam.seolcoding.com/bingo-game 301
+/mini-apps/dutch-pay/*         https://dajam.seolcoding.com/dutch-pay 301
+/mini-apps/gpa-calculator/*    https://dajam.seolcoding.com/gpa-calculator 301
+/mini-apps/group-order/*       https://dajam.seolcoding.com/group-order 301
+/mini-apps/id-validator/*      https://dajam.seolcoding.com/id-validator 301
+/mini-apps/ideal-worldcup/*    https://dajam.seolcoding.com/ideal-worldcup 301
+/mini-apps/live-voting/*       https://dajam.seolcoding.com/live-voting 301
+/mini-apps/random-picker/*     https://dajam.seolcoding.com/random-picker 301
+/mini-apps/rent-calculator/*   https://dajam.seolcoding.com/rent-calculator 301
+/mini-apps/salary-calculator/* https://dajam.seolcoding.com/salary-calculator 301
+/mini-apps/student-network/*   https://dajam.seolcoding.com/student-network 301
+/mini-apps/team-divider/*      https://dajam.seolcoding.com/team-divider 301
+/showcases                  https://apps.seolcoding.com/#showcases 301
+/showcases/*                https://apps.seolcoding.com/showcases/:splat 301
