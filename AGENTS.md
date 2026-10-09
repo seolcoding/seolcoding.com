@@ -14,3 +14,11 @@
 - **디자인은 디자인 시스템이 원본이다.** 색·글꼴·형광펜·로고와 메일 서명·명함 템플릿은 `skills/seolcoding-design`에서 고치고, 홈페이지·메일·인쇄물에 적용한다.
 - **큰 파일과 서명 아이콘은 R2에 둔다.** 버킷 `seolcoding-files`, 주소 `https://files.seolcoding.com/` (예: `/assets/icons/`, `/semco/`).
 - seolcoding.com은 agent-os 안에 있지만 agent-os 저장소에는 커밋하지 않는다(agent-os `.gitignore`). 각자 자기 저장소에 커밋·push한다.
+
+## 테마 (예정)
+
+- 지금 테마는 외부 테마 `careercanvas`다(`themes/careercanvas`, git 서브모듈, github.com/felipecordero/careercanvas).
+- 나중에 설코딩 디자인 시스템 기반 테마로 바꾼다(2026-10-09 사용자 결정, 일정 미정).
+  - 규칙: 툴킷 `skills/seolcoding-design/references/apply/web.md`
+  - 기준 구현: 툴킷 `dev/design-studio/site/index.html`
+  - 바꾸기 전까지 careercanvas는 고치지 않는다.
