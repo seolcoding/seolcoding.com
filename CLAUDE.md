@@ -1,3 +1,5 @@
+관련 저장소와 원본 관계는 `AGENTS.md`를 본다.
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
