@@ -1,6 +1,8 @@
 {{- /* 마크다운 표: 넓은 표는 이 상자 안에서만 옆으로 움직인다(디자인 시스템 D-050).
    상자는 키보드로도 옮길 수 있게 초점을 받는다. 정렬(:---:)은 그대로 살린다. */ -}}
-<div class="table-scroll" role="region" tabindex="0" aria-label="표 {{ add .Ordinal 1 }}">
+{{- $h := slice }}
+{{- with .THead }}{{ range index . 0 }}{{ with .Text | plainify | htmlUnescape | strings.TrimSpace }}{{ $h = $h | append . }}{{ end }}{{ end }}{{ end }}
+<div class="table-scroll" role="region" tabindex="0" aria-label="{{ with $h }}표: {{ delimit (first 3 .) ", " }}{{ else }}표 {{ add $.Ordinal 1 }}{{ end }}">
 <table
   {{- range $k, $v := .Attributes }}
     {{- if $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{ end }}

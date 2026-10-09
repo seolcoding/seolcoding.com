@@ -98,3 +98,6 @@
   .kind-home .headline em, .kind-home .picker-result .sc-mark { animation: none; }
   .kind-home .chip, .kind-home .chip span, .kind-home .rows .sc-mark { transition: none; }
 }
+
+/* 스크립트가 돌기 전(또는 없을 때)에는 고르기 칸을 숨긴다 */
+.kind-home .picker-label[hidden], .kind-home .chips[hidden], .kind-home .picker-result[hidden] { display: none; }

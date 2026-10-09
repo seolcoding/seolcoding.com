@@ -8,8 +8,8 @@
   <h1 class="headline" id="headline">{{ partial "rich.html" $p.headline }}</h1>
   <p class="intro">{{ $p.intro }}</p>
   <div class="hero-foot">
-    <p class="picker-label" id="picker-label">{{ $p.picker_label }}</p>
-    <div class="chips" id="chips" role="group" aria-labelledby="picker-label">
+    <p class="picker-label" id="picker-label" hidden>{{ $p.picker_label }}</p>
+    <div class="chips" id="chips" role="group" aria-labelledby="picker-label" hidden>
       {{- range $p.picker }}
         {{- $key := "education" }}
         {{- with where $p.services "title" .start }}{{ $key = (index . 0).key }}{{ end }}
@@ -17,7 +17,7 @@
       {{- end }}
     </div>
     <a class="button hero-cta" href="#contact"><span>{{ $p.cta }}</span>{{ $arrow }}</a>
-    <p class="picker-result" id="picker-result" aria-live="polite" data-lead="{{ $p.picker_lead }}"><span class="placeholder">{{ $p.picker_placeholder }}</span></p>
+    <p class="picker-result" id="picker-result" aria-live="polite" hidden data-lead="{{ $p.picker_lead }}"><span class="placeholder">{{ $p.picker_placeholder }}</span></p>
   </div>
 </section>
 
@@ -69,6 +69,8 @@
   (function () {
     var chips = document.getElementById("chips"), out = document.getElementById("picker-result"), list = document.getElementById("services");
     if (!chips || !out || !list || !out.replaceChildren) return;
+    // 고르기 칸은 스크립트가 돌 때만 보인다(스크립트가 없으면 눌러도 답이 없으므로 숨겨 둔다)
+    [document.getElementById("picker-label"), chips, out].forEach(function (e) { if (e) e.hidden = false; });
     var buttons = [].slice.call(chips.querySelectorAll(".chip"));
     var rows = [].slice.call(list.children);
     var initial = [].slice.call(out.childNodes).map(function (n) { return n.cloneNode(true); });

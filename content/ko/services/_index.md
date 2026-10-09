@@ -1,29 +1,12 @@
 ---
 title: "서비스"
-description: "AI 솔루션 개발, 교육, 컨설팅 서비스"
+description: "정부 대회 6회 수상 경험과 공공기관 10년 실무를 바탕으로 실제로 동작하는 AI 솔루션을 만들어 드립니다."
 ---
 
-## 제공 서비스
+<!-- 세 서비스(교육·개발·컨설팅) 줄은 템플릿(layouts/services/section.html)이 홈 문구(content/ko/_index.md의 services)로 그린다. 여기에는 그 밖의 것만 적는다. -->
 
-정부 대회 6회 수상 경험과 공공기관 10년 실무를 바탕으로
-**실제로 동작하는** AI 솔루션을 만들어 드립니다.
-
----
-
-### [AI 솔루션 개발](/services/development/)
-챗봇, AI 어시스턴트, 업무 자동화 시스템
-기획부터 배포까지 원스톱 개발
-
-### [AI 교육](/services/education/)
-생성형 AI 실무 활용법
-기업/기관 맞춤형 교육
-
-### [컨설팅](/services/consulting/)
-AI 도입 전략 수립
-공공기관 특화 컨설팅
+## 그 밖에
 
 - [부산 평생교육 DB](/busan_edu_db/) — 개발 중(동작 확인 필요)
 
----
-
-**문의**: ssalssi1@gmail.com
+**문의**: [ssalssi1@gmail.com](mailto:ssalssi1@gmail.com)

@@ -5,7 +5,7 @@
    색은 --c-* 변수만. 상자·그림자 없이 선과 여백으로 나눈다. */
 
 /* 글 머리: 글 제목은 길어서 안쪽 페이지 제목보다 한 단계 작게(최대 48px) */
-.article-page .page-title { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1.2; max-width: 22em; }
+.article-page .page-title { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem); line-height: 1.2; max-width: 22em; }
 .article-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-top: 20px; }
 .article-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; list-style: none; margin: 0; padding: 0; }
 .article-tags a { color: var(--c-muted); text-decoration: none; }
@@ -45,7 +45,7 @@
 /* 글자 */
 .article strong { color: var(--c-ink); font-weight: 700; }
 /* 본문의 기울임(*글자*)은 형광펜으로 칠하지 않는다. 형광펜은 ==글자==(<mark>)만 */
-.article em { font-style: italic; background: none; padding: 0; margin: 0; }
+.article em { font-style: normal; font-weight: 600; background: none; padding: 0; margin: 0; } /* Pretendard에는 기울임 글꼴이 없어 굵기로 강조한다. 형광펜은 ==마크==만 */
 .article :where(small, sub, sup) { font-size: 0.8em; }
 
 /* 목록 */
@@ -61,10 +61,10 @@
 .article dd { margin-top: 4px; }
 
 /* 선: 노트의 옅은 줄 하나 */
-.article hr { height: 0; border: 0; border-top: 1px solid var(--c-line); }
+.article hr { height: 0; border: 0; border-top: 1px solid var(--c-rule); }
 
 /* 인용: 왼쪽 선 하나(상자 없음). 콜아웃(> [!tip])은 base.css의 .sc-callout */
-.article blockquote { padding: 2px 0 2px 1em; border-left: 3px solid var(--c-line); }
+.article blockquote { padding: 2px 0 2px 1em; border-left: 2px solid var(--c-rule); }
 .article :is(blockquote, .sc-callout) > * + * { margin-top: 8px; }
 .article .sc-callout { margin-bottom: 0; }
 .article .sc-callout :where(ul, ol) { margin-top: 8px; }
@@ -89,7 +89,7 @@
 .article > .table-scroll { width: max-content; min-width: 100%; max-width: calc(min(100vw, 1200px) - 2 * var(--gutter)); }
 .article table {
   border-collapse: collapse; min-width: 100%;
-  font-size: 15px; line-height: 1.55; font-variant-numeric: tabular-nums;
+  font-size: 14px; line-height: 1.55; font-variant-numeric: tabular-nums;
   overflow-wrap: normal;
 }
 .article :is(th, td) { padding: 10px 20px 10px 0; text-align: left; vertical-align: top; }
@@ -107,7 +107,7 @@
 .article figure figcaption { margin-top: 8px; color: var(--c-muted); font-size: 14px; }
 
 /* 각주 */
-.article .footnotes { font-size: 15px; color: var(--c-muted); }
+.article .footnotes { font-size: 14px; color: var(--c-muted); }
 .article .footnotes hr { margin-bottom: 16px; }
 
 /* 글 아래: (블로그) 이전·다음 글 → 목록으로 */

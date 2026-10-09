@@ -3,9 +3,6 @@
    줄 제목은 h1 바로 아래 단계라 h2로 쓴다(모양은 list.css가 .rows h3와 같게 맞춘다). */ -}}
 {{ define "main" }}
 <div class="page-head">
-  {{- if eq .Kind "term" }}{{ with .Parent }}
-  <p class="meta page-kicker"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
-  {{- end }}{{ end }}
   <h1 class="page-title">{{ .Title }}</h1>
   {{- with .Description }}
   <p class="page-lead">{{ . }}</p>
@@ -48,4 +45,7 @@
 </ul>
   {{- end }}
 {{- end }}
+{{- if eq .Kind "term" }}{{ with .Parent }}
+<p class="list-back"><a class="more" href="{{ .RelPermalink }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 10H5M9 5l-5 5 5 5"/></svg>모든 {{ .Title }}</a></p>
+{{- end }}{{ end }}
 {{ end }}

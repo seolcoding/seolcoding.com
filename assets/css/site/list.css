@@ -6,9 +6,8 @@
 .rows h2 a { text-decoration: none; }
 .rows h2 a:hover { text-decoration: underline; }
 
-/* 태그 한 개 페이지: 제목 위 작은 '태그' 링크 */
-.page-kicker { margin-bottom: 12px; }
-.page-kicker a { color: var(--c-muted); }
+/* 태그 한 개 페이지: 목록 아래 '모든 태그' 링크 */
+.list-back { margin-top: 32px; }
 
 /* 본문 다음에 오는 줄 목록은 조금 더 띄운다 */
 .article + .rows { margin-top: clamp(48px, 7vh, 72px); }

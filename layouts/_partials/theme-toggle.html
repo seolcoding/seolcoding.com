@@ -3,6 +3,7 @@
   (function () {
     var root = document.documentElement, btn = document.getElementById("theme");
     if (!btn) return;
+    btn.hidden = false; // 버튼은 스크립트로만 동작하므로, 스크립트가 돌 때만 보인다
     var names = { dark: "어두운 화면으로 보기", light: "밝은 화면으로 보기" };
     var mq = window.matchMedia("(prefers-color-scheme: dark)");
     function isDark() { return root.dataset.theme ? root.dataset.theme === "dark" : mq.matches; }
