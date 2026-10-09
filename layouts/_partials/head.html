@@ -1,0 +1,91 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // 저장된 화면 모드를 먼저 적용해 깜빡임을 막는다. 저장된 값이 없으면 기기 설정을 따른다.
+  try { var t = localStorage.getItem("seolcoding-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+{{- $title := cond (eq .Kind "404") "페이지를 찾을 수 없습니다" .Title }}
+{{- $fullTitle := cond .IsHome (printf "%s — %s" site.Title site.Params.tagline) (printf "%s | %s" $title site.Title) }}
+{{- $desc := .Params.description | default site.Params.description }}
+{{- $img := (.Params.og_image | default site.Params.og_image) | absURL }}
+<title>{{ $fullTitle }}</title>
+<meta name="description" content="{{ $desc }}">
+<meta name="author" content="{{ site.Params.author }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* 공유 미리보기 — 그림은 L2 프로필 로고(800×800, 블로그와 같음) */}}
+<meta property="og:type" content="{{ if and .IsPage (eq .Section "blog") }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $fullTitle }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $img }}">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ $fullTitle }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image" content="{{ $img }}">
+
+{{/* 탭 아이콘·홈 화면 아이콘 */}}
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/seolcoding/logos/L2-favicon.svg">
+<link rel="apple-touch-icon" href="/seolcoding/logos/L2-profile.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+
+{{/* 색·글꼴·밝은/어두운 판은 디자인 시스템 복사본(static/seolcoding/)에서, 배치는 이 사이트의 CSS에서 */}}
+<link rel="stylesheet" href="/seolcoding/theme-web.css">
+<link rel="stylesheet" href="/seolcoding/components.css">
+<link rel="preload" href="/seolcoding/fonts/Pretendard-Bold.subset.woff2" as="font" type="font/woff2" crossorigin>
+{{- $parts := slice }}
+{{- range slice "base" "home" "about" "list" "article" }}
+  {{- with resources.Get (printf "css/site/%s.css" .) }}{{ $parts = $parts | append . }}{{ end }}
+{{- end }}
+{{- $css := $parts | resources.Concat "css/site.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<link rel="alternate" type="application/rss+xml" title="설코딩 블로그" href="https://blog.seolcoding.com/index.xml">
+
+{{/* 구조화 데이터(네이버·구글 검색) */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": {{ printf "%s#website" site.BaseURL }},
+      "url": {{ site.BaseURL }},
+      "name": {{ site.Title }},
+      "description": {{ site.Params.description }},
+      "publisher": { "@id": {{ printf "%s#person" site.BaseURL }} },
+      "inLanguage": ["ko-KR"]
+    },
+    {
+      "@type": "Person",
+      "@id": {{ printf "%s#person" site.BaseURL }},
+      "name": {{ site.Params.name }},
+      "alternateName": "설코딩",
+      "description": {{ site.Params.description }},
+      "url": {{ site.BaseURL }},
+      "image": {{ site.Params.profile_image | absURL }},
+      "email": {{ site.Params.email }},
+      "jobTitle": {{ site.Params.role }},
+      "worksFor": { "@type": "Organization", "name": "부산교통공사" },
+      "sameAs": {{ site.Params.same_as | jsonify | safeJS }}
+    }
+    {{- if not .IsHome }},
+    {
+      "@type": "WebPage",
+      "@id": {{ printf "%s#webpage" .Permalink }},
+      "url": {{ .Permalink }},
+      "name": {{ $title }},
+      "isPartOf": { "@id": {{ printf "%s#website" site.BaseURL }} },
+      "about": { "@id": {{ printf "%s#person" site.BaseURL }} },
+      "inLanguage": "ko-KR"
+    }
+    {{- end }}
+  ]
+}
+</script>

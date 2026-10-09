@@ -1,0 +1,143 @@
+/* seolcoding.com 공통 배치 — 기준 구현: 툴킷 dev/design-studio/site/index.html.
+   색은 디자인 시스템 변수(--c-*)만 쓴다. 그림자·카드 상자·그라디언트 배경을 쓰지 않는다. 구분은 선(1px)과 여백으로.
+   이 파일 다음에 home.css · about.css · list.css · article.css 가 붙어 한 파일(site.css)이 된다. */
+:root { --gutter: clamp(16px, 4vw, 48px); --header-h: 76px; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-color: var(--c-muted) var(--c-bg); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--c-bg); color: var(--c-body);
+  font: 400 17px/1.7 Pretendard, system-ui, -apple-system, sans-serif;
+  word-break: keep-all; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased;
+  caret-color: var(--c-ink); transition: background-color 200ms, color 200ms;
+  display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
+}
+body > main { flex: 1 0 auto; width: 100%; }
+a { color: var(--c-ink); text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--c-ink); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { color: var(--c-ink); margin: 0; text-wrap: balance; }
+p { margin: 0; }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* 본문으로 건너뛰기: 초점을 받을 때만 보인다 */
+.skip-link { position: absolute; left: 8px; top: -100px; z-index: 10; padding: 8px 12px; background: var(--c-bg); color: var(--c-ink); border: 1px solid var(--c-rule); }
+.skip-link:focus { top: 8px; }
+
+/* 머리말: 로고 · 주 메뉴 · 상담 링크 · 화면 모드 버튼 */
+.top { display: flex; align-items: center; gap: 32px; height: var(--header-h); }
+.brand { display: block; flex: none; line-height: 0; }
+.brand img { width: 214px; height: auto; }
+.site-nav { flex: 1; min-width: 0; }
+.site-nav ul { display: flex; gap: 4px 24px; list-style: none; margin: 0; padding: 0; }
+.site-nav a { display: inline-block; padding: 6px 0; font-size: 16px; font-weight: 600; color: var(--c-ink); text-decoration: none; white-space: nowrap; }
+.site-nav a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.site-nav a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; }
+.top-actions { display: flex; align-items: center; gap: 20px; flex: none; margin-left: auto; }
+.top-cta { font-weight: 600; font-size: 15px; white-space: nowrap; }
+.theme {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 999px;
+  border: 1px solid var(--c-line); background: transparent; color: var(--c-ink); cursor: pointer;
+  transition: background-color 160ms, border-color 160ms;
+}
+.theme:hover { background: var(--c-surface); border-color: var(--c-rule); }
+.theme svg { width: 18px; height: 18px; }
+.theme svg[hidden], .theme[hidden] { display: none; }
+
+/* 꼬리말 */
+.site-footer { margin-top: clamp(96px, 14vh, 168px); border-top: 1px solid var(--c-rule); }
+.foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding-top: 24px; padding-bottom: 32px; color: var(--c-muted); font-size: 14px; }
+.foot-id { display: flex; align-items: center; gap: 16px; }
+.foot .brand img { width: 148px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; margin: 0 0 0 auto; padding: 0; }
+.foot-links a { color: var(--c-body); }
+.foot-copy { flex-basis: 100%; }
+
+/* 안쪽 페이지 머리: 제목 + 한두 줄 소개 */
+.page-head { padding: clamp(40px, 8vh, 96px) 0 0; }
+.page-title { font-size: clamp(2.25rem, 1.3rem + 3.6vw, 4.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.page-lead { margin-top: 20px; max-width: 36em; font-size: clamp(1.125rem, 1rem + 0.35vw, 1.3rem); line-height: 1.65; }
+/* 페이지 머리 바로 다음 첫 내용까지는 어느 페이지나 같은 간격 */
+.page-head + .rows, .page-head + .article { margin-top: 40px; }
+.meta { color: var(--c-muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+/* 구역 */
+section.block { margin-top: clamp(72px, 11vh, 136px); }
+.block > h2, .block-title { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+
+/* 줄 목록: 노트의 줄처럼 한 줄에 하나(카드 대신). 왼쪽 칸 이름, 오른쪽 칸 설명 */
+.rows { list-style: none; margin: 36px 0 0; padding: 0; border-bottom: 1px solid var(--c-rule); }
+.rows > li {
+  display: grid; grid-template-columns: minmax(200px, 1fr) 2fr; gap: 8px 48px; align-items: baseline;
+  padding: 28px 0; border-top: 1px solid var(--c-rule);
+}
+.rows h3 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; }
+.rows h3 a { text-decoration: none; }
+.rows h3 a:hover { text-decoration: underline; }
+.rows p { max-width: 38em; }
+
+/* 주 버튼(살구) — 한 화면에 하나만 */
+.button {
+  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+  background: var(--c-accent); color: var(--c-on-accent); font-weight: 700; font-size: 17px;
+  padding: 16px 24px; border-radius: 8px; text-decoration: none;
+  transition: background-color 160ms, transform 160ms var(--ease-pen);
+}
+.button:hover { background: var(--c-accent-hover); text-decoration: none; }
+.button:active { transform: translateY(1px); }
+.button svg { width: 18px; height: 18px; }
+/* 글자 링크 + 화살표 */
+.more { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.more svg { width: 16px; height: 16px; }
+
+/* 형광펜: ==글자==(<mark>)와 .sc-mark. components.css에는 em·.sc-mark만 있어 mark를 여기 둔다 */
+mark {
+  --m: var(--c-mark);
+  color: inherit; background-color: transparent;
+  background-image: linear-gradient(var(--m), var(--m)); background-repeat: no-repeat;
+  background-position: 0 var(--mark-y, 90%); background-size: 100% var(--mark-h, 0.45em);
+  padding: 0 0.08em; margin: 0 -0.08em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* 콜아웃(> [!tip] 등): 왼쪽 굵은 선 하나와 여백 — 블로그와 같다 */
+.sc-callout { margin: 1.5em 0; padding: 0.25em 0 0.25em 1em; border-left: 3px solid var(--c-mark); }
+.sc-callout[data-kind="warning"], .sc-callout[data-kind="caution"] { border-left-color: var(--color-coral, var(--c-mark)); }
+.sc-callout[data-kind="note"] { border-left-color: var(--color-sky, var(--c-mark)); }
+.sc-callout-title { font-weight: 700; color: var(--c-ink); margin-bottom: 0.25em; }
+
+@media (max-width: 1080px) {
+  .top-cta { display: none; }
+}
+/* 모바일: 햄버거 없이 로고 아래 한 줄 메뉴(결정 C) */
+@media (max-width: 760px) {
+  :root { --header-h: auto; }
+  .top { flex-wrap: wrap; gap: 0 16px; padding-top: 14px; padding-bottom: 6px; }
+  .brand img { width: 168px; }
+  /* 가로로 밀리는 메뉴 상자는 초점 테두리를 자르므로, 안쪽 여백으로 테두리 자리를 둔다 */
+  .site-nav { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; margin: 3px -6px 0; }
+  .site-nav ul { padding: 5px 6px; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav ul { flex-wrap: nowrap; gap: 0 18px; }
+  .site-nav a { font-size: 15px; padding: 8px 0; }
+  .rows > li { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+  .foot-links { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body, .button, .theme { transition: none; }
+}
+
+/* 인쇄: 화면 모드와 관계없이 밝은 판, 화면 전용 부품은 빼고 형광펜은 남긴다 */
+@media print {
+  :root:not([data-theme="light"]) {
+    color-scheme: light;
+    --c-bg: var(--color-canvas); --c-surface: var(--color-surface); --c-ink: var(--color-ink);
+    --c-body: var(--color-body); --c-muted: var(--color-muted); --c-line: var(--color-hairline);
+    --c-rule: var(--color-ink); --c-logo-light: block; --c-logo-dark: none; --mark-h: 0.45em; --mark-y: 90%;
+  }
+  .skip-link, .site-nav, .top-actions, .foot-links, .kind-home .picker-label, .kind-home .chips, .kind-home .hero-cta, .kind-home .picker-result { display: none !important; }
+  em, .sc-mark, mark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .site-footer { margin-top: 24pt; }
+}

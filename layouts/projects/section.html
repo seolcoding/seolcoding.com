@@ -1,0 +1,72 @@
+{{- /* /projects/: 수상 프로젝트 줄 목록 + 자세한 글(하위 페이지) 목록.
+   프로젝트 값은 content/ko/projects/_index.md 머리말의 [[projects]]에서 온다. 그림·카드 없이 줄과 여백만. */ -}}
+{{ define "main" }}
+<div class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="page-lead">{{ . }}</p>
+  {{- end }}
+</div>
+
+{{- with .Content }}
+<div class="article sc-document">
+  {{ . }}
+</div>
+{{- end }}
+
+{{- /* 자세한 글(하위 페이지)이 있는 프로젝트는 제목을 그 글로 잇는다. 제목이 같으면 같은 프로젝트로 본다 */}}
+{{- $children := .Pages }}
+{{- $linked := slice }}
+{{- with .Params.projects }}
+<ul class="rows project-rows">
+  {{- range . }}
+  {{- $detail := index (where $children "Title" .title) 0 }}
+  <li>
+    <div class="row-head">
+      {{- if $detail }}{{ $linked = $linked | append $detail.RelPermalink }}
+      <h2><a href="{{ $detail.RelPermalink }}">{{ .title }}</a></h2>
+      {{- else }}
+      <h2>{{ .title }}</h2>
+      {{- end }}
+      {{- $meta := slice }}
+      {{- with .period }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with .organization }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with $meta }}
+      <p class="meta">{{ delimit . " · " }}</p>
+      {{- end }}
+    </div>
+    <div class="row-body">
+      {{- with .award }}
+      <p class="row-award"><strong>{{ . }}</strong></p>
+      {{- end }}
+      {{- with .description }}
+      <p>{{ . }}</p>
+      {{- end }}
+      {{- with .technologies }}
+      <p class="meta row-tech">{{ delimit . " · " }}</p>
+      {{- end }}
+    </div>
+  </li>
+  {{- end }}
+</ul>
+{{- end }}
+
+{{- /* 위 줄 목록에 이어지지 않은 글만 따로 보인다 */}}
+{{- $rest := slice }}
+{{- range $children }}{{ if not (in $linked .RelPermalink) }}{{ $rest = $rest | append . }}{{ end }}{{ end }}
+{{- with $rest }}
+<section class="block" aria-labelledby="project-pages-title">
+  <h2 id="project-pages-title">자세히</h2>
+  <ul class="rows">
+    {{- range . }}
+    <li>
+      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+      {{- with .Description }}
+      <p>{{ . }}</p>
+      {{- end }}
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{ end }}

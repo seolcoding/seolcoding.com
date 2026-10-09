@@ -1,0 +1,108 @@
+{{- /* 홈(한 페이지). 기준 구현: 툴킷 dev/design-studio/site/index.html 의 다섯 구역을 그대로 옮겼다.
+       문구는 content/ko/_index.md 앞머리에서 온다(원본: 디자인 시스템 content/seolcoding.js). 연락처는 config.toml params. 전화번호는 싣지 않는다. */ -}}
+{{ define "main" }}
+{{- $p := .Params }}
+{{- $arrow := `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>` | safeHTML }}
+
+<section class="hero" aria-labelledby="headline">
+  <h1 class="headline" id="headline">{{ partial "rich.html" $p.headline }}</h1>
+  <p class="intro">{{ $p.intro }}</p>
+  <div class="hero-foot">
+    <p class="picker-label" id="picker-label" hidden>{{ $p.picker_label }}</p>
+    <div class="chips" id="chips" role="group" aria-labelledby="picker-label" hidden>
+      {{- range $p.picker }}
+        {{- $key := "education" }}
+        {{- with where $p.services "title" .start }}{{ $key = (index . 0).key }}{{ end }}
+      <button type="button" class="chip" aria-pressed="false" data-start="{{ .start }}" data-say="{{ .say }}" data-key="{{ $key }}" style="{{ printf "--fill: var(--c-tone-%s)" $key | safeCSS }}"><span>{{ .who }}</span></button>
+      {{- end }}
+    </div>
+    <a class="button hero-cta" href="#contact"><span>{{ $p.cta }}</span>{{ $arrow }}</a>
+    <p class="picker-result" id="picker-result" aria-live="polite" hidden data-lead="{{ $p.picker_lead }}"><span class="placeholder">{{ $p.picker_placeholder }}</span></p>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="services-title">
+  <h2 id="services-title">{{ $p.services_title }}</h2>
+  <ul class="rows" id="services">
+    {{- range $p.services }}
+    <li data-service="{{ .title }}" data-tone="{{ .key }}">
+      <h3><a href="{{ .url }}"><span class="sc-mark" data-tone="{{ .key }}">{{ .title }}</span></a></h3>
+      <p>{{ .desc }}</p>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+
+<section class="block" aria-labelledby="process-title">
+  <h2 id="process-title">{{ $p.process_title }}</h2>
+  <ol class="steps">
+    {{- range $i, $s := $p.process }}
+    <li><span class="n">{{ add $i 1 }}</span><h3>{{ $s.step }}</h3><p>{{ $s.desc }}</p></li>
+    {{- end }}
+  </ol>
+</section>
+
+<section class="block" aria-labelledby="proof-title">
+  <h2 id="proof-title">{{ $p.proof_title }}</h2>
+  <ul class="facts">
+    {{- range $i, $fact := $p.proof }}
+    <li><strong>{{ $fact }}</strong><span>{{ index $p.proof_notes $i }}</span></li>
+    {{- end }}
+  </ul>
+  <p class="facts-more"><a class="more" href="/about/">자세한 이력 보기{{ $arrow }}</a></p>
+</section>
+
+<section class="block contact" id="contact" aria-labelledby="close">
+  <h2 class="close" id="close">{{ $p.cta }}</h2>
+  <p class="note">{{ $p.cta_note }}</p>
+  <a class="button" href="mailto:{{ site.Params.email }}"><span>{{ $p.mail_cta }}</span>{{ $arrow }}</a>
+  <dl class="reach">
+    <div><dt>이메일</dt><dd><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></dd></div>
+    <div><dt>신청서</dt><dd><a href="{{ site.Params.google_form_url }}">구글 폼</a></dd></div>
+    <div><dt>카카오톡</dt><dd><a href="{{ site.Params.kakao_openchat_url }}">오픈채팅</a></dd></div>
+  </dl>
+</section>
+
+<script>
+  // 내 상황 고르기: 칩을 누르면 그 칩과 시작할 서비스 줄에 그 서비스 색 형광펜이 남고, 다른 줄은 형광펜을 거둔다.
+  // 같은 칩을 다시 누르면 처음 안내 문장으로 돌아간다. 문구는 칩과 결과 줄의 data-* 값(Hugo가 채움)에서 읽는다.
+  (function () {
+    var chips = document.getElementById("chips"), out = document.getElementById("picker-result"), list = document.getElementById("services");
+    if (!chips || !out || !list || !out.replaceChildren) return;
+    // 고르기 칸은 스크립트가 돌 때만 보인다(스크립트가 없으면 눌러도 답이 없으므로 숨겨 둔다)
+    [document.getElementById("picker-label"), chips, out].forEach(function (e) { if (e) e.hidden = false; });
+    var buttons = [].slice.call(chips.querySelectorAll(".chip"));
+    var rows = [].slice.call(list.children);
+    var initial = [].slice.call(out.childNodes).map(function (n) { return n.cloneNode(true); });
+
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text) e.textContent = text;
+      return e;
+    }
+    function arrow() {
+      var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg"), path = document.createElementNS(ns, "path");
+      svg.setAttribute("viewBox", "0 0 20 20"); svg.setAttribute("fill", "none"); svg.setAttribute("stroke", "currentColor");
+      svg.setAttribute("stroke-width", "1.8"); svg.setAttribute("aria-hidden", "true");
+      path.setAttribute("d", "M4 10h11M11 5l5 5-5 5"); svg.appendChild(path);
+      return svg;
+    }
+    function select(btn) {
+      var again = btn.getAttribute("aria-pressed") === "true", start = btn.dataset.start;
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(!again && b === btn)); });
+      list.classList.toggle("has-pick", !again);
+      rows.forEach(function (li) { li.classList.toggle("is-pick", !again && li.dataset.service === start); });
+      if (again) {
+        out.replaceChildren.apply(out, initial.map(function (n) { return n.cloneNode(true); }));
+        return;
+      }
+      var strong = el("strong"), mark = el("span", "sc-mark", start);
+      mark.dataset.tone = btn.dataset.key;
+      strong.appendChild(mark);
+      out.replaceChildren(el("span", "lead", out.dataset.lead), arrow(), strong, document.createTextNode(" " + btn.dataset.say));
+    }
+    buttons.forEach(function (b) { b.addEventListener("click", function () { select(b); }); });
+  })();
+</script>
+{{ end }}

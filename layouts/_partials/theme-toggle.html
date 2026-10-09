@@ -1,0 +1,24 @@
+<script>
+  // 화면 모드 버튼: 누르면 밝게/어둡게를 바꾸고 기억한다(저장 키 seolcoding-theme). 버튼 이름도 함께 바꾼다.
+  (function () {
+    var root = document.documentElement, btn = document.getElementById("theme");
+    if (!btn) return;
+    btn.hidden = false; // 버튼은 스크립트로만 동작하므로, 스크립트가 돌 때만 보인다
+    var names = { dark: "어두운 화면으로 보기", light: "밝은 화면으로 보기" };
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    function isDark() { return root.dataset.theme ? root.dataset.theme === "dark" : mq.matches; }
+    function paint() {
+      var d = isDark(), name = d ? names.light : names.dark;
+      btn.querySelector(".to-dark").toggleAttribute("hidden", d);
+      btn.querySelector(".to-light").toggleAttribute("hidden", !d);
+      btn.setAttribute("aria-label", name); btn.title = name;
+    }
+    btn.addEventListener("click", function () {
+      root.dataset.theme = isDark() ? "light" : "dark";
+      try { localStorage.setItem("seolcoding-theme", root.dataset.theme); } catch (e) {}
+      paint();
+    });
+    if (mq.addEventListener) mq.addEventListener("change", paint);
+    paint();
+  })();
+</script>

@@ -15,13 +15,13 @@
 - **큰 파일과 서명 아이콘은 R2에 둔다.** 버킷 `seolcoding-files`, 주소 `https://files.seolcoding.com/` (예: `/assets/icons/`, `/semco/`).
 - seolcoding.com은 agent-os 안에 있지만 agent-os 저장소에는 커밋하지 않는다(agent-os `.gitignore`). 각자 자기 저장소에 커밋·push한다.
 
-## 테마 (예정)
+## 테마 (끝남, 2026-10-09)
 
-- 지금 테마는 외부 테마 `careercanvas`다(`themes/careercanvas`, git 서브모듈, github.com/felipecordero/careercanvas).
-- 나중에 설코딩 디자인 시스템 기반 테마로 바꾼다(2026-10-09 사용자 결정, 일정 미정).
+- 외부 테마를 걷어내고 설코딩 디자인 시스템 기반으로 바꿨다(2026-10-09). 이제 모양은 이 저장소의 `layouts/`와 `assets/css/site/`가 전부다.
   - 규칙: 툴킷 `skills/seolcoding-design/references/apply/web.md`
   - 기준 구현: 툴킷 `dev/design-studio/site/index.html`
-  - 바꾸기 전까지 careercanvas는 고치지 않는다.
+- 색·글꼴·로고는 `static/seolcoding/`(디자인 시스템 복사본)에서 온다. 여기서 고치지 않고, 툴킷 `skills/seolcoding-design/scripts/sync-web.sh`로 다시 복사한다.
+- CSS 색은 `var(--c-*)` 변수로만 쓴다. 구조와 명령은 `CLAUDE.md`에 있다.
 
 ## 앱·프로젝트 표기 (2026-10-09 사용자 지시)
 

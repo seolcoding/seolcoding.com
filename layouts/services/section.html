@@ -1,0 +1,29 @@
+{{- /* 서비스 목록(/services/): 홈 '하는 일'과 같은 세 줄(같은 순서·이름·서비스 색 형광펜)에, 각 상세 페이지의 한 줄 설명을 더한다.
+       세 서비스 문구의 원본은 content/ko/_index.md의 services. 그 아래에 본문(그 밖에·문의)을 둔다. */ -}}
+{{ define "main" }}
+<div class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}<p class="page-lead">{{ . }}</p>{{ end }}
+</div>
+{{- with site.Home.Params.services }}
+<ul class="rows list-rows service-rows">
+  {{- range . }}
+  {{- $detail := site.GetPage (strings.TrimSuffix "/" .url) }}
+  <li data-tone="{{ .key }}">
+    <div class="row-head">
+      <h2><a href="{{ .url }}"><span class="sc-mark" data-tone="{{ .key }}">{{ .title }}</span></a></h2>
+    </div>
+    <div class="row-body">
+      <p>{{ .desc }}</p>
+      {{- with $detail }}{{ with .Description }}<p class="meta">{{ . }}</p>{{ end }}{{ end }}
+    </div>
+  </li>
+  {{- end }}
+</ul>
+{{- end }}
+{{- with .Content }}
+<div class="article sc-document">
+  {{ . }}
+</div>
+{{- end }}
+{{ end }}

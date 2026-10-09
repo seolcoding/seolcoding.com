@@ -1,0 +1,87 @@
+{{- /* 낱장 페이지: 블로그 글 · 서비스 · 프로젝트 · 강의.
+   제목·소개·정보 줄(날짜·읽는 시간·태그) → 본문(.article) → 아래 줄(블로그만 이전·다음 글) → 목록으로.
+   대표 그림(featured_image)은 꾸밈이라 보이지 않는다.
+   본문 첫머리에 제목을 한 번 더 쓴 글이 있다: 첫 # 제목은 CSS가 숨기고(article.css),
+   첫 ## 제목이 페이지 제목과 같으면 drop-first-heading을 붙여 숨긴다. 내용 파일은 고치지 않는다. */ -}}
+{{ define "main" }}
+{{- $isBlog := eq .Section "blog" }}
+
+{{- /* 서비스 페이지 제목은 그 서비스 색 형광펜(디자인 시스템 data-tone) */ -}}
+{{- $tone := "" }}
+{{- if eq .Section "services" }}{{ with .File }}
+  {{- if in (slice "education" "development" "consulting") .ContentBaseName }}{{ $tone = .ContentBaseName }}{{ end }}
+{{- end }}{{ end }}
+
+{{- $dropFirst := false }}
+{{- with findRESubmatch `^\s*<h2[^>]*>([\s\S]*?)</h2>` .Content 1 }}
+  {{- $text := index (index . 0) 1 | plainify | htmlUnescape | strings.TrimSpace }}
+  {{- if eq $text (strings.TrimSpace $.Title) }}{{ $dropFirst = true }}{{ end }}
+{{- end }}
+
+<article class="article-page" aria-labelledby="page-title">
+  <header class="page-head">
+    <h1 class="page-title" id="page-title">
+      {{- if $tone }}<span class="sc-mark" data-tone="{{ $tone }}">{{ .Title }}</span>{{ else }}{{ .Title }}{{ end -}}
+    </h1>
+    {{- with .Description }}
+    <p class="page-lead">{{ . }}</p>
+    {{- end }}
+    {{- $hasDate := not .Date.IsZero }}
+    {{- $tags := .GetTerms "tags" }}
+    {{- if or $hasDate $tags }}
+    <div class="meta article-meta">
+      {{- if $hasDate }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006년 1월 2일" }}</time>
+      {{- if $isBlog }}
+      <span>읽는 시간 {{ .ReadingTime }}분</span>
+      {{- end }}
+      {{- end }}
+      {{- with $tags }}
+      <ul class="article-tags" aria-label="태그">
+        {{- range . }}
+        <li><a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </div>
+    {{- end }}
+  </header>
+
+  <div class="article sc-document{{ if $dropFirst }} drop-first-heading{{ end }}">
+    {{ .Content }}
+  </div>
+
+  {{- $section := .CurrentSection }}
+  {{- $showBack := not $section.IsHome }}
+  {{- if or $isBlog $showBack }}
+  <footer class="article-foot">
+    {{- if and $isBlog (or .PrevInSection .NextInSection) }}
+    <nav class="pager" aria-label="이전 글과 다음 글">
+      <ul>
+        {{- with .PrevInSection }}
+        <li class="pager-prev">
+          <span class="meta">이전 글</span>
+          <a href="{{ .RelPermalink }}" rel="prev">{{ .LinkTitle }}</a>
+        </li>
+        {{- end }}
+        {{- with .NextInSection }}
+        <li class="pager-next">
+          <span class="meta">다음 글</span>
+          <a href="{{ .RelPermalink }}" rel="next">{{ .LinkTitle }}</a>
+        </li>
+        {{- end }}
+      </ul>
+    </nav>
+    {{- end }}
+    {{- if $showBack }}
+    {{- $names := dict "blog" "블로그" "services" "서비스" "projects" "프로젝트" "courses" "강의" }}
+    {{- $name := index $names $section.Section | default $section.Title }}
+    <a class="more back" href="{{ $section.RelPermalink }}">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 10H5M9 5l-5 5 5 5"/></svg>
+      {{ $name }} 목록으로
+    </a>
+    {{- end }}
+  </footer>
+  {{- end }}
+</article>
+{{ end }}
