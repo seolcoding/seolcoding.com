@@ -18,10 +18,8 @@ Allow: /
 User-agent: Daum
 Allow: /
 
-# 사이트맵 위치
-Sitemap: https://seolcoding.com/sitemap.xml
-Sitemap: https://seolcoding.com/ko/sitemap.xml
-Sitemap: https://seolcoding.com/en/sitemap.xml
+# 사이트맵 위치 (사이트 주소는 www.seolcoding.com, 사이트맵은 하나)
+Sitemap: https://www.seolcoding.com/sitemap.xml
 
 # Host 지정
-Host: https://seolcoding.com
+Host: https://www.seolcoding.com

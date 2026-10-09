@@ -3,6 +3,10 @@ languageCode = "ko-kr"
 title = "설코딩"
 defaultContentLanguage = "ko"
 defaultContentLanguageInSubdir = false
+# 한국어 읽는 시간·글자 수를 글자 단위로 센다
+hasCJKLanguage = true
+# 태그 이름을 적은 그대로 보인다(github-actions → Github-Actions로 바꾸지 않음)
+capitalizeListTitles = false
 
 # 모양은 이 저장소의 layouts/와 assets/css/site/가 전부다(외부 테마 없음, 2026-10-09).
 # 색·글꼴·로고는 static/seolcoding/(설코딩 디자인 시스템 복사본)에서 온다. 그 폴더는 직접 고치지 않는다.

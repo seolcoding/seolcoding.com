@@ -1,6 +1,10 @@
 ---
 title: "기술 스택"
 type: "homepage"
+# 2026-10-09: 따로 그리지 않는다. 내용은 /about/ 페이지가 site.GetPage로 읽어 보여 준다.
+build:
+  render: never
+  list: never
 intro: >-
   공공 부문 AI 혁신을 위한 클라우드, 프로그래밍, 데이터 분석 전문 기술.
 

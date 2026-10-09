@@ -1,0 +1,10 @@
+{{- /* 서비스 목록: 본문(_index.md)이 세 서비스와 링크를 이미 적고 있어 아래 줄 목록을 따로 그리지 않는다 */ -}}
+{{ define "main" }}
+<div class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}<p class="page-lead">{{ . }}</p>{{ end }}
+</div>
+<div class="article sc-document">
+  {{ .Content }}
+</div>
+{{ end }}

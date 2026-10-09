@@ -1,0 +1,15 @@
+{{- /* 없는 주소: 제목·한 줄 안내 → 자주 찾는 곳 링크 */ -}}
+{{ define "main" }}
+<div class="page-head">
+  <h1 class="page-title">페이지를 찾을 수 없습니다</h1>
+  <p class="page-lead">주소가 바뀌었거나 없어진 페이지입니다. 아래에서 찾아보세요.</p>
+</div>
+<nav class="notfound-links" aria-label="자주 찾는 곳">
+  <ul>
+    <li><a href="/">홈</a></li>
+    <li><a href="/projects/">프로젝트</a></li>
+    <li><a href="/courses/">강의</a></li>
+    <li><a href="https://blog.seolcoding.com/">블로그</a></li>
+  </ul>
+</nav>
+{{ end }}

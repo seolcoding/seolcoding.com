@@ -1,0 +1,174 @@
+{{- /* 소개(/about/): 소개·경력·수상·자격·학력·기술을 한 페이지에 모은다.
+   사실은 모두 콘텐츠 파일에서 온다(about.md와, 따로 그리지 않는 awards·certifications·experience·skills·technical.md).
+   이 파일에 직접 쓴 글자는 구역 이름 같은 중립적인 이름표뿐이다. 그림·아이콘·사진은 넣지 않는다. */ -}}
+{{ define "main" }}
+{{- $exp := site.GetPage "/experience" }}
+{{- $awards := site.GetPage "/awards" }}
+{{- $certs := site.GetPage "/certifications" }}
+{{- $tech := site.GetPage "/technical" }}
+{{- $skills := site.GetPage "/skills" }}
+{{- $arrow := `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>` | safeHTML }}
+<div class="about">
+  <div class="page-head">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{- with .Params.intro }}
+    <p class="page-lead">{{ partial "inline/about-clean.html" . }}</p>
+    {{- end }}
+  </div>
+
+  {{- if or .Params.study .Params.mix }}
+  <div class="about-text">
+    {{- with .Params.study }}<p>{{ partial "inline/about-clean.html" . }}</p>{{ end }}
+    {{- with .Params.mix }}<p>{{ partial "inline/about-clean.html" . }}</p>{{ end }}
+  </div>
+  {{- end }}
+
+  {{- with $exp }}{{ with .Params.positions }}
+  <section class="block" id="experience" aria-labelledby="experience-title">
+    <h2 id="experience-title">경력</h2>
+    <ul class="rows about-rows">
+      {{- range . }}
+      <li>
+        <div class="about-row-head">
+          <h3>{{ with .company_url }}<a href="{{ . }}">{{ end }}{{ .company }}{{ with .company_url }}</a>{{ end }}</h3>
+          {{- with .role }}<p class="about-role">{{ . }}</p>{{ end }}
+          {{- /* 기간이 '2025년 12월 -'처럼 줄표로 끝날 수 있어 기간과 곳을 두 줄로 둔다 */}}
+          {{- with .period }}<p class="meta">{{ . }}</p>{{ end }}
+          {{- with .location }}<p class="meta about-place">{{ . }}</p>{{ end }}
+        </div>
+        <div class="about-row-body">
+          {{- with .company_description }}<p>{{ . }}</p>{{ end }}
+          {{- with .bullet_points }}
+          <ul class="about-points">
+            {{- range . }}<li>{{ . }}</li>{{ end }}
+          </ul>
+          {{- end }}
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+    {{- with ($exp.Params.resume_url_ko | default site.Params.resume_url_ko) }}
+    <p class="about-more"><a class="more" href="{{ . }}">{{ $exp.Params.resume_label | default "이력서 내려받기" }}{{ $arrow }}</a></p>
+    {{- end }}
+  </section>
+  {{- end }}{{ end }}
+
+  {{- with $awards }}{{ with .Params.awards }}
+  {{- /* 해마다 최근 것부터. 같은 해 안에서는 파일에 적은 순서를 지킨다 */}}
+  {{- $list := . }}
+  {{- $years := slice }}
+  {{- range $list }}{{ $years = $years | append (string .year) }}{{ end }}
+  <section class="block" id="awards" aria-labelledby="awards-title">
+    <h2 id="awards-title">수상</h2>
+    <ul class="rows about-rows about-rows-sm">
+      {{- range sort (uniq $years) "value" "desc" }}
+        {{- $y := . }}
+        {{- range $list }}{{ if eq (string .year) $y }}
+      <li>
+        <div class="about-row-head">
+          <h3>{{ .title }}</h3>
+          {{- $meta := slice }}
+          {{- with .year }}{{ $meta = $meta | append (string .) }}{{ end }}
+          {{- with .organization }}{{ $meta = $meta | append . }}{{ end }}
+          {{- with $meta }}<p class="meta">{{ delimit . " · " }}</p>{{ end }}
+        </div>
+        <div class="about-row-body">
+          {{- with .description }}<p>{{ . }}</p>{{ end }}
+        </div>
+      </li>
+        {{- end }}{{ end }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}{{ end }}
+
+  {{- with $certs }}{{ with .Params.certifications }}
+  <section class="block" id="certifications" aria-labelledby="certifications-title">
+    <h2 id="certifications-title">자격</h2>
+    <ul class="rows about-rows about-rows-sm">
+      {{- range . }}
+      <li>
+        <div class="about-row-head">
+          <h3>{{ .title }}</h3>
+          {{- $meta := slice }}
+          {{- with .organization }}{{ $meta = $meta | append . }}{{ end }}
+          {{- with .date }}{{ $meta = $meta | append (string .) }}{{ end }}
+          {{- with .expiry }}{{ $meta = $meta | append (printf "만료 %v" .) }}{{ end }}
+          {{- with $meta }}<p class="meta">{{ delimit . " · " }}</p>{{ end }}
+        </div>
+        <div class="about-row-body">
+          {{- with .description }}<p>{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}{{ end }}
+
+  {{- /* 학력: about.md 요약(quickfacts)의 '학력' 항목. 글자는 고치지 않고 서식만 걷어 낸다 */}}
+  {{- range where (.Params.quickfacts | default slice) "title" "학력" }}
+    {{- $lines := split (replaceRE `(?i)<br\s*/?>` "\n" (string .value)) "\n" }}
+    {{- $first := index $lines 0 }}
+    {{- $name := "" }}
+    {{- with findRESubmatch `<strong>(.*?)</strong>` $first 1 }}{{ $name = index (index . 0) 1 }}{{ end }}
+  <section class="block" id="education" aria-labelledby="education-title">
+    <h2 id="education-title">학력</h2>
+    <ul class="rows about-rows about-rows-sm">
+      <li>
+        <div class="about-row-head">
+          {{- if $name }}
+          <h3>{{ partial "inline/about-clean.html" $name }}</h3>
+          {{- with partial "inline/about-clean.html" (replace $first (printf "<strong>%s</strong>" $name) "") }}<p class="meta">{{ . }}</p>{{ end }}
+          {{- else }}
+          <h3>{{ partial "inline/about-clean.html" $first }}</h3>
+          {{- end }}
+        </div>
+        <div class="about-row-body">
+          {{- range after 1 $lines }}{{ with partial "inline/about-clean.html" . }}<p>{{ . }}</p>{{ end }}{{ end }}
+        </div>
+      </li>
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with $tech }}{{ with .Params.technical_groups }}
+  {{- $groups := . }}
+  {{- $groupTitles := slice }}
+  {{- range $groups }}{{ $groupTitles = $groupTitles | append .title }}{{ end }}
+  {{- /* skills.md의 분야 가운데 기술 묶음 이름과 겹치지 않는 것만 마지막 줄에 덧붙인다 */}}
+  {{- $extra := slice }}
+  {{- with $skills }}{{ range .Params.domains }}{{ if not (in $groupTitles .title) }}{{ $extra = $extra | append .title }}{{ end }}{{ end }}{{ end }}
+  <section class="block" id="skills" aria-labelledby="skills-title">
+    <h2 id="skills-title">기술</h2>
+    {{- with $skills }}{{ with .Params.intro }}<p class="about-block-lead">{{ partial "inline/about-clean.html" . }}</p>{{ end }}{{ end }}
+    <ul class="rows about-rows about-rows-sm">
+      {{- range $groups }}
+      <li>
+        <div class="about-row-head"><h3>{{ .title }}</h3></div>
+        <div class="about-row-body">
+          {{- $names := slice }}
+          {{- range .skills }}{{ $names = $names | append .name }}{{ end }}
+          <p>{{ delimit $names ", " }}</p>
+        </div>
+      </li>
+      {{- end }}
+      {{- with $extra }}
+      <li>
+        <div class="about-row-head"><h3>그 밖에</h3></div>
+        <div class="about-row-body"><p>{{ delimit . ", " }}</p></div>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}{{ end }}
+</div>
+{{ end }}
+
+{{- /* 글자 정리: HTML 서식을 걷고, 이모지·그림 문자(변형 선택자 FE0F, 결합 문자 ZWJ 포함)를 지운 뒤 남은 빈칸을 정리한다 */ -}}
+{{- define "_partials/inline/about-clean.html" -}}
+{{- $s := . | string | plainify | htmlUnescape -}}
+{{- $s = replaceRE `[\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}\x{231A}\x{231B}\x{23E9}-\x{23FA}\x{FE00}-\x{FE0F}\x{200D}\x{20E3}\x{E0020}-\x{E007F}]` "" $s -}}
+{{- $s = replaceRE `[ \t]+([.,!?)])` "$1" $s -}}
+{{- $s = replaceRE `[ \t]{2,}` " " $s -}}
+{{- return (trim $s " \t\n") -}}
+{{- end -}}

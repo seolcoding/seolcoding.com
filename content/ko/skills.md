@@ -1,6 +1,10 @@
 ---
 title: "기술 역량"
 type: "homepage"
+# 2026-10-09: 따로 그리지 않는다. 내용은 /about/ 페이지가 site.GetPage로 읽어 보여 준다.
+build:
+  render: never
+  list: never
 intro: >-
   아래의 기술스택에 대한 실제 경험을 바탕으로 강의, 개발, 멘토링이 가능합니다.
 

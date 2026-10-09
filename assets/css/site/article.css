@@ -1,0 +1,137 @@
+/* 낱장 페이지(page.html) · 404 · 본문 글자(.article).
+   본문 간격은 디자인 시스템의 긴 문서 값(.sc-document, D-050)을 쓴다:
+   구역 사이 64 · 묶음 사이 24 · 제목 아래 20 · 문단 사이 12px (600px 이하 48 · 20 · 16 · 8px).
+   .sc-document가 없는 .article(목록 페이지 본문)은 괄호 안의 넓은 화면 값을 쓴다.
+   색은 --c-* 변수만. 상자·그림자 없이 선과 여백으로 나눈다. */
+
+/* 글 머리: 글 제목은 길어서 안쪽 페이지 제목보다 한 단계 작게(최대 48px) */
+.article-page .page-title { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1.2; max-width: 22em; }
+.article-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-top: 20px; }
+.article-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; list-style: none; margin: 0; padding: 0; }
+.article-tags a { color: var(--c-muted); text-decoration: none; }
+.article-tags a:hover { color: var(--c-ink); text-decoration: underline; }
+
+/* 본문 단: 읽기 좋은 폭(42em)으로 왼쪽 정렬 */
+.article {
+  max-width: 42em; margin-top: clamp(40px, 6vh, 64px);
+  font-size: var(--sc-doc-body, 17px); line-height: 1.7; color: var(--c-body);
+}
+
+/* 간격: 위 여백만 쓴다(아래 여백 없음). 순서가 곧 우선순위다 */
+.article :where(ul, ol, dl, dd, pre, blockquote, figure, table, hr, h5, h6) { margin: 0; }
+.article > * + * { margin-top: var(--sc-doc-paragraph-gap, 12px); }
+.article > :where(ul, ol, dl, pre, blockquote, figure, details, div, aside, iframe, video, canvas, table) { margin-top: var(--sc-doc-block-gap, 24px); }
+.article > :where(ul, ol, dl, pre, blockquote, figure, details, div, aside, iframe, video, canvas, table) + * { margin-top: var(--sc-doc-block-gap, 24px); }
+.article > h1, .article > h2 { margin-top: var(--sc-doc-section-gap, 64px); }
+.article > h3 { margin-top: 40px; }
+.article > h4, .article > h5, .article > h6 { margin-top: var(--sc-doc-block-gap, 24px); }
+.article > :is(h1, h2, h3) + * { margin-top: var(--sc-doc-heading-gap, 20px); }
+.article > :is(h4, h5, h6) + * { margin-top: var(--sc-doc-paragraph-gap, 12px); }
+.article > hr, .article > hr + * { margin-top: 40px; }
+.article > :first-child { margin-top: 0; }
+
+/* 본문 첫머리에 쓴 제목은 페이지 제목과 겹치므로 숨긴다(내용 파일은 그대로) */
+.article > h1:first-child,
+.article.drop-first-heading > h2:first-child { display: none; }
+.article > h1:first-child + *,
+.article.drop-first-heading > h2:first-child + * { margin-top: 0; }
+
+/* 제목: 본문 h1(드묾)은 h2와 같게 */
+.article :is(h1, h2, h3, h4, h5, h6) { color: var(--c-ink); font-weight: 700; scroll-margin-top: 24px; }
+.article :is(h1, h2) { font-size: var(--sc-doc-section, 26px); letter-spacing: -0.02em; line-height: 1.35; }
+.article h3 { font-size: var(--sc-doc-item, 20px); letter-spacing: -0.01em; line-height: 1.4; }
+.article :is(h4, h5, h6) { font-size: 1em; line-height: 1.5; }
+
+/* 글자 */
+.article strong { color: var(--c-ink); font-weight: 700; }
+/* 본문의 기울임(*글자*)은 형광펜으로 칠하지 않는다. 형광펜은 ==글자==(<mark>)만 */
+.article em { font-style: italic; background: none; padding: 0; margin: 0; }
+.article :where(small, sub, sup) { font-size: 0.8em; }
+
+/* 목록 */
+.article :where(ul, ol) { padding-left: 1.4em; }
+.article li + li { margin-top: 6px; }
+.article li > :where(ul, ol) { margin-top: 6px; }
+.article li > p + * { margin-top: 8px; }
+.article li::marker { color: var(--c-muted); }
+.article li:has(> input[type="checkbox"]) { list-style: none; }
+.article li > input[type="checkbox"] { margin: 0 0.5em 0 -1.4em; accent-color: var(--c-ink); }
+.article dt { color: var(--c-ink); font-weight: 700; }
+.article dd + dt { margin-top: 16px; }
+.article dd { margin-top: 4px; }
+
+/* 선: 노트의 옅은 줄 하나 */
+.article hr { height: 0; border: 0; border-top: 1px solid var(--c-line); }
+
+/* 인용: 왼쪽 선 하나(상자 없음). 콜아웃(> [!tip])은 base.css의 .sc-callout */
+.article blockquote { padding: 2px 0 2px 1em; border-left: 3px solid var(--c-line); }
+.article :is(blockquote, .sc-callout) > * + * { margin-top: 8px; }
+.article .sc-callout { margin-bottom: 0; }
+.article .sc-callout :where(ul, ol) { margin-top: 8px; }
+
+/* 코드: 같은 폭 글꼴은 기기 글꼴을 쓴다(글꼴 파일을 더 받지 않는다) */
+.article :where(code, kbd, samp, pre) { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+.article :not(pre) > :where(code, kbd, samp) {
+  font-size: 0.88em; color: var(--c-ink); background: var(--c-surface);
+  padding: 0.12em 0.36em; border-radius: 4px;
+}
+.article pre {
+  overflow-x: auto; padding: 16px 20px; border-radius: 4px;
+  background: var(--c-surface); color: var(--c-ink);
+  font-size: 14px; line-height: 1.6; tab-size: 2;
+  white-space: pre; word-break: normal; overflow-wrap: normal;
+}
+.article pre code { font-size: inherit; background: none; padding: 0; }
+
+/* 표: 머리와 끝만 선으로 나누고 줄마다 선을 긋지 않는다(D-050).
+   넓은 표는 .table-scroll(render-table.html) 안에서만 옆으로 움직인다. 본문 바로 아래의 표는 본문 폭보다 넓어질 수 있다 */
+.article .table-scroll { overflow-x: auto; max-width: 100%; }
+.article > .table-scroll { width: max-content; min-width: 100%; max-width: calc(min(100vw, 1200px) - 2 * var(--gutter)); }
+.article table {
+  border-collapse: collapse; min-width: 100%;
+  font-size: 15px; line-height: 1.55; font-variant-numeric: tabular-nums;
+  overflow-wrap: normal;
+}
+.article :is(th, td) { padding: 10px 20px 10px 0; text-align: left; vertical-align: top; }
+.article :is(th, td):last-child { padding-right: 0; }
+.article th { color: var(--c-ink); font-weight: 700; }
+.article thead th { border-top: 1px solid var(--c-rule); border-bottom: 1px solid var(--c-rule); }
+.article tbody tr:first-child td { padding-top: 14px; }
+.article tbody tr:last-child td { padding-bottom: 14px; border-bottom: 1px solid var(--c-rule); }
+.article table:not(:has(thead)) tbody tr:first-child > * { border-top: 1px solid var(--c-rule); }
+
+/* 그림·차트·끼워 넣은 화면은 본문 폭을 넘지 않는다. 폭이 고정된 SVG 차트는 그 상자 안에서 옆으로 움직인다 */
+.article :where(img, video, iframe, canvas, embed, object) { max-width: 100%; }
+.article :where(img, video) { height: auto; }
+.article > div:has(> svg) { max-width: 100%; overflow-x: auto; }
+.article figure figcaption { margin-top: 8px; color: var(--c-muted); font-size: 14px; }
+
+/* 각주 */
+.article .footnotes { font-size: 15px; color: var(--c-muted); }
+.article .footnotes hr { margin-bottom: 16px; }
+
+/* 글 아래: (블로그) 이전·다음 글 → 목록으로 */
+.article-foot { max-width: 42em; margin-top: clamp(64px, 10vh, 96px); }
+.pager ul {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 48px;
+  list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c-rule);
+}
+.pager li { display: flex; flex-direction: column; gap: 4px; padding-top: 24px; }
+.pager .pager-next { grid-column: 2; text-align: right; }
+.pager a { font-weight: 600; text-decoration: none; text-wrap: balance; }
+.pager a:hover { text-decoration: underline; }
+.article-foot .back { margin-top: 40px; }
+.article-foot > .back:first-child { margin-top: 0; }
+
+/* 404: 자주 찾는 곳 */
+.notfound-links ul {
+  display: flex; flex-wrap: wrap; gap: 12px 32px;
+  list-style: none; margin: 40px 0 0; padding: 24px 0 0; border-top: 1px solid var(--c-rule);
+}
+.notfound-links a { font-size: 18px; font-weight: 600; }
+
+@media (max-width: 760px) {
+  .article pre { padding: 14px 16px; }
+  .pager ul { grid-template-columns: minmax(0, 1fr); }
+  .pager .pager-next { grid-column: auto; text-align: left; }
+}

@@ -1,6 +1,10 @@
 ---
 title: "경력"
 type: "homepage"
+# 2026-10-09: 따로 그리지 않는다. 내용은 /about/ 페이지가 site.GetPage로 읽어 보여 준다.
+build:
+  render: never
+  list: never
 intro: >-
   공공기관 10년차 재직 중, 생성형 AI와 공공데이터, IT 기술로 현실의 문제를 해결하며, 정부로부터 공식 인정받은 실무 전문가입니다.
 

@@ -1,0 +1,100 @@
+/* 홈(한 페이지) — 기준 구현: 툴킷 dev/design-studio/site/index.html 의 값을 옮겼다.
+   다른 페이지와 이름이 겹치지 않게 모두 body.kind-home 아래에 둔다. .button · .wrap · .rows 기본은 base.css에 있다. */
+
+/* 구역 사이는 기준 구현처럼 조금 더 넓게 */
+.kind-home section.block { margin-top: clamp(96px, 14vh, 168px); }
+
+/* 첫 화면 — 제목의 형광펜만 0.25초 뒤에 긋는다 */
+.kind-home .hero { padding: clamp(40px, 9vh, 112px) 0 0; }
+.kind-home .headline {
+  font-size: clamp(2.75rem, 1.4rem + 5.2vw, 6rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.08; max-width: 11.5em;
+}
+.kind-home .headline em { animation: sc-pen 900ms var(--ease-pen) 250ms both; }
+.kind-home .intro { margin-top: 28px; max-width: 34em; font-size: clamp(1.125rem, 1rem + 0.35vw, 1.3rem); line-height: 1.65; }
+
+/* 질문 → 선택지 줄(오른쪽 끝에 상담 버튼) → 고른 결과 */
+.kind-home .hero-foot {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 48px;
+  grid-template-areas: "label ." "chips cta" "result result";
+  margin-top: clamp(40px, 7vh, 72px); padding-top: 28px; border-top: 1px solid var(--c-rule);
+}
+.kind-home .picker-label { grid-area: label; color: var(--c-ink); font-weight: 600; margin-bottom: 14px; }
+.kind-home .chips { grid-area: chips; display: flex; flex-wrap: wrap; gap: 8px; }
+.kind-home .hero-cta { grid-area: cta; }
+.kind-home .picker-result { grid-area: result; min-height: 1.7em; margin-top: 16px; }
+
+.kind-home .chip {
+  --fill: var(--c-mark);
+  font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1.2; color: var(--c-ink);
+  padding: 11px 16px; border: 1px solid var(--c-rule); border-radius: 999px; cursor: pointer;
+  background: var(--c-bg); transition: background-color 160ms;
+}
+.kind-home .chip:hover { background: var(--c-surface); }
+/* 누르면 칸을 채우지 않고, 그 서비스 색 형광펜을 글자에 긋는다 */
+.kind-home .chip span {
+  background-image: linear-gradient(var(--fill), var(--fill));
+  background-repeat: no-repeat; background-position: 0 var(--mark-y); background-size: 0% var(--mark-h);
+  padding: 0 0.08em; margin: 0 -0.08em;
+  transition: background-size 420ms var(--ease-pen);
+}
+.kind-home .chip[aria-pressed="true"] span { background-size: 100% var(--mark-h); }
+/* 색이 아닌 표시도 둔다: 눌린 칩은 테두리를 2px로 굵힌다(크기는 그대로) */
+.kind-home .chip[aria-pressed="true"] { border: 2px solid var(--c-ink); padding: 10px 15px; }
+
+.kind-home .picker-result .placeholder { color: var(--c-muted); }
+.kind-home .picker-result .lead { color: var(--c-ink); font-weight: 600; }
+.kind-home .picker-result svg { width: 18px; height: 18px; vertical-align: -3px; margin: 0 6px; color: var(--c-ink); }
+.kind-home .picker-result strong { color: var(--c-ink); }
+.kind-home .picker-result .sc-mark { animation: sc-pen 600ms var(--ease-pen) 120ms both; }
+
+/* 하는 일: 서비스마다 형광펜 색이 다르다. 상황을 고르면 시작할 서비스의 형광펜만 남고,
+   나머지는 형광펜을 거둔다(글자는 그대로 읽힌다) */
+.kind-home .rows > li { gap: 16px 48px; }
+.kind-home .rows h3 { font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem); }
+.kind-home .rows p { max-width: 36em; font-size: 18px; }
+.kind-home .rows .sc-mark { transition: background-size 480ms var(--ease-pen); }
+.kind-home .rows.has-pick li:not(.is-pick) .sc-mark { background-size: 0% var(--mark-h); }
+
+/* 함께 하는 순서: 순서가 뜻을 가지므로 번호를 쓴다. 칸 사이 선 위의 꺾쇠가 방향을 보여 준다 */
+.kind-home .steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.kind-home .steps li { position: relative; padding: 24px 28px 0 0; border-top: 1px solid var(--c-rule); }
+.kind-home .steps .n { display: block; font-weight: 700; color: var(--c-ink); font-variant-numeric: tabular-nums; margin-bottom: 10px; }
+.kind-home .steps h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.kind-home .steps p { font-size: 16px; }
+.kind-home .steps li:not(:last-child)::after {
+  content: ""; position: absolute; top: -5px; right: 12px; width: 9px; height: 9px;
+  border-top: 1px solid var(--c-rule); border-right: 1px solid var(--c-rule); transform: rotate(45deg); background: var(--c-bg);
+}
+
+/* 근거 두 가지 + 소개 페이지로 가는 글자 링크 */
+.kind-home .facts { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+.kind-home .facts li { border-top: 1px solid var(--c-rule); padding-top: 24px; }
+.kind-home .facts strong { display: block; color: var(--c-ink); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.kind-home .facts span { font-size: 18px; }
+.kind-home .facts-more { margin-top: 32px; }
+
+/* 상담: 마무리 문장 → 안내 → 메일 버튼 → 연락처 세 칸. 아래 여백은 꼬리말의 위 여백이 맡는다 */
+.kind-home .contact .close { font-size: clamp(2.25rem, 1.3rem + 3.6vw, 4.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.kind-home .contact .note { margin-top: 20px; max-width: 34em; font-size: 18px; }
+.kind-home .contact .button { margin-top: 32px; }
+.kind-home .reach { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 8px 48px; margin: 48px 0 0; }
+.kind-home .reach dt { color: var(--c-muted); font-size: 14px; }
+.kind-home .reach dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kind-home .reach a { text-decoration: none; }
+.kind-home .reach a:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  .kind-home .hero-foot { grid-template-columns: 1fr; grid-template-areas: "label" "chips" "result" "cta"; }
+  .kind-home .hero-cta { justify-self: start; margin-top: 24px; }
+  .kind-home .rows > li { gap: 8px; }
+  .kind-home .steps { grid-template-columns: 1fr; }
+  .kind-home .steps li { padding: 20px 0; }
+  .kind-home .steps li:not(:last-child)::after { display: none; }
+  .kind-home .facts { grid-template-columns: 1fr; gap: 24px; }
+  .kind-home .reach { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kind-home .headline em, .kind-home .picker-result .sc-mark { animation: none; }
+  .kind-home .chip, .kind-home .chip span, .kind-home .rows .sc-mark { transition: none; }
+}

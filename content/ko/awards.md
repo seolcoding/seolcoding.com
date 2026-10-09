@@ -1,6 +1,10 @@
 ---
 title: "수상 이력"
 type: "homepage"
+# 2026-10-09: 따로 그리지 않는다. 내용은 /about/ 페이지가 site.GetPage로 읽어 보여 준다.
+build:
+  render: never
+  list: never
 intro: "정부 대회 6회 수상, AI와 공공데이터로 현실의 문제를 해결합니다."
 
 awards:

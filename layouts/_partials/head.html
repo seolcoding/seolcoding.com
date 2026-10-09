@@ -4,7 +4,8 @@
   // 저장된 화면 모드를 먼저 적용해 깜빡임을 막는다. 저장된 값이 없으면 기기 설정을 따른다.
   try { var t = localStorage.getItem("seolcoding-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
-{{- $fullTitle := cond .IsHome (printf "%s — %s" site.Title site.Params.tagline) (printf "%s | %s" .Title site.Title) }}
+{{- $title := cond (eq .Kind "404") "페이지를 찾을 수 없습니다" .Title }}
+{{- $fullTitle := cond .IsHome (printf "%s — %s" site.Title site.Params.tagline) (printf "%s | %s" $title site.Title) }}
 {{- $desc := .Params.description | default site.Params.description }}
 {{- $img := (.Params.og_image | default site.Params.og_image) | absURL }}
 <title>{{ $fullTitle }}</title>
@@ -78,7 +79,7 @@
       "@type": "WebPage",
       "@id": {{ printf "%s#webpage" .Permalink }},
       "url": {{ .Permalink }},
-      "name": {{ .Title }},
+      "name": {{ $title }},
       "isPartOf": { "@id": {{ printf "%s#website" site.BaseURL }} },
       "about": { "@id": {{ printf "%s#person" site.BaseURL }} },
       "inLanguage": "ko-KR"

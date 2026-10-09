@@ -22,3 +22,17 @@
 /mini-apps/team-divider/*      https://dajam.seolcoding.com/team-divider 301
 /showcases                  https://apps.seolcoding.com/#showcases 301
 /showcases/*                https://apps.seolcoding.com/showcases/:splat 301
+
+# 옛 홈 섹션 주소는 소개 페이지로, 연락처는 홈의 연락 부분으로 보낸다(2026-10-09 디자인 시스템 개편).
+/awards               /about/#awards     301
+/awards/              /about/#awards     301
+/certifications       /about/#certifications     301
+/certifications/      /about/#certifications     301
+/experience           /about/#experience     301
+/experience/          /about/#experience     301
+/skills               /about/#skills     301
+/skills/              /about/#skills     301
+/technical            /about/#skills     301
+/technical/           /about/#skills     301
+/contact              /#contact   301
+/contact/             /#contact   301

@@ -1,4 +1,51 @@
+{{- /* 목록 페이지 공통: /services/ · /blog/ · /tags/ · /tags/<태그>/.
+   제목과 소개 → 본문(있으면) → 줄 목록. 카드·그림 없이 1px 선과 여백으로 나눈다.
+   줄 제목은 h1 바로 아래 단계라 h2로 쓴다(모양은 list.css가 .rows h3와 같게 맞춘다). */ -}}
 {{ define "main" }}
-<div class="page-head"><h1 class="page-title">{{ .Title }}</h1></div>
-{{ .Content }}
+<div class="page-head">
+  {{- if eq .Kind "term" }}{{ with .Parent }}
+  <p class="meta page-kicker"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+  {{- end }}{{ end }}
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="page-lead">{{ . }}</p>
+  {{- end }}
+</div>
+
+{{- with .Content }}
+<div class="article sc-document">
+  {{ . }}
+</div>
+{{- end }}
+
+{{- if eq .Kind "taxonomy" }}
+  {{- /* /tags/: 태그마다 이름과 글 수. 글이 많은 태그부터 */ -}}
+  {{- with .Data.Terms.ByCount }}
+<ul class="rows terms">
+    {{- range . }}
+  <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> <span class="meta term-count">{{ .Count }}개</span></li>
+    {{- end }}
+</ul>
+  {{- end }}
+{{- else }}
+  {{- $pages := .Pages }}
+  {{- if eq .Section "blog" }}{{ $pages = .Pages.ByDate.Reverse }}{{ end }}
+  {{- with $pages }}
+<ul class="rows list-rows">
+    {{- range . }}
+  <li>
+    <div class="row-head">
+      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+      {{- if not .Date.IsZero }}
+      <p class="meta row-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006년 1월 2일" }}</time></p>
+      {{- end }}
+    </div>
+    {{- with .Description | default (.Summary | plainify | htmlUnescape | truncate 140) }}
+    <p>{{ . }}</p>
+    {{- end }}
+  </li>
+    {{- end }}
+</ul>
+  {{- end }}
+{{- end }}
 {{ end }}

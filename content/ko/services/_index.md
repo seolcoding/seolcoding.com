@@ -22,6 +22,8 @@ description: "AI 솔루션 개발, 교육, 컨설팅 서비스"
 AI 도입 전략 수립
 공공기관 특화 컨설팅
 
+- [부산 평생교육 DB](/busan_edu_db/) — 개발 중(동작 확인 필요)
+
 ---
 
 **문의**: ssalssi1@gmail.com

@@ -1,0 +1,16 @@
+{{- /* /courses/: 한 페이지짜리 강의 소개. 제목·소개 다음에 본문만 보여 준다.
+   하위 페이지(예: ai-education-basics)는 자기 주소로만 열리고 여기 목록에는 넣지 않는다. */ -}}
+{{ define "main" }}
+<div class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="page-lead">{{ . }}</p>
+  {{- end }}
+</div>
+
+{{- with .Content }}
+<div class="article sc-document">
+  {{ . }}
+</div>
+{{- end }}
+{{ end }}
