@@ -22,3 +22,9 @@
   - 규칙: 툴킷 `skills/seolcoding-design/references/apply/web.md`
   - 기준 구현: 툴킷 `dev/design-studio/site/index.html`
   - 바꾸기 전까지 careercanvas는 고치지 않는다.
+
+## 앱·프로젝트 표기 (2026-10-09 사용자 지시)
+
+- 실제로 구동되지 않는 앱은 따로 표기한다. 앱·프로젝트 목록은 항목마다 상태(운영 중 / 체험용 데모 / 준비 중 / 운영 중단)를 글자로 적는다.
+- 운영 중단·준비 중인 앱에는 가입·시작 링크를 걸지 않는다. "운영 중"은 실제로 열어 확인한 것만 적는다.
+- 현황표는 agent-os `ops/seolcoding.com/README.md`에 있다.
