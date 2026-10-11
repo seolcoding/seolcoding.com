@@ -213,10 +213,10 @@ ol.steps > li::before {
       </ul>
     </div>
     <div class="card">
-      <h4>오늘 하지 않는 것</h4>
+      <h4>오늘 할 수도 있는 것: 1-4 RAG·RAGaaS</h4>
       <ul>
-        <li><b>1-4 RAG</b>는 2일차 첫 블록(2.1, 3.0H)입니다. PDF만 <code>day01</code> 폴더에 있습니다.</li>
-        <li>오늘 쓰는 연결: <b>LLM만</b>(1-2, 1-3). 임베딩·RAGaaS는 2일차 1-4부터 씁니다.</li>
+        <li>정본 일정상 <b>1-4 RAG</b>는 2일차 첫 블록(2.1, 3.0H)이지만, <b>오늘 RAGaaS까지 갈 수도 있습니다.</b></li>
+        <li>그래서 연결은 <b>LLM·임베딩·RAGaaS 모두</b> 오늘 아침에 확인하고(<a href="#rag-morning">인프라 테스트 1-4</a>), 수강생도 첫 시간에 <b>값 10개를 한 번에</b> 채웁니다.</li>
       </ul>
     </div>
   </div>
@@ -248,7 +248,7 @@ uv run python -m config.check --live</pre></div>
   </ul>
   <div class="callout warn">
     <b class="t">명령 점검은 LLM·임베딩·RAGaaS를 모두 봅니다</b>
-    <p><code>uv run python -m config.check</code>는 세 연결을 다 검사합니다(<code>check.py</code>). 오늘 LLM 값만 채운 수강생은 임베딩·RAGaaS 줄이 ⛔로 나와 "준비가 덜 되었습니다"가 뜹니다. 실습 노트북 맨 위 <b>환경 점검 셀</b>(<code>check_env()</code>)은 LLM만 봅니다. 수강생에게는 노트북 셀 결과를 기준으로 삼게 하거나, 처음부터 값을 다 채우게 합니다.</p>
+    <p><code>uv run python -m config.check</code>는 세 연결을 다 검사합니다(<code>check.py</code>). 값 10개를 다 채워야 "준비 완료"가 나옵니다. 오늘 RAGaaS까지 갈 수 있으니 수강생도 첫 시간에 <b>10개를 다 채우게</b> 합니다. 값이 아직 없는 칸이 있으면 그 줄만 ⛔로 남습니다. 실습 노트북 맨 위 <b>환경 점검 셀</b>(<code>check_env()</code>)은 LLM만 봅니다. 이 파일(<code>course/config/check.py</code>)은 수강생 배포본(study v5)에도 똑같이 들어 있습니다.</p>
   </div>
   <p>⛔ 이면: 401은 키·티켓 값, 404는 모델 이름, 연결 오류는 사내망 문제입니다. <a href="#trouble">3장 트러블슈팅</a>을 봅니다.</p>
 
@@ -358,7 +358,7 @@ step("10 Langfuse 인증", langfuse)</pre></div>
     <tr><td>3·4 도구 호출</td><td>1-3 실습 3장</td><td>3장은 코드 구조만 읽고 넘어갑니다. 2일차 이후(2-1, 2-2, M2 대부분)도 막히니 그날 고객사 담당자에게 알리고 대안을 정합니다</td></tr>
     <tr><td>5만 ✖, 6은 ✔</td><td>1-3 실습 4.3</td><td>4.3 셀에 <code>method="function_calling"</code>을 넣어 실행하게 안내합니다(1-3 실습 4.3 강사 메모)</td></tr>
     <tr><td>5·6 둘 다 ✖</td><td>1-3 실습 4.3</td><td>4.3은 방법 1(PydanticOutputParser)만 보고 넘어갑니다. 2일차 2-2 Supervisor도 영향이 있어 대안을 정해야 합니다</td></tr>
-    <tr><td>7~9</td><td>오늘은 안 씀 (2일차 1-4)</td><td><a href="#lunch">5장 점심 확인</a>에서 다룹니다</td></tr>
+    <tr><td>7·8 임베딩, 9 RAGaaS</td><td>1-4 실습 (오늘 갈 수도 있음)</td><td>아래 <a href="#rag-morning">인프라 테스트 1-4</a>에서 원인을 보고, 9번만 ✖이면 <code>RAG_PROVIDER=mock</code>으로 진행할지 정합니다</td></tr>
     <tr><td>10</td><td>오늘은 안 씀 (4일차)</td><td>✖여도 오늘 수업과 무관합니다</td></tr>
   </table></div>
   <p class="callout note" style="display:block">프로브에 SDK의 <code>client.responses</code>는 없습니다. 1-2 실습 3장은 아래 1-3의 <code>02_openai.py</code>로 봅니다. 걸린 시간도 적어 둡니다. 다만 혼자 부른 속도라서 수강생 전원이 동시에 부를 때의 속도나 429(요청 몰림)는 알 수 없습니다.</p>
@@ -385,7 +385,20 @@ uv run python course/Chapter01/code/solution/02-langchain/03_output_parser.py
 uv run python course/Chapter01/code/solution/02-langchain/04_memory_runnable.py
 uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py</pre></div>
 
-  <h3>1-4. 화면 점검 <span class="chip time">10분</span></h3>
+  <h3 id="rag-morning">1-4. RAG·RAGaaS 경로 (오늘 1-4까지 갈 경우) <span class="chip time">15분</span></h3>
+  <p>강사 PC <code>.env</code>에 임베딩 2개와 RAGaaS 3개(<code>search_url</code>, <code>rag_credential_key</code>, <code>rag_api_key</code>)가 있고, <code>index_name=rp-aicoa-meritz-pet</code>인지 먼저 봅니다. RAGaaS는 <b><code>x-dep-ticket</code>과 <code>api-key</code> 두 인증값이 다 있어야</b> 됩니다.</p>
+  <div class="tbl"><table>
+    <tr><th>명령 (<code>uv run python course/Chapter01/code/solution/03-rag/</code> 뒤에)</th><th>🟢 되어야 하는 것</th><th>실습</th></tr>
+    <tr><td><code>02_embeddings.py</code></td><td><code>=== 벡터 기본 정보 ===</code>에 벡터 차원 수, <code>=== 문장 간 유사도 ===</code>가 나온다. <b>차원 수를 적어 둡니다</b>(사내 임베딩 차원은 미확인)</td><td>1-4 실습 3장</td></tr>
+    <tr><td><code>04_langchain_rag.py</code></td><td><code>RAG ready</code>가 나오고 <code>prompt:</code>에 질문을 넣으면 답이 조각으로 나온다. Ctrl+C로 끝냄. <code>RAG ready</code>까지 걸린 시간을 적음(임베딩 속도)</td><td>1-4 실습 2~5장</td></tr>
+    <tr><td><code>05_ragaas.py</code></td><td><code>=== 문서 업로드 ===</code> → <code>=== 문서 검색 (RRF: 하이브리드) ===</code> → 지우기가 오류 없이 끝난다. 넣기는 <b>최대 300초</b>까지 걸릴 수 있음</td><td>1-4 실습 6장</td></tr>
+  </table></div>
+  <ul class="check" data-group="morning">
+    <li><input type="checkbox" id="m11"><span>인덱스 <code>rp-aicoa-meritz-pet</code>로 검색 결과가 나온다(권한 그룹 <code>rag-public</code>)</span></li>
+    <li><input type="checkbox" id="m12"><span>RAGaaS가 막히면 대응을 정했다: 수강생 <code>.env</code>에 <code>RAG_PROVIDER=mock</code> 한 줄 → 모의 응답으로 진행</span></li>
+  </ul>
+
+  <h3>1-5. 화면 점검 <span class="chip time">10분</span></h3>
   <ul class="check" data-group="morning">
     <li><input type="checkbox" id="m5"><span>VS Code에서 <code>course/Chapter01/notebooks/1-1_design_thinking_LEC.ipynb</code>를 열고 위에서부터 실행하면 슬라이드가 그려진다 (커리큘럼 슬라이드 포함)</span></li>
     <li><input type="checkbox" id="m6"><span>퀴즈 선택지를 누르면 정답·오답 색이 바뀐다</span></li>
@@ -393,7 +406,7 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
     <li><input type="checkbox" id="m8"><span>프로젝터에서 뒷자리까지 코드가 읽힌다 (VS Code 확대 <kbd>Ctrl</kbd>+<kbd>=</kbd>)</span></li>
   </ul>
 
-  <h3>1-5. 정리 <span class="chip time">2분</span></h3>
+  <h3>1-6. 정리 <span class="chip time">2분</span></h3>
   <ul class="check" data-group="morning">
     <li><input type="checkbox" id="m9"><span><code>probe.ipynb</code>를 지운다 (이 PC를 수강생이 쓴다면)</span></li>
     <li><input type="checkbox" id="m10"><span>아래 결과표를 채우고, <a href="#results">8장</a>에서 복사해 둔다</span></li>
@@ -418,6 +431,9 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
     <tr data-k="a14"><td>04_memory_runnable</td><td>1-3 5장</td><td></td><td></td></tr>
     <tr data-k="a15"><td>05_memory_langgraph</td><td>1-3 6장</td><td></td><td></td></tr>
     <tr data-k="a16"><td>슬라이드·퀴즈 화면</td><td>1-1~1-3 강의</td><td></td><td></td></tr>
+    <tr data-k="a17"><td>02_embeddings (임베딩·차원 수)</td><td>1-4 3장</td><td></td><td></td></tr>
+    <tr data-k="a18"><td>04_langchain_rag (RAG ready 시간)</td><td>1-4 2~5장</td><td></td><td></td></tr>
+    <tr data-k="a19"><td>05_ragaas 넣기·검색·지우기</td><td>1-4 6장</td><td></td><td></td></tr>
   </table></div>
 </section>
 
@@ -458,9 +474,9 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
     <tr><td><code>send_system_name</code></td><td>결재 문서에 적은 시스템 이름</td></tr>
     <tr><td><code>model</code></td><td>요청할 모델 이름. 교육 페이지 값을 씁니다</td></tr>
     <tr><td><code>user_id</code></td><td>본인 AD ID</td></tr>
-    <tr><td><code>embedding_api_url</code>, <code>embedding_x_dep_ticket</code></td><td>사내 임베딩 주소·인증값. 주소 끝에 <code>/v1/embeddings</code>를 붙이지 않습니다</td><td>2일차 1-4부터</td></tr>
-    <tr><td><code>search_url</code>, <code>rag_credential_key</code>, <code>rag_api_key</code></td><td>RAGaaS 주소, <code>x-dep-ticket</code>, <code>api-key</code>. <b>두 인증값이 다 있어야</b> 인증됩니다</td><td>2일차 1-4 실습 6장</td></tr>
-    <tr><td><code>index_name</code></td><td>견본 값 <code>rp-aicoa-meritz-pet</code> 그대로</td><td>2일차 1-4 실습 6장</td></tr>
+    <tr><td><code>embedding_api_url</code>, <code>embedding_x_dep_ticket</code></td><td>사내 임베딩 주소·인증값. 주소 끝에 <code>/v1/embeddings</code>를 붙이지 않습니다</td><td>1-4 RAG부터 (<b>오늘일 수도 있음</b> → 첫 시간에 함께 채움)</td></tr>
+    <tr><td><code>search_url</code>, <code>rag_credential_key</code>, <code>rag_api_key</code></td><td>RAGaaS 주소, <code>x-dep-ticket</code>, <code>api-key</code>. <b>두 인증값이 다 있어야</b> 인증됩니다</td><td>1-4 실습 6장 (<b>오늘일 수도 있음</b>)</td></tr>
+    <tr><td><code>index_name</code></td><td>견본 값 <code>rp-aicoa-meritz-pet</code> 그대로</td><td>1-4 실습 6장</td></tr>
   </table></div>
 
   <h3 id="envguide">컨플루언스 가이드 + <code>.env</code> 주석으로 채우는 법</h3>
@@ -508,7 +524,7 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
 &lt;컨플루언스 항목 이름만 붙여 넣기&gt;</pre></div>
   <div class="code"><pre>저장소 맨 위 AGENTS.md를 읽고 도와줘.
 .env를 채웠어. uv run python -m config.check --json 을 실행해서 ⛔ 항목이 있으면 무엇을 고칠지 알려줘. 키 값은 보여 주지 마.
-(오늘은 LLM 값만 채웠으면 임베딩·RAGaaS 줄의 ⛔는 그대로 둬도 된다고 알려줘.)</pre></div>
+(아직 값을 못 받은 칸이 있으면 그 줄의 ⛔는 값을 받을 때까지 그대로 둬도 된다고 알려줘.)</pre></div>
 
   <h3 id="mismatch">예상과 컨플루언스가 다를 때: 탐색 절차</h3>
   <div class="callout note">
@@ -540,7 +556,7 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
     <tr><td><b>1</b> 이름만 다름</td><td>컨플루언스 항목 이름이 <code>.env</code> 이름과 다름</td><td>뜻·헤더 이름으로 짝지어 <code>.env</code>에 넣기 (위 짝짓기 표)</td><td>수강생</td></tr>
     <tr><td><b>2</b> 값의 모양이 다름</td><td>주소가 <code>/chat/completions</code>·<code>/v1/embeddings</code>까지 붙은 전체 경로로 적혀 있음, 값에 따옴표가 붙어 있음</td><td>코드가 붙이는 끝부분과 따옴표를 빼고 <code>.env</code>에 넣기 (예: <code>…/gw/emb/v1/embeddings</code> → <code>…/gw/emb</code>)</td><td>수강생</td></tr>
     <tr><td><b>3</b> 모델·인덱스가 다름</td><td>모델 이름이나 인덱스 이름이 견본과 다름</td><td><b>모델</b>: 위키 값으로 바로 바꿈. <b>인덱스</b>: 강사 확인 뒤 바꿈 (그전까지 견본 값 유지)</td><td>모델은 수강생, 인덱스는 강사</td></tr>
-    <tr><td><b>4</b> 값이 없음</td><td>컨플루언스에 어떤 값(예: <code>send_system_name</code>)이 없음</td><td>값을 지어내지 않고 빈 칸으로 둔 채 강사·운영 측에 문의. LLM 값 5개 중 하나라도 비면 1-2·1-3 실습이 모두 멈추므로 <b>바로</b> 알립니다. 임베딩·RAGaaS 값은 2일차 전까지 받으면 됩니다. 빈 칸은 <code>uv run python -m config.check</code>의 해당 줄 ⛔로 보입니다(<code>--live</code>는 RAGaaS를 부르지 않음)</td><td>강사</td></tr>
+    <tr><td><b>4</b> 값이 없음</td><td>컨플루언스에 어떤 값(예: <code>send_system_name</code>)이 없음</td><td>값을 지어내지 않고 빈 칸으로 둔 채 강사·운영 측에 문의. LLM 값 5개 중 하나라도 비면 1-2·1-3 실습이 모두 멈추므로 <b>바로</b> 알립니다. 임베딩·RAGaaS 값은 1-4 실습 전까지 받아야 합니다(오늘일 수도 있음). RAGaaS만 끝내 없으면 <code>RAG_PROVIDER=mock</code>으로 진행합니다. 빈 칸은 <code>uv run python -m config.check</code>의 해당 줄 ⛔로 보입니다(<code>--live</code>는 RAGaaS를 부르지 않음)</td><td>강사</td></tr>
     <tr><td><b>5</b> 요청 규격이 다름<br><small style="color:var(--muted)">원본 이후 사내 규격이 바뀐 경우</small></td><td>헤더 이름이 다름, 컨플루언스에만 있는 필수 헤더, 인증 방식이 다름(예: <code>Authorization: Bearer &lt;티켓&gt;</code>), 코드가 붙이는 경로·본문 옵션이 다름</td><td><code>.env</code>로는 못 고칩니다. 값에 <code>Bearer </code>를 붙이는 식의 우회도 하지 않습니다. 수강생은 <code>config/</code>를 고치지 않습니다. 강사가 <code>course/config/samsung.py</code>·<code>llm.py</code> 한 곳을 고쳐 다 같이 받게 하거나, 그 기능을 건너뜁니다</td><td>강사</td></tr>
     <tr><td><b>6</b> 규격은 같은데 실패</td><td>401·404·연결 오류·429 (오류 문구가 값이 틀렸다고만 말함)</td><td><a href="#trouble">3장 트러블슈팅</a></td><td>수강생 → 강사</td></tr>
   </table></div>
@@ -590,7 +606,7 @@ uv run python course/Chapter01/code/solution/02-langchain/05_memory_langgraph.py
     <li><input type="checkbox" id="s1"><span>셋팅 목적·손들기 안내를 했다</span></li>
     <li><input type="checkbox" id="s2"><span>전원 <code>uv sync</code> 완료</span></li>
     <li><input type="checkbox" id="s3"><span>전원 <code>.env</code> 생성, <code>COURSE_ENV=samsung</code></span></li>
-    <li><input type="checkbox" id="s4"><span>전원 LLM 값 5개 입력</span></li>
+    <li><input type="checkbox" id="s4"><span>전원 값 10개 입력 (LLM 5 · 임베딩 2 · RAGaaS 3)</span></li>
     <li><input type="checkbox" id="s5"><span>전원 커널 <code>.venv</code> 선택, 환경 점검 셀 "준비 완료"</span></li>
     <li><input type="checkbox" id="s6"><span>전원 CodeMate 로그인</span></li>
   </ul>
@@ -682,8 +698,8 @@ uv run python -m config.check --json 결과에서 ⛔ 항목을 하나씩 어떻
 
 <!-- 5 -->
 <section class="chapter" id="lunch">
-  <div class="chapter-head"><h2>5. 점심: RAGaaS 확인</h2><span class="chip">2일차 1-4 실습 6장 대비</span><span class="chip time">약 15분</span></div>
-  <p class="lead">RAGaaS는 내일 첫 블록(1-4 RAG)과 4일차 캡스톤에서 씁니다. 오늘 점심에 강사 PC로 먼저 확인해 두면 내일 아침 안내를 정할 수 있습니다.</p>
+  <div class="chapter-head"><h2>5. 점심: RAGaaS 확인</h2><span class="chip">1-4 실습 6장 대비</span><span class="chip time">약 15분</span></div>
+  <p class="lead">RAGaaS는 1-4 RAG(오늘 갈 수도 있음)와 4일차 캡스톤에서 씁니다. 아침 <a href="#rag-morning">인프라 테스트 1-4</a>에서 못 봤거나 막혔으면 점심에 다시 확인하고, 오후 1-4 진행 방식을 정합니다.</p>
 
   <ol class="steps">
     <li><b>강사 PC <code>.env</code>에 값이 있는지 봅니다.</b> <code>search_url</code>, <code>rag_credential_key</code>(<code>x-dep-ticket</code>), <code>rag_api_key</code>(<code>api-key</code>), <code>index_name=rp-aicoa-meritz-pet</code>. 두 인증값이 다 있어야 합니다.</li>
@@ -698,16 +714,16 @@ uv run python -m config.check --json 결과에서 ⛔ 항목을 하나씩 어떻
 
   <div class="callout stop">
     <b class="t">실패하면</b>
-    <p>오류 마지막 줄을 적습니다(키 값이 섞이지 않았는지 확인). 2일차에는 <code>.env</code>에 <code>RAG_PROVIDER=mock</code> 한 줄을 넣으면 모의 응답으로 진행됩니다. 결과를 보고 내일 아침 안내를 정합니다: 수강생에게 RAGaaS 값을 채우게 할지, mock으로 갈지.</p>
+    <p>오류 마지막 줄을 적습니다(키 값이 섞이지 않았는지 확인). 수강생 <code>.env</code>에 <code>RAG_PROVIDER=mock</code> 한 줄을 넣으면 모의 응답으로 진행됩니다. 결과를 보고 1-4 실습 6장 안내를 정합니다: 사내 RAGaaS 값으로 할지, mock으로 갈지.</p>
   </div>
 
   <div class="tbl"><table class="result" id="resultLunch">
-    <tr><th>항목</th><th>내일 영향</th><th>결과</th><th>시간·오류 마지막 줄·대응</th></tr>
+    <tr><th>항목</th><th>영향</th><th>결과</th><th>시간·오류 마지막 줄·대응</th></tr>
     <tr data-k="b1"><td>임베딩 호출 (<code>--live</code>)</td><td>1-4 실습 2~5장</td><td></td><td></td></tr>
     <tr data-k="b2"><td>임베딩 차원 수 (프로브 7)</td><td>1-4 실습</td><td></td><td></td></tr>
     <tr data-k="b3"><td>RAGaaS 검색 (프로브 9)</td><td>1-4 실습 6장</td><td></td><td></td></tr>
     <tr data-k="b4"><td>05_ragaas 넣기·검색·지우기</td><td>1-4 실습 6장</td><td></td><td></td></tr>
-    <tr data-k="b5"><td>내일 RAGaaS 안내 결정</td><td>사내 값 / mock</td><td></td><td></td></tr>
+    <tr data-k="b5"><td>1-4 RAGaaS 진행 방식 결정</td><td>사내 값 / mock</td><td></td><td></td></tr>
   </table></div>
 </section>
 
@@ -742,6 +758,10 @@ uv run python -m config.check --json 결과에서 ⛔ 항목을 하나씩 어떻
       <div class="what"><b>1-3 강의</b>(40분) → <b>1-3 실습</b>(70분) → 정리(10분)</div>
       <div class="what">Tool Calling은 도구 등록 방법보다 "모델이 어떻게 고르고 호출이 어떻게 반복되는가"를 구조로 설명합니다.</div>
       <div class="what">📝 3장 도구 호출, 4.3 <code>with_structured_output</code> 결과 메모 (실패 시 <code>method="function_calling"</code>)</div>
+    </div>
+    <div class="tl">
+      <div class="when">진도에 따라 · 1-4 RAG</div>
+      <div class="what">1-3이 일찍 끝나면 <b>1-4 강의 → 1-4 실습</b>으로 넘어갑니다(정본 일정은 2일차 첫 블록). RAGaaS(실습 6장)는 아침 <a href="#rag-morning">인프라 테스트 1-4</a>·점심 확인 결과대로 사내 값 또는 <code>RAG_PROVIDER=mock</code>으로 진행합니다.</div>
     </div>
     <div class="tl after">
       <div class="when">수업 후</div>
@@ -793,7 +813,7 @@ print(answer)</pre></div>
   <ul class="check" data-group="after">
     <li><input type="checkbox" id="z1"><span>테스트로 만든 파일(<code>probe.ipynb</code> 등)을 지웠다</span></li>
     <li><input type="checkbox" id="z2"><span>서버 터미널이 모두 꺼졌다</span></li>
-    <li><input type="checkbox" id="z3"><span>내일 아침 RAGaaS 안내(사내 값 / mock)를 정했다</span></li>
+    <li><input type="checkbox" id="z3"><span>RAGaaS 진행 방식(사내 값 / mock)을 정했다 (오늘 1-4를 못 갔으면 내일 아침 안내)</span></li>
   </ul>
 </section>
 
